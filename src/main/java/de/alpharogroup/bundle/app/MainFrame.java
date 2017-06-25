@@ -24,6 +24,10 @@
  */
 package de.alpharogroup.bundle.app;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JMenuBar;
@@ -31,6 +35,7 @@ import javax.swing.JToolBar;
 
 import org.jdesktop.swingx.JXFrame;
 
+import de.alpharogroup.lang.ClassExtensions;
 import de.alpharogroup.swing.desktoppane.SingletonDesktopPane;
 import de.alpharogroup.swing.laf.LookAndFeels;
 import lombok.Getter;
@@ -93,6 +98,19 @@ public class MainFrame extends JXFrame {
 		setToolBar(toolbar);
 
 		getContentPane().add(desktopPane);
+
+		try
+		{
+			final String iconPath = Messages.getString("global.icon.app.path");
+			final BufferedImage appIcon = ImageIO
+					.read(ClassExtensions.getResourceAsStream(iconPath));
+			setIconImage(appIcon);
+		}
+		catch (final IOException e)
+		{
+			// TODO log error...
+			e.printStackTrace();
+		}
 
 	}
 
