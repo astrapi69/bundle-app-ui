@@ -35,9 +35,12 @@ import javax.swing.JToolBar;
 
 import org.jdesktop.swingx.JXFrame;
 
+import de.alpharogroup.bundle.app.panels.start.StartPanel;
 import de.alpharogroup.lang.ClassExtensions;
+import de.alpharogroup.swing.components.factories.JComponentFactory;
 import de.alpharogroup.swing.desktoppane.SingletonDesktopPane;
 import de.alpharogroup.swing.laf.LookAndFeels;
+import de.alpharogroup.swing.utils.JInternalFrameExtensions;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -111,6 +114,16 @@ public class MainFrame extends JXFrame {
 			// TODO log error...
 			e.printStackTrace();
 		}
+
+		// create internal frame
+		internalFrame = JComponentFactory.newInternalFrame("Find duplicate files", true, true, true, true);
+
+		final StartPanel view = new StartPanel();
+		JInternalFrameExtensions.addComponentToFrame(internalFrame, view);
+
+		JInternalFrameExtensions.addJInternalFrame(desktopPane, internalFrame);
+
+		getContentPane().add(desktopPane);
 
 	}
 

@@ -60,7 +60,7 @@ public class SpringApplicationContext {
 	 * Instantiates a new spring application context.
 	 */
 	private SpringApplicationContext() {
-		final String rootContextDirectoryClassPath = "/ctx";
+		final String rootContextDirectoryClassPath = "";
 
 		final String applicationContextPath = rootContextDirectoryClassPath + "/application-context.xml";
 
