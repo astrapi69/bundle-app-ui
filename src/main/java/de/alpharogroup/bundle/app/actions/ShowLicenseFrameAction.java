@@ -76,8 +76,8 @@ public class ShowLicenseFrameAction extends AbstractAction {
 	 * @return the string
 	 */
 	private String loadLicense() {
-
-		final ApplicationContext ctx = SpringApplicationContext.getInstance().getApplicationContext();
+		final ApplicationContext ctx =
+			SpringApplicationContext.getInstance().getApplicationContext();
 		final Resource resource = ctx.getResource("classpath:LICENSE.txt");
 		InputStream is = null;
 		final StringBuffer license = new StringBuffer();

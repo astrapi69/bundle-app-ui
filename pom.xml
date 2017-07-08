@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>de.alpharogroup</groupId>
 		<artifactId>mvn-ui-parent</artifactId>
-		<version>1.8.0</version>
+		<version>1.9.0</version>
 		<relativePath></relativePath>
 	</parent>
 
@@ -13,6 +13,7 @@
 	<version>0.1.0.0-SNAPSHOT</version>
 
 	<properties>
+		<!-- MIGLAYOUT-SWING version -->
 		<miglayout-swing.version>5.0</miglayout-swing.version>
 		<full-app-name>bundle-app-ui</full-app-name>
 		<info.appName>bundle-app-ui</info.appName>
@@ -20,14 +21,12 @@
 		<main-full-app-name>${main-app-package-name}.MainApplication</main-full-app-name>
 		<file-name-with-dependencies>${full-app-name}-jar-with-dependencies.jar</file-name-with-dependencies>
 		<file-name-with-dependencies-path>${project.build.directory}/${file-name-with-dependencies}</file-name-with-dependencies-path>
-		<dist-path>${basedir}/dist/bin</dist-path>
-		<dist-target-file-name-path>${dist-path}/${full-app-name}.jar</dist-target-file-name-path>
 	</properties>
 
 	<dependencyManagement>
 
 		<dependencies>
-
+			<!-- MIGLAYOUT-SWING DEPENDENCIES -->
 			<dependency>
 				<groupId>com.miglayout</groupId>
 				<artifactId>miglayout-swing</artifactId>
@@ -39,60 +38,10 @@
 	</dependencyManagement>
 
 	<dependencies>
-
-		<dependency>
-			<groupId>javax.help</groupId>
-			<artifactId>javahelp</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.swinglabs</groupId>
-			<artifactId>swing-layout</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.swinglabs</groupId>
-			<artifactId>jxlayer</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.swinglabs</groupId>
-			<artifactId>swing-worker</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>de.alpharogroup</groupId>
-			<artifactId>swing-components</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.swinglabs</groupId>
-			<artifactId>swingx</artifactId>
-		</dependency>
-
+		<!-- MIGLAYOUT-SWING DEPENDENCIES -->
 		<dependency>
 			<groupId>com.miglayout</groupId>
 			<artifactId>miglayout-swing</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>de.alpharogroup</groupId>
-			<artifactId>file-worker</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>de.alpharogroup</groupId>
-			<artifactId>jcommons-lang</artifactId>
 		</dependency>
 
 	</dependencies>
@@ -164,7 +113,7 @@
 								<goal>copy-dependencies</goal>
 							</goals>
 							<configuration>
-								<outputDirectory>${izpack.staging}/lib</outputDirectory>
+								<outputDirectory>${izpack.staging.dir.lib}</outputDirectory>
 								<excludeScope>system</excludeScope>
 								<!-- this excludes tools.jar, e.g. -->
 								<excludeArtifactIds>${project.artifactId}</excludeArtifactIds>
@@ -184,7 +133,7 @@
 								<goal>copy-dependencies</goal>
 							</goals>
 							<configuration>
-								<outputDirectory>${izpack.staging}/custom</outputDirectory>
+								<outputDirectory>${izpack.staging.dir.custom}</outputDirectory>
 								<includeArtifactIds>${project.artifactId}</includeArtifactIds>
 								<!-- IMPORTANT: this causes *only* our custom panels to be copied -->
 							</configuration>
@@ -204,7 +153,7 @@
 							<configuration>
 								<!-- base for relative paths in izpack descriptor -->
 								<baseDir>${izpack.staging}</baseDir>
-								<installFile>${izpack.dir.app}/install.xml</installFile>
+								<installFile>${izpack.installFile}</installFile>
 							</configuration>
 						</execution>
 					</executions>
@@ -237,7 +186,7 @@
 								<mode>development</mode>
 								<url>${project.url}</url>
 							</manifestEntries>
-							<manifestFile>src/main/resources/META-INF/MANIFEST.MF</manifestFile>
+							<manifestFile>${manifestFile-path}</manifestFile>
 						</archive>
 					</configuration>
 				</plugin>
@@ -317,7 +266,7 @@
 										<mode>development</mode>
 										<url>${project.url}</url>
 									</manifestEntries>
-									<manifestFile>src/main/resources/META-INF/MANIFEST.MF</manifestFile>
+									<manifestFile>${manifestFile-path}</manifestFile>
 								</archive>
 							</configuration>
 						</plugin>
@@ -429,7 +378,7 @@
 										<goal>copy-dependencies</goal>
 									</goals>
 									<configuration>
-										<outputDirectory>${izpack.staging}/lib</outputDirectory>
+										<outputDirectory>${izpack.staging.dir.lib}</outputDirectory>
 										<excludeScope>system</excludeScope>
 										<!-- this excludes tools.jar, e.g. -->
 										<excludeArtifactIds>${project.artifactId}</excludeArtifactIds>
@@ -449,7 +398,7 @@
 										<goal>copy-dependencies</goal>
 									</goals>
 									<configuration>
-										<outputDirectory>${izpack.staging}/custom</outputDirectory>
+										<outputDirectory>${izpack.staging.dir.custom}</outputDirectory>
 										<includeArtifactIds>${project.artifactId}</includeArtifactIds>
 										<!-- IMPORTANT: this causes *only* our custom panels to be copied -->
 									</configuration>
@@ -469,7 +418,7 @@
 									<configuration>
 										<!-- base for relative paths in izpack descriptor -->
 										<baseDir>${izpack.staging}</baseDir>
-										<installFile>${izpack.dir.app}/install.xml</installFile>
+										<installFile>${izpack.installFile}</installFile>
 									</configuration>
 								</execution>
 							</executions>
@@ -540,7 +489,7 @@
 										<mode>development</mode>
 										<url>${project.url}</url>
 									</manifestEntries>
-									<manifestFile>src/main/resources/META-INF/MANIFEST.MF</manifestFile>
+									<manifestFile>${manifestFile-path}</manifestFile>
 								</archive>
 							</configuration>
 						</plugin>
@@ -614,7 +563,7 @@
 										<goal>copy-dependencies</goal>
 									</goals>
 									<configuration>
-										<outputDirectory>${izpack.staging}/lib</outputDirectory>
+										<outputDirectory>${izpack.staging.dir.lib}</outputDirectory>
 										<excludeScope>system</excludeScope>
 										<!-- this excludes tools.jar, e.g. -->
 										<excludeArtifactIds>${project.artifactId}</excludeArtifactIds>
@@ -634,7 +583,7 @@
 										<goal>copy-dependencies</goal>
 									</goals>
 									<configuration>
-										<outputDirectory>${izpack.staging}/custom</outputDirectory>
+										<outputDirectory>${izpack.staging.dir.custom}</outputDirectory>
 										<includeArtifactIds>${project.artifactId}</includeArtifactIds>
 										<!-- IMPORTANT: this causes *only* our custom panels to be copied -->
 									</configuration>
@@ -654,7 +603,7 @@
 									<configuration>
 										<!-- base for relative paths in izpack descriptor -->
 										<baseDir>${izpack.staging}</baseDir>
-										<installFile>${izpack.dir.app}/install.xml</installFile>
+										<installFile>${izpack.installFile}</installFile>
 									</configuration>
 								</execution>
 							</executions>

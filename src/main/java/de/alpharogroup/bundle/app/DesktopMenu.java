@@ -44,6 +44,7 @@ import org.apache.log4j.Logger;
 
 import de.alpharogroup.bundle.app.actions.OpenBrowserToDonateAction;
 import de.alpharogroup.bundle.app.actions.ShowHelpDialogAction;
+import de.alpharogroup.bundle.app.actions.ShowInfoDialogAction;
 import de.alpharogroup.bundle.app.actions.ShowLicenseFrameAction;
 import de.alpharogroup.lang.ClassExtensions;
 import de.alpharogroup.swing.actions.ExitApplicationAction;
@@ -257,8 +258,7 @@ public class DesktopMenu {
 		// Info
 		final JMenuItem mihInfo = new JMenuItem("Info", 'i'); //$NON-NLS-1$
 		MenuExtensions.setCtrlAccelerator(mihInfo, 'I');
-		// TODO add action
-				// mihInfo.addActionListener(new ShowInfoDialogAction("Info"));
+		mihInfo.addActionListener(new ShowInfoDialogAction("Info"));
 		menuHelp.add(mihInfo);
 
 		return menuHelp;
