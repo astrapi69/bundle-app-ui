@@ -30,9 +30,10 @@ import javax.xml.parsers.FactoryConfigurationError;
 
 import org.apache.log4j.xml.DOMConfigurator;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.core.io.Resource;
 
+import de.alpharogroup.bundle.app.spring.config.PersistenceJPAConfig;
 import lombok.Getter;
 
 /**
@@ -60,11 +61,8 @@ public class SpringApplicationContext {
 	 * Instantiates a new spring application context.
 	 */
 	private SpringApplicationContext() {
-		final String rootContextDirectoryClassPath = "/ctx";
-
-		final String applicationContextPath = rootContextDirectoryClassPath + "/application-context.xml";
-
-		final ApplicationContext ac = new ClassPathXmlApplicationContext(applicationContextPath);
+		final ApplicationContext ac = new AnnotationConfigApplicationContext(
+			PersistenceJPAConfig.class);
 
 		final Resource resource = ac.getResource("classpath:conf/log4j/log4jconfig.xml");
 

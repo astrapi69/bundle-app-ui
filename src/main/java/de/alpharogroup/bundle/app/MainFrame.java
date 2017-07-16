@@ -116,7 +116,7 @@ public class MainFrame extends JXFrame {
 		}
 
 		// create internal frame
-		internalFrame = JComponentFactory.newInternalFrame("Find duplicate files", true, true, true, true);
+		internalFrame = JComponentFactory.newInternalFrame("Choose import type", true, true, true, true);
 
 		final StartPanel view = new StartPanel();
 		JInternalFrameExtensions.addComponentToFrame(internalFrame, view);
