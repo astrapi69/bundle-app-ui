@@ -17,7 +17,7 @@
 		<!-- MIGLAYOUT-SWING version -->
 		<miglayout-swing.version>5.0</miglayout-swing.version>
 		<!-- GENERIC-DESIGN-PATTERN versions -->
-		<design-patterns.version>4.9.0</design-patterns.version>
+		<design-patterns.version>4.10.0</design-patterns.version>
 		<state.version>${design-patterns.version}</state.version>
 		<!-- DB properties -->
 		<!-- USER-MANAGEMENT-DATA versions -->
