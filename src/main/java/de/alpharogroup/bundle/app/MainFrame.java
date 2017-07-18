@@ -48,7 +48,8 @@ import lombok.Setter;
  * The Class MainFrame.
  */
 @SuppressWarnings("serial")
-public class MainFrame extends JXFrame {
+public class MainFrame extends JXFrame
+{
 
 	/** The instance. */
 	private static MainFrame instance = new MainFrame();
@@ -88,13 +89,13 @@ public class MainFrame extends JXFrame {
 	 */
 	private MainFrame() {
 		super(Messages.getString("mainframe.title"));
-		initComponents();
+		initializeComponents();
 	}
 
 	/**
 	 * Inits the components.
 	 */
-	private void initComponents() {
+	public void initializeComponents() {
 
 		toolbar = new JToolBar(); // create the tool bar
 		setJMenuBar(menubar);

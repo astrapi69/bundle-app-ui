@@ -3,13 +3,16 @@ package de.alpharogroup.bundle.app.panels.start;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.LayoutStyle;
+
+import org.jdesktop.swingx.JXPanel;
+
+import de.alpharogroup.design.pattern.state.wizard.WizardStateMachine;
 
 /**
  * The class {@link StartPanel}.
  */
-public class StartPanel extends JPanel
+public class StartPanel extends JXPanel
 {
 
 	/** The Constant serialVersionUID. */
@@ -21,6 +24,9 @@ public class StartPanel extends JPanel
 	private JLabel lblNewBundleApp;
 	private JLabel lblWelcomeHeader;
 	private JLabel lblWelcomeIntro;
+
+
+	private WizardStateMachine stateMachine;
 
 	public StartPanel()
 	{
