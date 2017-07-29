@@ -5,14 +5,15 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle;
 
-import org.jdesktop.swingx.JXPanel;
-
 import de.alpharogroup.design.pattern.state.wizard.WizardStateMachine;
+import de.alpharogroup.model.BaseModel;
+import de.alpharogroup.model.api.Model;
+import de.alpharogroup.swing.base.BasePanel;
 
 /**
  * The class {@link StartPanel}.
  */
-public class StartPanel extends JXPanel
+public class StartPanel extends BasePanel<WizardStateMachine>
 {
 
 	/** The Constant serialVersionUID. */
@@ -25,24 +26,18 @@ public class StartPanel extends JXPanel
 	private JLabel lblWelcomeHeader;
 	private JLabel lblWelcomeIntro;
 
-
-	private WizardStateMachine stateMachine;
-
 	public StartPanel()
 	{
-		initialize();
+		this(BaseModel.of(WizardStateMachine.builder().build()));
 	}
 
-	/**
-	 * Initialize Panel.
-	 */
-	protected void initialize()
+	public StartPanel(Model<WizardStateMachine> model)
 	{
-		initializeComponents();
-		initializeLayout();
+		super(model);
 	}
 
-	protected void initializeComponents()
+	@Override
+	protected void onInitializeComponents()
 	{
 		lblWelcomeHeader = new JLabel();
 		lblNewBundleApp = new JLabel();
@@ -68,7 +63,8 @@ public class StartPanel extends JXPanel
 
 	}
 
-	protected void initializeLayout()
+	@Override
+	protected void onInitializeLayout()
 	{
 		final GroupLayout layout = new GroupLayout(this);
 		this.setLayout(layout);

@@ -35,7 +35,7 @@ import javax.swing.JToolBar;
 
 import org.jdesktop.swingx.JXFrame;
 
-import de.alpharogroup.bundle.app.panels.start.StartPanel;
+import de.alpharogroup.bundle.app.panels.start.WizardPanel;
 import de.alpharogroup.lang.ClassExtensions;
 import de.alpharogroup.swing.components.factories.JComponentFactory;
 import de.alpharogroup.swing.desktoppane.SingletonDesktopPane;
@@ -119,7 +119,7 @@ public class MainFrame extends JXFrame
 		// create internal frame
 		internalFrame = JComponentFactory.newInternalFrame("Choose import type", true, true, true, true);
 
-		final StartPanel view = new StartPanel();
+		final WizardPanel view = new WizardPanel();
 		JInternalFrameExtensions.addComponentToFrame(internalFrame, view);
 
 		JInternalFrameExtensions.addJInternalFrame(desktopPane, internalFrame);
