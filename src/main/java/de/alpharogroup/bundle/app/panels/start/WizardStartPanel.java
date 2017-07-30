@@ -15,12 +15,13 @@
  */
 package de.alpharogroup.bundle.app.panels.start;
 
+import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.LayoutStyle;
 
-import de.alpharogroup.design.pattern.state.wizard.WizardStateMachine;
+import de.alpharogroup.design.pattern.state.wizard.model.WizardModelStateMachine;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BasePanel;
@@ -29,9 +30,10 @@ import de.alpharogroup.swing.base.BasePanel;
  *
  * @author astrapi69
  */
-public class WizardStartPanel extends BasePanel<WizardStateMachine> {
+public class WizardStartPanel extends BasePanel<WizardModelStateMachine<WizardModel>> {
 
 	private static final long serialVersionUID = 1L;
+	private ButtonGroup creationGroup;
 	private JLabel lblWelcomeHeader;
     private JLabel lblWelcomeIntro;
     private JRadioButton rbnCreate;
@@ -39,10 +41,12 @@ public class WizardStartPanel extends BasePanel<WizardStateMachine> {
 
 	public WizardStartPanel()
 	{
-		this(BaseModel.of(WizardStateMachine.builder().build()));
+		this(BaseModel.<WizardModelStateMachine<WizardModel>>of(WizardModelStateMachine
+			.<WizardModel> builder()
+			.build()));
 	}
 
-	public WizardStartPanel(Model<WizardStateMachine> model)
+	public WizardStartPanel(Model<WizardModelStateMachine<WizardModel>> model)
 	{
 		super(model);
 	}
@@ -50,11 +54,19 @@ public class WizardStartPanel extends BasePanel<WizardStateMachine> {
     @Override
     protected void onInitializeComponents()
     {
-    	super.initializeComponents();
+    	super.onInitializeComponents();
         lblWelcomeHeader = new JLabel();
         lblWelcomeIntro = new JLabel();
         rbnImport = new JRadioButton();
+        rbnImport.setSelected(false);
+        rbnImport.addActionListener(e -> onImport());
         rbnCreate = new JRadioButton();
+        rbnCreate.setSelected(true);
+        getModelObject().getModelObject().setValidNext(true);
+        rbnCreate.addActionListener(e -> onCreate());
+		creationGroup = new ButtonGroup();
+		creationGroup.add(rbnImport);
+		creationGroup.add(rbnCreate);
 
         lblWelcomeHeader.setText("Welcome to the bundle-manager ");
 
@@ -65,10 +77,18 @@ public class WizardStartPanel extends BasePanel<WizardStateMachine> {
         rbnCreate.setText("<html>Create new bundle application");
     }
 
+    protected void onCreate()
+	{
+	}
+
+    protected void onImport()
+	{
+	}
+
     @Override
     protected void onInitializeLayout()
     {
-    	super.initializeLayout();
+    	super.onInitializeLayout();
 
         final GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);

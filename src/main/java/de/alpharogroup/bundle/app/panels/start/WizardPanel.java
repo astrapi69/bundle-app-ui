@@ -5,12 +5,13 @@ import java.awt.CardLayout;
 
 import javax.swing.SwingUtilities;
 
-import org.jdesktop.swingx.JXPanel;
-
-import de.alpharogroup.design.pattern.state.wizard.WizardStateMachine;
+import de.alpharogroup.design.pattern.state.wizard.model.WizardModelStateMachine;
+import de.alpharogroup.model.BaseModel;
+import de.alpharogroup.model.api.Model;
+import de.alpharogroup.swing.base.BasePanel;
 import de.alpharogroup.swing.wizard.NavigationPanel;
 
-public class WizardPanel extends JXPanel
+public class WizardPanel extends BasePanel<WizardModel>
 {
 
 	private static final long serialVersionUID = 1L;
@@ -27,17 +28,25 @@ public class WizardPanel extends JXPanel
 		});
 	}
 
-	private final WizardStateMachine stateMachine;
+	private final WizardModelStateMachine<WizardModel> stateMachine;
 	private final WizardContentPanel wizardContentPanel;
 
-	private final NavigationPanel navigationPanel;
+	private final NavigationPanel<WizardModelStateMachine<WizardModel>> navigationPanel;
 
 	public WizardPanel()
 	{
+		this(BaseModel.<WizardModel>of(WizardModel.builder().build()));
+	}
 
-		stateMachine = WizardStateMachine.builder().currentState(CustomState.FIRST).build();
+
+	public WizardPanel(Model<WizardModel> model)
+	{
+		super(model);
+		stateMachine = WizardModelStateMachine
+			.<WizardModel> builder().currentState(WizardModelState.FIRST)
+			.modelObject(model.getObject()).build();
 		wizardContentPanel = newWizardContentPanel();
-		navigationPanel = newNavigationPanel();
+		navigationPanel = newNavigationPanel(BaseModel.of(stateMachine));
 		updateButtonState();
 		setSize(600, 600);
 		setVisible(true);
@@ -46,9 +55,10 @@ public class WizardPanel extends JXPanel
 	}
 
 
-	protected NavigationPanel newNavigationPanel()
+	protected NavigationPanel<WizardModelStateMachine<WizardModel>> newNavigationPanel(Model<WizardModelStateMachine<WizardModel>> model)
 	{
-		final NavigationPanel navigationPanel = new NavigationPanel()
+		final NavigationPanel<WizardModelStateMachine<WizardModel>> navigationPanel =
+			new NavigationPanel<WizardModelStateMachine<WizardModel>>()
 		{
 			private static final long serialVersionUID = 1L;
 

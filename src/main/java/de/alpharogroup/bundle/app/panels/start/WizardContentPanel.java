@@ -7,7 +7,7 @@ import javax.swing.border.LineBorder;
 
 import org.jdesktop.swingx.JXPanel;
 
-import de.alpharogroup.design.pattern.state.wizard.WizardStateMachine;
+import de.alpharogroup.design.pattern.state.wizard.model.WizardModelStateMachine;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BasePanel;
@@ -17,7 +17,7 @@ import lombok.Getter;
 /**
  * The class {@link WizardContentPanel}.
  */
-public class WizardContentPanel extends BasePanel<WizardStateMachine>
+public class WizardContentPanel extends BasePanel<WizardModelStateMachine<WizardModel>>
 {
 
 
@@ -38,10 +38,12 @@ public class WizardContentPanel extends BasePanel<WizardStateMachine>
 	 */
 	public WizardContentPanel()
 	{
-		this(BaseModel.of(WizardStateMachine.builder().build()));
+		this(BaseModel.<WizardModelStateMachine<WizardModel>>of(WizardModelStateMachine
+			.<WizardModel> builder()
+			.build()));
 	}
 
-	public WizardContentPanel(Model<WizardStateMachine> model)
+	public WizardContentPanel(Model<WizardModelStateMachine<WizardModel>> model)
 	{
 		super(model);
 	}
@@ -52,21 +54,21 @@ public class WizardContentPanel extends BasePanel<WizardStateMachine>
 	@Override
 	protected void onInitializeComponents()
 	{
-		add(newFirstStepPanel(getModel()), CustomState.FIRST.getName());
-		add(newSecondStepPanel(getModel()), CustomState.SECOND.getName());
-		add(newThirdStepPanel(getModel()), CustomState.THIRD.getName());
+		add(newFirstStepPanel(getModel()), WizardModelState.FIRST.getName());
+		add(newSecondStepPanel(getModel()), WizardModelState.SECOND.getName());
+		add(newThirdStepPanel(getModel()), WizardModelState.THIRD.getName());
 	}
 
-	public JXPanel newFirstStepPanel(Model<WizardStateMachine> model) {
+	public JXPanel newFirstStepPanel(Model<WizardModelStateMachine<WizardModel>> model) {
 		return new WizardStartPanel(model);
 	}
 
-	public JXPanel newSecondStepPanel(Model<WizardStateMachine> model) {
+	public JXPanel newSecondStepPanel(Model<WizardModelStateMachine<WizardModel>> model) {
 		return new NewPasswordPanel();
 	}
 
-	public JXPanel newThirdStepPanel(Model<WizardStateMachine> model) {
-		return new StartPanel(model);
+	public JXPanel newThirdStepPanel(Model<WizardModelStateMachine<WizardModel>> model) {
+		return new StartPanel();
 	}
 
 	/**

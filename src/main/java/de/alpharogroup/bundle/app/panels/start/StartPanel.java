@@ -1,26 +1,31 @@
 package de.alpharogroup.bundle.app.panels.start;
 
+import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
-import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JRadioButton;
 import javax.swing.LayoutStyle;
 
 import de.alpharogroup.design.pattern.state.wizard.WizardStateMachine;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BasePanel;
+import lombok.Getter;
 
 /**
  * The class {@link StartPanel}.
  */
+@Getter
 public class StartPanel extends BasePanel<WizardStateMachine>
 {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	private JButton btnCreate;
-	private JButton btnImport;
+	private ButtonGroup creationGroup;
+
+	private JRadioButton btnCreate;
+	private JRadioButton btnImport;
 	private JLabel lblImportOption;
 	private JLabel lblNewBundleApp;
 	private JLabel lblWelcomeHeader;
@@ -42,8 +47,15 @@ public class StartPanel extends BasePanel<WizardStateMachine>
 		lblWelcomeHeader = new JLabel();
 		lblNewBundleApp = new JLabel();
 		lblImportOption = new JLabel();
-		btnImport = new JButton();
-		btnCreate = new JButton();
+		btnImport = new JRadioButton();
+		btnImport.setSelected(false);
+		btnImport.addActionListener(e -> onImport());
+		btnCreate = new JRadioButton();
+		btnCreate.setSelected(true);
+		btnCreate.addActionListener(e -> onCreate());
+		creationGroup = new ButtonGroup();
+		creationGroup.add(btnImport);
+		creationGroup.add(btnCreate);
 		lblWelcomeIntro = new JLabel();
 
 		lblWelcomeHeader.setText("Welcome to the bundle-manager ");
@@ -61,6 +73,20 @@ public class StartPanel extends BasePanel<WizardStateMachine>
 		lblWelcomeIntro.setText(
 			"<html>To get started with the bundle-manager Application can choose the following opportunities:");
 
+	}
+
+	private void onCreate()
+	{
+		if(btnCreate.isSelected()) {
+			btnImport.setSelected(false);
+		}
+	}
+
+	private void onImport()
+	{
+		if(btnImport.isSelected()) {
+			btnCreate.setSelected(false);
+		}
 	}
 
 	@Override
