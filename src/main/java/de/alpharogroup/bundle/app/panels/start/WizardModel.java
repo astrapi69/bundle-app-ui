@@ -1,4 +1,5 @@
 package de.alpharogroup.bundle.app.panels.start;
+import de.alpharogroup.swing.panels.login.pw.ChangePasswordModelBean;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -31,6 +32,9 @@ public class WizardModel
 
 	/** The flag that signals if finish is valid or not. */
 	private boolean validFinish;
+
+	/** The change password model bean. */
+	private ChangePasswordModelBean changePassword;
 
 	/**
 	 * Reset all flags to false.

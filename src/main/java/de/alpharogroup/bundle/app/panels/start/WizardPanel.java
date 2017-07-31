@@ -45,7 +45,7 @@ public class WizardPanel extends BasePanel<WizardModel>
 		stateMachine = WizardModelStateMachine
 			.<WizardModel> builder().currentState(WizardModelState.FIRST)
 			.modelObject(model.getObject()).build();
-		wizardContentPanel = newWizardContentPanel();
+		wizardContentPanel = newWizardContentPanel(BaseModel.<WizardModelStateMachine<WizardModel>>of(stateMachine));
 		navigationPanel = newNavigationPanel(BaseModel.of(stateMachine));
 		updateButtonState();
 		setSize(600, 600);
@@ -89,9 +89,9 @@ public class WizardPanel extends BasePanel<WizardModel>
 		return navigationPanel;
 	}
 
-	protected WizardContentPanel newWizardContentPanel()
+	protected WizardContentPanel newWizardContentPanel(Model<WizardModelStateMachine<WizardModel>> model)
 	{
-		final WizardContentPanel cardsPanel = new WizardContentPanel();
+		final WizardContentPanel cardsPanel = new WizardContentPanel(model);
 		return cardsPanel;
 	}
 

@@ -28,13 +28,7 @@ public class WizardContentPanel extends BasePanel<WizardModelStateMachine<Wizard
 	private CardLayout cardLayout;
 
 	/**
-	 * Initializer block.
-	 */
-	{
-	}
-
-	/**
-	 * Instantiates a new wizard content panel.
+	 * Instantiates a new {@link WizardContentPanel}.
 	 */
 	public WizardContentPanel()
 	{
@@ -43,6 +37,11 @@ public class WizardContentPanel extends BasePanel<WizardModelStateMachine<Wizard
 			.build()));
 	}
 
+	/**
+	 * Instantiates a new {@link WizardContentPanel}.
+	 *
+	 * @param model the model
+	 */
 	public WizardContentPanel(Model<WizardModelStateMachine<WizardModel>> model)
 	{
 		super(model);
@@ -54,6 +53,7 @@ public class WizardContentPanel extends BasePanel<WizardModelStateMachine<Wizard
 	@Override
 	protected void onInitializeComponents()
 	{
+		super.onInitializeComponents();
 		add(newFirstStepPanel(getModel()), WizardModelState.FIRST.getName());
 		add(newSecondStepPanel(getModel()), WizardModelState.SECOND.getName());
 		add(newThirdStepPanel(getModel()), WizardModelState.THIRD.getName());
@@ -77,6 +77,7 @@ public class WizardContentPanel extends BasePanel<WizardModelStateMachine<Wizard
 	@Override
 	protected void onInitializeLayout()
 	{
+		super.onInitializeLayout();
 		setBorder(new LineBorder(Color.BLACK));
 	}
 
@@ -86,6 +87,7 @@ public class WizardContentPanel extends BasePanel<WizardModelStateMachine<Wizard
 	@Override
 	protected void onBeforeInitializeComponents()
 	{
+		super.onBeforeInitializeComponents();
 		cardLayout = newCardLayout();
 		setLayout(cardLayout);
 	}
