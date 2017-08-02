@@ -25,6 +25,7 @@
 package de.alpharogroup.bundle.app;
 
 import java.awt.image.BufferedImage;
+import java.beans.PropertyVetoException;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -47,6 +48,7 @@ import lombok.Setter;
 /**
  * The Class MainFrame.
  */
+@Getter
 @SuppressWarnings("serial")
 public class MainFrame extends JXFrame
 {
@@ -55,23 +57,22 @@ public class MainFrame extends JXFrame
 	private static MainFrame instance = new MainFrame();
 
 	/** The desktop pane. */
-	@Getter
 	private final JDesktopPane desktopPane = SingletonDesktopPane.getInstance();
 
 	/** The menubar. */
-	@Getter
 	private JMenuBar menubar;
 
 	/** The toolbar. */
-	@Getter
 	private JToolBar toolbar;
 
 	/** The internal frame. */
-	@Getter
 	private JInternalFrame internalFrame;
 
+	/** The current visible internal frame. */
+	@Setter
+	private JInternalFrame currentVisibleInternalFrame;
+
 	/** The current look and feels. */
-	@Getter
 	@Setter
 	private LookAndFeels currentLookAndFeels = LookAndFeels.SYSTEM;
 
@@ -115,14 +116,6 @@ public class MainFrame extends JXFrame
 			// TODO log error...
 			e.printStackTrace();
 		}
-
-		// create internal frame
-		internalFrame = JComponentFactory.newInternalFrame("Choose import type", true, true, true, true);
-
-		final WizardPanel view = new WizardPanel();
-		JInternalFrameExtensions.addComponentToFrame(internalFrame, view);
-
-		JInternalFrameExtensions.addJInternalFrame(desktopPane, internalFrame);
 
 		getContentPane().add(desktopPane);
 

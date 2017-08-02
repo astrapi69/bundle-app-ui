@@ -21,6 +21,9 @@ import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.LayoutStyle;
 
+import de.alpharogroup.bundle.app.MainApplication;
+import de.alpharogroup.design.pattern.observer.event.EventObject;
+import de.alpharogroup.design.pattern.observer.event.EventSource;
 import de.alpharogroup.design.pattern.state.wizard.model.WizardModelStateMachine;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
@@ -58,11 +61,11 @@ public class WizardStartPanel extends BasePanel<WizardModelStateMachine<WizardMo
         lblWelcomeHeader = new JLabel();
         lblWelcomeIntro = new JLabel();
         rbnImport = new JRadioButton();
-        rbnImport.setSelected(false);
+        getModelObject().getModelObject().getBundleAppInitialization().associate(BundleStart.CONNECT, rbnImport);
         rbnImport.addActionListener(e -> onImport());
         rbnCreate = new JRadioButton();
         rbnCreate.setSelected(true);
-        getModelObject().getModelObject().setValidNext(true);
+        getModelObject().getModelObject().getBundleAppInitialization().associate(BundleStart.CREATE, rbnCreate);
         rbnCreate.addActionListener(e -> onCreate());
 		creationGroup = new ButtonGroup();
 		creationGroup.add(rbnImport);
@@ -76,14 +79,6 @@ public class WizardStartPanel extends BasePanel<WizardModelStateMachine<WizardMo
 
         rbnCreate.setText("<html>Create new bundle application");
     }
-
-    protected void onCreate()
-	{
-	}
-
-    protected void onImport()
-	{
-	}
 
     @Override
     protected void onInitializeLayout()
@@ -118,5 +113,18 @@ public class WizardStartPanel extends BasePanel<WizardModelStateMachine<WizardMo
                 .addContainerGap(97, Short.MAX_VALUE))
         );
     }
+
+	protected void onCreate()
+	{
+    	final EventSource<EventObject<BundleStart>> eventSource = MainApplication.getBundleStartEventSource();
+    	eventSource.fireEvent(new EventObject<>(BundleStart.CREATE));
+	}
+
+
+    protected void onImport()
+	{
+    	final EventSource<EventObject<BundleStart>> eventSource = MainApplication.getBundleStartEventSource();
+    	eventSource.fireEvent(new EventObject<>(BundleStart.CONNECT));
+	}
 
 }

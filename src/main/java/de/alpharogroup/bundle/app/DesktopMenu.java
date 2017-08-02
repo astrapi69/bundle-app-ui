@@ -40,8 +40,7 @@ import javax.swing.JMenuItem;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-import org.apache.log4j.Logger;
-
+import de.alpharogroup.bundle.app.actions.NewBundleAppInternalFrameAction;
 import de.alpharogroup.bundle.app.actions.OpenBrowserToDonateAction;
 import de.alpharogroup.bundle.app.actions.ShowHelpDialogAction;
 import de.alpharogroup.bundle.app.actions.ShowInfoDialogAction;
@@ -54,14 +53,13 @@ import de.alpharogroup.swing.laf.actions.LookAndFeelSystemAction;
 import de.alpharogroup.swing.menu.MenuExtensions;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * The Class DesktopMenu.
  */
+@Slf4j
 public class DesktopMenu {
-
-	/** The Constant logger. */
-	private static final Logger logger = Logger.getLogger(DesktopMenu.class.getName());
 
 	/** The JMenuBar from the DesktopMenu. */
 	@Getter
@@ -104,21 +102,21 @@ public class DesktopMenu {
 		fileMenu = newFileMenu(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent e) {
-				logger.debug("filemenu");
+				log.debug("filemenu");
 			}
 		});
 
 		lookAndFeelMenu = createLookAndFeelMenu(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent e) {
-				logger.debug("Look and Feel menu");
+				log.debug("Look and Feel menu");
 			}
 		});
 
 		helpMenu = createHelpMenu(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent e) {
-				logger.debug("Help menu");
+				log.debug("Help menu");
 			}
 		});
 
@@ -128,24 +126,35 @@ public class DesktopMenu {
 	}
 
 	/**
-	 * Creates the file menu.
+	 * Factory method for create new {@link JMenu} for the file menu.
 	 *
 	 * @param listener
-	 *            the listener
+	 *            the action listener
 	 *
-	 * @return the j menu
+	 * @return the new {@link JMenu}
 	 */
 	private JMenu newFileMenu(final ActionListener listener) {
 		final JMenu fileMenu = new JMenu("File");
 		fileMenu.setMnemonic('F');
-		final JMenuItem jmi;
+		JMenuItem jmi;
+
+		// New bundle app
+		jmi = new JMenuItem("New bundle app", 'N');
+		jmi.addActionListener(new NewBundleAppInternalFrameAction("New bundle app"));
+		MenuExtensions.setCtrlAccelerator(jmi, 'N');
+		fileMenu.add(jmi);
 
 		// Separator
 		fileMenu.addSeparator();
 
+		// Import bundle app
+		jmi = new JMenuItem("Import bundle app", 'I');
+		jmi.addActionListener(new NewBundleAppInternalFrameAction("New bundle app"));
+		MenuExtensions.setCtrlAccelerator(jmi, 'I');
+		fileMenu.add(jmi);
+
 		// Separator
 		fileMenu.addSeparator();
-
 
 		// Configuration
 		JMenuItem jmiExit;

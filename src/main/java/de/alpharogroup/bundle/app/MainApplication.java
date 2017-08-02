@@ -26,17 +26,47 @@ package de.alpharogroup.bundle.app;
 
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import de.alpharogroup.bundle.app.panels.start.BundleStart;
+import de.alpharogroup.design.pattern.observer.event.EventObject;
+import de.alpharogroup.design.pattern.observer.event.EventSource;
+import de.alpharogroup.design.pattern.observer.event.EventSubject;
 import de.alpharogroup.layout.ScreenSizeExtensions;
 import de.alpharogroup.swing.laf.LookAndFeels;
 
 public class MainApplication
 {
+
+	private static final Map<String, EventSource<?>> eventSources = new HashMap<>();
+
+	public static EventSource<?> get(String key) {
+		return eventSources.get(key);
+	}
+
+	public static EventSource<?> put(String key, EventSource<?> value) {
+		return eventSources.put(key, value);
+	}
+
+    @SuppressWarnings("unchecked")
+    public static EventSource<EventObject<BundleStart>> getBundleStartEventSource()
+	{
+		EventSource<EventObject<BundleStart>> eventSource =
+    	(EventSource<EventObject<BundleStart>>)MainApplication.get(BundleStart.class.getSimpleName());
+    	if(eventSource == null) {
+			MainApplication.put(
+				BundleStart.class.getSimpleName(), new EventSubject<EventObject<BundleStart>>());
+			eventSource =
+		    	(EventSource<EventObject<BundleStart>>)MainApplication.get(BundleStart.class.getSimpleName());
+    	}
+		return eventSource;
+	}
 
 	/**
 	 * The main method.

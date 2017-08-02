@@ -33,8 +33,20 @@ public class WizardModel
 	/** The flag that signals if finish is valid or not. */
 	private boolean validFinish;
 
+	/** The flag that signals to create a new bundle app. */
+	private boolean create;
+
+	/** The flag that signals to connect to an existing bundle app. */
+	private boolean connect;
+
 	/** The change password model bean. */
 	private ChangePasswordModelBean changePassword;
+
+	/** The bundle app name. */
+	private String bundleAppName;
+
+	@Builder.Default
+	private RadioButtonGroupEnumAdapter<BundleStart> bundleAppInitialization = new RadioButtonGroupEnumAdapter(BundleStart.class);
 
 	/**
 	 * Reset all flags to false.
@@ -44,5 +56,15 @@ public class WizardModel
 		validPrevious = false;
 		validCancel = false;
 		validFinish = false;
+	}
+
+	/**
+	 * Sets all valid states to true.
+	 */
+	public void setAllValid() {
+		validNext = true;
+		validPrevious = true;
+		validCancel = true;
+		validFinish = true;
 	}
 }

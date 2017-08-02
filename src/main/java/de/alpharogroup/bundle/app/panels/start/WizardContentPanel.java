@@ -11,7 +11,6 @@ import de.alpharogroup.design.pattern.state.wizard.model.WizardModelStateMachine
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BasePanel;
-import de.alpharogroup.swing.panels.login.pw.NewPasswordPanel;
 import lombok.Getter;
 
 /**
@@ -55,20 +54,26 @@ public class WizardContentPanel extends BasePanel<WizardModelStateMachine<Wizard
 	{
 		super.onInitializeComponents();
 		add(newFirstStepPanel(getModel()), WizardModelState.FIRST.getName());
-		add(newSecondStepPanel(getModel()), WizardModelState.SECOND.getName());
-		add(newThirdStepPanel(getModel()), WizardModelState.THIRD.getName());
+		add(newBundleApp(getModel()), WizardModelState.NEW_BUNDLE_APP.getName());
+		add(newBundleAppFinalStepPanel(getModel()), WizardModelState.SUCCESSFUL_CONNECT_TO_BUNDLE_APP.getName());
+		add(newConnectToExistingBundleAppPanel(getModel()), WizardModelState.CONNECT_TO_EXISTING_BUNDLE_APP.getName());
 	}
 
 	public JXPanel newFirstStepPanel(Model<WizardModelStateMachine<WizardModel>> model) {
 		return new WizardStartPanel(model);
 	}
 
-	public JXPanel newSecondStepPanel(Model<WizardModelStateMachine<WizardModel>> model) {
-		return new NewPasswordPanel();
+	public JXPanel newBundleApp(Model<WizardModelStateMachine<WizardModel>> model) {
+		NewBundleAppPanel newBundleAppPanel = new NewBundleAppPanel(model);
+		return newBundleAppPanel;
 	}
 
-	public JXPanel newThirdStepPanel(Model<WizardModelStateMachine<WizardModel>> model) {
-		return new StartPanel();
+	public JXPanel newBundleAppFinalStepPanel(Model<WizardModelStateMachine<WizardModel>> model) {
+		return new SuccessfulConnectionToBundleAppPanel(model);
+	}
+
+	public JXPanel newConnectToExistingBundleAppPanel(Model<WizardModelStateMachine<WizardModel>> model) {
+		return new ConnectToExistingBundleAppPanel(model);
 	}
 
 	/**
