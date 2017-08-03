@@ -25,8 +25,9 @@
 package de.alpharogroup.bundle.app;
 
 import java.awt.image.BufferedImage;
-import java.beans.PropertyVetoException;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.JDesktopPane;
@@ -35,23 +36,25 @@ import javax.swing.JMenuBar;
 import javax.swing.JToolBar;
 
 import org.jdesktop.swingx.JXFrame;
+import org.springframework.context.ApplicationContext;
 
-import de.alpharogroup.bundle.app.panels.start.WizardPanel;
 import de.alpharogroup.lang.ClassExtensions;
-import de.alpharogroup.swing.components.factories.JComponentFactory;
 import de.alpharogroup.swing.desktoppane.SingletonDesktopPane;
 import de.alpharogroup.swing.laf.LookAndFeels;
-import de.alpharogroup.swing.utils.JInternalFrameExtensions;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * The Class MainFrame.
  */
 @Getter
 @SuppressWarnings("serial")
+@Slf4j
 public class MainFrame extends JXFrame
 {
+
+	public static final String KEY_DB_APPLICATION_CONTEXT = "db-application-context";
 
 	/** The instance. */
 	private static MainFrame instance = new MainFrame();
@@ -75,6 +78,8 @@ public class MainFrame extends JXFrame
 	/** The current look and feels. */
 	@Setter
 	private LookAndFeels currentLookAndFeels = LookAndFeels.SYSTEM;
+
+	private Map<String, ApplicationContext> bundleAppDbAppContext = new HashMap<>();
 
 	/**
 	 * Gets the single instance of MainFrame.
@@ -113,12 +118,13 @@ public class MainFrame extends JXFrame
 		}
 		catch (final IOException e)
 		{
-			// TODO log error...
-			e.printStackTrace();
+			log.error("Icon file could not be readed.", e);
 		}
 
 		getContentPane().add(desktopPane);
 
 	}
+
+
 
 }

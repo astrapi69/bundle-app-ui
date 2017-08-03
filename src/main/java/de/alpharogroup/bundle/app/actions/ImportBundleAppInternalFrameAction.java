@@ -11,9 +11,9 @@ import de.alpharogroup.swing.components.factories.JComponentFactory;
 import de.alpharogroup.swing.utils.JInternalFrameExtensions;
 
 /**
- * The class {@link NewBundleAppInternalFrameAction}.
+ * The class {@link ImportBundleAppInternalFrameAction}.
  */
-public class NewBundleAppInternalFrameAction extends AbstractAction {
+public class ImportBundleAppInternalFrameAction extends AbstractAction {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
@@ -24,7 +24,7 @@ public class NewBundleAppInternalFrameAction extends AbstractAction {
 	 * @param name
 	 *            the name
 	 */
-	public NewBundleAppInternalFrameAction(final String name) {
+	public ImportBundleAppInternalFrameAction(final String name) {
 		super(name);
 	}
 
@@ -41,6 +41,7 @@ public class NewBundleAppInternalFrameAction extends AbstractAction {
 		JInternalFrameExtensions.addComponentToFrame(internalFrame, component);
 		JInternalFrameExtensions.addJInternalFrame(MainFrame.getInstance().getDesktopPane(), internalFrame);
 		MainFrame.getInstance().setCurrentVisibleInternalFrame(internalFrame);
+
 	}
 
 }

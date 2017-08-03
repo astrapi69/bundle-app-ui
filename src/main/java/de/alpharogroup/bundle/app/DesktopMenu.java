@@ -40,6 +40,7 @@ import javax.swing.JMenuItem;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
+import de.alpharogroup.bundle.app.actions.ImportBundleAppInternalFrameAction;
 import de.alpharogroup.bundle.app.actions.NewBundleAppInternalFrameAction;
 import de.alpharogroup.bundle.app.actions.OpenBrowserToDonateAction;
 import de.alpharogroup.bundle.app.actions.ShowHelpDialogAction;
@@ -149,7 +150,7 @@ public class DesktopMenu {
 
 		// Import bundle app
 		jmi = new JMenuItem("Import bundle app", 'I');
-		jmi.addActionListener(new NewBundleAppInternalFrameAction("New bundle app"));
+		jmi.addActionListener(new ImportBundleAppInternalFrameAction("Import bundle app"));
 		MenuExtensions.setCtrlAccelerator(jmi, 'I');
 		fileMenu.add(jmi);
 

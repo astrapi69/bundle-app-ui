@@ -5,56 +5,96 @@ import java.util.Map;
 import javax.swing.JRadioButton;
 
 /**
- * The class {@link RadioButtonGroupEnumAdapter}.
+ * The class {@link RadioButtonGroupEnumAdapter} can be used with {@link JRadioButton}.
  *
- * @param <E> the enum type
+ * @param <E>
+ *            the generic enum type
  */
-public class RadioButtonGroupEnumAdapter<E extends Enum<E>> {
-    final private Map<E, JRadioButton> buttonMap;
+public class RadioButtonGroupEnumAdapter<E extends Enum<E>>
+{
 
-    public RadioButtonGroupEnumAdapter(Class<E> enumClass)
-    {
-        this.buttonMap = new EnumMap<>(enumClass);
-    }
-    public void importMap(Map<E, JRadioButton> map)
-    {
-        for (E e : map.keySet())
-        {
-            this.buttonMap.put(e, map.get(e));
-        }
-    }
-    public void associate(E e, JRadioButton btn)
-    {
-        this.buttonMap.put(e, btn);
-    }
-    public E getValue()
-    {
-        for (E e : this.buttonMap.keySet())
-        {
-            JRadioButton btn = this.buttonMap.get(e);
-            if (btn.isSelected())
-            {
-                return e;
-            }
-        }
-        return null;
-    }
-    public void setValue(E e)
-    {
-        JRadioButton btn = (e == null) ? null : this.buttonMap.get(e);
-        if (btn == null)
-        {
-            // the following doesn't seem efficient...
-                    // but since when do we have more than say 10 radiobuttons?
-            for (JRadioButton b : this.buttonMap.values())
-            {
-                b.setSelected(false);
-            }
+	/** The button map. */
+	private final Map<E, JRadioButton> buttonMap;
 
-        }
-        else
-        {
-            btn.setSelected(true);
-        }
-    }
+	/**
+	 * Instantiates a new {@link RadioButtonGroupEnumAdapter}.
+	 *
+	 * @param enumClass
+	 *            the enum class
+	 */
+	public RadioButtonGroupEnumAdapter(Class<E> enumClass)
+	{
+		this.buttonMap = new EnumMap<>(enumClass);
+	}
+
+	/**
+	 * Import map.
+	 *
+	 * @param map
+	 *            the map
+	 */
+	public void importMap(Map<E, JRadioButton> map)
+	{
+		for (E e : map.keySet())
+		{
+			this.buttonMap.put(e, map.get(e));
+		}
+	}
+
+	/**
+	 * Associate the given enum value with the given {@link JRadioButton}.
+	 *
+	 * @param enumValue
+	 *            the enum value
+	 * @param radioButton
+	 *            the radio button
+	 */
+	public void associate(E enumValue, JRadioButton radioButton)
+	{
+		this.buttonMap.put(enumValue, radioButton);
+	}
+
+	/**
+	 * Gets the value.
+	 *
+	 * @return the value
+	 */
+	public E getValue()
+	{
+		for (E e : this.buttonMap.keySet())
+		{
+			JRadioButton btn = this.buttonMap.get(e);
+			if (btn.isSelected())
+			{
+				return e;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Sets the value.
+	 *
+	 * @param e
+	 *            the new value
+	 */
+	public void setValue(E e)
+	{
+		JRadioButton btn = (e == null) ? null : this.buttonMap.get(e);
+		if (btn == null)
+		{
+			// the following doesn't seem efficient...
+			// but since when do we have more than say 10 radiobuttons?
+			for (JRadioButton b : this.buttonMap.values())
+			{
+				b.setSelected(false);
+			}
+
+		}
+		else
+		{
+			btn.setSelected(true);
+		}
+	}
+
 }

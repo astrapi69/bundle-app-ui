@@ -54,6 +54,8 @@ public class MainApplication
 		return eventSources.put(key, value);
 	}
 
+
+
     @SuppressWarnings("unchecked")
     public static EventSource<EventObject<BundleStart>> getBundleStartEventSource()
 	{

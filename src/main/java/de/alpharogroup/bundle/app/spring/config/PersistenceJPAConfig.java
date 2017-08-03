@@ -1,5 +1,4 @@
 package de.alpharogroup.bundle.app.spring.config;
-
 import java.util.Properties;
 
 import javax.persistence.EntityManagerFactory;
@@ -213,7 +212,7 @@ public class PersistenceJPAConfig
 		return new PersistenceExceptionTranslationPostProcessor();
 	}
 
-	private Properties jpaProperties()
+	Properties jpaProperties()
 	{
 		final Properties properties = new Properties();
 		properties.setProperty("hibernate.generateDdl", "true");
@@ -223,4 +222,30 @@ public class PersistenceJPAConfig
 		return properties;
 	}
 
+	Properties hibernateProperties()
+	{
+		final Properties hibernateProperties = new Properties();
+		hibernateProperties.put("hibernate.connection.characterEncoding", "UTF-8");
+		hibernateProperties.put("hibernate.connection.charSet", "UTF-8");
+		hibernateProperties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL82Dialect");
+		hibernateProperties.put("hibernate.show_sql", "true");
+		hibernateProperties.put("hibernate.format_sql", "true");
+		// hibernateProperties.put("hibernate.generate_statistics",
+		// env.getProperty("hibernate.generate_statistics"));
+		hibernateProperties.put("hibernate.enable_lazy_load_no_trans", "true");
+
+		// second level cache
+		hibernateProperties.put("hibernate.cache.use_second_level_cache", "true");
+		hibernateProperties.put("hibernate.cache.use_query_cache", "true");
+		hibernateProperties.put("hibernate.cache.region.factory_class",
+			"org.hibernate.cache.ehcache.EhCacheRegionFactory");
+		// hibernateProperties.put("net.sf.ehcache.configurationResourceName",
+		// env.getProperty("net.sf.ehcache.configurationResourceName"));
+
+		// testing
+		hibernateProperties.put("hibernate.bytecode.use_reflection_optimizer", false);
+		hibernateProperties.put("hibernate.check_nullability", false);
+		hibernateProperties.put("hibernate.search.autoregister_listeners", false);
+		return hibernateProperties;
+	}
 }

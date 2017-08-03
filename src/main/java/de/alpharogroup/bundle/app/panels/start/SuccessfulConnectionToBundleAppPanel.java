@@ -38,7 +38,7 @@ public class SuccessfulConnectionToBundleAppPanel extends BasePanel<WizardModelS
 	protected String getLabelHeaderCongratulationText(Model<WizardModelStateMachine<WizardModel>> model) {
 		BundleStart initState = model.getObject().getModelObject().getBundleAppInitialization().getValue();
 		String labelHeaderCongratulationText = "Congratulation you have created a new bundle application";
-		if(initState.equals(BundleStart.CONNECT))
+		if(initState!= null && initState.equals(BundleStart.CONNECT))
 		{
 			labelHeaderCongratulationText = "Congratulation you have connected to an existing bundle application";
 		}

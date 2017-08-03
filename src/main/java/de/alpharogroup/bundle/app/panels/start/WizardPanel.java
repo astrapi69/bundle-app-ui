@@ -3,15 +3,26 @@ package de.alpharogroup.bundle.app.panels.start;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 
+import javax.swing.JInternalFrame;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import de.alpharogroup.bundle.app.MainFrame;
+import de.alpharogroup.bundle.app.panels.dashboard.DashboardContentPanel;
+import de.alpharogroup.bundle.app.spring.config.PersistenceJPAConfig;
 import de.alpharogroup.design.pattern.state.wizard.WizardState;
 import de.alpharogroup.design.pattern.state.wizard.model.WizardModelStateMachine;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BasePanel;
+import de.alpharogroup.swing.components.factories.JComponentFactory;
 import de.alpharogroup.swing.panels.login.pw.ChangePasswordModelBean;
+import de.alpharogroup.swing.utils.JInternalFrameExtensions;
 import de.alpharogroup.swing.wizard.NavigationPanel;
+import lombok.Getter;
 
+@Getter
 public class WizardPanel extends BasePanel<WizardModel>
 {
 
@@ -44,6 +55,7 @@ public class WizardPanel extends BasePanel<WizardModel>
 	protected void onInitializeComponents()
 	{
 		super.onInitializeComponents();
+
 		stateMachine = WizardModelStateMachine
 			.<WizardModel> builder().currentState(WizardModelState.FIRST)
 			.modelObject(getModelObject()).build();
@@ -115,6 +127,17 @@ public class WizardPanel extends BasePanel<WizardModel>
 		stateMachine.finish();
 		// from here application specific behavior...
 		MainFrame.getInstance().getCurrentVisibleInternalFrame().dispose();
+		// TODO connect to bundle app...
+		final ApplicationContext ctx = new AnnotationConfigApplicationContext(
+			PersistenceJPAConfig.class);
+		MainFrame.getInstance().getBundleAppDbAppContext().put(MainFrame.KEY_DB_APPLICATION_CONTEXT, ctx);
+		// create internal frame
+		final JInternalFrame internalFrame = JComponentFactory.newInternalFrame("Dashboard bundle app", true, true,
+				true, true);
+		DashboardContentPanel component = new DashboardContentPanel();
+		JInternalFrameExtensions.addComponentToFrame(internalFrame, component);
+		JInternalFrameExtensions.addJInternalFrame(MainFrame.getInstance().getDesktopPane(), internalFrame);
+		MainFrame.getInstance().setCurrentVisibleInternalFrame(internalFrame);
 	}
 
 	protected void onNext()

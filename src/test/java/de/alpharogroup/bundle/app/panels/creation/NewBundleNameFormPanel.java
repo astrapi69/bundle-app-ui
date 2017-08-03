@@ -19,12 +19,12 @@ package de.alpharogroup.bundle.app.panels.creation;
  *
  * @author astrapi69
  */
-public class NewBundleNamePanel extends javax.swing.JPanel {
+public class NewBundleNameFormPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form NewBundleNamePanel
      */
-    public NewBundleNamePanel() {
+    public NewBundleNameFormPanel() {
         initComponents();
     }
 

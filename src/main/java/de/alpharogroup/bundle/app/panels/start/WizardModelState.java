@@ -86,6 +86,7 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 				if(pw.equals(rpw)) {
 					stateMachine.setCurrentState(WizardModelState.SUCCESSFUL_CONNECT_TO_BUNDLE_APP);
 					stateMachine.getModelObject().setAllValid();
+					stateMachine.getModelObject().setValidFinish(true);
 				}
 			}
 		}
@@ -134,6 +135,7 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 			{
 				stateMachine.setCurrentState(WizardModelState.SUCCESSFUL_CONNECT_TO_BUNDLE_APP);
 				stateMachine.getModelObject().setAllValid();
+				stateMachine.getModelObject().setValidFinish(true);
 			}
 		}
 
@@ -232,6 +234,12 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 		public boolean isLast()
 		{
 			return true;
+		}
+
+		@Override
+		public boolean hasNext()
+		{
+			return false;
 		}
 
 	},

@@ -65,6 +65,5 @@ public class WizardModel
 		validNext = true;
 		validPrevious = true;
 		validCancel = true;
-		validFinish = true;
 	}
 }

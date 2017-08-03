@@ -19,10 +19,10 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jButton4" max="32767" attributes="0"/>
-                  <Component id="jButton2" pref="740" max="32767" attributes="0"/>
-                  <Component id="jButton1" max="32767" attributes="0"/>
-                  <Component id="jButton3" max="32767" attributes="0"/>
+                  <Component id="btnCreateRb" max="32767" attributes="0"/>
+                  <Component id="btnOverview" pref="740" max="32767" attributes="0"/>
+                  <Component id="btnEditBundleAppName" max="32767" attributes="0"/>
+                  <Component id="btnCreateCustomLocale" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="33" max="32767" attributes="0"/>
           </Group>
@@ -32,41 +32,41 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" pref="80" max="-2" attributes="0"/>
+              <Component id="btnEditBundleAppName" min="-2" pref="80" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jButton2" min="-2" pref="80" max="-2" attributes="0"/>
+              <Component id="btnOverview" min="-2" pref="80" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jButton4" min="-2" pref="80" max="-2" attributes="0"/>
+              <Component id="btnCreateRb" min="-2" pref="80" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jButton3" min="-2" pref="80" max="-2" attributes="0"/>
+              <Component id="btnCreateCustomLocale" min="-2" pref="80" max="-2" attributes="0"/>
               <EmptySpace pref="32" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="btnEditBundleAppName">
       <Properties>
         <Property name="text" type="java.lang.String" value="Edit Bundle-Application name"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="btnOverview">
       <Properties>
         <Property name="text" type="java.lang.String" value="Overview of resource-bundles"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton3">
+    <Component class="javax.swing.JButton" name="btnCreateRb">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Create new resource-bundle"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnCreateCustomLocale">
       <Properties>
         <Property name="text" type="java.lang.String" value="Create new custom locale"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCreateCustomLocaleActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="jButton4">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Create new resource-bundle"/>
-      </Properties>
     </Component>
   </SubComponents>
 </Form>
