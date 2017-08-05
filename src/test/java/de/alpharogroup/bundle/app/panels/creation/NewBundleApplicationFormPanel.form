@@ -21,13 +21,13 @@
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="lblHeaderNewBundleApp" alignment="0" min="-2" pref="700" max="-2" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="lblHeaderSignin" min="-2" pref="120" max="-2" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="lblHeaderSignin" min="-2" pref="200" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="txtHeaderSignin" min="-2" pref="540" max="-2" attributes="0"/>
+                          <Component id="txtHeaderSignin" min="-2" pref="460" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Component id="btnSave" min="-2" pref="190" max="-2" attributes="0"/>
+                  <Component id="btnSave" min="-2" pref="222" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="54" max="32767" attributes="0"/>
           </Group>

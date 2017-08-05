@@ -127,10 +127,16 @@ public class WizardPanel extends BasePanel<WizardModel>
 		stateMachine.finish();
 		// from here application specific behavior...
 		MainFrame.getInstance().getCurrentVisibleInternalFrame().dispose();
-		// TODO connect to bundle app...
-		final ApplicationContext ctx = new AnnotationConfigApplicationContext(
-			PersistenceJPAConfig.class);
-		MainFrame.getInstance().getBundleAppDbAppContext().put(MainFrame.KEY_DB_APPLICATION_CONTEXT, ctx);
+
+		ApplicationContext dbContext = MainFrame.getInstance().getBundleAppDbAppContext().get(MainFrame.KEY_DB_APPLICATION_CONTEXT);
+		if(dbContext == null) {
+			// connect to bundle app...
+			final ApplicationContext ctx = new AnnotationConfigApplicationContext(
+				PersistenceJPAConfig.class);
+			MainFrame.getInstance().getBundleAppDbAppContext().put(MainFrame.KEY_DB_APPLICATION_CONTEXT, ctx);
+			dbContext = MainFrame.getInstance().getBundleAppDbAppContext().get(MainFrame.KEY_DB_APPLICATION_CONTEXT);
+		}
+
 		// create internal frame
 		final JInternalFrame internalFrame = JComponentFactory.newInternalFrame("Dashboard bundle app", true, true,
 				true, true);
