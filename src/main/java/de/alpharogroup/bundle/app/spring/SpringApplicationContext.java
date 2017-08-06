@@ -25,22 +25,28 @@
 package de.alpharogroup.bundle.app.spring;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.xml.parsers.FactoryConfigurationError;
 
 import org.apache.log4j.xml.DOMConfigurator;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.Resource;
 
-import de.alpharogroup.bundle.app.MainFrame;
-import de.alpharogroup.bundle.app.spring.config.PersistenceJPAConfig;
+import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
+import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
+import de.alpharogroup.db.resource.bundles.entities.Languages;
+import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
+import de.alpharogroup.db.resource.bundles.service.api.LanguageLocalesService;
+import de.alpharogroup.db.resource.bundles.service.api.LanguagesService;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * The Class SpringApplicationContext.
  */
+@Getter
 @Slf4j
 public class SpringApplicationContext {
 
@@ -57,7 +63,6 @@ public class SpringApplicationContext {
 	}
 
 	/** The application context. */
-	@Getter
 	private final ApplicationContext applicationContext;
 
 	/**
@@ -65,17 +70,15 @@ public class SpringApplicationContext {
 	 */
 	private SpringApplicationContext() {
 
+		final String rootContextDirectoryClassPath = "/ctx";
 
-		ApplicationContext dbApplicationContext = MainFrame.getInstance().getBundleAppDbAppContext().get(MainFrame.KEY_DB_APPLICATION_CONTEXT);
-		if(dbApplicationContext == null) {
-			// connect to bundle app...
-			final ApplicationContext ctx = new AnnotationConfigApplicationContext(
-				PersistenceJPAConfig.class);
-			MainFrame.getInstance().getBundleAppDbAppContext().put(MainFrame.KEY_DB_APPLICATION_CONTEXT, ctx);
-			dbApplicationContext = MainFrame.getInstance().getBundleAppDbAppContext().get(MainFrame.KEY_DB_APPLICATION_CONTEXT);
-		}
+		final String applicationContextPath = rootContextDirectoryClassPath + "/application-context.xml";
 
-		final Resource resource = dbApplicationContext.getResource("classpath:conf/log4j/log4jconfig.xml");
+		final ApplicationContext ac = new ClassPathXmlApplicationContext(applicationContextPath);
+
+		final Resource resource = ac.getResource("classpath:conf/log4j/log4jconfig.xml");
+
+		initDb(ac);
 
 		try {
 			DOMConfigurator.configure(resource.getURL());
@@ -85,7 +88,46 @@ public class SpringApplicationContext {
 			log.error("IOException:", e);
 		}
 
-		applicationContext = dbApplicationContext;
+		applicationContext = ac;
 	}
+
+	private void initDb(final ApplicationContext ac)
+	{
+		LanguagesService languagesService = (LanguagesService)ac.getBean("languagesService");
+		LanguageLocalesService languageLocalesService = (LanguageLocalesService)ac.getBean("languageLocalesService");
+		BundleApplicationsService bundleApplicationsService = (BundleApplicationsService)ac.getBean("bundleApplicationsService");
+
+		final List<Languages> languages = DataObjectFactory.newLanguageList();
+		for (final Languages language : languages)
+		{
+			final Languages found = languagesService.find(language.getName(),
+				language.getIso639Dash1());
+			if (found == null)
+			{
+				languagesService.merge(language);
+			}
+		}
+		final List<LanguageLocales> languageLocales = DataObjectFactory.newLanguageLocales();
+
+		for (final LanguageLocales languageLocale : languageLocales)
+		{
+			final LanguageLocales found = languageLocalesService.find(languageLocale.getLocale());
+			if (found == null)
+			{
+				languageLocalesService.merge(languageLocale);
+			}
+		}
+
+		BundleApplications baseBundleApplication = bundleApplicationsService
+			.find(BundleApplications.BASE_BUNDLE_APPLICATION);
+		if (baseBundleApplication == null)
+		{
+			baseBundleApplication = BundleApplications.builder()
+				.name(BundleApplications.BASE_BUNDLE_APPLICATION).build();
+			baseBundleApplication = bundleApplicationsService.merge(baseBundleApplication);
+		}
+	}
+
+
 
 }

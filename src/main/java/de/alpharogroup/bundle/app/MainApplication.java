@@ -34,12 +34,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
 import de.alpharogroup.bundle.app.panels.start.BundleStart;
-import de.alpharogroup.bundle.app.spring.ApplicationContextInitializer;
-import de.alpharogroup.bundle.app.spring.config.PersistenceJPAConfig;
+import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
 import de.alpharogroup.design.pattern.observer.event.EventObject;
 import de.alpharogroup.design.pattern.observer.event.EventSource;
 import de.alpharogroup.design.pattern.observer.event.EventSubject;
@@ -88,8 +84,8 @@ public class MainApplication
 		final MainFrame mainFrame = MainFrame.getInstance();
 		final DesktopMenu menu = DesktopMenu.getInstance();
 		mainFrame.setJMenuBar(menu.getMenubar());
-		Thread applicationContextInitializer =new Thread(new ApplicationContextInitializer());
-		applicationContextInitializer.start();
+
+		SpringApplicationContext.getInstance().getApplicationContext();
 
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();

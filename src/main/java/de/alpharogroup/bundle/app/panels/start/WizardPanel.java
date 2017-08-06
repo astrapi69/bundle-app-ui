@@ -5,12 +5,8 @@ import java.awt.CardLayout;
 
 import javax.swing.JInternalFrame;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
 import de.alpharogroup.bundle.app.MainFrame;
 import de.alpharogroup.bundle.app.panels.dashboard.DashboardContentPanel;
-import de.alpharogroup.bundle.app.spring.config.PersistenceJPAConfig;
 import de.alpharogroup.design.pattern.state.wizard.WizardState;
 import de.alpharogroup.design.pattern.state.wizard.model.WizardModelStateMachine;
 import de.alpharogroup.model.BaseModel;
@@ -127,15 +123,6 @@ public class WizardPanel extends BasePanel<WizardModel>
 		stateMachine.finish();
 		// from here application specific behavior...
 		MainFrame.getInstance().getCurrentVisibleInternalFrame().dispose();
-
-		ApplicationContext dbContext = MainFrame.getInstance().getBundleAppDbAppContext().get(MainFrame.KEY_DB_APPLICATION_CONTEXT);
-		if(dbContext == null) {
-			// connect to bundle app...
-			final ApplicationContext ctx = new AnnotationConfigApplicationContext(
-				PersistenceJPAConfig.class);
-			MainFrame.getInstance().getBundleAppDbAppContext().put(MainFrame.KEY_DB_APPLICATION_CONTEXT, ctx);
-			dbContext = MainFrame.getInstance().getBundleAppDbAppContext().get(MainFrame.KEY_DB_APPLICATION_CONTEXT);
-		}
 
 		// create internal frame
 		final JInternalFrame internalFrame = JComponentFactory.newInternalFrame("Dashboard bundle app", true, true,
