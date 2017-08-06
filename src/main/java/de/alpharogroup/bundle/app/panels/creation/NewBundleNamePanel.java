@@ -2,7 +2,12 @@ package de.alpharogroup.bundle.app.panels.creation;
 
 import java.awt.event.ActionEvent;
 
+import javax.swing.JComboBox;
+
 import de.alpharogroup.bundle.app.panels.dashboard.DashboardBean;
+import de.alpharogroup.bundle.app.panels.models.LocaleComboBoxModel;
+import de.alpharogroup.bundle.app.panels.renderer.LocaleComboBoxRenderer;
+import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BasePanel;
@@ -12,7 +17,7 @@ public class NewBundleNamePanel extends BasePanel<DashboardBean>
 
 	private javax.swing.JButton btnCreateNewLocale;
 	private javax.swing.JButton btnSave;
-	private javax.swing.JComboBox<String> cmbLocale;
+	private JComboBox<LanguageLocales> cmbLocale;
 	private javax.swing.JLabel lblBasename;
 	private javax.swing.JLabel lblHeaderNewBundleName;
 	private javax.swing.JLabel lblLocale;
@@ -33,7 +38,8 @@ public class NewBundleNamePanel extends BasePanel<DashboardBean>
 	{
 		super.onInitializeComponents();
 		lblLocale = new javax.swing.JLabel();
-		cmbLocale = new javax.swing.JComboBox<>();
+		cmbLocale = new javax.swing.JComboBox<>(LocaleComboBoxModel.get());
+		cmbLocale.setRenderer(new LocaleComboBoxRenderer());
 		lblBasename = new javax.swing.JLabel();
 		txtBasename = new javax.swing.JTextField();
 		btnSave = new javax.swing.JButton();
@@ -42,8 +48,6 @@ public class NewBundleNamePanel extends BasePanel<DashboardBean>
 		btnCreateNewLocale.addActionListener(e -> onCreateNewLocale(e));
 
 		lblLocale.setText("Choose Locale");
-		cmbLocale.setModel(new javax.swing.DefaultComboBoxModel<>(
-			new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 		lblBasename.setText("Basename");
 		btnSave.setText("Save entry");
 		lblHeaderNewBundleName.setText("Create new Bundle name");
