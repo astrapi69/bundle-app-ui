@@ -1,5 +1,7 @@
 package de.alpharogroup.bundle.app.panels.creation;
 
+import java.awt.event.ActionEvent;
+
 import de.alpharogroup.bundle.app.panels.dashboard.DashboardBean;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
@@ -37,6 +39,7 @@ public class NewBundleNamePanel extends BasePanel<DashboardBean>
 		btnSave = new javax.swing.JButton();
 		lblHeaderNewBundleName = new javax.swing.JLabel();
 		btnCreateNewLocale = new javax.swing.JButton();
+		btnCreateNewLocale.addActionListener(e -> onCreateNewLocale(e));
 
 		lblLocale.setText("Choose Locale");
 		cmbLocale.setModel(new javax.swing.DefaultComboBoxModel<>(
@@ -45,6 +48,10 @@ public class NewBundleNamePanel extends BasePanel<DashboardBean>
 		btnSave.setText("Save entry");
 		lblHeaderNewBundleName.setText("Create new Bundle name");
 		btnCreateNewLocale.setText("Create new custom locale");
+	}
+
+	protected void onCreateNewLocale(ActionEvent e)
+	{
 	}
 
 	@Override

@@ -43,7 +43,7 @@ public class DashboardPanel extends BasePanel<DashboardBean>
 		btnCreateRb.addActionListener(e -> onCreateRb(e));
 
 		btnCreateCustomLocale.setText("Create new custom locale");
-		btnCreateRb.addActionListener(e -> onCreateCustomLocale(e));
+		btnCreateCustomLocale.addActionListener(e -> onCreateCustomLocale(e));
 	}
 
 	@Override

@@ -33,12 +33,15 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.core.io.Resource;
 
+import de.alpharogroup.bundle.app.MainFrame;
 import de.alpharogroup.bundle.app.spring.config.PersistenceJPAConfig;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * The Class SpringApplicationContext.
  */
+@Slf4j
 public class SpringApplicationContext {
 
 	/** The instance. */
@@ -61,22 +64,28 @@ public class SpringApplicationContext {
 	 * Instantiates a new spring application context.
 	 */
 	private SpringApplicationContext() {
-		final ApplicationContext ac = new AnnotationConfigApplicationContext(
-			PersistenceJPAConfig.class);
 
-		final Resource resource = ac.getResource("classpath:conf/log4j/log4jconfig.xml");
+
+		ApplicationContext dbApplicationContext = MainFrame.getInstance().getBundleAppDbAppContext().get(MainFrame.KEY_DB_APPLICATION_CONTEXT);
+		if(dbApplicationContext == null) {
+			// connect to bundle app...
+			final ApplicationContext ctx = new AnnotationConfigApplicationContext(
+				PersistenceJPAConfig.class);
+			MainFrame.getInstance().getBundleAppDbAppContext().put(MainFrame.KEY_DB_APPLICATION_CONTEXT, ctx);
+			dbApplicationContext = MainFrame.getInstance().getBundleAppDbAppContext().get(MainFrame.KEY_DB_APPLICATION_CONTEXT);
+		}
+
+		final Resource resource = dbApplicationContext.getResource("classpath:conf/log4j/log4jconfig.xml");
 
 		try {
 			DOMConfigurator.configure(resource.getURL());
 		} catch (final FactoryConfigurationError e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("FactoryConfigurationError:", e);
 		} catch (final IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("IOException:", e);
 		}
 
-		applicationContext = ac;
+		applicationContext = dbApplicationContext;
 	}
 
 }

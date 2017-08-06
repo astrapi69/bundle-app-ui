@@ -1,11 +1,12 @@
 package de.alpharogroup.bundle.app.panels.overview;
 
 import de.alpharogroup.bundle.app.panels.dashboard.DashboardBean;
-import de.alpharogroup.bundle.app.panels.tablemodels.PropertiesTableModel;
 import de.alpharogroup.collections.pairs.KeyValuePair;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BasePanel;
+import de.alpharogroup.swing.table.model.TableColumnsModel;
+import de.alpharogroup.swing.table.model.properties.PropertiesTableModel;
 import de.alpharogroup.swing.x.GenericJXTable;
 
 public class OverviewResourceBundlePanel  extends BasePanel<DashboardBean> {
@@ -32,7 +33,10 @@ public class OverviewResourceBundlePanel  extends BasePanel<DashboardBean> {
         lblHeaderOverview = new javax.swing.JLabel();
         lblBundleName = new javax.swing.JLabel();
         srcBundles = new javax.swing.JScrollPane();
-        tblBundles = new GenericJXTable<>(new PropertiesTableModel());
+        tblBundles = new GenericJXTable<>(new PropertiesTableModel(
+        	TableColumnsModel.builder().columnNames(new String[] { "Key", "Value" })
+			.canEdit(new boolean[] { false, false })
+			.columnClasses(new Class<?>[] { String.class, String.class }).build()));
 
         lblHeaderOverview.setText("Overview of resource bundle");
 

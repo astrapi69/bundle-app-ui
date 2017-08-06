@@ -1,16 +1,23 @@
 package de.alpharogroup.bundle.app.panels.overview;
 
+import java.awt.event.ActionEvent;
+
 import de.alpharogroup.bundle.app.panels.dashboard.DashboardBean;
+import de.alpharogroup.collections.pairs.Triple;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BasePanel;
+import de.alpharogroup.swing.table.model.TableColumnsModel;
+import de.alpharogroup.swing.table.model.triple.TripleStringTableModel;
+import de.alpharogroup.swing.x.GenericJXTable;
 
 public class OverviewOfAllResourceBundlesPanel  extends BasePanel<DashboardBean> {
 
+    private javax.swing.JButton btnCreateBundle;
     private javax.swing.JLabel lblBundleName;
     private javax.swing.JLabel lblHeaderOverview;
     private javax.swing.JScrollPane srcBundles;
-    private javax.swing.JTable tblBundles;
+	private GenericJXTable<Triple<String, String, String>> tblBundles;
 
 	public OverviewOfAllResourceBundlesPanel()
 	{
@@ -29,24 +36,26 @@ public class OverviewOfAllResourceBundlesPanel  extends BasePanel<DashboardBean>
         lblHeaderOverview = new javax.swing.JLabel();
         lblBundleName = new javax.swing.JLabel();
         srcBundles = new javax.swing.JScrollPane();
-        tblBundles = new javax.swing.JTable();
+        btnCreateBundle = new javax.swing.JButton();
+
+        btnCreateBundle.addActionListener(e -> onCreateBundle(e));
+
+        tblBundles = new GenericJXTable<>(new TripleStringTableModel(
+        	TableColumnsModel.builder()
+        	.columnNames(new String[] { "Base name", "Locale", "Action" })
+			.canEdit(new boolean[] { false, false, true })
+			.columnClasses(new Class<?>[] { String.class, String.class, String.class }).build()));
 
         lblHeaderOverview.setText("Overview of all resource bundles");
 
         lblBundleName.setText("Bundle count");
 
-        tblBundles.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
         srcBundles.setViewportView(tblBundles);
+        btnCreateBundle.setText("Create new resource bundle");
+	}
+
+	protected void onCreateBundle(ActionEvent e)
+	{
 	}
 
 	@Override
@@ -62,8 +71,12 @@ public class OverviewOfAllResourceBundlesPanel  extends BasePanel<DashboardBean>
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblHeaderOverview, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblBundleName, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(srcBundles, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(lblBundleName, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnCreateBundle, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(srcBundles, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -72,9 +85,12 @@ public class OverviewOfAllResourceBundlesPanel  extends BasePanel<DashboardBean>
                 .addGap(40, 40, 40)
                 .addComponent(lblHeaderOverview, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblBundleName, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(srcBundles, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblBundleName, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(srcBundles, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCreateBundle))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 	}

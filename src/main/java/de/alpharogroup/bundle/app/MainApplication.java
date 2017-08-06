@@ -34,13 +34,20 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import de.alpharogroup.bundle.app.panels.start.BundleStart;
+import de.alpharogroup.bundle.app.spring.ApplicationContextInitializer;
+import de.alpharogroup.bundle.app.spring.config.PersistenceJPAConfig;
 import de.alpharogroup.design.pattern.observer.event.EventObject;
 import de.alpharogroup.design.pattern.observer.event.EventSource;
 import de.alpharogroup.design.pattern.observer.event.EventSubject;
 import de.alpharogroup.layout.ScreenSizeExtensions;
 import de.alpharogroup.swing.laf.LookAndFeels;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class MainApplication
 {
 
@@ -81,6 +88,8 @@ public class MainApplication
 		final MainFrame mainFrame = MainFrame.getInstance();
 		final DesktopMenu menu = DesktopMenu.getInstance();
 		mainFrame.setJMenuBar(menu.getMenubar());
+		Thread applicationContextInitializer =new Thread(new ApplicationContextInitializer());
+		applicationContextInitializer.start();
 
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -94,17 +103,13 @@ public class MainApplication
 			SwingUtilities.updateComponentTreeUI(mainFrame);
 			mainFrame.setCurrentLookAndFeels(LookAndFeels.SYSTEM);
 		} catch (final ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			log.error("ClassNotFoundException:", e1);
 		} catch (final InstantiationException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			log.error("InstantiationException:", e1);
 		} catch (final IllegalAccessException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			log.error("IllegalAccessException:", e1);
 		} catch (final UnsupportedLookAndFeelException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			log.error("UnsupportedLookAndFeelException:", e1);
 		}
 	}
 }

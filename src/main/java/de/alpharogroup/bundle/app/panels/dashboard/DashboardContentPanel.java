@@ -61,7 +61,7 @@ public class DashboardContentPanel extends BasePanel<DashboardBean>
 		add(newBundleNamePanel(getModel()), DashboardView.CREATE_NEW_RB.name());
 		add(newCustomLocalePanel(getModel()), DashboardView.CREATE_NEW_LOCALE.name());
 		add(newResourceBundleEntryPanel(getModel()), DashboardView.CREATE_NEW_RB_ENTRY.name());
-		add(newOverviewResourceBundlePanel(getModel()), DashboardView.OVERVIEW_OF_ALL_RB.name());
+		add(newOverviewOfAllResourceBundlesPanel(getModel()), DashboardView.OVERVIEW_OF_ALL_RB.name());
 	}
 
 	protected DashboardPanel newDashboardPanel(Model<DashboardBean> model) {
@@ -98,7 +98,14 @@ public class DashboardContentPanel extends BasePanel<DashboardBean>
 	}
 
 	protected NewBundleNamePanel newBundleNamePanel(Model<DashboardBean> model) {
-		return new NewBundleNamePanel(model);
+		return new NewBundleNamePanel(model) {
+
+			@Override
+			protected void onCreateNewLocale(ActionEvent e)
+			{
+				DashboardContentPanel.this.onCreateCustomLocale(e);
+			}
+		};
 	}
 
 	protected NewCustomLocalePanel newCustomLocalePanel(Model<DashboardBean> model) {
@@ -110,7 +117,13 @@ public class DashboardContentPanel extends BasePanel<DashboardBean>
 	}
 
 	protected OverviewOfAllResourceBundlesPanel newOverviewOfAllResourceBundlesPanel(Model<DashboardBean> model) {
-		return new OverviewOfAllResourceBundlesPanel(model);
+		return new OverviewOfAllResourceBundlesPanel(model) {
+			@Override
+			protected void onCreateBundle(ActionEvent e)
+			{
+				DashboardContentPanel.this.onCreateRb(e);
+			}
+		};
 	}
 
 	protected OverviewResourceBundlePanel newOverviewResourceBundlePanel(Model<DashboardBean> model) {
