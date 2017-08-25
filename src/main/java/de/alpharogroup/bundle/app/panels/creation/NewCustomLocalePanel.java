@@ -4,8 +4,11 @@ import de.alpharogroup.bundle.app.panels.dashboard.DashboardBean;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BasePanel;
+import java.awt.event.ActionEvent;
 
 public class NewCustomLocalePanel  extends BasePanel<DashboardBean> {
+
+    private static final long serialVersionUID = 1L;
 
     private javax.swing.JButton btnSave;
     private javax.swing.JLabel lblCountry;
@@ -38,6 +41,7 @@ public class NewCustomLocalePanel  extends BasePanel<DashboardBean> {
         lblVariant = new javax.swing.JLabel();
         txtVariant = new javax.swing.JTextField();
         btnSave = new javax.swing.JButton();
+        btnSave.addActionListener(e -> onSave(e));
 
         lblHeaderNewLocale.setText("Create new custom locale");
 
@@ -101,5 +105,9 @@ public class NewCustomLocalePanel  extends BasePanel<DashboardBean> {
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 	}
+
+    private void onSave(ActionEvent e) {
+        System.out.println("de.alpharogroup.bundle.app.panels.creation.NewCustomLocalePanel.onSave()");
+    }
 
 }

@@ -8,6 +8,8 @@ import de.alpharogroup.swing.base.BasePanel;
 
 public class DashboardPanel extends BasePanel<DashboardBean>
 {
+
+    private static final long serialVersionUID = 1L;
 	private javax.swing.JButton btnCreateCustomLocale;
 	private javax.swing.JButton btnCreateRb;
 	private javax.swing.JButton btnEditBundleAppName;
