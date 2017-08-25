@@ -27,7 +27,6 @@ package de.alpharogroup.bundle.app;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.URL;
 
 import javax.help.CSH;
 import javax.help.DefaultHelpBroker;
@@ -46,8 +45,8 @@ import de.alpharogroup.bundle.app.actions.OpenBrowserToDonateAction;
 import de.alpharogroup.bundle.app.actions.ShowHelpDialogAction;
 import de.alpharogroup.bundle.app.actions.ShowInfoDialogAction;
 import de.alpharogroup.bundle.app.actions.ShowLicenseFrameAction;
-import de.alpharogroup.lang.ClassExtensions;
 import de.alpharogroup.swing.actions.ExitApplicationAction;
+import de.alpharogroup.swing.components.factories.JComponentFactory;
 import de.alpharogroup.swing.laf.actions.LookAndFeelMetalAction;
 import de.alpharogroup.swing.laf.actions.LookAndFeelMotifAction;
 import de.alpharogroup.swing.laf.actions.LookAndFeelSystemAction;
@@ -60,7 +59,8 @@ import lombok.extern.slf4j.Slf4j;
  * The Class DesktopMenu.
  */
 @Slf4j
-public class DesktopMenu {
+public class DesktopMenu
+{
 
 	/** The JMenuBar from the DesktopMenu. */
 	@Getter
@@ -91,32 +91,40 @@ public class DesktopMenu {
 	 *
 	 * @return single instance of DesktopMenu
 	 */
-	public static DesktopMenu getInstance() {
+	public static DesktopMenu getInstance()
+	{
 		return instance;
 	}
 
 	/**
 	 * Instantiates a new desktop menu.
 	 */
-	private DesktopMenu() {
+	private DesktopMenu()
+	{
 		menubar = new JMenuBar();
-		fileMenu = newFileMenu(new ActionListener() {
+		fileMenu = newFileMenu(new ActionListener()
+		{
 			@Override
-			public void actionPerformed(final ActionEvent e) {
+			public void actionPerformed(final ActionEvent e)
+			{
 				log.debug("filemenu");
 			}
 		});
 
-		lookAndFeelMenu = createLookAndFeelMenu(new ActionListener() {
+		lookAndFeelMenu = newLookAndFeelMenu(new ActionListener()
+		{
 			@Override
-			public void actionPerformed(final ActionEvent e) {
+			public void actionPerformed(final ActionEvent e)
+			{
 				log.debug("Look and Feel menu");
 			}
 		});
 
-		helpMenu = createHelpMenu(new ActionListener() {
+		helpMenu = newHelpMenu(new ActionListener()
+		{
 			@Override
-			public void actionPerformed(final ActionEvent e) {
+			public void actionPerformed(final ActionEvent e)
+			{
 				log.debug("Help menu");
 			}
 		});
@@ -134,7 +142,8 @@ public class DesktopMenu {
 	 *
 	 * @return the new {@link JMenu}
 	 */
-	private JMenu newFileMenu(final ActionListener listener) {
+	private JMenu newFileMenu(final ActionListener listener)
+	{
 		final JMenu fileMenu = new JMenu("File");
 		fileMenu.setMnemonic('F');
 		JMenuItem jmi;
@@ -167,13 +176,14 @@ public class DesktopMenu {
 	}
 
 	/**
-	 * Creates the look and feel menu.
+	 * Factory method for create new {@link JMenu} for the look and feel menu.
 	 *
 	 * @param listener
 	 *            the listener
 	 * @return the j menu
 	 */
-	private JMenu createLookAndFeelMenu(final ActionListener listener) {
+	private JMenu newLookAndFeelMenu(final ActionListener listener)
+	{
 
 		final JMenu menuLookAndFeel = new JMenu("Look and Feel");
 		menuLookAndFeel.setMnemonic('L');
@@ -201,7 +211,8 @@ public class DesktopMenu {
 		JMenuItem jmiLafSystem;
 		jmiLafSystem = new JMenuItem("System", 'd'); //$NON-NLS-1$
 		MenuExtensions.setCtrlAccelerator(jmiLafSystem, 'W');
-		jmiLafSystem.addActionListener(new LookAndFeelSystemAction("System", MainFrame.getInstance()));
+		jmiLafSystem
+			.addActionListener(new LookAndFeelSystemAction("System", MainFrame.getInstance()));
 		menuLookAndFeel.add(jmiLafSystem);
 
 		return menuLookAndFeel;
@@ -209,13 +220,14 @@ public class DesktopMenu {
 	}
 
 	/**
-	 * Creates the help menu.
+	 * Factory method for create new {@link JMenu} for the help menu.
 	 *
 	 * @param listener
 	 *            the listener
 	 * @return the j menu
 	 */
-	private JMenu createHelpMenu(final ActionListener listener) {
+	private JMenu newHelpMenu(final ActionListener listener)
+	{
 		// Help menu
 		final JMenu menuHelp = new JMenu("Help"); //$NON-NLS-1$
 		menuHelp.setMnemonic('H');
@@ -233,16 +245,19 @@ public class DesktopMenu {
 		// Solution is to remove the rsa files from the jar
 
 		final HelpSet hs = getHelpSet();
-		final DefaultHelpBroker helpBroker = (DefaultHelpBroker) hs.createHelpBroker();
+		final DefaultHelpBroker helpBroker = (DefaultHelpBroker)hs.createHelpBroker();
 		final WindowPresentation pres = helpBroker.getWindowPresentation();
 		pres.createHelpWindow();
 		helpWindow = pres.getHelpWindow();
 
 		helpWindow.setLocationRelativeTo(null);
 
-		try {
+		try
+		{
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (final Exception e1) {
+		}
+		catch (final Exception e1)
+		{
 			e1.printStackTrace();
 		}
 		SwingUtilities.updateComponentTreeUI(helpWindow);
@@ -250,13 +265,15 @@ public class DesktopMenu {
 		// 2. assign help to components
 		CSH.setHelpIDString(mihHelpContent, "Overview");
 		// 3. handle events
-		final CSH.DisplayHelpFromSource displayHelpFromSource = new CSH.DisplayHelpFromSource(helpBroker);
+		final CSH.DisplayHelpFromSource displayHelpFromSource = new CSH.DisplayHelpFromSource(
+			helpBroker);
 		mihHelpContent.addActionListener(displayHelpFromSource);
 
 		mihHelpContent.addActionListener(new ShowHelpDialogAction("Content"));
 
 		// Donate
-		final JMenuItem mihDonate = new JMenuItem(Messages.getString("com.find.duplicate.files.menu.item.donate")); //$NON-NLS-1$
+		final JMenuItem mihDonate = new JMenuItem(
+			Messages.getString("com.find.duplicate.files.menu.item.donate")); //$NON-NLS-1$
 
 		mihDonate.addActionListener(new OpenBrowserToDonateAction("Donate"));
 		menuHelp.add(mihDonate);
@@ -279,18 +296,18 @@ public class DesktopMenu {
 	 *
 	 * @return the help set
 	 */
-	public HelpSet getHelpSet() {
+	public HelpSet getHelpSet()
+	{
 		HelpSet hs = null;
 		final String filename = "simple-hs.xml";
-		final String path = "help/" + filename;
-		URL hsURL;
-		if (hs == null) {
-			hsURL = ClassExtensions.getResource(path);
-			try {
-				hs = new HelpSet(ClassExtensions.getClassLoader(), hsURL);
-			} catch (final HelpSetException e) {
-				e.printStackTrace();
-			}
+		final String directoryPath = "help/";
+		try
+		{
+			hs = JComponentFactory.newHelpSet(directoryPath, filename);
+		}
+		catch (final HelpSetException e)
+		{
+			log.error("Instanciation problem of class HelpSet.", e);
 		}
 		return hs;
 	}
