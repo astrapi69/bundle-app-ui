@@ -4,8 +4,11 @@ import de.alpharogroup.bundle.app.panels.dashboard.DashboardBean;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BasePanel;
+import java.awt.event.ActionEvent;
 
 public class NewResourceBundleEntryPanel  extends BasePanel<DashboardBean> {
+
+    private static final long serialVersionUID = 1L;
 
     private javax.swing.JButton btnCreate;
     private javax.swing.JButton btnSave;
@@ -38,8 +41,10 @@ public class NewResourceBundleEntryPanel  extends BasePanel<DashboardBean> {
         lblValue = new javax.swing.JLabel();
         txtKey = new javax.swing.JTextField();
         btnSave = new javax.swing.JButton();
+        btnSave.addActionListener(e -> onSave(e));
         lblHeaderNewBundleEntry = new javax.swing.JLabel();
         btnCreate = new javax.swing.JButton();
+        btnCreate.addActionListener(e -> onCreate(e));
 
         lblBundle.setText("Choose Bundle");
 
@@ -109,5 +114,13 @@ public class NewResourceBundleEntryPanel  extends BasePanel<DashboardBean> {
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 	}
+
+    private void onSave(ActionEvent e) {
+        System.out.println("de.alpharogroup.bundle.app.panels.creation.NewResourceBundleEntryPanel.onSave()");
+    }
+
+    private void onCreate(ActionEvent e) {
+        System.out.println("de.alpharogroup.bundle.app.panels.creation.NewResourceBundleEntryPanel.onCreate()");
+    }
 
 }
