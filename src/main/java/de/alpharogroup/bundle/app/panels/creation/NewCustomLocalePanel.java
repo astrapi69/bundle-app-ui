@@ -1,12 +1,12 @@
 package de.alpharogroup.bundle.app.panels.creation;
 
-import de.alpharogroup.bundle.app.panels.dashboard.DashboardBean;
+import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BasePanel;
 import java.awt.event.ActionEvent;
 
-public class NewCustomLocalePanel  extends BasePanel<DashboardBean> {
+public class NewCustomLocalePanel  extends BasePanel<ApplicationDashboardBean> {
 
     private static final long serialVersionUID = 1L;
 
@@ -21,10 +21,10 @@ public class NewCustomLocalePanel  extends BasePanel<DashboardBean> {
 
 	public NewCustomLocalePanel()
 	{
-		this(BaseModel.<DashboardBean>of(DashboardBean.builder().build()));
+		this(BaseModel.<ApplicationDashboardBean>of(ApplicationDashboardBean.builder().build()));
 	}
 
-	public NewCustomLocalePanel(Model<DashboardBean> model)
+	public NewCustomLocalePanel(Model<ApplicationDashboardBean> model)
 	{
 		super(model);
 	}

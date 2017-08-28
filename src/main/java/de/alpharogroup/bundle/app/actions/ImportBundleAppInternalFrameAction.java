@@ -34,7 +34,7 @@ public class ImportBundleAppInternalFrameAction extends AbstractAction {
 	@Override
 	public void actionPerformed(final ActionEvent e) {
 		// create internal frame
-		final JInternalFrame internalFrame = JComponentFactory.newInternalFrame("New bundle app", true, true,
+		final JInternalFrame internalFrame = JComponentFactory.newInternalFrame("Import bundle app", true, true,
 				true, true);
 
 		final WizardPanel component = new WizardPanel();

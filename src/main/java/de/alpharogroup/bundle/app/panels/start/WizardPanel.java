@@ -6,7 +6,7 @@ import java.awt.CardLayout;
 import javax.swing.JInternalFrame;
 
 import de.alpharogroup.bundle.app.MainFrame;
-import de.alpharogroup.bundle.app.panels.dashboard.DashboardContentPanel;
+import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardContentPanel;
 import de.alpharogroup.design.pattern.state.wizard.WizardState;
 import de.alpharogroup.design.pattern.state.wizard.model.WizardModelStateMachine;
 import de.alpharogroup.model.BaseModel;
@@ -127,7 +127,7 @@ public class WizardPanel extends BasePanel<WizardModel>
 		// create internal frame
 		final JInternalFrame internalFrame = JComponentFactory.newInternalFrame("Dashboard bundle app", true, true,
 				true, true);
-		DashboardContentPanel component = new DashboardContentPanel();
+		ApplicationDashboardContentPanel component = new ApplicationDashboardContentPanel();
 		JInternalFrameExtensions.addComponentToFrame(internalFrame, component);
 		JInternalFrameExtensions.addJInternalFrame(MainFrame.getInstance().getDesktopPane(), internalFrame);
 		MainFrame.getInstance().setCurrentVisibleInternalFrame(internalFrame);

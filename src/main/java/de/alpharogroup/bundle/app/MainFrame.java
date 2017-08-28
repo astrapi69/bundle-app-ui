@@ -38,9 +38,16 @@ import javax.swing.JToolBar;
 import org.jdesktop.swingx.JXFrame;
 import org.springframework.context.ApplicationContext;
 
+import de.alpharogroup.bundle.app.panels.dashboard.mainapp.MainDashboardBean;
+import de.alpharogroup.bundle.app.panels.overview.OverviewOfAllBundleApplicationsPanel;
+import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
+import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
 import de.alpharogroup.lang.ClassExtensions;
+import de.alpharogroup.model.BaseModel;
+import de.alpharogroup.swing.components.factories.JComponentFactory;
 import de.alpharogroup.swing.desktoppane.SingletonDesktopPane;
 import de.alpharogroup.swing.laf.LookAndFeels;
+import de.alpharogroup.swing.utils.JInternalFrameExtensions;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -80,6 +87,8 @@ public class MainFrame extends JXFrame
 	private LookAndFeels currentLookAndFeels = LookAndFeels.SYSTEM;
 
 	private Map<String, ApplicationContext> bundleAppDbAppContext = new HashMap<>();
+
+	private MainDashboardBean mainDashboardBean;
 
 	/**
 	 * Gets the single instance of MainFrame.
@@ -121,7 +130,20 @@ public class MainFrame extends JXFrame
 			log.error("Icon file could not be readed.", e);
 		}
 
-		getContentPane().add(desktopPane);
+		ApplicationContext applicationContext = SpringApplicationContext.getInstance().getApplicationContext();
+
+		BundleApplicationsService bundleApplicationsService = (BundleApplicationsService)applicationContext.getBean("bundleApplicationsService");
+
+		mainDashboardBean = MainDashboardBean.builder().bundleApplications(bundleApplicationsService.findAll()).build();
+
+		OverviewOfAllBundleApplicationsPanel overviewOfAllBundleApplicationsPanel = new OverviewOfAllBundleApplicationsPanel(BaseModel.<MainDashboardBean>of(mainDashboardBean));
+
+		final JInternalFrame internalFrame = JComponentFactory.newInternalFrame("Dashboard", true, true,
+			true, true);
+
+		JInternalFrameExtensions.addComponentToFrame(internalFrame, overviewOfAllBundleApplicationsPanel);
+		JInternalFrameExtensions.addJInternalFrame(desktopPane, internalFrame);
+		setCurrentVisibleInternalFrame(internalFrame);
 
 	}
 

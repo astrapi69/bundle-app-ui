@@ -6,7 +6,7 @@ import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BasePanel;
 
-public class DashboardPanel extends BasePanel<DashboardBean>
+public class DashboardPanel extends BasePanel<ApplicationDashboardBean>
 {
 
     private static final long serialVersionUID = 1L;
@@ -17,10 +17,10 @@ public class DashboardPanel extends BasePanel<DashboardBean>
 
 	public DashboardPanel()
 	{
-		this(BaseModel.<DashboardBean>of(DashboardBean.builder().build()));
+		this(BaseModel.<ApplicationDashboardBean>of(ApplicationDashboardBean.builder().build()));
 	}
 
-	public DashboardPanel(Model<DashboardBean> model)
+	public DashboardPanel(Model<ApplicationDashboardBean> model)
 	{
 		super(model);
 	}

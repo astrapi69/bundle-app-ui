@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JComboBox;
 
-import de.alpharogroup.bundle.app.panels.dashboard.DashboardBean;
+import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.bundle.app.panels.models.LocaleComboBoxModel;
 import de.alpharogroup.bundle.app.panels.renderer.LocaleComboBoxRenderer;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
@@ -12,7 +12,7 @@ import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BasePanel;
 
-public class NewBundleNamePanel extends BasePanel<DashboardBean> {
+public class NewBundleNamePanel extends BasePanel<ApplicationDashboardBean> {
 
     private static final long serialVersionUID = 1L;
 
@@ -25,10 +25,10 @@ public class NewBundleNamePanel extends BasePanel<DashboardBean> {
     private javax.swing.JTextField txtBasename;
 
     public NewBundleNamePanel() {
-        this(BaseModel.<DashboardBean>of(DashboardBean.builder().build()));
+        this(BaseModel.<ApplicationDashboardBean>of(ApplicationDashboardBean.builder().build()));
     }
 
-    public NewBundleNamePanel(Model<DashboardBean> model) {
+    public NewBundleNamePanel(Model<ApplicationDashboardBean> model) {
         super(model);
     }
 

@@ -1,12 +1,12 @@
 package de.alpharogroup.bundle.app.panels.creation;
 
-import de.alpharogroup.bundle.app.panels.dashboard.DashboardBean;
+import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BasePanel;
 import java.awt.event.ActionEvent;
 
-public class NewBundleApplicationPanel extends BasePanel<DashboardBean> {
+public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBean> {
 
     private static final long serialVersionUID = 1L;
 
@@ -16,10 +16,10 @@ public class NewBundleApplicationPanel extends BasePanel<DashboardBean> {
     private javax.swing.JTextField txtHeaderSignin;
 
     public NewBundleApplicationPanel() {
-        this(BaseModel.<DashboardBean>of(DashboardBean.builder().build()));
+        this(BaseModel.<ApplicationDashboardBean>of(ApplicationDashboardBean.builder().build()));
     }
 
-    public NewBundleApplicationPanel(Model<DashboardBean> model) {
+    public NewBundleApplicationPanel(Model<ApplicationDashboardBean> model) {
         super(model);
     }
 

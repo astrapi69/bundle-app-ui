@@ -18,9 +18,9 @@ import de.alpharogroup.swing.base.BasePanel;
 import lombok.Getter;
 
 /**
- * The class {@link DashboardContentPanel}.
+ * The class {@link ApplicationDashboardContentPanel}.
  */
-public class DashboardContentPanel extends BasePanel<DashboardBean>
+public class ApplicationDashboardContentPanel extends BasePanel<ApplicationDashboardBean>
 {
 
 
@@ -31,22 +31,22 @@ public class DashboardContentPanel extends BasePanel<DashboardBean>
 	private CardLayout cardLayout;
 
 	/**
-	 * Instantiates a new {@link DashboardContentPanel}.
+	 * Instantiates a new {@link ApplicationDashboardContentPanel}.
 	 */
-	public DashboardContentPanel()
+	public ApplicationDashboardContentPanel()
 	{
-		this(BaseModel.<DashboardBean>of(DashboardBean.builder().build()));
+		this(BaseModel.<ApplicationDashboardBean>of(ApplicationDashboardBean.builder().build()));
 	}
 
 	/**
-	 * Instantiates a new {@link DashboardContentPanel}.
+	 * Instantiates a new {@link ApplicationDashboardContentPanel}.
 	 *
 	 * @param model the model
 	 */
-	public DashboardContentPanel(Model<DashboardBean> model)
+	public ApplicationDashboardContentPanel(Model<ApplicationDashboardBean> model)
 	{
 		super(model);
-		cardLayout.show(this, DashboardView.DASHBOARD.name());
+		cardLayout.show(this, ApplicationDashboardView.DASHBOARD.name());
 	}
 
 	/**
@@ -56,77 +56,77 @@ public class DashboardContentPanel extends BasePanel<DashboardBean>
 	protected void onInitializeComponents()
 	{
 		super.onInitializeComponents();
-		add(newDashboardPanel(getModel()), DashboardView.DASHBOARD.name());
-		add(newBundleApplicationPanel(getModel()), DashboardView.EDIT_RB_NAME.name());
-		add(newBundleNamePanel(getModel()), DashboardView.CREATE_NEW_RB.name());
-		add(newCustomLocalePanel(getModel()), DashboardView.CREATE_NEW_LOCALE.name());
-		add(newResourceBundleEntryPanel(getModel()), DashboardView.CREATE_NEW_RB_ENTRY.name());
-		add(newOverviewOfAllResourceBundlesPanel(getModel()), DashboardView.OVERVIEW_OF_ALL_RB.name());
+		add(newDashboardPanel(getModel()), ApplicationDashboardView.DASHBOARD.name());
+		add(newBundleApplicationPanel(getModel()), ApplicationDashboardView.EDIT_RB_NAME.name());
+		add(newBundleNamePanel(getModel()), ApplicationDashboardView.CREATE_NEW_RB.name());
+		add(newCustomLocalePanel(getModel()), ApplicationDashboardView.CREATE_NEW_LOCALE.name());
+		add(newResourceBundleEntryPanel(getModel()), ApplicationDashboardView.CREATE_NEW_RB_ENTRY.name());
+		add(newOverviewOfAllResourceBundlesPanel(getModel()), ApplicationDashboardView.OVERVIEW_OF_ALL_RB.name());
 	}
 
-	protected DashboardPanel newDashboardPanel(Model<DashboardBean> model) {
+	protected DashboardPanel newDashboardPanel(Model<ApplicationDashboardBean> model) {
 		return new DashboardPanel(model){
 
 			@Override
 			protected void onCreateCustomLocale(ActionEvent e)
 			{
-				DashboardContentPanel.this.onCreateCustomLocale(e);
+				ApplicationDashboardContentPanel.this.onCreateCustomLocale(e);
 			}
 
 			@Override
 			protected void onCreateRb(ActionEvent e)
 			{
-				DashboardContentPanel.this.onCreateRb(e);
+				ApplicationDashboardContentPanel.this.onCreateRb(e);
 			}
 
 			@Override
 			protected void onOverview(ActionEvent e)
 			{
-				DashboardContentPanel.this.onOverview(e);
+				ApplicationDashboardContentPanel.this.onOverview(e);
 			}
 
 			@Override
 			protected void onEditBundleAppName(ActionEvent e)
 			{
-				DashboardContentPanel.this.onEditBundleAppName(e);
+				ApplicationDashboardContentPanel.this.onEditBundleAppName(e);
 			}
 		};
 	}
 
-	protected NewBundleApplicationPanel newBundleApplicationPanel(Model<DashboardBean> model) {
+	protected NewBundleApplicationPanel newBundleApplicationPanel(Model<ApplicationDashboardBean> model) {
 		return new NewBundleApplicationPanel(model);
 	}
 
-	protected NewBundleNamePanel newBundleNamePanel(Model<DashboardBean> model) {
+	protected NewBundleNamePanel newBundleNamePanel(Model<ApplicationDashboardBean> model) {
 		return new NewBundleNamePanel(model) {
 
 			@Override
 			protected void onCreateNewLocale(ActionEvent e)
 			{
-				DashboardContentPanel.this.onCreateCustomLocale(e);
+				ApplicationDashboardContentPanel.this.onCreateCustomLocale(e);
 			}
 		};
 	}
 
-	protected NewCustomLocalePanel newCustomLocalePanel(Model<DashboardBean> model) {
+	protected NewCustomLocalePanel newCustomLocalePanel(Model<ApplicationDashboardBean> model) {
 		return new NewCustomLocalePanel(model);
 	}
 
-	protected NewResourceBundleEntryPanel newResourceBundleEntryPanel(Model<DashboardBean> model) {
+	protected NewResourceBundleEntryPanel newResourceBundleEntryPanel(Model<ApplicationDashboardBean> model) {
 		return new NewResourceBundleEntryPanel(model);
 	}
 
-	protected OverviewOfAllResourceBundlesPanel newOverviewOfAllResourceBundlesPanel(Model<DashboardBean> model) {
+	protected OverviewOfAllResourceBundlesPanel newOverviewOfAllResourceBundlesPanel(Model<ApplicationDashboardBean> model) {
 		return new OverviewOfAllResourceBundlesPanel(model) {
 			@Override
 			protected void onCreateBundle(ActionEvent e)
 			{
-				DashboardContentPanel.this.onCreateRb(e);
+				ApplicationDashboardContentPanel.this.onCreateRb(e);
 			}
 		};
 	}
 
-	protected OverviewResourceBundlePanel newOverviewResourceBundlePanel(Model<DashboardBean> model) {
+	protected OverviewResourceBundlePanel newOverviewResourceBundlePanel(Model<ApplicationDashboardBean> model) {
 		return new OverviewResourceBundlePanel(model);
 	}
 
@@ -164,22 +164,22 @@ public class DashboardContentPanel extends BasePanel<DashboardBean>
 
 	protected void onCreateCustomLocale(ActionEvent e)
 	{
-		cardLayout.show(this, DashboardView.CREATE_NEW_LOCALE.name());
+		cardLayout.show(this, ApplicationDashboardView.CREATE_NEW_LOCALE.name());
 	}
 
 	protected void onCreateRb(ActionEvent e)
 	{
-		cardLayout.show(this, DashboardView.CREATE_NEW_RB.name());
+		cardLayout.show(this, ApplicationDashboardView.CREATE_NEW_RB.name());
 	}
 
 	protected void onOverview(ActionEvent e)
 	{
-		cardLayout.show(this, DashboardView.OVERVIEW_OF_ALL_RB.name());
+		cardLayout.show(this, ApplicationDashboardView.OVERVIEW_OF_ALL_RB.name());
 	}
 
 	protected void onEditBundleAppName(ActionEvent e)
 	{
-		cardLayout.show(this, DashboardView.EDIT_RB_NAME.name());
+		cardLayout.show(this, ApplicationDashboardView.EDIT_RB_NAME.name());
 	}
 
 }

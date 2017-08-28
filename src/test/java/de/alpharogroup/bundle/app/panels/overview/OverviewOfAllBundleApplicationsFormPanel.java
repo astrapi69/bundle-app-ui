@@ -19,12 +19,12 @@ package de.alpharogroup.bundle.app.panels.overview;
  *
  * @author astrapi69
  */
-public class OverviewOfAllResourceBundlesFormPanel extends javax.swing.JPanel {
+public class OverviewOfAllBundleApplicationsFormPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form OverviewResourceBundlePanel
      */
-    public OverviewOfAllResourceBundlesFormPanel() {
+    public OverviewOfAllBundleApplicationsFormPanel() {
         initComponents();
     }
 
@@ -38,32 +38,32 @@ public class OverviewOfAllResourceBundlesFormPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         lblHeaderOverview = new javax.swing.JLabel();
-        lblBundleName = new javax.swing.JLabel();
-        srcBundles = new javax.swing.JScrollPane();
-        tblBundles = new javax.swing.JTable();
-        btnCreateBundle = new javax.swing.JButton();
+        lblBundleApp = new javax.swing.JLabel();
+        srcBundleApps = new javax.swing.JScrollPane();
+        tblBundleApps = new javax.swing.JTable();
+        btnCreateBundleApp = new javax.swing.JButton();
 
-        lblHeaderOverview.setText("Overview of all resource bundles");
+        lblHeaderOverview.setText("Overview of all bundle applications");
 
-        lblBundleName.setText("Bundle count");
+        lblBundleApp.setText("Bundle application count");
 
-        tblBundles.setModel(new javax.swing.table.DefaultTableModel(
+        tblBundleApps.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Base name", "Locale", "Action"
+                "Bundle application name", "Action"
             }
         ));
-        srcBundles.setViewportView(tblBundles);
+        srcBundleApps.setViewportView(tblBundleApps);
 
-        btnCreateBundle.setText("Create new resource bundle");
-        btnCreateBundle.addActionListener(new java.awt.event.ActionListener() {
+        btnCreateBundleApp.setText("Create new bundle application");
+        btnCreateBundleApp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCreateBundleActionPerformed(evt);
+                btnCreateBundleAppActionPerformed(evt);
             }
         });
 
@@ -77,10 +77,10 @@ public class OverviewOfAllResourceBundlesFormPanel extends javax.swing.JPanel {
                     .addComponent(lblHeaderOverview, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(lblBundleName, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblBundleApp, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnCreateBundle, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(srcBundles, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnCreateBundleApp, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(srcBundleApps, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -91,24 +91,24 @@ public class OverviewOfAllResourceBundlesFormPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblBundleName, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblBundleApp, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(srcBundles, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnCreateBundle))
+                        .addComponent(srcBundleApps, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCreateBundleApp))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCreateBundleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateBundleActionPerformed
+    private void btnCreateBundleAppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateBundleAppActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnCreateBundleActionPerformed
+    }//GEN-LAST:event_btnCreateBundleAppActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCreateBundle;
-    private javax.swing.JLabel lblBundleName;
+    private javax.swing.JButton btnCreateBundleApp;
+    private javax.swing.JLabel lblBundleApp;
     private javax.swing.JLabel lblHeaderOverview;
-    private javax.swing.JScrollPane srcBundles;
-    private javax.swing.JTable tblBundles;
+    private javax.swing.JScrollPane srcBundleApps;
+    private javax.swing.JTable tblBundleApps;
     // End of variables declaration//GEN-END:variables
 }

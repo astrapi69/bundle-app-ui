@@ -2,7 +2,7 @@ package de.alpharogroup.bundle.app.panels.overview;
 
 import java.awt.event.ActionEvent;
 
-import de.alpharogroup.bundle.app.panels.dashboard.DashboardBean;
+import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.collections.pairs.Triple;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
@@ -11,7 +11,7 @@ import de.alpharogroup.swing.table.model.TableColumnsModel;
 import de.alpharogroup.swing.table.model.triple.TripleStringTableModel;
 import de.alpharogroup.swing.x.GenericJXTable;
 
-public class OverviewOfAllResourceBundlesPanel  extends BasePanel<DashboardBean> {
+public class OverviewOfAllResourceBundlesPanel  extends BasePanel<ApplicationDashboardBean> {
 
     private javax.swing.JButton btnCreateBundle;
     private javax.swing.JLabel lblBundleName;
@@ -21,10 +21,10 @@ public class OverviewOfAllResourceBundlesPanel  extends BasePanel<DashboardBean>
 
 	public OverviewOfAllResourceBundlesPanel()
 	{
-		this(BaseModel.<DashboardBean>of(DashboardBean.builder().build()));
+		this(BaseModel.<ApplicationDashboardBean>of(ApplicationDashboardBean.builder().build()));
 	}
 
-	public OverviewOfAllResourceBundlesPanel(Model<DashboardBean> model)
+	public OverviewOfAllResourceBundlesPanel(Model<ApplicationDashboardBean> model)
 	{
 		super(model);
 	}
