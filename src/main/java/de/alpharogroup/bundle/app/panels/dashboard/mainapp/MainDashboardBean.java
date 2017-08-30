@@ -3,6 +3,7 @@ package de.alpharogroup.bundle.app.panels.dashboard.mainapp;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,5 +24,7 @@ public class MainDashboardBean
 {
 	@Builder.Default
 	private List<BundleApplications> bundleApplications = new ArrayList<>();
+
+	private ApplicationDashboardBean selectedBundleApplication;
 
 }

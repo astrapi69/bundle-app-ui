@@ -18,8 +18,6 @@ import lombok.ToString;
 @Builder(toBuilder = true)
 public class ApplicationDashboardBean
 {
-	/** The flag that signals if next is valid or not. */
-//	private boolean validNext;
 
 	private BundleApplications bundleApplication;
 

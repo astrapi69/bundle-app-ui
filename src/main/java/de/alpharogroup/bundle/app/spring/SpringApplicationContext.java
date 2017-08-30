@@ -78,7 +78,7 @@ public class SpringApplicationContext {
 
 		final Resource resource = ac.getResource("classpath:conf/log4j/log4jconfig.xml");
 
-		initDb(ac);
+		// initDb(ac);
 
 		try {
 			DOMConfigurator.configure(resource.getURL());
@@ -91,7 +91,7 @@ public class SpringApplicationContext {
 		applicationContext = ac;
 	}
 
-	private void initDb(final ApplicationContext ac)
+	protected void initDb(final ApplicationContext ac)
 	{
 		LanguagesService languagesService = (LanguagesService)ac.getBean("languagesService");
 		LanguageLocalesService languageLocalesService = (LanguageLocalesService)ac.getBean("languageLocalesService");
@@ -127,7 +127,5 @@ public class SpringApplicationContext {
 			baseBundleApplication = bundleApplicationsService.merge(baseBundleApplication);
 		}
 	}
-
-
 
 }

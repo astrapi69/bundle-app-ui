@@ -39,7 +39,7 @@ import org.jdesktop.swingx.JXFrame;
 import org.springframework.context.ApplicationContext;
 
 import de.alpharogroup.bundle.app.panels.dashboard.mainapp.MainDashboardBean;
-import de.alpharogroup.bundle.app.panels.overview.OverviewOfAllBundleApplicationsPanel;
+import de.alpharogroup.bundle.app.panels.dashboard.mainapp.MainDashboardPanel;
 import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
 import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
 import de.alpharogroup.lang.ClassExtensions;
@@ -136,12 +136,12 @@ public class MainFrame extends JXFrame
 
 		mainDashboardBean = MainDashboardBean.builder().bundleApplications(bundleApplicationsService.findAll()).build();
 
-		OverviewOfAllBundleApplicationsPanel overviewOfAllBundleApplicationsPanel = new OverviewOfAllBundleApplicationsPanel(BaseModel.<MainDashboardBean>of(mainDashboardBean));
+		MainDashboardPanel mainDashboardPanel = new MainDashboardPanel(BaseModel.<MainDashboardBean>of(mainDashboardBean));
 
-		final JInternalFrame internalFrame = JComponentFactory.newInternalFrame("Dashboard", true, true,
+		final JInternalFrame internalFrame = JComponentFactory.newInternalFrame("Main dashboard", true, true,
 			true, true);
 
-		JInternalFrameExtensions.addComponentToFrame(internalFrame, overviewOfAllBundleApplicationsPanel);
+		JInternalFrameExtensions.addComponentToFrame(internalFrame, mainDashboardPanel);
 		JInternalFrameExtensions.addJInternalFrame(desktopPane, internalFrame);
 		setCurrentVisibleInternalFrame(internalFrame);
 

@@ -1,6 +1,5 @@
 package de.alpharogroup.bundle.app.panels.start;
 
-import java.awt.CardLayout;
 import java.awt.Color;
 
 import javax.swing.border.LineBorder;
@@ -10,21 +9,16 @@ import org.jdesktop.swingx.JXPanel;
 import de.alpharogroup.design.pattern.state.wizard.model.WizardModelStateMachine;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
-import de.alpharogroup.swing.base.BasePanel;
-import lombok.Getter;
+import de.alpharogroup.swing.base.BaseCardLayoutPanel;
 
 /**
  * The class {@link WizardContentPanel}.
  */
-public class WizardContentPanel extends BasePanel<WizardModelStateMachine<WizardModel>>
+public class WizardContentPanel extends BaseCardLayoutPanel<WizardModelStateMachine<WizardModel>>
 {
-
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
-
-	@Getter
-	private CardLayout cardLayout;
 
 	/**
 	 * Instantiates a new {@link WizardContentPanel}.
@@ -84,28 +78,6 @@ public class WizardContentPanel extends BasePanel<WizardModelStateMachine<Wizard
 	{
 		super.onInitializeLayout();
 		setBorder(new LineBorder(Color.BLACK));
-	}
-
-	/**
-	 * The layout have to initialize before the components! {@inheritDoc}
-	 */
-	@Override
-	protected void onBeforeInitializeComponents()
-	{
-		super.onBeforeInitializeComponents();
-		cardLayout = newCardLayout();
-		setLayout(cardLayout);
-	}
-
-	/**
-	 * Factory method for create a new {@link CardLayout}.
-	 *
-	 * @return the new {@link CardLayout}.
-	 */
-	protected CardLayout newCardLayout()
-	{
-		final CardLayout cardLayout = new CardLayout();
-		return cardLayout;
 	}
 
 }

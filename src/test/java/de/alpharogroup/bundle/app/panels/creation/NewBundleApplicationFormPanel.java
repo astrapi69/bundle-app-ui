@@ -38,15 +38,15 @@ public class NewBundleApplicationFormPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         lblHeaderNewBundleApp = new javax.swing.JLabel();
-        lblHeaderSignin = new javax.swing.JLabel();
-        txtHeaderSignin = new javax.swing.JTextField();
+        lblBundleName = new javax.swing.JLabel();
+        txtBundleName = new javax.swing.JTextField();
         btnSave = new javax.swing.JButton();
 
         lblHeaderNewBundleApp.setText("Create new bundle application");
 
-        lblHeaderSignin.setText("Application name");
+        lblBundleName.setText("Application name");
 
-        btnSave.setText("Save bundle application");
+        btnSave.setText("Create bundle application");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSaveActionPerformed(evt);
@@ -63,9 +63,9 @@ public class NewBundleApplicationFormPanel extends javax.swing.JPanel {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(lblHeaderNewBundleApp, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(lblHeaderSignin, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblBundleName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtHeaderSignin, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtBundleName, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(54, Short.MAX_VALUE))
         );
@@ -76,8 +76,8 @@ public class NewBundleApplicationFormPanel extends javax.swing.JPanel {
                 .addComponent(lblHeaderNewBundleApp, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblHeaderSignin)
-                    .addComponent(txtHeaderSignin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblBundleName)
+                    .addComponent(txtBundleName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnSave)
                 .addContainerGap(26, Short.MAX_VALUE))
@@ -91,8 +91,8 @@ public class NewBundleApplicationFormPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSave;
+    private javax.swing.JLabel lblBundleName;
     private javax.swing.JLabel lblHeaderNewBundleApp;
-    private javax.swing.JLabel lblHeaderSignin;
-    private javax.swing.JTextField txtHeaderSignin;
+    private javax.swing.JTextField txtBundleName;
     // End of variables declaration//GEN-END:variables
 }

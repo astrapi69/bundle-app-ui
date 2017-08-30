@@ -6,7 +6,7 @@ import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BasePanel;
 
-public class DashboardPanel extends BasePanel<ApplicationDashboardBean>
+public class ApplicationDashboardPanel extends BasePanel<ApplicationDashboardBean>
 {
 
     private static final long serialVersionUID = 1L;
@@ -15,12 +15,12 @@ public class DashboardPanel extends BasePanel<ApplicationDashboardBean>
 	private javax.swing.JButton btnEditBundleAppName;
 	private javax.swing.JButton btnOverview;
 
-	public DashboardPanel()
+	public ApplicationDashboardPanel()
 	{
 		this(BaseModel.<ApplicationDashboardBean>of(ApplicationDashboardBean.builder().build()));
 	}
 
-	public DashboardPanel(Model<ApplicationDashboardBean> model)
+	public ApplicationDashboardPanel(Model<ApplicationDashboardBean> model)
 	{
 		super(model);
 	}

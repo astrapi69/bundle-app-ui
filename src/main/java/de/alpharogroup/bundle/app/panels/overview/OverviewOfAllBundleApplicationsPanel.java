@@ -1,29 +1,37 @@
 package de.alpharogroup.bundle.app.panels.overview;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JCheckBox;
-import javax.swing.JOptionPane;
+import javax.swing.JInternalFrame;
+import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 
+import de.alpharogroup.bundle.app.MainFrame;
+import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
+import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardContentPanel;
 import de.alpharogroup.bundle.app.panels.dashboard.mainapp.MainDashboardBean;
+import de.alpharogroup.bundle.app.table.models.StringBundleApplicationsTableModel;
 import de.alpharogroup.collections.pairs.KeyValuePair;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BasePanel;
+import de.alpharogroup.swing.components.factories.JComponentFactory;
 import de.alpharogroup.swing.renderer.TableCellButtonRenderer;
 import de.alpharogroup.swing.table.editor.TableCellButtonEditor;
 import de.alpharogroup.swing.table.model.TableColumnsModel;
-import de.alpharogroup.swing.table.model.properties.StringTableModel;
+import de.alpharogroup.swing.utils.JInternalFrameExtensions;
 import de.alpharogroup.swing.x.GenericJXTable;
 import lombok.Getter;
 
 /**
  * The class {@link OverviewOfAllBundleApplicationsPanel}.
  */
+@Getter
 public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboardBean>
 {
 
@@ -32,9 +40,11 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 	private javax.swing.JLabel lblHeaderOverview;
 	private javax.swing.JScrollPane srcBundleApps;
 
-	private GenericJXTable<KeyValuePair<String, String>> tblBundleApps;
+	private StringBundleApplicationsTableModel tableModel;
 
-	private List<KeyValuePair<String, String>> tableModelList;
+	private GenericJXTable<KeyValuePair<String, BundleApplications>> tblBundleApps;
+
+	private List<KeyValuePair<String, BundleApplications>> tableModelList;
 
 	private BundleApplications selectedBundleApplication;
 
@@ -57,29 +67,79 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 		lblBundleApp = new javax.swing.JLabel();
 		srcBundleApps = new javax.swing.JScrollPane();
 
-		StringTableModel tableModel = new StringTableModel(TableColumnsModel.builder()
-			.columnNames(new String[] { "Name", "Action" }).canEdit(new boolean[] { false, true })
-			.columnClasses(new Class<?>[] { String.class, String.class }).build());
+		tableModel = new StringBundleApplicationsTableModel(
+			TableColumnsModel.builder().columnNames(new String[] { "Name", "Action" })
+				.canEdit(new boolean[] { false, true })
+				.columnClasses(new Class<?>[] { String.class, BundleApplications.class }).build());
 		tableModel.addList(getTableModelList());
 		tblBundleApps = new GenericJXTable<>(tableModel);
 		final TableColumn valueColumn = tblBundleApps.getColumn("Action");
-		valueColumn.setCellRenderer(new TableCellButtonRenderer(null, null));
+		valueColumn.setCellRenderer(new TableCellButtonRenderer(null, null)
+		{
+			@Override
+			public Component getTableCellRendererComponent(JTable table, Object value,
+				boolean isSelected, boolean hasFocus, int row, int column)
+			{
+				if (isSelected)
+				{
+					setForeground(newSelectionForeground(table));
+					setBackground(newSelectionBackround(table));
+				}
+				else
+				{
+					setForeground(newForeground(table));
+					setBackground(newBackround(table));
+				}
+				String text = "Choose";
+				setText(text);
+				return this;
+			}
+		});
 		valueColumn.setCellEditor(new TableCellButtonEditor(new JCheckBox())
 		{
+
+			@Override
+			public Component getTableCellEditorComponent(JTable table, Object value,
+				boolean isSelected, int row, int column)
+			{
+				setRow(row);
+				setColumn(column);
+				setValue(value);
+				if (isSelected)
+				{
+					getButton().setForeground(table.getSelectionForeground());
+					getButton().setBackground(table.getSelectionBackground());
+				}
+				else
+				{
+					getButton().setForeground(table.getForeground());
+					getButton().setBackground(table.getBackground());
+				}
+				String text = "Choose";
+				getButton().setText(text);
+				setClicked(true);
+				return getButton();
+			}
+
 			@Override
 			public Object getCellEditorValue()
 			{
-				Object editorValue = this.getValue();
-				int rowIndex = this.getRow();
-				KeyValuePair<String, String> selectedKeyValuePair = OverviewOfAllBundleApplicationsPanel.this.tableModelList
-					.get(rowIndex);
-				selectedBundleApplication = OverviewOfAllBundleApplicationsPanel.this
-					.getModelObject().getBundleApplications().get(rowIndex);
-				String text = "";
-				if (editorValue != null)
-				{
-					text = editorValue.toString();
-				}
+				selectedBundleApplication = (BundleApplications)this.getValue();
+
+				// from here application specific behavior...
+				MainFrame.getInstance().getCurrentVisibleInternalFrame().dispose();
+
+				// create internal frame
+				final JInternalFrame internalFrame = JComponentFactory
+					.newInternalFrame("Dashboard bundle app", true, true, true, true);
+				ApplicationDashboardContentPanel component = new ApplicationDashboardContentPanel(
+					BaseModel.<ApplicationDashboardBean> of(ApplicationDashboardBean.builder()
+						.bundleApplication(selectedBundleApplication).build()));
+				JInternalFrameExtensions.addComponentToFrame(internalFrame, component);
+				JInternalFrameExtensions.addJInternalFrame(MainFrame.getInstance().getDesktopPane(),
+					internalFrame);
+				MainFrame.getInstance().setCurrentVisibleInternalFrame(internalFrame);
+				String text = "Select";
 				return text;
 
 			}
@@ -98,15 +158,15 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 
 	}
 
-	private List<KeyValuePair<String, String>> getTableModelList()
+	private List<KeyValuePair<String, BundleApplications>> getTableModelList()
 	{
 		if (tableModelList == null)
 		{
 			tableModelList = new ArrayList<>();
 			for (BundleApplications bundleApplication : getModelObject().getBundleApplications())
 			{
-				tableModelList.add(KeyValuePair.<String, String> builder()
-					.key(bundleApplication.getName()).value("Select").build());
+				tableModelList.add(KeyValuePair.<String, BundleApplications> builder()
+					.key(bundleApplication.getName()).value(bundleApplication).build());
 			}
 		}
 		return tableModelList;

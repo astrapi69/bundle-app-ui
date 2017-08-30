@@ -22,9 +22,9 @@
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="lblHeaderNewBundleApp" alignment="0" min="-2" pref="700" max="-2" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="lblHeaderSignin" min="-2" pref="200" max="-2" attributes="0"/>
+                          <Component id="lblBundleName" min="-2" pref="200" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="txtHeaderSignin" min="-2" pref="460" max="-2" attributes="0"/>
+                          <Component id="txtBundleName" min="-2" pref="460" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Component id="btnSave" min="-2" pref="222" max="-2" attributes="0"/>
@@ -40,8 +40,8 @@
               <Component id="lblHeaderNewBundleApp" min="-2" pref="30" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblHeaderSignin" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtHeaderSignin" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblBundleName" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtBundleName" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnSave" min="-2" max="-2" attributes="0"/>
@@ -56,16 +56,16 @@
         <Property name="text" type="java.lang.String" value="Create new bundle application"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblHeaderSignin">
+    <Component class="javax.swing.JLabel" name="lblBundleName">
       <Properties>
         <Property name="text" type="java.lang.String" value="Application name"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtHeaderSignin">
+    <Component class="javax.swing.JTextField" name="txtBundleName">
     </Component>
     <Component class="javax.swing.JButton" name="btnSave">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Save bundle application"/>
+        <Property name="text" type="java.lang.String" value="Create bundle application"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSaveActionPerformed"/>
