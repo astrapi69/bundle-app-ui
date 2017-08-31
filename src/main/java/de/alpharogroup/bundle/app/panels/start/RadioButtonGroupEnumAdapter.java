@@ -29,20 +29,6 @@ public class RadioButtonGroupEnumAdapter<E extends Enum<E>>
 	}
 
 	/**
-	 * Import map.
-	 *
-	 * @param map
-	 *            the map
-	 */
-	public void importMap(Map<E, JRadioButton> map)
-	{
-		for (E e : map.keySet())
-		{
-			this.buttonMap.put(e, map.get(e));
-		}
-	}
-
-	/**
 	 * Associate the given enum value with the given {@link JRadioButton}.
 	 *
 	 * @param enumValue
@@ -71,6 +57,20 @@ public class RadioButtonGroupEnumAdapter<E extends Enum<E>>
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * Import map.
+	 *
+	 * @param map
+	 *            the map
+	 */
+	public void importMap(Map<E, JRadioButton> map)
+	{
+		for (E e : map.keySet())
+		{
+			this.buttonMap.put(e, map.get(e));
+		}
 	}
 
 	/**

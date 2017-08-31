@@ -1,4 +1,5 @@
 package de.alpharogroup.bundle.app.panels.start;
+
 import de.alpharogroup.swing.panels.login.pw.ChangePasswordModelBean;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -46,12 +47,14 @@ public class WizardModel
 	private String bundleAppName;
 
 	@Builder.Default
-	private RadioButtonGroupEnumAdapter<BundleStart> bundleAppInitialization = new RadioButtonGroupEnumAdapter(BundleStart.class);
+	private RadioButtonGroupEnumAdapter<BundleStart> bundleAppInitialization = new RadioButtonGroupEnumAdapter(
+		BundleStart.class);
 
 	/**
 	 * Reset all flags to false.
 	 */
-	public void reset() {
+	public void reset()
+	{
 		validNext = false;
 		validPrevious = false;
 		validCancel = false;
@@ -61,7 +64,8 @@ public class WizardModel
 	/**
 	 * Sets all valid states to true.
 	 */
-	public void setAllValid() {
+	public void setAllValid()
+	{
 		validNext = true;
 		validPrevious = true;
 		validCancel = true;

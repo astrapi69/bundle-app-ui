@@ -27,8 +27,6 @@ package de.alpharogroup.bundle.app;
 import java.awt.Component;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.JDesktopPane;
@@ -36,15 +34,19 @@ import javax.swing.JInternalFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JToolBar;
 
-import org.jdesktop.swingx.JXFrame;
 import org.springframework.context.ApplicationContext;
 
+import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.bundle.app.panels.dashboard.mainapp.MainDashboardBean;
 import de.alpharogroup.bundle.app.panels.dashboard.mainapp.MainDashboardPanel;
 import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
+import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
 import de.alpharogroup.lang.ClassExtensions;
 import de.alpharogroup.model.BaseModel;
+import de.alpharogroup.model.PropertyModel;
+import de.alpharogroup.model.api.Model;
+import de.alpharogroup.swing.base.BaseFrame;
 import de.alpharogroup.swing.components.factories.JComponentFactory;
 import de.alpharogroup.swing.desktoppane.SingletonDesktopPane;
 import de.alpharogroup.swing.laf.LookAndFeels;
@@ -56,40 +58,14 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * The Class MainFrame.
  */
-@Getter
-@SuppressWarnings("serial")
 @Slf4j
-public class MainFrame extends JXFrame
+public class MainFrame extends BaseFrame<MainDashboardBean>
 {
 
 	public static final String KEY_DB_APPLICATION_CONTEXT = "db-application-context";
 
 	/** The instance. */
 	private static MainFrame instance = new MainFrame();
-
-	/** The desktop pane. */
-	private final JDesktopPane desktopPane = SingletonDesktopPane.getInstance();
-
-	/** The menubar. */
-	private JMenuBar menubar;
-
-	/** The toolbar. */
-	private JToolBar toolbar;
-
-	/** The internal frame. */
-	private JInternalFrame internalFrame;
-
-	/** The current visible internal frame. */
-	@Setter
-	private JInternalFrame currentVisibleInternalFrame;
-
-	/** The current look and feels. */
-	@Setter
-	private LookAndFeels currentLookAndFeels = LookAndFeels.SYSTEM;
-
-	private Map<String, ApplicationContext> bundleAppDbAppContext = new HashMap<>();
-
-	private MainDashboardBean mainDashboardBean;
 
 	/**
 	 * Gets the single instance of MainFrame.
@@ -101,6 +77,30 @@ public class MainFrame extends JXFrame
 		return instance;
 	}
 
+	/** The desktop pane. */
+	private final JDesktopPane desktopPane = SingletonDesktopPane.getInstance();
+
+	/** The menubar. */
+	private JMenuBar menubar;
+
+	/** The toolbar. */
+	private JToolBar toolbar;
+
+	/** The current visible internal frame. */
+	@Getter
+	@Setter
+	private JInternalFrame currentVisibleInternalFrame;
+
+	/** The current look and feels. */
+	@Getter
+	@Setter
+	private LookAndFeels currentLookAndFeels = LookAndFeels.SYSTEM;
+
+	@Getter
+	private MainDashboardBean mainDashboardBean;
+
+	private Model<ApplicationDashboardBean> selectedBundleApplicationPropertyModel;
+
 	/**
 	 * Instantiates a new main frame.
 	 */
@@ -108,6 +108,26 @@ public class MainFrame extends JXFrame
 	{
 		super(Messages.getString("mainframe.title"));
 		initializeComponents();
+	}
+
+	public Model<ApplicationDashboardBean> getSelectedBundleApplicationPropertyModel()
+	{
+		if (this.selectedBundleApplicationPropertyModel == null)
+		{
+			initApllicationDashboardBean();
+			this.selectedBundleApplicationPropertyModel = PropertyModel
+				.<ApplicationDashboardBean> of(mainDashboardBean, "selectedBundleApplication");
+		}
+		return this.selectedBundleApplicationPropertyModel;
+	}
+
+	private void initApllicationDashboardBean()
+	{
+		if (mainDashboardBean.getSelectedBundleApplication() == null)
+		{
+			mainDashboardBean
+				.setSelectedBundleApplication(ApplicationDashboardBean.builder().build());
+		}
 	}
 
 	/**
@@ -146,6 +166,14 @@ public class MainFrame extends JXFrame
 		MainDashboardPanel mainDashboardPanel = new MainDashboardPanel(
 			BaseModel.<MainDashboardBean> of(mainDashboardBean));
 		replaceInternalFrame("Main dashboard", mainDashboardPanel);
+
+
+	}
+
+	@Override
+	protected void onAfterInitialize()
+	{
+		super.onAfterInitialize();
 	}
 
 	/**
@@ -169,6 +197,12 @@ public class MainFrame extends JXFrame
 		JInternalFrameExtensions.addComponentToFrame(internalFrame, component);
 		JInternalFrameExtensions.addJInternalFrame(desktopPane, internalFrame);
 		setCurrentVisibleInternalFrame(internalFrame);
+	}
+
+	public void setSelectedBundleApplication(BundleApplications bundleApplication)
+	{
+		initApllicationDashboardBean();
+		mainDashboardBean.getSelectedBundleApplication().setBundleApplication(bundleApplication);
 	}
 
 }

@@ -30,25 +30,29 @@ import java.util.List;
 import javax.xml.parsers.FactoryConfigurationError;
 
 import org.apache.log4j.xml.DOMConfigurator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.Resource;
 
+import de.alpharogroup.bundle.management.service.locator.ServiceLocator;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.resource.bundles.entities.Languages;
 import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
+import de.alpharogroup.db.resource.bundles.service.api.BundleNamesService;
 import de.alpharogroup.db.resource.bundles.service.api.LanguageLocalesService;
 import de.alpharogroup.db.resource.bundles.service.api.LanguagesService;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * The Class SpringApplicationContext.
  */
-@Getter
 @Slf4j
-public class SpringApplicationContext {
+public class SpringApplicationContext
+{
 
 	/** The instance. */
 	private static SpringApplicationContext instance = new SpringApplicationContext();
@@ -58,21 +62,34 @@ public class SpringApplicationContext {
 	 *
 	 * @return single instance of SpringApplicationContext
 	 */
-	public static SpringApplicationContext getInstance() {
+	public static SpringApplicationContext getInstance()
+	{
 		return instance;
 	}
 
+	@Getter
+	@Setter
+	@Autowired
+	private ServiceLocator serviceLocator;
+
+	private BundleNamesService bundleNamesService;
+
+	private BundleApplicationsService bundleApplicationsService;
+
 	/** The application context. */
+	@Getter
 	private final ApplicationContext applicationContext;
 
 	/**
 	 * Instantiates a new spring application context.
 	 */
-	private SpringApplicationContext() {
+	private SpringApplicationContext()
+	{
 
 		final String rootContextDirectoryClassPath = "/ctx";
 
-		final String applicationContextPath = rootContextDirectoryClassPath + "/application-context.xml";
+		final String applicationContextPath = rootContextDirectoryClassPath
+			+ "/application-context.xml";
 
 		final ApplicationContext ac = new ClassPathXmlApplicationContext(applicationContextPath);
 
@@ -80,22 +97,48 @@ public class SpringApplicationContext {
 
 		// initDb(ac);
 
-		try {
+		try
+		{
 			DOMConfigurator.configure(resource.getURL());
-		} catch (final FactoryConfigurationError e) {
+		}
+		catch (final FactoryConfigurationError e)
+		{
 			log.error("FactoryConfigurationError:", e);
-		} catch (final IOException e) {
+		}
+		catch (final IOException e)
+		{
 			log.error("IOException:", e);
 		}
 
 		applicationContext = ac;
 	}
 
+	public BundleApplicationsService getBundleApplicationsService()
+	{
+		if (bundleApplicationsService == null)
+		{
+			bundleApplicationsService = (BundleApplicationsService)applicationContext
+				.getBean("bundleApplicationsService");
+		}
+		return bundleApplicationsService;
+	}
+
+	public BundleNamesService getBundleNamesService()
+	{
+		if (bundleNamesService == null)
+		{
+			bundleNamesService = (BundleNamesService)applicationContext
+				.getBean("bundleNamesService");
+		}
+		return bundleNamesService;
+	}
+
 	protected void initDb(final ApplicationContext ac)
 	{
 		LanguagesService languagesService = (LanguagesService)ac.getBean("languagesService");
-		LanguageLocalesService languageLocalesService = (LanguageLocalesService)ac.getBean("languageLocalesService");
-		BundleApplicationsService bundleApplicationsService = (BundleApplicationsService)ac.getBean("bundleApplicationsService");
+		LanguageLocalesService languageLocalesService = (LanguageLocalesService)ac
+			.getBean("languageLocalesService");
+		BundleApplicationsService bundleApplicationsService = getBundleApplicationsService();
 
 		final List<Languages> languages = DataObjectFactory.newLanguageList();
 		for (final Languages language : languages)

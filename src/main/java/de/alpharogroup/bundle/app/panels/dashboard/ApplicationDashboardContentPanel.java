@@ -26,13 +26,14 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 	 */
 	public ApplicationDashboardContentPanel()
 	{
-		this(BaseModel.<ApplicationDashboardBean>of(ApplicationDashboardBean.builder().build()));
+		this(BaseModel.<ApplicationDashboardBean> of(ApplicationDashboardBean.builder().build()));
 	}
 
 	/**
 	 * Instantiates a new {@link ApplicationDashboardContentPanel}.
 	 *
-	 * @param model the model
+	 * @param model
+	 *            the model
 	 */
 	public ApplicationDashboardContentPanel(Model<ApplicationDashboardBean> model)
 	{
@@ -40,23 +41,50 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 		getCardLayout().show(this, ApplicationDashboardView.DASHBOARD.name());
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	protected void onInitializeComponents()
+	protected NewBundleApplicationPanel newBundleApplicationPanel(
+		Model<ApplicationDashboardBean> model)
 	{
-		super.onInitializeComponents();
-		add(newDashboardPanel(getModel()), ApplicationDashboardView.DASHBOARD.name());
-		add(newBundleApplicationPanel(getModel()), ApplicationDashboardView.EDIT_RB_NAME.name());
-		add(newBundleNamePanel(getModel()), ApplicationDashboardView.CREATE_NEW_RB.name());
-		add(newCustomLocalePanel(getModel()), ApplicationDashboardView.CREATE_NEW_LOCALE.name());
-		add(newResourceBundleEntryPanel(getModel()), ApplicationDashboardView.CREATE_NEW_RB_ENTRY.name());
-		add(newOverviewOfAllResourceBundlesPanel(getModel()), ApplicationDashboardView.OVERVIEW_OF_ALL_RB.name());
+		return new NewBundleApplicationPanel(model)
+		{
+			@Override
+			protected void onSave(ActionEvent e)
+			{
+				super.onSave(e);
+				onSaveBundleApplication(e);
+			}
+		};
 	}
 
-	protected ApplicationDashboardPanel newDashboardPanel(Model<ApplicationDashboardBean> model) {
-		return new ApplicationDashboardPanel(model){
+	protected NewBundleNamePanel newBundleNamePanel(Model<ApplicationDashboardBean> model)
+	{
+		return new NewBundleNamePanel(model)
+		{
+
+			@Override
+			protected void onCreateNewLocale(ActionEvent e)
+			{
+				ApplicationDashboardContentPanel.this.onCreateCustomLocale(e);
+			}
+
+			@Override
+			protected void onSave(ActionEvent e)
+			{
+				super.onSave(e);
+				ApplicationDashboardContentPanel.this.onSaveBundleName(e);
+			}
+		};
+	}
+
+	protected NewCustomLocalePanel newCustomLocalePanel(Model<ApplicationDashboardBean> model)
+	{
+		return new NewCustomLocalePanel(model);
+	}
+
+
+	protected ApplicationDashboardPanel newDashboardPanel(Model<ApplicationDashboardBean> model)
+	{
+		return new ApplicationDashboardPanel(model)
+		{
 
 			@Override
 			protected void onCreateCustomLocale(ActionEvent e)
@@ -71,44 +99,24 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 			}
 
 			@Override
-			protected void onOverview(ActionEvent e)
-			{
-				ApplicationDashboardContentPanel.this.onOverview(e);
-			}
-
-			@Override
 			protected void onEditBundleAppName(ActionEvent e)
 			{
 				ApplicationDashboardContentPanel.this.onEditBundleAppName(e);
 			}
-		};
-	}
-
-	protected NewBundleApplicationPanel newBundleApplicationPanel(Model<ApplicationDashboardBean> model) {
-		return new NewBundleApplicationPanel(model);
-	}
-
-	protected NewBundleNamePanel newBundleNamePanel(Model<ApplicationDashboardBean> model) {
-		return new NewBundleNamePanel(model) {
 
 			@Override
-			protected void onCreateNewLocale(ActionEvent e)
+			protected void onOverview(ActionEvent e)
 			{
-				ApplicationDashboardContentPanel.this.onCreateCustomLocale(e);
+				ApplicationDashboardContentPanel.this.onOverview(e);
 			}
 		};
 	}
 
-	protected NewCustomLocalePanel newCustomLocalePanel(Model<ApplicationDashboardBean> model) {
-		return new NewCustomLocalePanel(model);
-	}
-
-	protected NewResourceBundleEntryPanel newResourceBundleEntryPanel(Model<ApplicationDashboardBean> model) {
-		return new NewResourceBundleEntryPanel(model);
-	}
-
-	protected OverviewOfAllResourceBundlesPanel newOverviewOfAllResourceBundlesPanel(Model<ApplicationDashboardBean> model) {
-		return new OverviewOfAllResourceBundlesPanel(model) {
+	protected OverviewOfAllResourceBundlesPanel newOverviewOfAllResourceBundlesPanel(
+		Model<ApplicationDashboardBean> model)
+	{
+		return new OverviewOfAllResourceBundlesPanel(model)
+		{
 			@Override
 			protected void onCreateBundle(ActionEvent e)
 			{
@@ -117,8 +125,16 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 		};
 	}
 
-	protected OverviewResourceBundlePanel newOverviewResourceBundlePanel(Model<ApplicationDashboardBean> model) {
+	protected OverviewResourceBundlePanel newOverviewResourceBundlePanel(
+		Model<ApplicationDashboardBean> model)
+	{
 		return new OverviewResourceBundlePanel(model);
+	}
+
+	protected NewResourceBundleEntryPanel newResourceBundleEntryPanel(
+		Model<ApplicationDashboardBean> model)
+	{
+		return new NewResourceBundleEntryPanel(model);
 	}
 
 	protected void onCreateCustomLocale(ActionEvent e)
@@ -131,14 +147,44 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 		getCardLayout().show(this, ApplicationDashboardView.CREATE_NEW_RB.name());
 	}
 
+	protected void onEditBundleAppName(ActionEvent e)
+	{
+		getCardLayout().show(this, ApplicationDashboardView.EDIT_RB_NAME.name());
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected void onInitializeComponents()
+	{
+		super.onInitializeComponents();
+		add(newDashboardPanel(getModel()), ApplicationDashboardView.DASHBOARD.name());
+		add(newBundleApplicationPanel(getModel()), ApplicationDashboardView.EDIT_RB_NAME.name());
+		add(newBundleNamePanel(getModel()), ApplicationDashboardView.CREATE_NEW_RB.name());
+		add(newCustomLocalePanel(getModel()), ApplicationDashboardView.CREATE_NEW_LOCALE.name());
+		add(newResourceBundleEntryPanel(getModel()),
+			ApplicationDashboardView.CREATE_NEW_RB_ENTRY.name());
+		add(newOverviewOfAllResourceBundlesPanel(getModel()),
+			ApplicationDashboardView.OVERVIEW_OF_ALL_RB.name());
+	}
+
 	protected void onOverview(ActionEvent e)
 	{
 		getCardLayout().show(this, ApplicationDashboardView.OVERVIEW_OF_ALL_RB.name());
 	}
 
-	protected void onEditBundleAppName(ActionEvent e)
+	protected void onSaveBundleApplication(ActionEvent e)
 	{
-		getCardLayout().show(this, ApplicationDashboardView.EDIT_RB_NAME.name());
+		getCardLayout().show(this, ApplicationDashboardView.DASHBOARD.name());
+	}
+
+	protected void onSaveBundleName(ActionEvent e)
+	{
+		add(newOverviewOfAllResourceBundlesPanel(getModel()),
+			ApplicationDashboardView.OVERVIEW_OF_ALL_RB.name());
+		revalidate();
+		getCardLayout().show(this, ApplicationDashboardView.OVERVIEW_OF_ALL_RB.name());
 	}
 
 }

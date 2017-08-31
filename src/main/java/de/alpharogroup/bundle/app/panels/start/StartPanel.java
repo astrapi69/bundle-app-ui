@@ -41,6 +41,22 @@ public class StartPanel extends BasePanel<WizardStateMachine>
 		super(model);
 	}
 
+	private void onCreate()
+	{
+		if (btnCreate.isSelected())
+		{
+			btnImport.setSelected(false);
+		}
+	}
+
+	private void onImport()
+	{
+		if (btnImport.isSelected())
+		{
+			btnCreate.setSelected(false);
+		}
+	}
+
 	@Override
 	protected void onInitializeComponents()
 	{
@@ -73,20 +89,6 @@ public class StartPanel extends BasePanel<WizardStateMachine>
 		lblWelcomeIntro.setText(
 			"<html>To get started with the bundle-manager Application can choose the following opportunities:");
 
-	}
-
-	private void onCreate()
-	{
-		if(btnCreate.isSelected()) {
-			btnImport.setSelected(false);
-		}
-	}
-
-	private void onImport()
-	{
-		if(btnImport.isSelected()) {
-			btnCreate.setSelected(false);
-		}
 	}
 
 	@Override

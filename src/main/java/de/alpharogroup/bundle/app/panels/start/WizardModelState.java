@@ -14,28 +14,6 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 	FIRST {
 
 		@Override
-		public void goNext(final WizardModelStateMachine<WizardModel> stateMachine)
-		{
-			if (stateMachine.getModelObject().isValidNext())
-			{
-				BundleStart initState = stateMachine.getModelObject().getBundleAppInitialization().getValue();
-				if(initState.equals(BundleStart.CONNECT))
-				{
-					stateMachine.setCurrentState(WizardModelState.CONNECT_TO_EXISTING_BUNDLE_APP);
-				} else
-				{
-					stateMachine.setCurrentState(WizardModelState.NEW_BUNDLE_APP);
-				}
-				stateMachine.getModelObject().setValidNext(true);
-			}
-		}
-
-		@Override
-		public void goPrevious(final WizardModelStateMachine<WizardModel> input)
-		{
-		}
-
-		@Override
 		public void cancel(final WizardModelStateMachine<WizardModel> stateMachine)
 		{
 			if (stateMachine.getModelObject().isValidCancel())
@@ -57,6 +35,30 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 		public String getName()
 		{
 			return name();
+		}
+
+		@Override
+		public void goNext(final WizardModelStateMachine<WizardModel> stateMachine)
+		{
+			if (stateMachine.getModelObject().isValidNext())
+			{
+				BundleStart initState = stateMachine.getModelObject().getBundleAppInitialization()
+					.getValue();
+				if (initState.equals(BundleStart.CONNECT))
+				{
+					stateMachine.setCurrentState(WizardModelState.CONNECT_TO_EXISTING_BUNDLE_APP);
+				}
+				else
+				{
+					stateMachine.setCurrentState(WizardModelState.NEW_BUNDLE_APP);
+				}
+				stateMachine.getModelObject().setValidNext(true);
+			}
+		}
+
+		@Override
+		public void goPrevious(final WizardModelStateMachine<WizardModel> input)
+		{
 		}
 
 		@Override
@@ -77,13 +79,39 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 	NEW_BUNDLE_APP {
 
 		@Override
+		public void cancel(final WizardModelStateMachine<WizardModel> stateMachine)
+		{
+			if (stateMachine.getModelObject().isValidCancel())
+			{
+				stateMachine.setCurrentState(WizardModelState.CANCELED);
+			}
+		}
+
+		@Override
+		public void finish(final WizardModelStateMachine<WizardModel> stateMachine)
+		{
+			if (stateMachine.getModelObject().isValidFinish())
+			{
+				stateMachine.setCurrentState(WizardModelState.FINISHED);
+			}
+		}
+
+		@Override
+		public String getName()
+		{
+			return name();
+		}
+
+		@Override
 		public void goNext(final WizardModelStateMachine<WizardModel> stateMachine)
 		{
 			if (stateMachine.getModelObject().isValidNext())
 			{
 				String pw = stateMachine.getModelObject().getChangePassword().getNewPassword();
-				String rpw = stateMachine.getModelObject().getChangePassword().getRepeatNewPassword();
-				if(pw.equals(rpw)) {
+				String rpw = stateMachine.getModelObject().getChangePassword()
+					.getRepeatNewPassword();
+				if (pw.equals(rpw))
+				{
 					stateMachine.setCurrentState(WizardModelState.SUCCESSFUL_CONNECT_TO_BUNDLE_APP);
 					stateMachine.getModelObject().setAllValid();
 					stateMachine.getModelObject().setValidFinish(true);
@@ -99,6 +127,10 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 				stateMachine.setCurrentState(WizardModelState.FIRST);
 			}
 		}
+
+	},
+
+	CONNECT_TO_EXISTING_BUNDLE_APP {
 
 		@Override
 		public void cancel(final WizardModelStateMachine<WizardModel> stateMachine)
@@ -123,10 +155,6 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 		{
 			return name();
 		}
-
-	},
-
-	CONNECT_TO_EXISTING_BUNDLE_APP {
 
 		@Override
 		public void goNext(final WizardModelStateMachine<WizardModel> stateMachine)
@@ -148,6 +176,10 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 			}
 		}
 
+	},
+
+	SUCCESSFUL_CONNECT_TO_BUNDLE_APP {
+
 		@Override
 		public void cancel(final WizardModelStateMachine<WizardModel> stateMachine)
 		{
@@ -172,18 +204,16 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 			return name();
 		}
 
-	},
-
-	SUCCESSFUL_CONNECT_TO_BUNDLE_APP {
-
 		@Override
 		public void goNext(final WizardModelStateMachine<WizardModel> stateMachine)
 		{
 			if (stateMachine.getModelObject().isValidNext())
 			{
 				String pw = stateMachine.getModelObject().getChangePassword().getNewPassword();
-				String rpw = stateMachine.getModelObject().getChangePassword().getRepeatNewPassword();
-				if(pw.equals(rpw)) {
+				String rpw = stateMachine.getModelObject().getChangePassword()
+					.getRepeatNewPassword();
+				if (pw.equals(rpw))
+				{
 					stateMachine.setCurrentState(WizardModelState.CONNECT_TO_EXISTING_BUNDLE_APP);
 				}
 			}
@@ -195,11 +225,13 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 			if (stateMachine.getModelObject().isValidPrevious())
 			{
 
-				BundleStart initState = stateMachine.getModelObject().getBundleAppInitialization().getValue();
-				if(initState.equals(BundleStart.CONNECT))
+				BundleStart initState = stateMachine.getModelObject().getBundleAppInitialization()
+					.getValue();
+				if (initState.equals(BundleStart.CONNECT))
 				{
 					stateMachine.setCurrentState(WizardModelState.CONNECT_TO_EXISTING_BUNDLE_APP);
-				} else
+				}
+				else
 				{
 					stateMachine.setCurrentState(WizardModelState.NEW_BUNDLE_APP);
 				}
@@ -207,39 +239,15 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 		}
 
 		@Override
-		public void cancel(final WizardModelStateMachine<WizardModel> stateMachine)
+		public boolean hasNext()
 		{
-			if (stateMachine.getModelObject().isValidCancel())
-			{
-				stateMachine.setCurrentState(WizardModelState.CANCELED);
-			}
-		}
-
-		@Override
-		public void finish(final WizardModelStateMachine<WizardModel> stateMachine)
-		{
-			if (stateMachine.getModelObject().isValidFinish())
-			{
-				stateMachine.setCurrentState(WizardModelState.FINISHED);
-			}
-		}
-
-		@Override
-		public String getName()
-		{
-			return name();
+			return false;
 		}
 
 		@Override
 		public boolean isLast()
 		{
 			return true;
-		}
-
-		@Override
-		public boolean hasNext()
-		{
-			return false;
 		}
 
 	},
@@ -267,6 +275,12 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 		}
 
 		@Override
+		public String getName()
+		{
+			return name();
+		}
+
+		@Override
 		public void goNext(final WizardModelStateMachine<WizardModel> stateMachine)
 		{
 		}
@@ -274,12 +288,6 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 		@Override
 		public void goPrevious(final WizardModelStateMachine<WizardModel> stateMachine)
 		{
-		}
-
-		@Override
-		public String getName()
-		{
-			return name();
 		}
 
 	},
@@ -306,6 +314,12 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 		}
 
 		@Override
+		public String getName()
+		{
+			return name();
+		}
+
+		@Override
 		public void goNext(final WizardModelStateMachine<WizardModel> stateMachine)
 		{
 		}
@@ -313,12 +327,6 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 		@Override
 		public void goPrevious(final WizardModelStateMachine<WizardModel> stateMachine)
 		{
-		}
-
-		@Override
-		public String getName()
-		{
-			return name();
 		}
 
 	};

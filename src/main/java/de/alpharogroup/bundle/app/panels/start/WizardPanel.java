@@ -27,11 +27,13 @@ public class WizardPanel extends BasePanel<WizardModel>
 
 	public WizardPanel()
 	{
-		this(BaseModel.<WizardModel>of(WizardModel.builder()
-			.changePassword(ChangePasswordModelBean.builder()
-				.currentPassword("")
-				.newPassword("")
-				.repeatNewPassword("").build()).build()));
+		this(
+			BaseModel
+				.<WizardModel> of(
+					WizardModel
+						.builder().changePassword(ChangePasswordModelBean.builder()
+							.currentPassword("").newPassword("").repeatNewPassword("").build())
+						.build()));
 	}
 
 
@@ -43,34 +45,10 @@ public class WizardPanel extends BasePanel<WizardModel>
 	}
 
 
-	@Override
-	protected void onInitializeComponents()
+	protected NavigationPanel<WizardModelStateMachine<WizardModel>> newNavigationPanel(
+		Model<WizardModelStateMachine<WizardModel>> model)
 	{
-		super.onInitializeComponents();
-
-		stateMachine = WizardModelStateMachine
-			.<WizardModel> builder().currentState(WizardModelState.FIRST)
-			.modelObject(getModelObject()).build();
-		getModelObject().setAllValid();
-		wizardContentPanel = newWizardContentPanel(BaseModel.<WizardModelStateMachine<WizardModel>>of(stateMachine));
-		navigationPanel = newNavigationPanel(BaseModel.of(stateMachine));
-		updateButtonState();
-	}
-
-	@Override
-	protected void onInitializeLayout()
-	{
-		super.onInitializeLayout();
-		setLayout(new BorderLayout());
-		add(wizardContentPanel, BorderLayout.CENTER);
-		add(navigationPanel, BorderLayout.SOUTH);
-	}
-
-
-	protected NavigationPanel<WizardModelStateMachine<WizardModel>> newNavigationPanel(Model<WizardModelStateMachine<WizardModel>> model)
-	{
-		final NavigationPanel<WizardModelStateMachine<WizardModel>> navigationPanel =
-			new NavigationPanel<WizardModelStateMachine<WizardModel>>()
+		final NavigationPanel<WizardModelStateMachine<WizardModel>> navigationPanel = new NavigationPanel<WizardModelStateMachine<WizardModel>>()
 		{
 			private static final long serialVersionUID = 1L;
 
@@ -101,11 +79,13 @@ public class WizardPanel extends BasePanel<WizardModel>
 		return navigationPanel;
 	}
 
-	protected WizardContentPanel newWizardContentPanel(Model<WizardModelStateMachine<WizardModel>> model)
+	protected WizardContentPanel newWizardContentPanel(
+		Model<WizardModelStateMachine<WizardModel>> model)
 	{
 		final WizardContentPanel cardsPanel = new WizardContentPanel(model);
 		return cardsPanel;
 	}
+
 
 	protected void onCancel()
 	{
@@ -119,15 +99,40 @@ public class WizardPanel extends BasePanel<WizardModel>
 		stateMachine.finish();
 
 		// from here application specific behavior...
-		MainFrame.getInstance().replaceInternalFrame("Dashboard bundle app", new ApplicationDashboardContentPanel());
+		MainFrame.getInstance().replaceInternalFrame("Dashboard bundle app",
+			new ApplicationDashboardContentPanel());
 
+	}
+
+	@Override
+	protected void onInitializeComponents()
+	{
+		super.onInitializeComponents();
+
+		stateMachine = WizardModelStateMachine.<WizardModel> builder()
+			.currentState(WizardModelState.FIRST).modelObject(getModelObject()).build();
+		getModelObject().setAllValid();
+		wizardContentPanel = newWizardContentPanel(
+			BaseModel.<WizardModelStateMachine<WizardModel>> of(stateMachine));
+		navigationPanel = newNavigationPanel(BaseModel.of(stateMachine));
+		updateButtonState();
+	}
+
+	@Override
+	protected void onInitializeLayout()
+	{
+		super.onInitializeLayout();
+		setLayout(new BorderLayout());
+		add(wizardContentPanel, BorderLayout.CENTER);
+		add(navigationPanel, BorderLayout.SOUTH);
 	}
 
 	protected void onNext()
 	{
 		stateMachine.next();
 		updateButtonState();
-		WizardState<WizardModelStateMachine<WizardModel>> currentState = stateMachine.getCurrentState();
+		WizardState<WizardModelStateMachine<WizardModel>> currentState = stateMachine
+			.getCurrentState();
 		final String name = currentState.getName();
 		final CardLayout cardLayout = wizardContentPanel.getCardLayout();
 		cardLayout.show(wizardContentPanel, name);
@@ -146,11 +151,14 @@ public class WizardPanel extends BasePanel<WizardModel>
 	{
 		navigationPanel.getBtnPrevious().setEnabled(stateMachine.getCurrentState().hasPrevious());
 		navigationPanel.getBtnNext().setEnabled(stateMachine.getCurrentState().hasNext());
-		if(stateMachine.getCurrentState().hasNext()) {
+		if (stateMachine.getCurrentState().hasNext())
+		{
 			navigationPanel.getBtnNext().setEnabled(stateMachine.getModelObject().isValidNext());
 		}
-		if(stateMachine.getCurrentState().hasPrevious()) {
-			navigationPanel.getBtnPrevious().setEnabled(stateMachine.getModelObject().isValidPrevious());
+		if (stateMachine.getCurrentState().hasPrevious())
+		{
+			navigationPanel.getBtnPrevious()
+				.setEnabled(stateMachine.getModelObject().isValidPrevious());
 		}
 		navigationPanel.getBtnCancel().setEnabled(stateMachine.getModelObject().isValidCancel());
 		navigationPanel.getBtnFinish().setEnabled(stateMachine.getModelObject().isValidFinish());

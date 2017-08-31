@@ -2,7 +2,11 @@ package de.alpharogroup.bundle.app.panels.creation;
 
 import java.awt.event.ActionEvent;
 
+import de.alpharogroup.bundle.app.MainFrame;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
+import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
+import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
+import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BasePanel;
@@ -44,6 +48,11 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 		lblBundleName.setText("Application name");
 
 		btnSave.setText("Create bundle application");
+		if (getModelObject().getBundleApplication() != null)
+		{
+			txtBundleName.setText(getModelObject().getBundleApplication().getName());
+			btnSave.setText("Rename bundle application");
+		}
 	}
 
 	@Override
@@ -97,6 +106,23 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 
 	protected void onSave(ActionEvent e)
 	{
+		BundleApplicationsService bundleApplicationsService = (BundleApplicationsService)SpringApplicationContext
+			.getInstance().getApplicationContext().getBean("bundleApplicationsService");
+		String name = getTxtBundleName().getText();
+
+		BundleApplications newBundleApplication = bundleApplicationsService.find(name);
+		if (newBundleApplication == null)
+		{
+			newBundleApplication = BundleApplications.builder().name(name).build();
+			newBundleApplication = bundleApplicationsService.merge(newBundleApplication);
+		}
+		if (!MainFrame.getInstance().getMainDashboardBean().getBundleApplications()
+			.contains(newBundleApplication))
+		{
+			MainFrame.getInstance().getMainDashboardBean().getBundleApplications()
+				.add(newBundleApplication);
+		}
+		getModelObject().setBundleApplication(newBundleApplication);
 	}
 
 }

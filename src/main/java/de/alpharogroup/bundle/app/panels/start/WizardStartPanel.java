@@ -33,20 +33,20 @@ import de.alpharogroup.swing.base.BasePanel;
  *
  * @author astrapi69
  */
-public class WizardStartPanel extends BasePanel<WizardModelStateMachine<WizardModel>> {
+public class WizardStartPanel extends BasePanel<WizardModelStateMachine<WizardModel>>
+{
 
 	private static final long serialVersionUID = 1L;
 	private ButtonGroup creationGroup;
 	private JLabel lblWelcomeHeader;
-    private JLabel lblWelcomeIntro;
-    private JRadioButton rbnCreate;
-    private JRadioButton rbnImport;
+	private JLabel lblWelcomeIntro;
+	private JRadioButton rbnCreate;
+	private JRadioButton rbnImport;
 
 	public WizardStartPanel()
 	{
-		this(BaseModel.<WizardModelStateMachine<WizardModel>>of(WizardModelStateMachine
-			.<WizardModel> builder()
-			.build()));
+		this(BaseModel.<WizardModelStateMachine<WizardModel>> of(
+			WizardModelStateMachine.<WizardModel> builder().build()));
 	}
 
 	public WizardStartPanel(Model<WizardModelStateMachine<WizardModel>> model)
@@ -54,77 +54,81 @@ public class WizardStartPanel extends BasePanel<WizardModelStateMachine<WizardMo
 		super(model);
 	}
 
-    @Override
-    protected void onInitializeComponents()
-    {
-    	super.onInitializeComponents();
-        lblWelcomeHeader = new JLabel();
-        lblWelcomeIntro = new JLabel();
-        rbnImport = new JRadioButton();
-        getModelObject().getModelObject().getBundleAppInitialization().associate(BundleStart.CONNECT, rbnImport);
-        rbnImport.addActionListener(e -> onImport());
-        rbnCreate = new JRadioButton();
-        rbnCreate.setSelected(true);
-        getModelObject().getModelObject().getBundleAppInitialization().associate(BundleStart.CREATE, rbnCreate);
-        rbnCreate.addActionListener(e -> onCreate());
+	protected void onCreate()
+	{
+		final EventSource<EventObject<BundleStart>> eventSource = MainApplication
+			.getBundleStartEventSource();
+		eventSource.fireEvent(new EventObject<>(BundleStart.CREATE));
+	}
+
+	protected void onImport()
+	{
+		final EventSource<EventObject<BundleStart>> eventSource = MainApplication
+			.getBundleStartEventSource();
+		eventSource.fireEvent(new EventObject<>(BundleStart.CONNECT));
+	}
+
+	@Override
+	protected void onInitializeComponents()
+	{
+		super.onInitializeComponents();
+		lblWelcomeHeader = new JLabel();
+		lblWelcomeIntro = new JLabel();
+		rbnImport = new JRadioButton();
+		getModelObject().getModelObject().getBundleAppInitialization()
+			.associate(BundleStart.CONNECT, rbnImport);
+		rbnImport.addActionListener(e -> onImport());
+		rbnCreate = new JRadioButton();
+		rbnCreate.setSelected(true);
+		getModelObject().getModelObject().getBundleAppInitialization().associate(BundleStart.CREATE,
+			rbnCreate);
+		rbnCreate.addActionListener(e -> onCreate());
 		creationGroup = new ButtonGroup();
 		creationGroup.add(rbnImport);
 		creationGroup.add(rbnCreate);
 
-        lblWelcomeHeader.setText("Welcome to the bundle-manager ");
+		lblWelcomeHeader.setText("Welcome to the bundle-manager ");
 
-        lblWelcomeIntro.setText("<html>To get started with the bundle-manager Application can choose the following opportunities:");
+		lblWelcomeIntro.setText(
+			"<html>To get started with the bundle-manager Application can choose the following opportunities:");
 
-        rbnImport.setText("Register existing bundle application");
+		rbnImport.setText("Register existing bundle application");
 
-        rbnCreate.setText("<html>Create new bundle application");
-    }
-
-    @Override
-    protected void onInitializeLayout()
-    {
-    	super.onInitializeLayout();
-
-        final GroupLayout layout = new GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblWelcomeHeader, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 380, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblWelcomeIntro, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 693, GroupLayout.PREFERRED_SIZE)
-                    .addGroup(GroupLayout.Alignment.LEADING, layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(rbnImport)
-                        .addComponent(rbnCreate, GroupLayout.PREFERRED_SIZE, 441, GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addComponent(lblWelcomeHeader, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblWelcomeIntro, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rbnImport, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(rbnCreate, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(97, Short.MAX_VALUE))
-        );
-    }
-
-	protected void onCreate()
-	{
-    	final EventSource<EventObject<BundleStart>> eventSource = MainApplication.getBundleStartEventSource();
-    	eventSource.fireEvent(new EventObject<>(BundleStart.CREATE));
+		rbnCreate.setText("<html>Create new bundle application");
 	}
 
 
-    protected void onImport()
+	@Override
+	protected void onInitializeLayout()
 	{
-    	final EventSource<EventObject<BundleStart>> eventSource = MainApplication.getBundleStartEventSource();
-    	eventSource.fireEvent(new EventObject<>(BundleStart.CONNECT));
+		super.onInitializeLayout();
+
+		final GroupLayout layout = new GroupLayout(this);
+		this.setLayout(layout);
+		layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+			.addGroup(layout.createSequentialGroup().addGap(38, 38, 38)
+				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+					.addComponent(lblWelcomeHeader, GroupLayout.Alignment.LEADING,
+						GroupLayout.PREFERRED_SIZE, 380, GroupLayout.PREFERRED_SIZE)
+					.addComponent(lblWelcomeIntro, GroupLayout.Alignment.LEADING,
+						GroupLayout.PREFERRED_SIZE, 693, GroupLayout.PREFERRED_SIZE)
+					.addGroup(GroupLayout.Alignment.LEADING,
+						layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+							.addComponent(rbnImport).addComponent(rbnCreate,
+								GroupLayout.PREFERRED_SIZE, 441, GroupLayout.PREFERRED_SIZE)))
+				.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+		layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+			.addGroup(layout.createSequentialGroup().addGap(38, 38, 38)
+				.addComponent(lblWelcomeHeader, GroupLayout.PREFERRED_SIZE, 39,
+					GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+				.addComponent(lblWelcomeIntro, GroupLayout.PREFERRED_SIZE, 39,
+					GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+				.addComponent(rbnImport, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+				.addGap(18, 18, 18)
+				.addComponent(rbnCreate, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+				.addContainerGap(97, Short.MAX_VALUE)));
 	}
 
 }

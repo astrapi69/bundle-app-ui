@@ -1,4 +1,5 @@
 package de.alpharogroup.bundle.app.spring.config;
+
 import java.util.Properties;
 
 import javax.persistence.EntityManagerFactory;
@@ -165,19 +166,6 @@ public class PersistenceJPAConfig
 	private RecommendationsService recommendationsService;
 
 	@Bean
-	public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean()
-	{
-
-		final LocalContainerEntityManagerFactoryBean em =
-			SpringJpaFactory.newEntityManagerFactoryBean(
-				"bundlemanagement",
-				dataSource(),
-				SpringJpaFactory.newJpaVendorAdapter(Database.H2),
-				jpaProperties());
-		return em;
-	}
-
-	@Bean
 	public DataSource dataSource()
 	{
 		final JdbcUrlBean bean = JdbcUrlBean.builder().protocol("jdbc:h2:")
@@ -192,34 +180,19 @@ public class PersistenceJPAConfig
 	}
 
 	@Bean
-	public JdbcTemplate jdbcTemplate()
+	public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean()
 	{
-		final JdbcTemplate jdbcTemplate = SpringJpaFactory.newJdbcTemplate(dataSource);
-		return jdbcTemplate;
-	}
 
-	@Bean
-	public PlatformTransactionManager transactionManager()
-	{
-		final JpaTransactionManager transactionManager = SpringJpaFactory
-			.newTransactionManager(entityManagerFactory);
-		return transactionManager;
+		final LocalContainerEntityManagerFactoryBean em = SpringJpaFactory
+			.newEntityManagerFactoryBean("bundlemanagement", dataSource(),
+				SpringJpaFactory.newJpaVendorAdapter(Database.H2), jpaProperties());
+		return em;
 	}
 
 	@Bean
 	public PersistenceExceptionTranslationPostProcessor exceptionTranslation()
 	{
 		return new PersistenceExceptionTranslationPostProcessor();
-	}
-
-	Properties jpaProperties()
-	{
-		final Properties properties = new Properties();
-		properties.setProperty("hibernate.generateDdl", "true");
-		properties.setProperty("hibernate.show_sql", "true");
-		properties.setProperty("hibernate.database", "H2");
-		properties.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
-		return properties;
 	}
 
 	Properties hibernateProperties()
@@ -247,5 +220,30 @@ public class PersistenceJPAConfig
 		hibernateProperties.put("hibernate.check_nullability", false);
 		hibernateProperties.put("hibernate.search.autoregister_listeners", false);
 		return hibernateProperties;
+	}
+
+	@Bean
+	public JdbcTemplate jdbcTemplate()
+	{
+		final JdbcTemplate jdbcTemplate = SpringJpaFactory.newJdbcTemplate(dataSource);
+		return jdbcTemplate;
+	}
+
+	Properties jpaProperties()
+	{
+		final Properties properties = new Properties();
+		properties.setProperty("hibernate.generateDdl", "true");
+		properties.setProperty("hibernate.show_sql", "true");
+		properties.setProperty("hibernate.database", "H2");
+		properties.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
+		return properties;
+	}
+
+	@Bean
+	public PlatformTransactionManager transactionManager()
+	{
+		final JpaTransactionManager transactionManager = SpringJpaFactory
+			.newTransactionManager(entityManagerFactory);
+		return transactionManager;
 	}
 }

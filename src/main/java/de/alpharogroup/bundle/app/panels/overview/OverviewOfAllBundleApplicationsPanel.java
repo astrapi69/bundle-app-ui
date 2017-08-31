@@ -43,8 +43,6 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 
 	private List<KeyValuePair<String, BundleApplications>> tableModelList;
 
-	private BundleApplications selectedBundleApplication;
-
 	public OverviewOfAllBundleApplicationsPanel()
 	{
 		this(BaseModel.<MainDashboardBean> of(MainDashboardBean.builder().build()));
@@ -53,6 +51,24 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 	public OverviewOfAllBundleApplicationsPanel(Model<MainDashboardBean> model)
 	{
 		super(model);
+	}
+
+	private List<KeyValuePair<String, BundleApplications>> getTableModelList()
+	{
+		if (tableModelList == null)
+		{
+			tableModelList = new ArrayList<>();
+			for (BundleApplications bundleApplication : getModelObject().getBundleApplications())
+			{
+				tableModelList.add(KeyValuePair.<String, BundleApplications> builder()
+					.key(bundleApplication.getName()).value(bundleApplication).build());
+			}
+		}
+		return tableModelList;
+	}
+
+	protected void onCreateBundleApp(ActionEvent e)
+	{
 	}
 
 	@Override
@@ -64,10 +80,9 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 		lblBundleApp = new javax.swing.JLabel();
 		srcBundleApps = new javax.swing.JScrollPane();
 
-		tableModel = new StringBundleApplicationsTableModel(
-			TableColumnsModel.builder().columnNames(new String[] { "Name", "Action" })
-				.canEdit(new boolean[] { false, true })
-				.columnClasses(new Class<?>[] { String.class, BundleApplications.class }).build());
+		tableModel = new StringBundleApplicationsTableModel(TableColumnsModel.builder()
+			.columnNames(new String[] { "Name", "Action" }).canEdit(new boolean[] { false, true })
+			.columnClasses(new Class<?>[] { String.class, BundleApplications.class }).build());
 		tableModel.addList(getTableModelList());
 		tblBundleApps = new GenericJXTable<>(tableModel);
 		final TableColumn valueColumn = tblBundleApps.getColumn("Action");
@@ -96,6 +111,24 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 		{
 
 			@Override
+			public Object getCellEditorValue()
+			{
+				BundleApplications selectedBundleApplication = (BundleApplications)this.getValue();
+				MainFrame.getInstance().setSelectedBundleApplication(selectedBundleApplication);
+				Model<ApplicationDashboardBean> baModel = MainFrame.getInstance()
+					.getSelectedBundleApplicationPropertyModel();
+				ApplicationDashboardContentPanel component = new ApplicationDashboardContentPanel(
+					baModel);
+				MainFrame.getInstance().replaceInternalFrame(
+					"Dashboard of " + selectedBundleApplication.getName() + " bundle app",
+					component);
+
+				String text = "Select";
+				return text;
+
+			}
+
+			@Override
 			public Component getTableCellEditorComponent(JTable table, Object value,
 				boolean isSelected, int row, int column)
 			{
@@ -117,21 +150,6 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 				setClicked(true);
 				return getButton();
 			}
-
-			@Override
-			public Object getCellEditorValue()
-			{
-				selectedBundleApplication = (BundleApplications)this.getValue();
-
-				ApplicationDashboardContentPanel component = new ApplicationDashboardContentPanel(
-					BaseModel.<ApplicationDashboardBean> of(ApplicationDashboardBean.builder()
-						.bundleApplication(selectedBundleApplication).build()));
-				MainFrame.getInstance().replaceInternalFrame("Dashboard bundle app", component);
-
-				String text = "Select";
-				return text;
-
-			}
 		});
 		btnCreateBundleApp = new javax.swing.JButton();
 
@@ -145,24 +163,6 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 		btnCreateBundleApp.addActionListener(e -> onCreateBundleApp(e));
 
 
-	}
-
-	private List<KeyValuePair<String, BundleApplications>> getTableModelList()
-	{
-		if (tableModelList == null)
-		{
-			tableModelList = new ArrayList<>();
-			for (BundleApplications bundleApplication : getModelObject().getBundleApplications())
-			{
-				tableModelList.add(KeyValuePair.<String, BundleApplications> builder()
-					.key(bundleApplication.getName()).value(bundleApplication).build());
-			}
-		}
-		return tableModelList;
-	}
-
-	protected void onCreateBundleApp(ActionEvent e)
-	{
 	}
 
 	@Override

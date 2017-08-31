@@ -47,31 +47,36 @@ import lombok.extern.slf4j.Slf4j;
 public class MainApplication
 {
 
+	/** The instance. */
+	private static MainApplication instance = new MainApplication();
+
 	private static final Map<String, EventSource<?>> eventSources = new HashMap<>();
 
-	public static EventSource<?> get(String key) {
+	public static MainApplication get()
+	{
+		return instance;
+	}
+
+	public static EventSource<?> get(String key)
+	{
 		return eventSources.get(key);
 	}
 
-	public static EventSource<?> put(String key, EventSource<?> value) {
-		return eventSources.put(key, value);
-	}
-
-
-
-    @SuppressWarnings("unchecked")
-    public static EventSource<EventObject<BundleStart>> getBundleStartEventSource()
+	@SuppressWarnings("unchecked")
+	public static EventSource<EventObject<BundleStart>> getBundleStartEventSource()
 	{
-		EventSource<EventObject<BundleStart>> eventSource =
-    	(EventSource<EventObject<BundleStart>>)MainApplication.get(BundleStart.class.getSimpleName());
-    	if(eventSource == null) {
-			MainApplication.put(
-				BundleStart.class.getSimpleName(), new EventSubject<EventObject<BundleStart>>());
-			eventSource =
-		    	(EventSource<EventObject<BundleStart>>)MainApplication.get(BundleStart.class.getSimpleName());
-    	}
+		EventSource<EventObject<BundleStart>> eventSource = (EventSource<EventObject<BundleStart>>)MainApplication
+			.get(BundleStart.class.getSimpleName());
+		if (eventSource == null)
+		{
+			MainApplication.put(BundleStart.class.getSimpleName(),
+				new EventSubject<EventObject<BundleStart>>());
+			eventSource = (EventSource<EventObject<BundleStart>>)MainApplication
+				.get(BundleStart.class.getSimpleName());
+		}
 		return eventSource;
 	}
+
 
 	/**
 	 * The main method.
@@ -79,33 +84,50 @@ public class MainApplication
 	 * @param args
 	 *            the arguments
 	 */
-	public static void main(final String[] args) {
+	public static void main(final String[] args)
+	{
+
+		SpringApplicationContext.getInstance().getApplicationContext();
 
 		final MainFrame mainFrame = MainFrame.getInstance();
 		final DesktopMenu menu = DesktopMenu.getInstance();
 		mainFrame.setJMenuBar(menu.getMenubar());
 
-		SpringApplicationContext.getInstance().getApplicationContext();
 
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		final GraphicsDevice[] gs = ge.getScreenDevices();
-		mainFrame.setSize(ScreenSizeExtensions.getScreenWidth(gs[0]), ScreenSizeExtensions.getScreenHeight(gs[0]));
+		mainFrame.setSize(ScreenSizeExtensions.getScreenWidth(gs[0]),
+			ScreenSizeExtensions.getScreenHeight(gs[0]));
 		mainFrame.setVisible(true);
 
 		// Set default look and feel...
-		try {
+		try
+		{
 			UIManager.setLookAndFeel(LookAndFeels.SYSTEM.getLookAndFeelName());
 			SwingUtilities.updateComponentTreeUI(mainFrame);
 			mainFrame.setCurrentLookAndFeels(LookAndFeels.SYSTEM);
-		} catch (final ClassNotFoundException e1) {
+		}
+		catch (final ClassNotFoundException e1)
+		{
 			log.error("ClassNotFoundException:", e1);
-		} catch (final InstantiationException e1) {
+		}
+		catch (final InstantiationException e1)
+		{
 			log.error("InstantiationException:", e1);
-		} catch (final IllegalAccessException e1) {
+		}
+		catch (final IllegalAccessException e1)
+		{
 			log.error("IllegalAccessException:", e1);
-		} catch (final UnsupportedLookAndFeelException e1) {
+		}
+		catch (final UnsupportedLookAndFeelException e1)
+		{
 			log.error("UnsupportedLookAndFeelException:", e1);
 		}
+	}
+
+	public static EventSource<?> put(String key, EventSource<?> value)
+	{
+		return eventSources.put(key, value);
 	}
 }

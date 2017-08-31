@@ -1,27 +1,34 @@
 package de.alpharogroup.bundle.app.panels.overview;
 
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
+import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
+import de.alpharogroup.bundle.app.table.model.StringBundleNamesTableModel;
 import de.alpharogroup.collections.pairs.Triple;
+import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BasePanel;
-import de.alpharogroup.swing.table.model.TableColumnsModel;
-import de.alpharogroup.swing.table.model.triple.TripleStringTableModel;
 import de.alpharogroup.swing.x.GenericJXTable;
 
-public class OverviewOfAllResourceBundlesPanel  extends BasePanel<ApplicationDashboardBean> {
+public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDashboardBean>
+{
 
-    private javax.swing.JButton btnCreateBundle;
-    private javax.swing.JLabel lblBundleName;
-    private javax.swing.JLabel lblHeaderOverview;
-    private javax.swing.JScrollPane srcBundles;
-	private GenericJXTable<Triple<String, String, String>> tblBundles;
+	private javax.swing.JButton btnCreateBundle;
+	private javax.swing.JLabel lblBundleName;
+	private javax.swing.JLabel lblHeaderOverview;
+	private javax.swing.JScrollPane srcBundles;
+	private GenericJXTable<Triple<String, String, BundleNames>> tblBundles;
+	private StringBundleNamesTableModel tableModel;
+
+	private List<Triple<String, String, BundleNames>> tableModelList;
 
 	public OverviewOfAllResourceBundlesPanel()
 	{
-		this(BaseModel.<ApplicationDashboardBean>of(ApplicationDashboardBean.builder().build()));
+		this(BaseModel.<ApplicationDashboardBean> of(ApplicationDashboardBean.builder().build()));
 	}
 
 	public OverviewOfAllResourceBundlesPanel(Model<ApplicationDashboardBean> model)
@@ -29,29 +36,21 @@ public class OverviewOfAllResourceBundlesPanel  extends BasePanel<ApplicationDas
 		super(model);
 	}
 
-	@Override
-	protected void onInitializeComponents()
+	private List<Triple<String, String, BundleNames>> getTableModelList()
 	{
-		super.onInitializeComponents();
-        lblHeaderOverview = new javax.swing.JLabel();
-        lblBundleName = new javax.swing.JLabel();
-        srcBundles = new javax.swing.JScrollPane();
-        btnCreateBundle = new javax.swing.JButton();
-
-        btnCreateBundle.addActionListener(e -> onCreateBundle(e));
-
-        tblBundles = new GenericJXTable<>(new TripleStringTableModel(
-        	TableColumnsModel.builder()
-        	.columnNames(new String[] { "Base name", "Locale", "Action" })
-			.canEdit(new boolean[] { false, false, true })
-			.columnClasses(new Class<?>[] { String.class, String.class, String.class }).build()));
-
-        lblHeaderOverview.setText("Overview of all resource bundles");
-
-        lblBundleName.setText("Bundle count");
-
-        srcBundles.setViewportView(tblBundles);
-        btnCreateBundle.setText("Create new resource bundle");
+		if (tableModelList == null)
+		{
+			tableModelList = new ArrayList<>();
+			List<BundleNames> list = SpringApplicationContext.getInstance().getBundleNamesService()
+				.findAll();
+			for (BundleNames bundleNames : list)
+			{
+				tableModelList.add(Triple.<String, String, BundleNames> builder()
+					.left(bundleNames.getBaseName().getName())
+					.middle(bundleNames.getLocale().getLocale()).right(bundleNames).build());
+			}
+		}
+		return tableModelList;
 	}
 
 	protected void onCreateBundle(ActionEvent e)
@@ -59,40 +58,73 @@ public class OverviewOfAllResourceBundlesPanel  extends BasePanel<ApplicationDas
 	}
 
 	@Override
+	protected void onInitializeComponents()
+	{
+		super.onInitializeComponents();
+		lblHeaderOverview = new javax.swing.JLabel();
+		lblBundleName = new javax.swing.JLabel();
+		srcBundles = new javax.swing.JScrollPane();
+		btnCreateBundle = new javax.swing.JButton();
+
+		btnCreateBundle.addActionListener(e -> onCreateBundle(e));
+
+		tableModel = new StringBundleNamesTableModel();
+
+		tableModel.addList(getTableModelList());
+
+		tblBundles = new GenericJXTable<>(tableModel);
+
+		lblHeaderOverview.setText("Overview of all resource bundles");
+
+		lblBundleName.setText("Bundle count");
+
+		srcBundles.setViewportView(tblBundles);
+		btnCreateBundle.setText("Create new resource bundle");
+	}
+
+	@Override
 	protected void onInitializeLayout()
 	{
 		super.onInitializeLayout();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblHeaderOverview, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(lblBundleName, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnCreateBundle, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(srcBundles, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(40, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(lblHeaderOverview, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblBundleName, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(srcBundles, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnCreateBundle))
-                .addContainerGap(40, Short.MAX_VALUE))
-        );
+		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+		this.setLayout(layout);
+		layout.setHorizontalGroup(
+			layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(layout
+				.createSequentialGroup().addGap(40, 40, 40).addGroup(layout
+					.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+					.addComponent(lblHeaderOverview,
+						javax.swing.GroupLayout.PREFERRED_SIZE, 540,
+						javax.swing.GroupLayout.PREFERRED_SIZE)
+					.addGroup(layout
+						.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+						.addGroup(javax.swing.GroupLayout.Alignment.LEADING,
+							layout.createSequentialGroup()
+								.addComponent(lblBundleName, javax.swing.GroupLayout.PREFERRED_SIZE,
+									540, javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+									javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnCreateBundle,
+									javax.swing.GroupLayout.PREFERRED_SIZE, 280,
+									javax.swing.GroupLayout.PREFERRED_SIZE))
+						.addComponent(srcBundles, javax.swing.GroupLayout.PREFERRED_SIZE, 1000,
+							javax.swing.GroupLayout.PREFERRED_SIZE)))
+				.addContainerGap(40, Short.MAX_VALUE)));
+		layout.setVerticalGroup(layout
+			.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+			.addGroup(layout.createSequentialGroup().addGap(40, 40, 40)
+				.addComponent(lblHeaderOverview, javax.swing.GroupLayout.PREFERRED_SIZE, 33,
+					javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+				.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+					.addGroup(layout.createSequentialGroup()
+						.addComponent(lblBundleName, javax.swing.GroupLayout.PREFERRED_SIZE, 34,
+							javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addComponent(srcBundles, javax.swing.GroupLayout.PREFERRED_SIZE, 500,
+							javax.swing.GroupLayout.PREFERRED_SIZE))
+					.addComponent(btnCreateBundle))
+				.addContainerGap(40, Short.MAX_VALUE)));
 	}
 
 }

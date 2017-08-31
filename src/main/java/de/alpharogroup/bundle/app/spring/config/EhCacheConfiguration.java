@@ -8,16 +8,19 @@ import org.springframework.context.annotation.Configuration;
 import de.alpharogroup.springconfig.SpringCacheConfigurationFactory;
 
 @Configuration
-public class EhCacheConfiguration {
+public class EhCacheConfiguration
+{
 
-    @Bean
-    public EhCacheCacheManager ehCacheCacheManager() {
-        return SpringCacheConfigurationFactory.newEhCacheCacheManager(ehCacheManagerFactoryBean());
-    }
+	@Bean
+	public EhCacheCacheManager ehCacheCacheManager()
+	{
+		return SpringCacheConfigurationFactory.newEhCacheCacheManager(ehCacheManagerFactoryBean());
+	}
 
 
-    @Bean
-    public EhCacheManagerFactoryBean ehCacheManagerFactoryBean() {
-        return SpringCacheConfigurationFactory.newEhCacheManagerFactoryBean("ehcache.xml");
-    }
+	@Bean
+	public EhCacheManagerFactoryBean ehCacheManagerFactoryBean()
+	{
+		return SpringCacheConfigurationFactory.newEhCacheManagerFactoryBean("ehcache.xml");
+	}
 }

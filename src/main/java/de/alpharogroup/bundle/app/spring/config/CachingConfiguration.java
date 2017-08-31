@@ -15,40 +15,44 @@ import de.alpharogroup.springconfig.SpringCacheConfigurationFactory;
 
 @Configuration
 @EnableCaching
-public class CachingConfiguration implements CachingConfigurer {
+public class CachingConfiguration implements CachingConfigurer
+{
 
-    @Qualifier("ehCacheCacheManager")
-    @Autowired(required = false)
-    private CacheManager ehCacheCacheManager;
+	@Qualifier("ehCacheCacheManager")
+	@Autowired(required = false)
+	private CacheManager ehCacheCacheManager;
 
-    @Qualifier("redisCacheManager")
-    @Autowired(required = false)
-    private CacheManager redisCacheManager;
+	@Qualifier("redisCacheManager")
+	@Autowired(required = false)
+	private CacheManager redisCacheManager;
 
-    @Bean
-    @Override
-    public CacheManager cacheManager() {
-        return SpringCacheConfigurationFactory.newCacheManager(this.ehCacheCacheManager, this.redisCacheManager);
-    }
-
-
-    @Bean
-    @Override
-    public KeyGenerator keyGenerator() {
-        return SpringCacheConfigurationFactory.newSimpleKeyGenerator();
-    }
+	@Bean
+	@Override
+	public CacheManager cacheManager()
+	{
+		return SpringCacheConfigurationFactory.newCacheManager(this.ehCacheCacheManager,
+			this.redisCacheManager);
+	}
 
 
 	@Override
 	public CacheResolver cacheResolver()
 	{
-        return SpringCacheConfigurationFactory.newSimpleCacheResolver();
+		return SpringCacheConfigurationFactory.newSimpleCacheResolver();
 	}
 
 
 	@Override
 	public CacheErrorHandler errorHandler()
 	{
-        return SpringCacheConfigurationFactory.newSimpleCacheErrorHandler();
+		return SpringCacheConfigurationFactory.newSimpleCacheErrorHandler();
+	}
+
+
+	@Bean
+	@Override
+	public KeyGenerator keyGenerator()
+	{
+		return SpringCacheConfigurationFactory.newSimpleKeyGenerator();
 	}
 }

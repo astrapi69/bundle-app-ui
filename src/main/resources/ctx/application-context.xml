@@ -49,7 +49,9 @@
 	<context:component-scan base-package="de.alpharogroup.user.management.mapper" />
 	<context:component-scan base-package="de.alpharogroup.user.management.service.api" />
 	<context:component-scan base-package="de.alpharogroup.user.management.service" />
-	<context:component-scan base-package="de.alpharogroup.user.management.service.mapper" />
+	<context:component-scan base-package="de.alpharogroup.user.management.service.mapper" />	
+	
+	<context:component-scan base-package="de.alpharogroup.bundle.management.service.locator" />
 
 	<bean id="propertyPlaceholder"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -100,6 +102,9 @@
 	<bean id="databaseResources"
 		class="de.alpharogroup.db.resource.bundles.service.DatabaseListResourceBundle">
 		<property name="resourcebundlesService" ref="resourcebundlesService"></property>
+	</bean>
+	
+	<bean id="serviceLocator" class="de.alpharogroup.bundle.management.service.locator.ServiceLocatorImpl">
 	</bean>
 
 	<bean id="jpaVendorAdapter"

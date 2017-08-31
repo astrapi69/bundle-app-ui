@@ -10,7 +10,8 @@ import de.alpharogroup.bundle.app.panels.start.WizardPanel;
 /**
  * The class {@link NewBundleAppInternalFrameAction}.
  */
-public class NewBundleAppInternalFrameAction extends AbstractAction {
+public class NewBundleAppInternalFrameAction extends AbstractAction
+{
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
@@ -21,7 +22,8 @@ public class NewBundleAppInternalFrameAction extends AbstractAction {
 	 * @param name
 	 *            the name
 	 */
-	public NewBundleAppInternalFrameAction(final String name) {
+	public NewBundleAppInternalFrameAction(final String name)
+	{
 		super(name);
 	}
 
@@ -29,7 +31,8 @@ public class NewBundleAppInternalFrameAction extends AbstractAction {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void actionPerformed(final ActionEvent e) {
+	public void actionPerformed(final ActionEvent e)
+	{
 		MainFrame.getInstance().replaceInternalFrame("New bundle app", new WizardPanel());
 	}
 

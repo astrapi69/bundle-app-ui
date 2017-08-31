@@ -62,6 +62,19 @@ import lombok.extern.slf4j.Slf4j;
 public class DesktopMenu
 {
 
+	/** The instance. */
+	private static DesktopMenu instance = new DesktopMenu();
+
+	/**
+	 * Gets the single instance of DesktopMenu.
+	 *
+	 * @return single instance of DesktopMenu
+	 */
+	public static DesktopMenu getInstance()
+	{
+		return instance;
+	}
+
 	/** The JMenuBar from the DesktopMenu. */
 	@Getter
 	private final JMenuBar menubar;
@@ -82,19 +95,6 @@ public class DesktopMenu
 	@Getter
 	@Setter
 	private Window helpWindow;
-
-	/** The instance. */
-	private static DesktopMenu instance = new DesktopMenu();
-
-	/**
-	 * Gets the single instance of DesktopMenu.
-	 *
-	 * @return single instance of DesktopMenu
-	 */
-	public static DesktopMenu getInstance()
-	{
-		return instance;
-	}
 
 	/**
 	 * Instantiates a new desktop menu.
@@ -132,6 +132,27 @@ public class DesktopMenu
 		menubar.add(fileMenu);
 		menubar.add(lookAndFeelMenu);
 		menubar.add(helpMenu);
+	}
+
+	/**
+	 * Gets the help set.
+	 *
+	 * @return the help set
+	 */
+	public HelpSet getHelpSet()
+	{
+		HelpSet hs = null;
+		final String filename = "simple-hs.xml";
+		final String directoryPath = "help/";
+		try
+		{
+			hs = JComponentFactory.newHelpSet(directoryPath, filename);
+		}
+		catch (final HelpSetException e)
+		{
+			log.error("Instanciation problem of class HelpSet.", e);
+		}
+		return hs;
 	}
 
 	/**
@@ -173,50 +194,6 @@ public class DesktopMenu
 		fileMenu.add(jmiExit);
 
 		return fileMenu;
-	}
-
-	/**
-	 * Factory method for create new {@link JMenu} for the look and feel menu.
-	 *
-	 * @param listener
-	 *            the listener
-	 * @return the j menu
-	 */
-	private JMenu newLookAndFeelMenu(final ActionListener listener)
-	{
-
-		final JMenu menuLookAndFeel = new JMenu("Look and Feel");
-		menuLookAndFeel.setMnemonic('L');
-
-		// Look and Feel JMenuItems
-		// Metal default Metal theme
-		JMenuItem jmiLafMetal;
-		jmiLafMetal = new JMenuItem("Metal", 'm'); //$NON-NLS-1$
-		MenuExtensions.setCtrlAccelerator(jmiLafMetal, 'M');
-		jmiLafMetal.addActionListener(new LookAndFeelMetalAction("Metal", MainFrame.getInstance()));
-		menuLookAndFeel.add(jmiLafMetal);
-		// Metal Ocean theme
-		JMenuItem jmiLafOcean;
-		jmiLafOcean = new JMenuItem("Ocean", 'o'); //$NON-NLS-1$
-		MenuExtensions.setCtrlAccelerator(jmiLafOcean, 'O');
-		jmiLafOcean.addActionListener(new LookAndFeelMetalAction("Ocean", MainFrame.getInstance()));
-		menuLookAndFeel.add(jmiLafOcean);
-		// Motif
-		JMenuItem jmiLafMotiv;
-		jmiLafMotiv = new JMenuItem("Motif", 't'); //$NON-NLS-1$
-		MenuExtensions.setCtrlAccelerator(jmiLafMotiv, 'T');
-		jmiLafMotiv.addActionListener(new LookAndFeelMotifAction("Motif", MainFrame.getInstance()));
-		menuLookAndFeel.add(jmiLafMotiv);
-		// Windows
-		JMenuItem jmiLafSystem;
-		jmiLafSystem = new JMenuItem("System", 'd'); //$NON-NLS-1$
-		MenuExtensions.setCtrlAccelerator(jmiLafSystem, 'W');
-		jmiLafSystem
-			.addActionListener(new LookAndFeelSystemAction("System", MainFrame.getInstance()));
-		menuLookAndFeel.add(jmiLafSystem);
-
-		return menuLookAndFeel;
-
 	}
 
 	/**
@@ -292,24 +269,47 @@ public class DesktopMenu
 	}
 
 	/**
-	 * Gets the help set.
+	 * Factory method for create new {@link JMenu} for the look and feel menu.
 	 *
-	 * @return the help set
+	 * @param listener
+	 *            the listener
+	 * @return the j menu
 	 */
-	public HelpSet getHelpSet()
+	private JMenu newLookAndFeelMenu(final ActionListener listener)
 	{
-		HelpSet hs = null;
-		final String filename = "simple-hs.xml";
-		final String directoryPath = "help/";
-		try
-		{
-			hs = JComponentFactory.newHelpSet(directoryPath, filename);
-		}
-		catch (final HelpSetException e)
-		{
-			log.error("Instanciation problem of class HelpSet.", e);
-		}
-		return hs;
+
+		final JMenu menuLookAndFeel = new JMenu("Look and Feel");
+		menuLookAndFeel.setMnemonic('L');
+
+		// Look and Feel JMenuItems
+		// Metal default Metal theme
+		JMenuItem jmiLafMetal;
+		jmiLafMetal = new JMenuItem("Metal", 'm'); //$NON-NLS-1$
+		MenuExtensions.setCtrlAccelerator(jmiLafMetal, 'M');
+		jmiLafMetal.addActionListener(new LookAndFeelMetalAction("Metal", MainFrame.getInstance()));
+		menuLookAndFeel.add(jmiLafMetal);
+		// Metal Ocean theme
+		JMenuItem jmiLafOcean;
+		jmiLafOcean = new JMenuItem("Ocean", 'o'); //$NON-NLS-1$
+		MenuExtensions.setCtrlAccelerator(jmiLafOcean, 'O');
+		jmiLafOcean.addActionListener(new LookAndFeelMetalAction("Ocean", MainFrame.getInstance()));
+		menuLookAndFeel.add(jmiLafOcean);
+		// Motif
+		JMenuItem jmiLafMotiv;
+		jmiLafMotiv = new JMenuItem("Motif", 't'); //$NON-NLS-1$
+		MenuExtensions.setCtrlAccelerator(jmiLafMotiv, 'T');
+		jmiLafMotiv.addActionListener(new LookAndFeelMotifAction("Motif", MainFrame.getInstance()));
+		menuLookAndFeel.add(jmiLafMotiv);
+		// Windows
+		JMenuItem jmiLafSystem;
+		jmiLafSystem = new JMenuItem("System", 'd'); //$NON-NLS-1$
+		MenuExtensions.setCtrlAccelerator(jmiLafSystem, 'W');
+		jmiLafSystem
+			.addActionListener(new LookAndFeelSystemAction("System", MainFrame.getInstance()));
+		menuLookAndFeel.add(jmiLafSystem);
+
+		return menuLookAndFeel;
+
 	}
 
 }

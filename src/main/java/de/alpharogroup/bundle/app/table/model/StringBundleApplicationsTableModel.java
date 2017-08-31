@@ -21,11 +21,9 @@ public class StringBundleApplicationsTableModel
 	 */
 	public StringBundleApplicationsTableModel()
 	{
-		this(TableColumnsModel.builder()
-			.columnNames(new String[] { "Name", "Action" })
+		this(TableColumnsModel.builder().columnNames(new String[] { "Name", "Action" })
 			.canEdit(new boolean[] { false, true })
-			.columnClasses(new Class<?>[] { String.class, BundleApplications.class })
-			.build());
+			.columnClasses(new Class<?>[] { String.class, BundleApplications.class }).build());
 	}
 
 	/**

@@ -9,7 +9,7 @@ import de.alpharogroup.swing.base.BasePanel;
 public class ApplicationDashboardPanel extends BasePanel<ApplicationDashboardBean>
 {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 	private javax.swing.JButton btnCreateCustomLocale;
 	private javax.swing.JButton btnCreateRb;
 	private javax.swing.JButton btnEditBundleAppName;
@@ -17,12 +17,24 @@ public class ApplicationDashboardPanel extends BasePanel<ApplicationDashboardBea
 
 	public ApplicationDashboardPanel()
 	{
-		this(BaseModel.<ApplicationDashboardBean>of(ApplicationDashboardBean.builder().build()));
+		this(BaseModel.<ApplicationDashboardBean> of(ApplicationDashboardBean.builder().build()));
 	}
 
 	public ApplicationDashboardPanel(Model<ApplicationDashboardBean> model)
 	{
 		super(model);
+	}
+
+	protected void onCreateCustomLocale(ActionEvent e)
+	{
+	}
+
+	protected void onCreateRb(ActionEvent e)
+	{
+	}
+
+	protected void onEditBundleAppName(ActionEvent e)
+	{
 	}
 
 	@Override
@@ -86,19 +98,7 @@ public class ApplicationDashboardPanel extends BasePanel<ApplicationDashboardBea
 					.addContainerGap(32, Short.MAX_VALUE)));
 	}
 
-	protected void onCreateCustomLocale(ActionEvent e)
-	{
-	}
-
-	protected void onCreateRb(ActionEvent e)
-	{
-	}
-
 	protected void onOverview(ActionEvent e)
-	{
-	}
-
-	protected void onEditBundleAppName(ActionEvent e)
 	{
 	}
 }

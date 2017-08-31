@@ -1,4 +1,5 @@
 package de.alpharogroup.bundle.app.combobox.renderer;
+
 import java.awt.Component;
 import java.util.Locale;
 
@@ -35,7 +36,8 @@ public class LocaleComboBoxRenderer extends JLabel implements ListCellRenderer<L
 			setForeground(list.getForeground());
 		}
 		String locale = "";
-		if(value != null) {
+		if (value != null)
+		{
 			locale = value.getLocale();
 			Locale localeObj = LocaleResolver.resolveLocale(locale);
 			final String englishName = localeObj.getDisplayName(Locale.ENGLISH);
