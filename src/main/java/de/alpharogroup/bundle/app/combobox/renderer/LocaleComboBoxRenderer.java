@@ -1,4 +1,4 @@
-package de.alpharogroup.bundle.app.panels.renderer;
+package de.alpharogroup.bundle.app.combobox.renderer;
 import java.awt.Component;
 import java.util.Locale;
 
