@@ -14,13 +14,9 @@ import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BaseCardLayoutPanel;
 import lombok.Getter;
 
+@Getter
 public class MainDashboardPanel extends BaseCardLayoutPanel<MainDashboardBean>
 {
-	@Getter
-	private NewBundleApplicationPanel newBundleApplicationPanel;
-
-	@Getter
-	private OverviewOfAllBundleApplicationsPanel overviewOfAllBundleApplicationsPanel;
 
 	public MainDashboardPanel()
 	{
@@ -39,7 +35,7 @@ public class MainDashboardPanel extends BaseCardLayoutPanel<MainDashboardBean>
 		super.onInitializeComponents();
 		add(newOverviewOfAllBundleApplicationsPanel(getModel()),
 			MainDashboardView.MAIN_DASHBOARD.name());
-		add(newBundleApplicationPanel = newBundleApplicationPanel(getModel()),
+		add(newBundleApplicationPanel(getModel()),
 			MainDashboardView.CREATE_NEW_BUNDLE_APP.name());
 	}
 
@@ -84,12 +80,12 @@ public class MainDashboardPanel extends BaseCardLayoutPanel<MainDashboardBean>
 						.add(newBundleApplication);
 				}
 				getModelObject().setBundleApplication(newBundleApplication);
-				MainDashboardPanel.this.onSave(e);
+				MainDashboardPanel.this.onSaveBundleApplication(e);
 			}
 		};
 	}
 
-	protected void onSave(ActionEvent e)
+	protected void onSaveBundleApplication(ActionEvent e)
 	{
 		add(newOverviewOfAllBundleApplicationsPanel(getModel()),
 		MainDashboardView.MAIN_DASHBOARD.name());

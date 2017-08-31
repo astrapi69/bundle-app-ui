@@ -1,10 +1,11 @@
 package de.alpharogroup.bundle.app.panels.creation;
 
+import java.awt.event.ActionEvent;
+
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BasePanel;
-import java.awt.event.ActionEvent;
 
 public class NewResourceBundleEntryPanel  extends BasePanel<ApplicationDashboardBean> {
 

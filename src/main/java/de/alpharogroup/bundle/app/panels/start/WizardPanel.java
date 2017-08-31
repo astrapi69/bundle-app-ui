@@ -3,8 +3,6 @@ package de.alpharogroup.bundle.app.panels.start;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 
-import javax.swing.JInternalFrame;
-
 import de.alpharogroup.bundle.app.MainFrame;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardContentPanel;
 import de.alpharogroup.design.pattern.state.wizard.WizardState;
@@ -12,9 +10,7 @@ import de.alpharogroup.design.pattern.state.wizard.model.WizardModelStateMachine
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BasePanel;
-import de.alpharogroup.swing.components.factories.JComponentFactory;
 import de.alpharogroup.swing.panels.login.pw.ChangePasswordModelBean;
-import de.alpharogroup.swing.utils.JInternalFrameExtensions;
 import de.alpharogroup.swing.wizard.NavigationPanel;
 import lombok.Getter;
 
@@ -121,16 +117,10 @@ public class WizardPanel extends BasePanel<WizardModel>
 	protected void onFinish()
 	{
 		stateMachine.finish();
-		// from here application specific behavior...
-		MainFrame.getInstance().getCurrentVisibleInternalFrame().dispose();
 
-		// create internal frame
-		final JInternalFrame internalFrame = JComponentFactory.newInternalFrame("Dashboard bundle app", true, true,
-				true, true);
-		ApplicationDashboardContentPanel component = new ApplicationDashboardContentPanel();
-		JInternalFrameExtensions.addComponentToFrame(internalFrame, component);
-		JInternalFrameExtensions.addJInternalFrame(MainFrame.getInstance().getDesktopPane(), internalFrame);
-		MainFrame.getInstance().setCurrentVisibleInternalFrame(internalFrame);
+		// from here application specific behavior...
+		MainFrame.getInstance().replaceInternalFrame("Dashboard bundle app", new ApplicationDashboardContentPanel());
+
 	}
 
 	protected void onNext()

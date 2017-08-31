@@ -24,6 +24,7 @@
  */
 package de.alpharogroup.bundle.app;
 
+import java.awt.Component;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.HashMap;
@@ -95,14 +96,16 @@ public class MainFrame extends JXFrame
 	 *
 	 * @return single instance of MainFrame
 	 */
-	public static MainFrame getInstance() {
+	public static MainFrame getInstance()
+	{
 		return instance;
 	}
 
 	/**
 	 * Instantiates a new main frame.
 	 */
-	private MainFrame() {
+	private MainFrame()
+	{
 		super(Messages.getString("mainframe.title"));
 		initializeComponents();
 	}
@@ -110,7 +113,8 @@ public class MainFrame extends JXFrame
 	/**
 	 * Inits the components.
 	 */
-	public void initializeComponents() {
+	public void initializeComponents()
+	{
 
 		toolbar = new JToolBar(); // create the tool bar
 		setJMenuBar(menubar);
@@ -122,7 +126,7 @@ public class MainFrame extends JXFrame
 		{
 			final String iconPath = Messages.getString("global.icon.app.path");
 			final BufferedImage appIcon = ImageIO
-					.read(ClassExtensions.getResourceAsStream(iconPath));
+				.read(ClassExtensions.getResourceAsStream(iconPath));
 			setIconImage(appIcon);
 		}
 		catch (final IOException e)
@@ -130,23 +134,41 @@ public class MainFrame extends JXFrame
 			log.error("Icon file could not be readed.", e);
 		}
 
-		ApplicationContext applicationContext = SpringApplicationContext.getInstance().getApplicationContext();
+		ApplicationContext applicationContext = SpringApplicationContext.getInstance()
+			.getApplicationContext();
 
-		BundleApplicationsService bundleApplicationsService = (BundleApplicationsService)applicationContext.getBean("bundleApplicationsService");
+		BundleApplicationsService bundleApplicationsService = (BundleApplicationsService)applicationContext
+			.getBean("bundleApplicationsService");
 
-		mainDashboardBean = MainDashboardBean.builder().bundleApplications(bundleApplicationsService.findAll()).build();
+		mainDashboardBean = MainDashboardBean.builder()
+			.bundleApplications(bundleApplicationsService.findAll()).build();
 
-		MainDashboardPanel mainDashboardPanel = new MainDashboardPanel(BaseModel.<MainDashboardBean>of(mainDashboardBean));
-
-		final JInternalFrame internalFrame = JComponentFactory.newInternalFrame("Main dashboard", true, true,
-			true, true);
-
-		JInternalFrameExtensions.addComponentToFrame(internalFrame, mainDashboardPanel);
-		JInternalFrameExtensions.addJInternalFrame(desktopPane, internalFrame);
-		setCurrentVisibleInternalFrame(internalFrame);
-
+		MainDashboardPanel mainDashboardPanel = new MainDashboardPanel(
+			BaseModel.<MainDashboardBean> of(mainDashboardBean));
+		replaceInternalFrame("Main dashboard", mainDashboardPanel);
 	}
 
-
+	/**
+	 * Replace the current internal frame with a new internal frame with the given {@link Component}
+	 * as content.
+	 *
+	 * @param title
+	 *            the title
+	 * @param component
+	 *            the component
+	 */
+	public void replaceInternalFrame(String title, final Component component)
+	{
+		if (getCurrentVisibleInternalFrame() != null)
+		{
+			getCurrentVisibleInternalFrame().dispose();
+		}
+		// create internal frame
+		final JInternalFrame internalFrame = JComponentFactory.newInternalFrame(title, true, true,
+			true, true);
+		JInternalFrameExtensions.addComponentToFrame(internalFrame, component);
+		JInternalFrameExtensions.addJInternalFrame(desktopPane, internalFrame);
+		setCurrentVisibleInternalFrame(internalFrame);
+	}
 
 }

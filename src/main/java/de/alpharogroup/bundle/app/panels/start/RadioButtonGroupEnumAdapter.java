@@ -2,6 +2,7 @@ package de.alpharogroup.bundle.app.panels.start;
 
 import java.util.EnumMap;
 import java.util.Map;
+
 import javax.swing.JRadioButton;
 
 /**

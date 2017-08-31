@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JCheckBox;
-import javax.swing.JInternalFrame;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 
@@ -20,11 +19,9 @@ import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BasePanel;
-import de.alpharogroup.swing.components.factories.JComponentFactory;
 import de.alpharogroup.swing.renderer.TableCellButtonRenderer;
 import de.alpharogroup.swing.table.editor.TableCellButtonEditor;
 import de.alpharogroup.swing.table.model.TableColumnsModel;
-import de.alpharogroup.swing.utils.JInternalFrameExtensions;
 import de.alpharogroup.swing.x.GenericJXTable;
 import lombok.Getter;
 
@@ -126,19 +123,11 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 			{
 				selectedBundleApplication = (BundleApplications)this.getValue();
 
-				// from here application specific behavior...
-				MainFrame.getInstance().getCurrentVisibleInternalFrame().dispose();
-
-				// create internal frame
-				final JInternalFrame internalFrame = JComponentFactory
-					.newInternalFrame("Dashboard bundle app", true, true, true, true);
 				ApplicationDashboardContentPanel component = new ApplicationDashboardContentPanel(
 					BaseModel.<ApplicationDashboardBean> of(ApplicationDashboardBean.builder()
 						.bundleApplication(selectedBundleApplication).build()));
-				JInternalFrameExtensions.addComponentToFrame(internalFrame, component);
-				JInternalFrameExtensions.addJInternalFrame(MainFrame.getInstance().getDesktopPane(),
-					internalFrame);
-				MainFrame.getInstance().setCurrentVisibleInternalFrame(internalFrame);
+				MainFrame.getInstance().replaceInternalFrame("Dashboard bundle app", component);
+
 				String text = "Select";
 				return text;
 
