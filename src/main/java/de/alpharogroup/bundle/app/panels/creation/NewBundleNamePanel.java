@@ -4,8 +4,8 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JComboBox;
 
+import de.alpharogroup.bundle.app.combobox.model.LocaleComboBoxModel;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
-import de.alpharogroup.bundle.app.panels.models.LocaleComboBoxModel;
 import de.alpharogroup.bundle.app.panels.renderer.LocaleComboBoxRenderer;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.model.BaseModel;
