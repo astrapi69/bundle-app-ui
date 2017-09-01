@@ -2,6 +2,7 @@ package de.alpharogroup.bundle.app.panels.dashboard;
 
 import java.awt.event.ActionEvent;
 
+import de.alpharogroup.bundle.app.MainFrame;
 import de.alpharogroup.bundle.app.panels.creation.NewBundleApplicationPanel;
 import de.alpharogroup.bundle.app.panels.creation.NewBundleNamePanel;
 import de.alpharogroup.bundle.app.panels.creation.NewCustomLocalePanel;
@@ -176,6 +177,9 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 
 	protected void onSaveBundleApplication(ActionEvent e)
 	{
+		String title = "Dashboard of " + MainFrame.getInstance().getModelObject()
+			.getSelectedBundleApplication().getBundleApplication().getName() + " bundle app";
+		MainFrame.getInstance().getCurrentVisibleInternalFrame().setTitle(title);
 		getCardLayout().show(this, ApplicationDashboardView.DASHBOARD.name());
 	}
 

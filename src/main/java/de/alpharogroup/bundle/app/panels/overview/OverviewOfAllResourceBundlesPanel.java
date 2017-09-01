@@ -1,9 +1,15 @@
 package de.alpharogroup.bundle.app.panels.overview;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JCheckBox;
+import javax.swing.JTable;
+import javax.swing.table.TableColumn;
+
+import de.alpharogroup.bundle.app.MainFrame;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
 import de.alpharogroup.bundle.app.table.model.StringBundleNamesTableModel;
@@ -12,6 +18,8 @@ import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BasePanel;
+import de.alpharogroup.swing.renderer.TableCellButtonRenderer;
+import de.alpharogroup.swing.table.editor.TableCellButtonEditor;
 import de.alpharogroup.swing.x.GenericJXTable;
 
 public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDashboardBean>
@@ -73,6 +81,76 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 		tableModel.addList(getTableModelList());
 
 		tblBundles = new GenericJXTable<>(tableModel);
+		final TableColumn valueColumn = tblBundles.getColumn("Action");
+
+		valueColumn.setCellRenderer(new TableCellButtonRenderer(null, null)
+		{
+			@Override
+			public Component getTableCellRendererComponent(JTable table, Object value,
+				boolean isSelected, boolean hasFocus, int row, int column)
+			{
+				if (isSelected)
+				{
+					setForeground(newSelectionForeground(table));
+					setBackground(newSelectionBackround(table));
+				}
+				else
+				{
+					setForeground(newForeground(table));
+					setBackground(newBackround(table));
+				}
+				String text = "Choose";
+				setText(text);
+				return this;
+			}
+		});
+		valueColumn.setCellEditor(new TableCellButtonEditor(new JCheckBox())
+		{
+
+			@Override
+			public Object getCellEditorValue()
+			{
+				BundleNames selectedBundleName = (BundleNames)this.getValue();
+
+				Model<ApplicationDashboardBean> baModel = MainFrame.getInstance()
+					.getSelectedBundleApplicationPropertyModel();
+
+				// TODO add overview of selected BundleNames...
+				OverviewResourceBundlePanel component = new OverviewResourceBundlePanel(baModel);
+
+				MainFrame.getInstance().replaceInternalFrame(
+					"Values of resource bundle " + selectedBundleName.getBaseName().getName() + " with locale " + selectedBundleName.getLocale().getLocale()+ "",
+					component);
+
+				String text = "Choose";
+				return text;
+
+			}
+
+			@Override
+			public Component getTableCellEditorComponent(JTable table, Object value,
+				boolean isSelected, int row, int column)
+			{
+				setRow(row);
+				setColumn(column);
+				setValue(value);
+				if (isSelected)
+				{
+					getButton().setForeground(table.getSelectionForeground());
+					getButton().setBackground(table.getSelectionBackground());
+				}
+				else
+				{
+					getButton().setForeground(table.getForeground());
+					getButton().setBackground(table.getBackground());
+				}
+				String text = "Choose";
+				getButton().setText(text);
+				setClicked(true);
+				return getButton();
+			}
+		});
+
 
 		lblHeaderOverview.setText("Overview of all resource bundles");
 

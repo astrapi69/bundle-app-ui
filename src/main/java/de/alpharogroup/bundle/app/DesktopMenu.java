@@ -42,6 +42,7 @@ import javax.swing.UIManager;
 import de.alpharogroup.bundle.app.actions.ImportBundleAppInternalFrameAction;
 import de.alpharogroup.bundle.app.actions.NewBundleAppInternalFrameAction;
 import de.alpharogroup.bundle.app.actions.OpenBrowserToDonateAction;
+import de.alpharogroup.bundle.app.actions.OverviewBundleAppsAction;
 import de.alpharogroup.bundle.app.actions.ShowHelpDialogAction;
 import de.alpharogroup.bundle.app.actions.ShowInfoDialogAction;
 import de.alpharogroup.bundle.app.actions.ShowLicenseFrameAction;
@@ -168,6 +169,12 @@ public class DesktopMenu
 		final JMenu fileMenu = new JMenu("File");
 		fileMenu.setMnemonic('F');
 		JMenuItem jmi;
+
+		// Overview all bundle apps
+		jmi = new JMenuItem("Overview bundle apps", 'O');
+		jmi.addActionListener(new OverviewBundleAppsAction("Overview bundle apps"));
+		MenuExtensions.setCtrlAccelerator(jmi, 'O');
+		fileMenu.add(jmi);
 
 		// New bundle app
 		jmi = new JMenuItem("New bundle app", 'N');

@@ -3,6 +3,7 @@ package de.alpharogroup.bundle.app.panels.creation;
 import java.awt.event.ActionEvent;
 
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
+import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BasePanel;
@@ -14,7 +15,7 @@ public class NewResourceBundleEntryPanel extends BasePanel<ApplicationDashboardB
 
 	private javax.swing.JButton btnCreate;
 	private javax.swing.JButton btnSave;
-	private javax.swing.JComboBox<String> cmbBundle;
+	private javax.swing.JComboBox<BundleNames> cmbBundle;
 	private javax.swing.JLabel lblBundle;
 	private javax.swing.JLabel lblHeaderNewBundleEntry;
 	private javax.swing.JLabel lblKey;
@@ -55,9 +56,6 @@ public class NewResourceBundleEntryPanel extends BasePanel<ApplicationDashboardB
 		btnCreate.addActionListener(e -> onCreate(e));
 
 		lblBundle.setText("Choose Bundle");
-
-		cmbBundle.setModel(new javax.swing.DefaultComboBoxModel<>(
-			new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
 		lblKey.setText("Properties key");
 

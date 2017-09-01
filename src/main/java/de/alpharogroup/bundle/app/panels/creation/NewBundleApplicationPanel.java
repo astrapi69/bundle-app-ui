@@ -109,20 +109,27 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 		BundleApplicationsService bundleApplicationsService = (BundleApplicationsService)SpringApplicationContext
 			.getInstance().getApplicationContext().getBean("bundleApplicationsService");
 		String name = getTxtBundleName().getText();
+		BundleApplications currentBundleApplication;
+		if (getModelObject().getBundleApplication() != null) {
+			currentBundleApplication = getModelObject().getBundleApplication();
+			currentBundleApplication.setName(name);
+			currentBundleApplication = bundleApplicationsService.merge(currentBundleApplication);
+		} else {
+			BundleApplications newBundleApplication = bundleApplicationsService.find(name);
+			if (newBundleApplication == null)
+			{
+				newBundleApplication = BundleApplications.builder().name(name).build();
+				newBundleApplication = bundleApplicationsService.merge(newBundleApplication);
+			}
+			if (!MainFrame.getInstance().getModelObject().getBundleApplications()
+				.contains(newBundleApplication))
+			{
+				MainFrame.getInstance().getModelObject().getBundleApplications()
+					.add(newBundleApplication);
+			}
+			getModelObject().setBundleApplication(newBundleApplication);
+		}
 
-		BundleApplications newBundleApplication = bundleApplicationsService.find(name);
-		if (newBundleApplication == null)
-		{
-			newBundleApplication = BundleApplications.builder().name(name).build();
-			newBundleApplication = bundleApplicationsService.merge(newBundleApplication);
-		}
-		if (!MainFrame.getInstance().getMainDashboardBean().getBundleApplications()
-			.contains(newBundleApplication))
-		{
-			MainFrame.getInstance().getMainDashboardBean().getBundleApplications()
-				.add(newBundleApplication);
-		}
-		getModelObject().setBundleApplication(newBundleApplication);
 	}
 
 }

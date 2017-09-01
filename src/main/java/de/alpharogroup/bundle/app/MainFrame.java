@@ -78,7 +78,7 @@ public class MainFrame extends BaseFrame<MainDashboardBean>
 	}
 
 	/** The desktop pane. */
-	private final JDesktopPane desktopPane = SingletonDesktopPane.getInstance();
+	private JDesktopPane desktopPane;
 
 	/** The menubar. */
 	private JMenuBar menubar;
@@ -94,10 +94,7 @@ public class MainFrame extends BaseFrame<MainDashboardBean>
 	/** The current look and feels. */
 	@Getter
 	@Setter
-	private LookAndFeels currentLookAndFeels = LookAndFeels.SYSTEM;
-
-	@Getter
-	private MainDashboardBean mainDashboardBean;
+	private LookAndFeels currentLookAndFeels;
 
 	private Model<ApplicationDashboardBean> selectedBundleApplicationPropertyModel;
 
@@ -107,7 +104,6 @@ public class MainFrame extends BaseFrame<MainDashboardBean>
 	private MainFrame()
 	{
 		super(Messages.getString("mainframe.title"));
-		initializeComponents();
 	}
 
 	public Model<ApplicationDashboardBean> getSelectedBundleApplicationPropertyModel()
@@ -116,30 +112,30 @@ public class MainFrame extends BaseFrame<MainDashboardBean>
 		{
 			initApllicationDashboardBean();
 			this.selectedBundleApplicationPropertyModel = PropertyModel
-				.<ApplicationDashboardBean> of(mainDashboardBean, "selectedBundleApplication");
+				.<ApplicationDashboardBean> of(getModelObject(), "selectedBundleApplication");
 		}
 		return this.selectedBundleApplicationPropertyModel;
 	}
 
 	private void initApllicationDashboardBean()
 	{
-		if (mainDashboardBean.getSelectedBundleApplication() == null)
+		if (getModelObject().getSelectedBundleApplication() == null)
 		{
-			mainDashboardBean
+			getModelObject()
 				.setSelectedBundleApplication(ApplicationDashboardBean.builder().build());
 		}
 	}
 
-	/**
-	 * Inits the components.
-	 */
-	public void initializeComponents()
+	@Override
+	protected void onInitializeComponents()
 	{
+		super.onInitializeComponents();
 
 		toolbar = new JToolBar(); // create the tool bar
 		setJMenuBar(menubar);
 		setToolBar(toolbar);
-
+		desktopPane = SingletonDesktopPane.getInstance();
+		currentLookAndFeels = LookAndFeels.SYSTEM;
 		getContentPane().add(desktopPane);
 
 		try
@@ -160,20 +156,12 @@ public class MainFrame extends BaseFrame<MainDashboardBean>
 		BundleApplicationsService bundleApplicationsService = (BundleApplicationsService)applicationContext
 			.getBean("bundleApplicationsService");
 
-		mainDashboardBean = MainDashboardBean.builder()
-			.bundleApplications(bundleApplicationsService.findAll()).build();
-
+		Model<MainDashboardBean> model = BaseModel.<MainDashboardBean> of(MainDashboardBean.builder()
+			.bundleApplications(bundleApplicationsService.findAll()).build());
+		setModel(model);
 		MainDashboardPanel mainDashboardPanel = new MainDashboardPanel(
-			BaseModel.<MainDashboardBean> of(mainDashboardBean));
+			PropertyModel.<MainDashboardBean> of(this, "model.object"));
 		replaceInternalFrame("Main dashboard", mainDashboardPanel);
-
-
-	}
-
-	@Override
-	protected void onAfterInitialize()
-	{
-		super.onAfterInitialize();
 	}
 
 	/**
@@ -202,7 +190,7 @@ public class MainFrame extends BaseFrame<MainDashboardBean>
 	public void setSelectedBundleApplication(BundleApplications bundleApplication)
 	{
 		initApllicationDashboardBean();
-		mainDashboardBean.getSelectedBundleApplication().setBundleApplication(bundleApplication);
+		getModelObject().getSelectedBundleApplication().setBundleApplication(bundleApplication);
 	}
 
 }
