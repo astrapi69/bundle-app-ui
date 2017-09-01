@@ -2,6 +2,8 @@ package de.alpharogroup.bundle.app.panels.creation;
 
 import java.awt.event.ActionEvent;
 
+import de.alpharogroup.bundle.app.combobox.model.BundleNamesComboBoxModel;
+import de.alpharogroup.bundle.app.combobox.renderer.BundleNamesComboBoxRenderer;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.model.BaseModel;
@@ -44,7 +46,8 @@ public class NewResourceBundleEntryPanel extends BasePanel<ApplicationDashboardB
 	{
 		super.onInitializeComponents();
 		lblBundle = new javax.swing.JLabel();
-		cmbBundle = new javax.swing.JComboBox<>();
+		cmbBundle = new javax.swing.JComboBox<>(BundleNamesComboBoxModel.get());
+		cmbBundle.setRenderer(new BundleNamesComboBoxRenderer());
 		lblKey = new javax.swing.JLabel();
 		txtValue = new javax.swing.JTextField();
 		lblValue = new javax.swing.JLabel();

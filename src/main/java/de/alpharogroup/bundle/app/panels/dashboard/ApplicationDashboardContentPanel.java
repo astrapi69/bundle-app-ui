@@ -8,7 +8,7 @@ import de.alpharogroup.bundle.app.panels.creation.NewBundleNamePanel;
 import de.alpharogroup.bundle.app.panels.creation.NewCustomLocalePanel;
 import de.alpharogroup.bundle.app.panels.creation.NewResourceBundleEntryPanel;
 import de.alpharogroup.bundle.app.panels.overview.OverviewOfAllResourceBundlesPanel;
-import de.alpharogroup.bundle.app.panels.overview.OverviewResourceBundlePanel;
+import de.alpharogroup.bundle.app.panels.overview.OverviewResourceBundleAddEntryPanel;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BaseCardLayoutPanel;
@@ -126,10 +126,10 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 		};
 	}
 
-	protected OverviewResourceBundlePanel newOverviewResourceBundlePanel(
+	protected OverviewResourceBundleAddEntryPanel newOverviewResourceBundlePanel(
 		Model<ApplicationDashboardBean> model)
 	{
-		return new OverviewResourceBundlePanel(model);
+		return new OverviewResourceBundleAddEntryPanel(model);
 	}
 
 	protected NewResourceBundleEntryPanel newResourceBundleEntryPanel(

@@ -6,11 +6,11 @@ import de.alpharogroup.swing.combobox.model.AbstractComboBoxModel;
 
 public class LocaleComboBoxModel extends AbstractComboBoxModel<LanguageLocales>
 {
-	private static final LocaleComboBoxModel localeComboBoxModel = new LocaleComboBoxModel();
+	private static final LocaleComboBoxModel COMBO_BOX_MODEL = new LocaleComboBoxModel();
 
 	public static final LocaleComboBoxModel get()
 	{
-		return localeComboBoxModel;
+		return COMBO_BOX_MODEL;
 	}
 
 	/**

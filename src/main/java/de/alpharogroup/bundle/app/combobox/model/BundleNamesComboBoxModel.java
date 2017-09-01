@@ -9,6 +9,8 @@ import de.alpharogroup.swing.combobox.model.AbstractComboBoxModel;
 public class BundleNamesComboBoxModel extends AbstractComboBoxModel<BundleNames>
 {
 
+    private static final long serialVersionUID = 1L;
+
 	/**
 	 * init block
 	 **/
@@ -18,11 +20,11 @@ public class BundleNamesComboBoxModel extends AbstractComboBoxModel<BundleNames>
 		setComboSet(bundleNames);
 	}
 
-	private static final BundleNamesComboBoxModel comboBoxModel = new BundleNamesComboBoxModel();
+	private static final BundleNamesComboBoxModel COMBO_BOX_MODEL = new BundleNamesComboBoxModel();
 
 	public static final BundleNamesComboBoxModel get()
 	{
-		return comboBoxModel;
+		return COMBO_BOX_MODEL;
 	}
 
 

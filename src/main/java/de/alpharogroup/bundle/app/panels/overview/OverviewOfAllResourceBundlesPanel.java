@@ -114,9 +114,9 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 
 				Model<ApplicationDashboardBean> baModel = MainFrame.getInstance()
 					.getSelectedBundleApplicationPropertyModel();
+				MainFrame.getInstance().getModelObject().getSelectedBundleApplication().setSelectedBundleName(selectedBundleName);
 
-				// TODO add overview of selected BundleNames...
-				OverviewResourceBundlePanel component = new OverviewResourceBundlePanel(baModel);
+				OverviewResourceBundleAddEntryPanel component = new OverviewResourceBundleAddEntryPanel(baModel);
 
 				MainFrame.getInstance().replaceInternalFrame(
 					"Values of resource bundle " + selectedBundleName.getBaseName().getName() + " with locale " + selectedBundleName.getLocale().getLocale()+ "",

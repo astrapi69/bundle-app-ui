@@ -43,6 +43,8 @@ import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService
 import de.alpharogroup.db.resource.bundles.service.api.BundleNamesService;
 import de.alpharogroup.db.resource.bundles.service.api.LanguageLocalesService;
 import de.alpharogroup.db.resource.bundles.service.api.LanguagesService;
+import de.alpharogroup.db.resource.bundles.service.api.PropertiesKeysService;
+import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -75,6 +77,10 @@ public class SpringApplicationContext
 	private BundleNamesService bundleNamesService;
 
 	private BundleApplicationsService bundleApplicationsService;
+
+	private ResourcebundlesService resourcebundlesService;
+
+	private PropertiesKeysService propertiesKeysService;
 
 	/** The application context. */
 	@Getter
@@ -169,6 +175,26 @@ public class SpringApplicationContext
 				.name(BundleApplications.BASE_BUNDLE_APPLICATION).build();
 			baseBundleApplication = bundleApplicationsService.merge(baseBundleApplication);
 		}
+	}
+
+	public ResourcebundlesService getResourcebundlesService()
+	{
+		if (resourcebundlesService == null)
+		{
+			resourcebundlesService = (ResourcebundlesService)applicationContext
+				.getBean("resourcebundlesService");
+		}
+		return resourcebundlesService;
+	}
+
+	public PropertiesKeysService getPropertiesKeysService()
+	{
+		if (propertiesKeysService == null)
+		{
+			propertiesKeysService = (PropertiesKeysService)applicationContext
+				.getBean("propertiesKeysService");
+		}
+		return propertiesKeysService;
 	}
 
 }
