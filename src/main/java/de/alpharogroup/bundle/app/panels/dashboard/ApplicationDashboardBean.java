@@ -2,6 +2,7 @@ package de.alpharogroup.bundle.app.panels.dashboard;
 
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
+import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -23,5 +24,7 @@ public class ApplicationDashboardBean
 	private BundleApplications bundleApplication;
 
 	private BundleNames selectedBundleName;
+
+	private Resourcebundles selectedResourcebundle;
 
 }

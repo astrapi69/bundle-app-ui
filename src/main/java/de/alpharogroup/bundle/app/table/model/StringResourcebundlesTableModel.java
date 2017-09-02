@@ -2,13 +2,13 @@ package de.alpharogroup.bundle.app.table.model;
 
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 import de.alpharogroup.swing.table.model.TableColumnsModel;
-import de.alpharogroup.swing.table.model.triple.TripleTableModel;
+import de.alpharogroup.swing.table.model.quattro.QuattroTableModel;
 
 /**
  * The class {@link StringResourcebundlesTableModel} that lists key value pairs which the key is the
  * key of the resource bundle and the value of the {@link Resourcebundles}.
  */
-public class StringResourcebundlesTableModel extends TripleTableModel<String, String, Resourcebundles>
+public class StringResourcebundlesTableModel extends QuattroTableModel<String, String, Resourcebundles, Resourcebundles>
 {
 
 	/** The Constant serialVersionUID. */
@@ -20,9 +20,9 @@ public class StringResourcebundlesTableModel extends TripleTableModel<String, St
 	public StringResourcebundlesTableModel()
 	{
 		this(TableColumnsModel.builder()
-			.columnNames(new String[] { "Key", "Value", "Action" })
-			.canEdit(new boolean[] { false, false, true })
-			.columnClasses(new Class<?>[] { String.class, String.class, Resourcebundles.class })
+			.columnNames(new String[] { "Key", "Value", "Edit", "Delete" })
+			.canEdit(new boolean[] { false, false, true, true })
+			.columnClasses(new Class<?>[] { String.class, String.class, Resourcebundles.class, Resourcebundles.class })
 			.build());
 	}
 

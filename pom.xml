@@ -15,6 +15,7 @@
 	<properties>
 		<!-- UI properties -->
 		<swing-components.version>4.23.0-SNAPSHOT</swing-components.version>
+		<silly-collections.version>4.17.0</silly-collections.version>
 		<!-- MIGLAYOUT-SWING version -->
 		<miglayout-swing.version>5.0</miglayout-swing.version>
 		<!-- GENERIC-DESIGN-PATTERN versions -->
@@ -81,6 +82,13 @@
 				<artifactId>state</artifactId>
 				<version>${state.version}</version>
 			</dependency>
+			<!-- SILLY-COLLECTIONS DEPENDENCY -->
+			<dependency>
+				<groupId>de.alpharogroup</groupId>
+				<artifactId>silly-collections</artifactId>
+				<version>${silly-collections.version}</version>
+			</dependency>
+
 			<!-- USER-MANAGEMENT-DATA DEPENDENCIES -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
@@ -134,7 +142,7 @@
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>resource-bundles-rest-api</artifactId>
 				<version>${resource-bundles-rest-api.version}</version>
-			</dependency>			
+			</dependency>
 			<!-- SECURED-BUNDLE-APPLICATION-DATA DEPENDENCIES -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
@@ -235,6 +243,11 @@
 			<groupId>de.alpharogroup</groupId>
 			<artifactId>state</artifactId>
 		</dependency>
+		<!-- SILLY-COLLECTIONS DEPENDENCY -->
+		<dependency>
+			<groupId>de.alpharogroup</groupId>
+			<artifactId>silly-collections</artifactId>
+		</dependency>
 		<!-- USER-MANAGEMENT-DATA DEPENDENCIES -->
 		<dependency>
 			<groupId>de.alpharogroup</groupId>
@@ -280,11 +293,11 @@
 			<groupId>de.alpharogroup</groupId>
 			<artifactId>resource-bundles-rest-api</artifactId>
 		</dependency>
-			<!-- SECURED-BUNDLE-APPLICATION-DATA DEPENDENCIES -->
-			<dependency>
-				<groupId>de.alpharogroup</groupId>
-				<artifactId>secured-bundle-application-business</artifactId>
-			</dependency>
+		<!-- SECURED-BUNDLE-APPLICATION-DATA DEPENDENCIES -->
+		<dependency>
+			<groupId>de.alpharogroup</groupId>
+			<artifactId>secured-bundle-application-business</artifactId>
+		</dependency>
 		<!-- RESOURCEBUNDLE-CORE DEPENDENCIES -->
 		<dependency>
 			<groupId>de.alpharogroup</groupId>
