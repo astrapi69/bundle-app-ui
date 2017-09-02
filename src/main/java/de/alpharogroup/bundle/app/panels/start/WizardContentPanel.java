@@ -1,20 +1,16 @@
 package de.alpharogroup.bundle.app.panels.start;
 
-import java.awt.Color;
-
-import javax.swing.border.LineBorder;
-
 import org.jdesktop.swingx.JXPanel;
 
 import de.alpharogroup.design.pattern.state.wizard.model.WizardModelStateMachine;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
-import de.alpharogroup.swing.base.BaseCardLayoutPanel;
+import de.alpharogroup.swing.wizard.BaseWizardContentPanel;
 
 /**
  * The class {@link WizardContentPanel}.
  */
-public class WizardContentPanel extends BaseCardLayoutPanel<WizardModelStateMachine<WizardModel>>
+public class WizardContentPanel extends BaseWizardContentPanel<WizardModel>
 {
 
 	/** The Constant serialVersionUID. */
@@ -75,16 +71,6 @@ public class WizardContentPanel extends BaseCardLayoutPanel<WizardModelStateMach
 			WizardModelState.SUCCESSFUL_CONNECT_TO_BUNDLE_APP.getName());
 		add(newConnectToExistingBundleAppPanel(getModel()),
 			WizardModelState.CONNECT_TO_EXISTING_BUNDLE_APP.getName());
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	protected void onInitializeLayout()
-	{
-		super.onInitializeLayout();
-		setBorder(new LineBorder(Color.BLACK));
 	}
 
 }

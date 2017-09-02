@@ -1,6 +1,7 @@
 package de.alpharogroup.bundle.app.panels.start;
 
 import de.alpharogroup.swing.panels.login.pw.ChangePasswordModelBean;
+import de.alpharogroup.swing.wizard.model.AbstractWizardModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -14,25 +15,13 @@ import lombok.ToString;
  */
 @Getter
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper=true)
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class WizardModel
+public class WizardModel extends AbstractWizardModel
 {
-
-	/** The flag that signals if next is valid or not. */
-	private boolean validNext;
-
-	/** The flag that signals if previous is valid or not. */
-	private boolean validPrevious;
-
-	/** The flag that signals if cancel is valid or not. */
-	private boolean validCancel;
-
-	/** The flag that signals if finish is valid or not. */
-	private boolean validFinish;
 
 	/** The flag that signals to create a new bundle app. */
 	private boolean create;
@@ -50,24 +39,4 @@ public class WizardModel
 	private RadioButtonGroupEnumAdapter<BundleStart> bundleAppInitialization = new RadioButtonGroupEnumAdapter(
 		BundleStart.class);
 
-	/**
-	 * Reset all flags to false.
-	 */
-	public void reset()
-	{
-		validNext = false;
-		validPrevious = false;
-		validCancel = false;
-		validFinish = false;
-	}
-
-	/**
-	 * Sets all valid states to true.
-	 */
-	public void setAllValid()
-	{
-		validNext = true;
-		validPrevious = true;
-		validCancel = true;
-	}
 }
