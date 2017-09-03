@@ -7,6 +7,8 @@ import de.alpharogroup.swing.wizard.BaseWizardContentPanel;
 public class ImportWizardContentPanel extends BaseWizardContentPanel<ImportWizardModel>
 {
 
+	private static final long serialVersionUID = 1L;
+
 	public ImportWizardContentPanel()
 	{
 		super();
