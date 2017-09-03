@@ -1,5 +1,7 @@
 package de.alpharogroup.bundle.app.panels.imports;
 
+import java.io.File;
+
 import de.alpharogroup.swing.wizard.model.AbstractWizardModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,5 +26,7 @@ public class ImportWizardModel extends AbstractWizardModel
 
 	/** The bundle app name. */
 	private String bundleAppName;
+
+	private File rootDir;
 
 }

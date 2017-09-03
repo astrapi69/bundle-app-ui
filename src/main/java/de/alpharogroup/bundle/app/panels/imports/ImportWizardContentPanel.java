@@ -19,4 +19,29 @@ public class ImportWizardContentPanel extends BaseWizardContentPanel<ImportWizar
 		super(model);
 	}
 
+	protected ImportBundleApplicationStartPanel newImportBundleApplicationStartPanel(Model<WizardModelStateMachine<ImportWizardModel>> model) {
+		return new ImportBundleApplicationStartPanel(model);
+	}
+
+	protected ImportProgressPanel newImportProgressPanel(Model<WizardModelStateMachine<ImportWizardModel>> model) {
+		return new ImportProgressPanel(model);
+	}
+
+	protected ImportFinishedPanel newImportFinishedPanel(Model<WizardModelStateMachine<ImportWizardModel>> model) {
+		return new ImportFinishedPanel(model);
+	}
+
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected void onInitializeComponents()
+	{
+		super.onInitializeComponents();
+		add(newImportBundleApplicationStartPanel(getModel()), ImportWizardState.FIRST.getName());
+		add(newImportProgressPanel(getModel()), ImportWizardState.PROGRESS.getName());
+		add(newImportFinishedPanel(getModel()), ImportWizardState.FINISHED.getName());
+	}
+
 }

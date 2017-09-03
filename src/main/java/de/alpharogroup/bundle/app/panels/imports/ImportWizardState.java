@@ -58,5 +58,111 @@ public enum ImportWizardState implements WizardState<WizardModelStateMachine<Imp
 			return true;
 		}
 
+	},
+
+	/** The first {@link WizardModelState} object. */
+	PROGRESS {
+
+		@Override
+		public void cancel(final WizardModelStateMachine<ImportWizardModel> stateMachine)
+		{
+			if (stateMachine.getModelObject().isValidCancel())
+			{
+			}
+		}
+
+		@Override
+		public void finish(final WizardModelStateMachine<ImportWizardModel> stateMachine)
+		{
+			if (stateMachine.getModelObject().isValidFinish())
+			{
+			}
+		}
+
+		@Override
+		public String getName()
+		{
+			return name();
+		}
+
+		@Override
+		public void goNext(final WizardModelStateMachine<ImportWizardModel> stateMachine)
+		{
+			if (stateMachine.getModelObject().isValidNext())
+			{
+
+			}
+		}
+
+		@Override
+		public void goPrevious(final WizardModelStateMachine<ImportWizardModel> input)
+		{
+		}
+
+		@Override
+		public boolean hasPrevious()
+		{
+			return false;
+		}
+
+		@Override
+		public boolean isFirst()
+		{
+			return true;
+		}
+
+	},
+
+	/** The first {@link WizardModelState} object. */
+	FINISHED {
+
+		@Override
+		public void cancel(final WizardModelStateMachine<ImportWizardModel> stateMachine)
+		{
+			if (stateMachine.getModelObject().isValidCancel())
+			{
+			}
+		}
+
+		@Override
+		public void finish(final WizardModelStateMachine<ImportWizardModel> stateMachine)
+		{
+			if (stateMachine.getModelObject().isValidFinish())
+			{
+			}
+		}
+
+		@Override
+		public String getName()
+		{
+			return name();
+		}
+
+		@Override
+		public void goNext(final WizardModelStateMachine<ImportWizardModel> stateMachine)
+		{
+			if (stateMachine.getModelObject().isValidNext())
+			{
+
+			}
+		}
+
+		@Override
+		public void goPrevious(final WizardModelStateMachine<ImportWizardModel> input)
+		{
+		}
+
+		@Override
+		public boolean hasPrevious()
+		{
+			return false;
+		}
+
+		@Override
+		public boolean isFirst()
+		{
+			return true;
+		}
+
 	};
 }
