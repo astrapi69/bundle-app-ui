@@ -14,7 +14,7 @@
 
 	<properties>
 		<!-- UI properties -->
-		<swing-components.version>4.23.0-SNAPSHOT</swing-components.version>
+		<swing-components.version>4.23.0</swing-components.version>
 		<silly-collections.version>4.17.0</silly-collections.version>
 		<!-- MIGLAYOUT-SWING version -->
 		<miglayout-swing.version>5.0</miglayout-swing.version>
@@ -45,13 +45,13 @@
 		<user-management-rest-api.version>${user-management-data.version}</user-management-rest-api.version>
 		<user-management-rest-client.version>${user-management-data.version}</user-management-rest-client.version>
 		<!-- RESOURCE-BUNDLES-DATA versions -->
-		<resource-bundles-data.version>3.12.2</resource-bundles-data.version>
+		<resource-bundles-data.version>3.14.0</resource-bundles-data.version>
 		<resource-bundles-business.version>${resource-bundles-data.version}</resource-bundles-business.version>
 		<resource-bundles-entities.version>${resource-bundles-data.version}</resource-bundles-entities.version>
 		<resource-bundles-domain.version>${resource-bundles-data.version}</resource-bundles-domain.version>
 		<resource-bundles-rest-api.version>${resource-bundles-data.version}</resource-bundles-rest-api.version>
 		<!-- SECURED-BUNDLE-APPLICATION-DATA versions -->
-		<secured-bundle-application-data.version>3.12.2</secured-bundle-application-data.version>
+		<secured-bundle-application-data.version>3.14.0</secured-bundle-application-data.version>
 		<secured-bundle-application-business.version>${secured-bundle-application-data.version}</secured-bundle-application-business.version>
 		<!-- RESOURCEBUNDLE-CORE version -->
 		<resourcebundle-inspector.version>2.12.0</resourcebundle-inspector.version>

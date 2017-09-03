@@ -25,7 +25,6 @@ import de.alpharogroup.address.book.service.api.ZipcodesService;
 import de.alpharogroup.db.resource.bundles.service.api.BaseNamesService;
 import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
 import de.alpharogroup.db.resource.bundles.service.api.BundleNamesService;
-import de.alpharogroup.db.resource.bundles.service.api.DefaultLocaleBaseNamesService;
 import de.alpharogroup.db.resource.bundles.service.api.LanguageLocalesService;
 import de.alpharogroup.db.resource.bundles.service.api.LanguagesService;
 import de.alpharogroup.db.resource.bundles.service.api.PropertiesKeysService;
@@ -91,9 +90,6 @@ public class PersistenceJPAConfig
 
 	@Autowired
 	private LanguagesService languagesService;
-
-	@Autowired
-	private DefaultLocaleBaseNamesService defaultLocaleBaseNamesService;
 
 	@Autowired
 	private PropertiesKeysService propertiesKeysService;
