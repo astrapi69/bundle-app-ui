@@ -30,6 +30,7 @@ import java.util.List;
 import javax.xml.parsers.FactoryConfigurationError;
 
 import org.apache.log4j.xml.DOMConfigurator;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -69,6 +70,20 @@ public class SpringApplicationContext
 		return instance;
 	}
 
+	 /**
+ 	 * Gets the bean.
+ 	 *
+ 	 * @param <T> the generic type
+ 	 * @param context the context
+ 	 * @param name the name
+ 	 * @param clazz the clazz
+ 	 * @return the bean
+ 	 * @throws BeansException the beans exception
+ 	 */
+ 	public static <T> T getBean(ApplicationContext context, String name, Class<T> clazz) throws BeansException {
+		 return context.getBean(name, clazz);
+	 }
+	
 	@Getter
 	@Setter
 	@Autowired
