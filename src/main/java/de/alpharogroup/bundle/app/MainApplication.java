@@ -34,6 +34,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import de.alpharogroup.bundle.app.panels.imports.NavigationState;
 import de.alpharogroup.bundle.app.panels.start.BundleStart;
 import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
 import de.alpharogroup.design.pattern.observer.event.EventObject;
@@ -65,16 +66,42 @@ public class MainApplication
 	@SuppressWarnings("unchecked")
 	public static EventSource<EventObject<BundleStart>> getBundleStartEventSource()
 	{
-		EventSource<EventObject<BundleStart>> eventSource = (EventSource<EventObject<BundleStart>>)MainApplication
-			.get(BundleStart.class.getSimpleName());
+		EventSource<EventObject<BundleStart>> eventSource = getEventSource(BundleStart.class);
+
 		if (eventSource == null)
 		{
 			MainApplication.put(BundleStart.class.getSimpleName(),
 				new EventSubject<EventObject<BundleStart>>());
-			eventSource = (EventSource<EventObject<BundleStart>>)MainApplication
-				.get(BundleStart.class.getSimpleName());
+			eventSource = getEventSource(BundleStart.class);
 		}
 		return eventSource;
+	}
+
+	public static EventSource<EventObject<NavigationState>> getImportNavigationState()
+	{
+		EventSource<EventObject<NavigationState>> eventSource = getEventSource(
+			NavigationState.class);
+
+		if (eventSource == null)
+		{
+			MainApplication.put(NavigationState.class.getSimpleName(),
+				new EventSubject<EventObject<NavigationState>>());
+			eventSource = getEventSource(NavigationState.class);
+		}
+		return eventSource;
+	}
+
+	@SuppressWarnings("unchecked")
+	public static <T> EventSource<EventObject<T>> getEventSource(Class<T> eventSourceTypeClass)
+	{
+		final EventSource<EventObject<T>> eventSource = (EventSource<EventObject<T>>)MainApplication
+			.get(eventSourceTypeClass.getSimpleName());
+		return eventSource;
+	}
+
+	public static EventSource<?> put(String key, EventSource<?> value)
+	{
+		return eventSources.put(key, value);
 	}
 
 
@@ -124,10 +151,5 @@ public class MainApplication
 		{
 			log.error("UnsupportedLookAndFeelException:", e1);
 		}
-	}
-
-	public static EventSource<?> put(String key, EventSource<?> value)
-	{
-		return eventSources.put(key, value);
 	}
 }

@@ -7,24 +7,27 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
-import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
-import de.alpharogroup.resourcebundle.locale.LocaleResolver;
+import de.alpharogroup.check.Check;
+import de.alpharogroup.model.api.Model;
 
-public class LocaleComboBoxRenderer extends JLabel implements ListCellRenderer<LanguageLocales>
+public class LocalesComboBoxRenderer extends JLabel implements ListCellRenderer<Locale>
 {
 
 	private static final long serialVersionUID = 1L;
+	private final Model<Locale> model;
 
-	public LocaleComboBoxRenderer()
+	public LocalesComboBoxRenderer(Model<Locale> model)
 	{
 		setOpaque(true);
+		Check.get().notNull(model, "model");
+		this.model = model;
 		setHorizontalAlignment(CENTER);
 		setVerticalAlignment(CENTER);
 	}
 
 	@Override
-	public Component getListCellRendererComponent(JList<? extends LanguageLocales> list,
-		LanguageLocales value, int index, boolean isSelected, boolean cellHasFocus)
+	public Component getListCellRendererComponent(JList<? extends Locale> list,
+		Locale value, int index, boolean isSelected, boolean cellHasFocus)
 	{
 
 		if (isSelected)
@@ -40,9 +43,8 @@ public class LocaleComboBoxRenderer extends JLabel implements ListCellRenderer<L
 		String locale = "";
 		if (value != null)
 		{
-			locale = value.getLocale();
-			final Locale localeObj = LocaleResolver.resolveLocale(locale);
-			final String englishName = localeObj.getDisplayName(Locale.ENGLISH);
+			model.setObject(value);
+			final String englishName = value.getDisplayName(Locale.ENGLISH);
 			locale = englishName;
 		}
 		setText(locale);

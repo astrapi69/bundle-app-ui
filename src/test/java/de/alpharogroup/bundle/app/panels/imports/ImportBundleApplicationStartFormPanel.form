@@ -19,27 +19,33 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="lblWelcomeImportHeader" min="-2" pref="473" max="-2" attributes="0"/>
+                      <EmptySpace pref="296" max="32767" attributes="0"/>
+                  </Group>
                   <Group type="102" attributes="0">
                       <Component id="lblHeaderChooseBundleAppName" min="-2" pref="395" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblWelcomeImportHeader" min="-2" pref="473" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="lblBundleAppName" min="-2" pref="236" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="txtBundleAppName" min="-2" pref="460" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="lblSelectedRootDir" alignment="0" min="-2" pref="309" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="lblChooseRootDir" alignment="0" pref="309" max="32767" attributes="0"/>
+                                  <Component id="lblDefaultLocale" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="lblChooseRootDir" min="-2" pref="309" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="btnChooseRootDir" min="-2" pref="271" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="lblBundleAppName" alignment="0" min="-2" pref="309" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="55" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="txtBundleAppName" alignment="1" max="32767" attributes="0"/>
+                          <Component id="cmbDefaultLocale" alignment="1" max="32767" attributes="0"/>
+                          <Component id="btnChooseRootDir" alignment="1" pref="400" max="32767" attributes="0"/>
+                          <Component id="txtSelectedRootDir" alignment="1" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -48,21 +54,31 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-              <Component id="lblWelcomeImportHeader" min="-2" pref="39" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="lblWelcomeImportHeader" min="-2" pref="30" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="lblHeaderChooseBundleAppName" min="-2" pref="24" max="-2" attributes="0"/>
+              <Component id="lblHeaderChooseBundleAppName" min="-2" pref="30" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblBundleAppName" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="txtBundleAppName" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblBundleAppName" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnChooseRootDir" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblChooseRootDir" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblDefaultLocale" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cmbDefaultLocale" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="113" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblChooseRootDir" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="btnChooseRootDir" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblSelectedRootDir" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="txtSelectedRootDir" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="31" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -97,6 +113,39 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Choose the root directory of your project"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblDefaultLocale">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Choose default locale"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="cmbDefaultLocale">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="4">
+            <StringItem index="0" value="Item 1"/>
+            <StringItem index="1" value="Item 2"/>
+            <StringItem index="2" value="Item 3"/>
+            <StringItem index="3" value="Item 4"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblSelectedRootDir">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Selected root directory of your project"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtSelectedRootDir">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="None"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtSelectedRootDirActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

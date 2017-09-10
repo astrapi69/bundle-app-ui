@@ -44,6 +44,7 @@ public class ImportProgressPanel extends BaseWizardContentPanel<ImportWizardMode
         lblWelcomeImportHeader = new javax.swing.JLabel();
         jProgressBar1 = new javax.swing.JProgressBar();
 
+
         lblWelcomeImportHeader.setText("Progress of Import ");
 	}
 

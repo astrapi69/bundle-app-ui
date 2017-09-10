@@ -1,16 +1,13 @@
 package de.alpharogroup.bundle.app.panels.start;
 
-import java.awt.CardLayout;
-
 import de.alpharogroup.bundle.app.MainFrame;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardContentPanel;
-import de.alpharogroup.design.pattern.state.wizard.WizardState;
 import de.alpharogroup.design.pattern.state.wizard.model.WizardModelStateMachine;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.panels.login.pw.ChangePasswordModelBean;
-import de.alpharogroup.swing.wizard.BaseWizardContentPanel;
 import de.alpharogroup.swing.wizard.AbstractWizardPanel;
+import de.alpharogroup.swing.wizard.BaseWizardContentPanel;
 import lombok.Getter;
 
 @Getter
@@ -76,28 +73,6 @@ public class WizardPanel extends AbstractWizardPanel<WizardModel>
 	{
 		super.onInitializeComponents();
 		updateButtonState();
-	}
-
-	@Override
-	protected void onNext()
-	{
-		super.onNext();
-		updateButtonState();
-		WizardState<WizardModelStateMachine<WizardModel>> currentState = getStateMachine()
-			.getCurrentState();
-		final String name = currentState.getName();
-		final CardLayout cardLayout = getWizardContentPanel().getCardLayout();
-		cardLayout.show(getWizardContentPanel(), name);
-	}
-
-	@Override
-	protected void onPrevious()
-	{
-		super.onPrevious();
-		updateButtonState();
-		final String name = getStateMachine().getCurrentState().getName();
-		final CardLayout cardLayout = getWizardContentPanel().getCardLayout();
-		cardLayout.show(getWizardContentPanel(), name);
 	}
 
 	@Override
