@@ -1,9 +1,10 @@
 package de.alpharogroup.bundle.app.panels.imports;
 
 import java.io.File;
+import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
+import de.alpharogroup.collections.pairs.KeyValuePair;
 import de.alpharogroup.swing.wizard.model.AbstractWizardModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,6 +34,8 @@ public class ImportWizardModel extends AbstractWizardModel
 
 	private Locale defaultLocale;
 
-	private Map<File, String> foundProperties;
+	private List<KeyValuePair<File, Locale>> foundProperties;
+
+
 
 }
