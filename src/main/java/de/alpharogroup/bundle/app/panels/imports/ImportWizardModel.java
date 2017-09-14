@@ -31,6 +31,8 @@ public class ImportWizardModel extends AbstractWizardModel
 	/** The bundle app name. */
 	private String bundleAppName;
 
+	private boolean dbImport;
+
 	private File rootDir;
 
 	private Locale defaultLocale;

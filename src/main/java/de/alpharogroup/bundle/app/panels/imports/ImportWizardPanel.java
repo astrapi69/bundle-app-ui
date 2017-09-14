@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Properties;
 
 import de.alpharogroup.bundle.app.MainApplication;
 import de.alpharogroup.bundle.app.MainFrame;
@@ -19,6 +20,7 @@ import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.resourcebundle.inspector.search.PropertiesResolver;
 import de.alpharogroup.resourcebundle.locale.LocaleResolver;
+import de.alpharogroup.resourcebundle.properties.PropertiesExtensions;
 import de.alpharogroup.swing.wizard.AbstractWizardPanel;
 import de.alpharogroup.swing.wizard.BaseWizardContentPanel;
 import lombok.extern.slf4j.Slf4j;
@@ -71,9 +73,30 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 	{
 		super.onFinish();
 		// TODO from here application specific behavior...
+		try
+		{
+			startDbImport();
+		}
+		catch (final IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		MainFrame.getInstance().getCurrentVisibleInternalFrame().dispose();
 
 	}
+
+	private void startDbImport() throws IOException
+	{
+		// TODO Auto-generated method stub
+		final List<KeyValuePair<File, Locale>> foundProperties = getModelObject().getFoundProperties();
+		for (final KeyValuePair<File, Locale> keyValuePair : foundProperties)
+		{
+			final Properties props = PropertiesExtensions.loadProperties(keyValuePair.getKey());
+		}
+
+	}
+
 
 	@Override
 	protected void onNext()
@@ -82,7 +105,7 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 		// TBD move to appropriate place...
 		try
 		{
-			startImport();
+			startResolving();
 		}
 		catch (final IOException e)
 		{
@@ -92,7 +115,7 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 	}
 
 
-	private void startImport() throws IOException
+	private void startResolving() throws IOException
 	{
 		final File rootDir = getModelObject().getRootDir();
 		// TODO change with PropertiesListResolver...
@@ -116,14 +139,13 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 				.value(locale)
 				.build());
 		}
-		System.out.println("resolving properties finished.");
 		getModelObject().setFoundProperties(propertiesList);
-
+		getModelObject().setDbImport(true);
 		 final EventSource<EventObject<ImportWizardModel>> eventSource = MainApplication
 				.getImportWizardModel();
 			eventSource.fireEvent(new EventObject<>(getModelObject()));
 			// set buttons
-			getModelObject().setValidNext(true);
+			getModelObject().setValidPrevious(true);
 			getModelObject().setValidFinish(true);
 			final EventSource<EventObject<NavigationEventState>> navigationEventState = MainApplication
 				.getImportNavigationState();
