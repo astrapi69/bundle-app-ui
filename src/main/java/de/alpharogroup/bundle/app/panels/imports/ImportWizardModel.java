@@ -1,6 +1,7 @@
 package de.alpharogroup.bundle.app.panels.imports;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -34,7 +35,8 @@ public class ImportWizardModel extends AbstractWizardModel
 
 	private Locale defaultLocale;
 
-	private List<KeyValuePair<File, Locale>> foundProperties;
+	@Builder.Default
+	private List<KeyValuePair<File, Locale>> foundProperties = new ArrayList<>();
 
 
 

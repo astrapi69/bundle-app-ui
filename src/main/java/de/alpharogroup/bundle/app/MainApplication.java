@@ -34,7 +34,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import de.alpharogroup.bundle.app.panels.imports.NavigationState;
+import de.alpharogroup.bundle.app.panels.imports.ImportWizardModel;
+import de.alpharogroup.bundle.app.panels.imports.NavigationEventState;
 import de.alpharogroup.bundle.app.panels.start.BundleStart;
 import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
 import de.alpharogroup.design.pattern.observer.event.EventObject;
@@ -77,16 +78,30 @@ public class MainApplication
 		return eventSource;
 	}
 
-	public static EventSource<EventObject<NavigationState>> getImportNavigationState()
+	public static EventSource<EventObject<NavigationEventState>> getImportNavigationState()
 	{
-		EventSource<EventObject<NavigationState>> eventSource = getEventSource(
-			NavigationState.class);
+		EventSource<EventObject<NavigationEventState>> eventSource = getEventSource(
+			NavigationEventState.class);
 
 		if (eventSource == null)
 		{
-			MainApplication.put(NavigationState.class.getSimpleName(),
-				new EventSubject<EventObject<NavigationState>>());
-			eventSource = getEventSource(NavigationState.class);
+			MainApplication.put(NavigationEventState.class.getSimpleName(),
+				new EventSubject<EventObject<NavigationEventState>>());
+			eventSource = getEventSource(NavigationEventState.class);
+		}
+		return eventSource;
+	}
+
+	public static EventSource<EventObject<ImportWizardModel>> getImportWizardModel()
+	{
+		EventSource<EventObject<ImportWizardModel>> eventSource = getEventSource(
+			ImportWizardModel.class);
+
+		if (eventSource == null)
+		{
+			MainApplication.put(ImportWizardModel.class.getSimpleName(),
+				new EventSubject<EventObject<ImportWizardModel>>());
+			eventSource = getEventSource(ImportWizardModel.class);
 		}
 		return eventSource;
 	}

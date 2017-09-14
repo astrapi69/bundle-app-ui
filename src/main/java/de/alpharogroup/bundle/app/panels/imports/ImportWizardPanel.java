@@ -26,13 +26,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 	implements
-		EventListener<EventObject<NavigationState>>
+		EventListener<EventObject<NavigationEventState>>
 {
 	private static final long serialVersionUID = 1L;
 
 	public ImportWizardPanel()
 	{
-		this(BaseModel.<ImportWizardModel> of(ImportWizardModel.builder().build()));
+		this(BaseModel.<ImportWizardModel> of(ImportWizardModel.builder().foundProperties(new ArrayList<>()).build()));
 	}
 
 
@@ -42,10 +42,10 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 	}
 
 	@Override
-	public void onEvent(EventObject<NavigationState> event)
+	public void onEvent(EventObject<NavigationEventState> event)
 	{
-		final NavigationState navigationState = event.getSource();
-		if(NavigationState.UPDATE.equals(navigationState)) {
+		final NavigationEventState navigationState = event.getSource();
+		if(NavigationEventState.UPDATE.equals(navigationState)) {
 			updateButtonState();
 		}
 	};
@@ -118,6 +118,17 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 		}
 		System.out.println("resolving properties finished.");
 		getModelObject().setFoundProperties(propertiesList);
+
+		 final EventSource<EventObject<ImportWizardModel>> eventSource = MainApplication
+				.getImportWizardModel();
+			eventSource.fireEvent(new EventObject<>(getModelObject()));
+			// set buttons
+			getModelObject().setValidNext(true);
+			getModelObject().setValidFinish(true);
+			final EventSource<EventObject<NavigationEventState>> navigationEventState = MainApplication
+				.getImportNavigationState();
+			navigationEventState.fireEvent(new EventObject<>(NavigationEventState.UPDATE));
+
 	}
 
 	@Override
@@ -126,7 +137,9 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 		super.onBeforeInitializeComponents();
 
 		setStateMachine(WizardModelStateMachine.<ImportWizardModel> builder()
-			.currentState(ImportWizardState.FIRST).modelObject(getModelObject()).build());
+			.currentState(ImportWizardState.FIRST)
+			.modelObject(getModelObject())
+			.build());
 		getModelObject().setAllValid();
 		getModelObject().setValidNext(false);
 	}
@@ -136,7 +149,7 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 	{
 		super.onInitializeComponents();
 		// register as listener...
-		final EventSource<EventObject<NavigationState>> eventSource = MainApplication
+		final EventSource<EventObject<NavigationEventState>> eventSource = MainApplication
 			.getImportNavigationState();
 		eventSource.add(this);
 		updateButtonState();

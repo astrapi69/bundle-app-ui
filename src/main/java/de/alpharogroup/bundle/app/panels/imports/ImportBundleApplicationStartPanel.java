@@ -70,7 +70,7 @@ public class ImportBundleApplicationStartPanel extends BaseWizardContentPanel<Im
 	protected void onInitializeComponents()
 	{
 		super.onInitializeComponents();
-System.out.println(ImportWizardState.FIRST.getName());
+
 		fileChooser = new JFileChooser();
 		fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         lblWelcomeImportHeader = new javax.swing.JLabel();
@@ -151,9 +151,9 @@ System.out.println(ImportWizardState.FIRST.getName());
 			 defaultLocale!=null &&
 			 rootDir != null) {
 			 modelObject.setAllValid();
-			 final EventSource<EventObject<NavigationState>> eventSource = MainApplication
+			 final EventSource<EventObject<NavigationEventState>> eventSource = MainApplication
 					.getImportNavigationState();
-				eventSource.fireEvent(new EventObject<>(NavigationState.UPDATE));
+				eventSource.fireEvent(new EventObject<>(NavigationEventState.UPDATE));
 		 } else {
 			modelObject.reset();
 		}

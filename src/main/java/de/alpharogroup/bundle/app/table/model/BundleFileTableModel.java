@@ -12,7 +12,7 @@ import de.alpharogroup.swing.table.model.properties.KeyValueTableModel;
  */
 public class BundleFileTableModel
 	extends
-		KeyValueTableModel<Locale, File>
+		KeyValueTableModel<File, Locale>
 {
 
 	/** The Constant serialVersionUID. */
@@ -25,7 +25,7 @@ public class BundleFileTableModel
 	{
 		this(TableColumnsModel.builder().columnNames(new String[] { "Path", "Name", "Locale" })
 			.canEdit(new boolean[] { false, false, false })
-			.columnClasses(new Class<?>[] { String.class, String.class, Locale.class }).build());
+			.columnClasses(new Class<?>[] { String.class, String.class, String.class }).build());
 	}
 
 	/**
@@ -39,22 +39,21 @@ public class BundleFileTableModel
 		super(columnsModel);
 	}
 
-
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public Object getValueAt(final int rowIndex, final int columnIndex)
 	{
-		final KeyValuePair<Locale, File> row = getData().get(rowIndex);
+		final KeyValuePair<File, Locale> row = getData().get(rowIndex);
 		switch (columnIndex)
 		{
 			case 0 :
-				return row.getValue().getAbsolutePath();
+				return row.getKey().getAbsolutePath();
 			case 1 :
-				return row.getValue().getName();
+				return row.getKey().getName();
 			case 2 :
-				return row.getKey().getLanguage();
+				return row.getValue().getLanguage();
 			default :
 				return null;
 		}
