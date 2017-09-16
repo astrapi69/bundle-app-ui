@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.JCheckBox;
 import javax.swing.JTable;
@@ -11,7 +12,6 @@ import javax.swing.table.TableColumn;
 
 import de.alpharogroup.bundle.app.MainFrame;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
-import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
 import de.alpharogroup.bundle.app.table.model.StringBundleNamesTableModel;
 import de.alpharogroup.collections.pairs.Triple;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
@@ -49,9 +49,8 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 		if (tableModelList == null)
 		{
 			tableModelList = new ArrayList<>();
-			List<BundleNames> list = SpringApplicationContext.getInstance().getBundleNamesService()
-				.findAll();
-			for (BundleNames bundleNames : list)
+			Set<BundleNames> set = getModelObject().getBundleApplication().getBundleNames();
+			for (BundleNames bundleNames : set)
 			{
 				tableModelList.add(Triple.<String, String, BundleNames> builder()
 					.left(bundleNames.getBaseName().getName())
