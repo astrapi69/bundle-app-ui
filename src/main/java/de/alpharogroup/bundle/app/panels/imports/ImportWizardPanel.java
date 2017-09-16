@@ -7,20 +7,24 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Properties;
 
 import de.alpharogroup.bundle.app.MainApplication;
 import de.alpharogroup.bundle.app.MainFrame;
+import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
 import de.alpharogroup.collections.pairs.KeyValuePair;
+import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
+import de.alpharogroup.db.resource.bundles.entities.BundleNames;
+import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
+import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import de.alpharogroup.design.pattern.observer.event.EventListener;
 import de.alpharogroup.design.pattern.observer.event.EventObject;
 import de.alpharogroup.design.pattern.observer.event.EventSource;
 import de.alpharogroup.design.pattern.state.wizard.model.WizardModelStateMachine;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
+import de.alpharogroup.resourcebundle.inspector.search.PropertiesListResolver;
 import de.alpharogroup.resourcebundle.inspector.search.PropertiesResolver;
 import de.alpharogroup.resourcebundle.locale.LocaleResolver;
-import de.alpharogroup.resourcebundle.properties.PropertiesExtensions;
 import de.alpharogroup.swing.wizard.AbstractWizardPanel;
 import de.alpharogroup.swing.wizard.BaseWizardContentPanel;
 import lombok.extern.slf4j.Slf4j;
@@ -88,12 +92,16 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 
 	private void startDbImport() throws IOException
 	{
-		// TODO Auto-generated method stub
+		// 1. create bundleapp
+		BundleApplications bundleApplication = null;
+		BundleApplicationsService bundleApplicationsService = SpringApplicationContext.getInstance().getBundleApplicationsService();
+		bundleApplication = bundleApplicationsService.getOrCreateNewBundleApplications(getModelObject().getBundleAppName());
+		// 2. get properties files
 		final List<KeyValuePair<File, Locale>> foundProperties = getModelObject().getFoundProperties();
-		for (final KeyValuePair<File, Locale> keyValuePair : foundProperties)
-		{
-			final Properties props = PropertiesExtensions.loadProperties(keyValuePair.getKey());
-		}
+		// 3. save properties files the to the bundleapp
+		ResourcebundlesService resourcebundlesService = SpringApplicationContext.getInstance().getResourcebundlesService();
+		List<BundleNames> importedBundleNames = resourcebundlesService.importProperties(bundleApplication, foundProperties);
+		System.out.println("importedBundleNames.size():"+importedBundleNames.size());
 
 	}
 
@@ -118,33 +126,16 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 	private void startResolving() throws IOException
 	{
 		final File rootDir = getModelObject().getRootDir();
-		// TODO change with PropertiesListResolver...
-		final PropertiesResolver resolver = new PropertiesResolver(rootDir);
-		resolver.resolve();
-		final Map<File, String> foundProperties = resolver.getPropertiesToLocale();
-		final List<KeyValuePair<File, Locale>> propertiesList = new ArrayList<>();
-		for (final Entry<File, String> propertiesFile : foundProperties.entrySet())
-		{
-			Locale locale = null;
-			final String value = propertiesFile.getValue();
-			final File key = propertiesFile.getKey();
-			if(value.equals("default")) {
-				locale = getModelObject().getDefaultLocale();
-			} else {
-				final String localeCode = LocaleResolver.resolveLocaleCode(key);
-				locale = LocaleResolver.resolveLocale(localeCode);
-			}
-			propertiesList.add(KeyValuePair.<File, Locale>builder()
-				.key(key)
-				.value(locale)
-				.build());
-		}
+		Locale defaultLocale = getModelObject().getDefaultLocale();
+		final PropertiesListResolver resolver1 = new PropertiesListResolver(rootDir, defaultLocale);
+		resolver1.resolve();
+		final List<KeyValuePair<File, Locale>> propertiesList = resolver1.getPropertiesList();
 		getModelObject().setFoundProperties(propertiesList);
 		getModelObject().setDbImport(true);
 		 final EventSource<EventObject<ImportWizardModel>> eventSource = MainApplication
 				.getImportWizardModel();
 			eventSource.fireEvent(new EventObject<>(getModelObject()));
-			// set buttons
+			// set buttons state...
 			getModelObject().setValidPrevious(true);
 			getModelObject().setValidFinish(true);
 			final EventSource<EventObject<NavigationEventState>> navigationEventState = MainApplication

@@ -30,7 +30,6 @@ import java.util.List;
 import javax.xml.parsers.FactoryConfigurationError;
 
 import org.apache.log4j.xml.DOMConfigurator;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -51,13 +50,13 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * The Class SpringApplicationContext.
+ * The class {@link SpringApplicationContext}.
  */
 @Slf4j
 public class SpringApplicationContext
 {
 
-	/** The instance. */
+	/** The only one instance. */
 	private static SpringApplicationContext instance = new SpringApplicationContext();
 
 	/**
@@ -70,20 +69,6 @@ public class SpringApplicationContext
 		return instance;
 	}
 
-	 /**
- 	 * Gets the bean.
- 	 *
- 	 * @param <T> the generic type
- 	 * @param context the context
- 	 * @param name the name
- 	 * @param clazz the clazz
- 	 * @return the bean
- 	 * @throws BeansException the beans exception
- 	 */
- 	public static <T> T getBean(ApplicationContext context, String name, Class<T> clazz) throws BeansException {
-		 return context.getBean(name, clazz);
-	 }
-	
 	@Getter
 	@Setter
 	@Autowired
@@ -138,8 +123,8 @@ public class SpringApplicationContext
 	{
 		if (bundleApplicationsService == null)
 		{
-			bundleApplicationsService = (BundleApplicationsService)applicationContext
-				.getBean("bundleApplicationsService");
+			bundleApplicationsService = SpringApplicationContextExtensions.getBean(
+				applicationContext, "bundleApplicationsService", BundleApplicationsService.class);
 		}
 		return bundleApplicationsService;
 	}
@@ -148,8 +133,8 @@ public class SpringApplicationContext
 	{
 		if (bundleNamesService == null)
 		{
-			bundleNamesService = (BundleNamesService)applicationContext
-				.getBean("bundleNamesService");
+			bundleNamesService = SpringApplicationContextExtensions.getBean(applicationContext,
+				"bundleNamesService", BundleNamesService.class);
 		}
 		return bundleNamesService;
 	}
@@ -196,8 +181,8 @@ public class SpringApplicationContext
 	{
 		if (resourcebundlesService == null)
 		{
-			resourcebundlesService = (ResourcebundlesService)applicationContext
-				.getBean("resourcebundlesService");
+			resourcebundlesService = SpringApplicationContextExtensions.getBean(applicationContext,
+				"resourcebundlesService", ResourcebundlesService.class);
 		}
 		return resourcebundlesService;
 	}
@@ -206,8 +191,8 @@ public class SpringApplicationContext
 	{
 		if (propertiesKeysService == null)
 		{
-			propertiesKeysService = (PropertiesKeysService)applicationContext
-				.getBean("propertiesKeysService");
+			propertiesKeysService = SpringApplicationContextExtensions.getBean(applicationContext,
+				"propertiesKeysService", PropertiesKeysService.class);
 		}
 		return propertiesKeysService;
 	}
