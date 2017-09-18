@@ -15,7 +15,7 @@
 	<properties>
 		<!-- UI properties -->
 		<swing-components.version>4.24.0-SNAPSHOT</swing-components.version>
-		<silly-collections.version>4.17.0</silly-collections.version>
+		<silly-collections.version>4.18.0-SNAPSHOT</silly-collections.version>
 		<!-- MIGLAYOUT-SWING version -->
 		<miglayout-swing.version>5.0</miglayout-swing.version>
 		<!-- GENERIC-DESIGN-PATTERN version -->
