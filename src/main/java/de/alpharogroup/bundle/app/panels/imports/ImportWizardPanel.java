@@ -76,32 +76,42 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 	protected void onFinish()
 	{
 		super.onFinish();
-		// TODO from here application specific behavior...
-		try
-		{
-			startDbImport();
-		}
-		catch (final IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		startDbImport();
 		MainFrame.getInstance().getCurrentVisibleInternalFrame().dispose();
 
 	}
 
-	private void startDbImport() throws IOException
+	private void startDbImport()
 	{
 		// 1. create bundleapp
-		BundleApplications bundleApplication = null;
-		BundleApplicationsService bundleApplicationsService = SpringApplicationContext.getInstance().getBundleApplicationsService();
-		bundleApplication = bundleApplicationsService.getOrCreateNewBundleApplications(getModelObject().getBundleAppName());
+		final BundleApplicationsService bundleApplicationsService = SpringApplicationContext.getInstance().getBundleApplicationsService();
+		final BundleApplications bundleApplication = bundleApplicationsService.getOrCreateNewBundleApplications(getModelObject().getBundleAppName());
 		// 2. get properties files
 		final List<KeyValuePair<File, Locale>> foundProperties = getModelObject().getFoundProperties();
 		// 3. save properties files the to the bundleapp
-		ResourcebundlesService resourcebundlesService = SpringApplicationContext.getInstance().getResourcebundlesService();
-		List<BundleNames> importedBundleNames = resourcebundlesService.importProperties(bundleApplication, foundProperties);
-		System.out.println("importedBundleNames.size():"+importedBundleNames.size());
+		final Runnable importRunnable = new Runnable()
+		{
+
+			@Override
+			public void run()
+			{
+				final ResourcebundlesService resourcebundlesService = SpringApplicationContext.getInstance().getResourcebundlesService();
+				List<BundleNames> importedBundleNames;
+				try
+				{
+					importedBundleNames = resourcebundlesService.importProperties(bundleApplication, foundProperties);
+					System.out.println("importedBundleNames.size():"+importedBundleNames.size());
+				}
+				catch (final IOException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		};
+		final Thread thread = new Thread(importRunnable);
+		thread.setPriority(Thread.MIN_PRIORITY);
+		thread.start();
 
 	}
 
@@ -126,7 +136,7 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 	private void startResolving() throws IOException
 	{
 		final File rootDir = getModelObject().getRootDir();
-		Locale defaultLocale = getModelObject().getDefaultLocale();
+		final Locale defaultLocale = getModelObject().getDefaultLocale();
 		final PropertiesListResolver resolver1 = new PropertiesListResolver(rootDir, defaultLocale);
 		resolver1.resolve();
 		final List<KeyValuePair<File, Locale>> propertiesList = resolver1.getPropertiesList();
