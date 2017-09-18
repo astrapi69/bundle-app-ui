@@ -2,8 +2,11 @@ package de.alpharogroup.bundle.app.combobox.model;
 
 import java.text.DateFormat;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 
+import de.alpharogroup.comparators.LocaleComparator;
 import de.alpharogroup.swing.combobox.model.AbstractComboBoxModel;
 
 public class LocalesComboBoxModel extends AbstractComboBoxModel<Locale>
@@ -21,7 +24,9 @@ public class LocalesComboBoxModel extends AbstractComboBoxModel<Locale>
 	 * init block
 	 **/
 	{
-		setComboList(Arrays.asList(DateFormat.getAvailableLocales()));
+		final List<Locale> list = Arrays.asList(DateFormat.getAvailableLocales());
+		Collections.sort(list, LocaleComparator.of());
+		setComboList(list);
 	}
 
 	private LocalesComboBoxModel()
