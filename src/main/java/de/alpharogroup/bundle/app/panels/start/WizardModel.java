@@ -1,6 +1,7 @@
 package de.alpharogroup.bundle.app.panels.start;
 
 import de.alpharogroup.swing.panels.login.pw.ChangePasswordModelBean;
+import de.alpharogroup.swing.radio.model.RadioButtonGroupEnumAdapter;
 import de.alpharogroup.swing.wizard.model.AbstractWizardModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -28,6 +28,7 @@ import de.alpharogroup.design.pattern.state.wizard.model.WizardModelStateMachine
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BasePanel;
+import de.alpharogroup.swing.radio.model.RadioButtonGroupEnumAdapter;
 
 /**
  *
@@ -76,7 +77,8 @@ public class WizardStartPanel extends BasePanel<WizardModelStateMachine<WizardMo
 		lblWelcomeIntro = new JLabel();
 		rbnImport = new JRadioButton();
 		if(getModelObject().getModelObject().getBundleAppInitialization() == null) {
-			getModelObject().getModelObject().setBundleAppInitialization(new RadioButtonGroupEnumAdapter(
+			getModelObject().getModelObject().setBundleAppInitialization(
+				new RadioButtonGroupEnumAdapter(
 				BundleStart.class));
 		}
 		getModelObject().getModelObject().getBundleAppInitialization()
