@@ -15,6 +15,11 @@
  */
 package de.alpharogroup.bundle.app.panels.start;
 
+import static de.alpharogroup.model.typesafe.TypeSafeModel.from;
+import static de.alpharogroup.model.typesafe.TypeSafeModel.model;
+
+import java.util.EnumMap;
+
 import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.JLabel;
@@ -28,7 +33,7 @@ import de.alpharogroup.design.pattern.state.wizard.model.WizardModelStateMachine
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BasePanel;
-import de.alpharogroup.swing.radio.model.RadioButtonGroupEnumAdapter;
+import de.alpharogroup.swing.radio.model.EnumRadioButtonGroupBean;
 
 /**
  *
@@ -50,7 +55,7 @@ public class WizardStartPanel extends BasePanel<WizardModelStateMachine<WizardMo
 			WizardModelStateMachine.<WizardModel> builder().build()));
 	}
 
-	public WizardStartPanel(Model<WizardModelStateMachine<WizardModel>> model)
+	public WizardStartPanel(final Model<WizardModelStateMachine<WizardModel>> model)
 	{
 		super(model);
 	}
@@ -78,8 +83,13 @@ public class WizardStartPanel extends BasePanel<WizardModelStateMachine<WizardMo
 		rbnImport = new JRadioButton();
 		if(getModelObject().getModelObject().getBundleAppInitialization() == null) {
 			getModelObject().getModelObject().setBundleAppInitialization(
-				new RadioButtonGroupEnumAdapter(
-				BundleStart.class));
+
+				new EnumRadioButtonGroupBean<>( new EnumMap<>(BundleStart.class),
+					model(from(getModelObject().getModelObject()).getSelected())));
+//			getModelObject().getModelObject().setBundleAppInitialization(
+//				new EnumRadioButtonGroupBean(
+//					BundleStart.class, model(from(getModelObject().getModelObject()).getSelected())));
+
 		}
 		getModelObject().getModelObject().getBundleAppInitialization()
 			.associate(BundleStart.CONNECT, rbnImport);
