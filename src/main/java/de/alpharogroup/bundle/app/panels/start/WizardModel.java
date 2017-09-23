@@ -1,5 +1,8 @@
 package de.alpharogroup.bundle.app.panels.start;
 
+import static de.alpharogroup.model.typesafe.TypeSafeModel.from;
+import static de.alpharogroup.model.typesafe.TypeSafeModel.model;
+
 import de.alpharogroup.swing.panels.login.pw.ChangePasswordModelBean;
 import de.alpharogroup.swing.radio.model.EnumRadioButtonGroupBean;
 import de.alpharogroup.swing.wizard.model.AbstractWizardModel;
@@ -10,9 +13,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
-import static de.alpharogroup.model.typesafe.TypeSafeModel.from;
-import static de.alpharogroup.model.typesafe.TypeSafeModel.model;
 
 /**
  * The class {@link WizardModel} act as a model for the start wizard.<br>
@@ -46,7 +46,7 @@ public class WizardModel extends AbstractWizardModel
 	private EnumRadioButtonGroupBean<BundleStart> bundleAppInitialization =
 		new EnumRadioButtonGroupBean<>(
 		model(from(WizardModel.this).getSelected()));
-//	new EnumRadioButtonGroupBean<>(
+//	new AnnumRadioButtonGroupBean<>(
 //		BundleStart.class, model(from(WizardModel.this).getSelected()));
 
 }
