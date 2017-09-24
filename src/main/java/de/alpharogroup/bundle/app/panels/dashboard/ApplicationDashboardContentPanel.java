@@ -2,6 +2,8 @@ package de.alpharogroup.bundle.app.panels.dashboard;
 
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.io.IOException;
+import java.util.Properties;
 
 import javax.swing.JFileChooser;
 
@@ -15,6 +17,7 @@ import de.alpharogroup.bundle.app.panels.overview.OverviewOfAllResourceBundlesPa
 import de.alpharogroup.bundle.app.panels.overview.OverviewResourceBundleAddEntryPanel;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
+import de.alpharogroup.resourcebundle.properties.PropertiesExtensions;
 import de.alpharogroup.swing.base.BaseCardLayoutPanel;
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,7 +31,8 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-    private JFileChooser fileChooser;
+	private JFileChooser fileChooser;
+
 	/**
 	 * Instantiates a new {@link ApplicationDashboardContentPanel}.
 	 */
@@ -92,7 +96,8 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 	}
 
 
-	protected ApplicationDashboardPanel newDashboardPanel(final Model<ApplicationDashboardBean> model)
+	protected ApplicationDashboardPanel newDashboardPanel(
+		final Model<ApplicationDashboardBean> model)
 	{
 		return new ApplicationDashboardPanel(model)
 		{
@@ -136,6 +141,7 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 		return new OverviewOfAllResourceBundlesPanel(model)
 		{
 			private static final long serialVersionUID = 1L;
+
 			@Override
 			protected void onCreateBundle(final ActionEvent e)
 			{
@@ -144,14 +150,19 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 		};
 	}
 
-	protected ImportResourceBundlePanel newImportResourceBundlePanel(final Model<ApplicationDashboardBean> model) {
-		return new ImportResourceBundlePanel(model) {
+	protected ImportResourceBundlePanel newImportResourceBundlePanel(
+		final Model<ApplicationDashboardBean> model)
+	{
+		return new ImportResourceBundlePanel(model)
+		{
 			private static final long serialVersionUID = 1L;
+
 			@Override
 			protected void onImport(final ActionEvent e)
 			{
 				ApplicationDashboardContentPanel.this.onResourceBundleImport(e);
 			}
+
 			@Override
 			protected void onCancel(final ActionEvent e)
 			{
@@ -215,6 +226,16 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 			final File resourceBundleToImport = fileChooser.getSelectedFile();
 			getModelObject().setResourceBundleToImport(resourceBundleToImport);
 			// TODO ...
+			try
+			{
+				final Properties importedProperties = PropertiesExtensions
+					.loadProperties(resourceBundleToImport);
+				getModelObject().setImportedProperties(importedProperties);
+			}
+			catch (final IOException e)
+			{
+				log.error("", e);
+			}
 		}
 	}
 
@@ -237,8 +258,7 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 			ApplicationDashboardView.CREATE_NEW_RB_ENTRY.name());
 		add(newOverviewOfAllResourceBundlesPanel(getModel()),
 			ApplicationDashboardView.OVERVIEW_OF_ALL_RB.name());
-		add(newImportResourceBundlePanel(getModel()),
-			ApplicationDashboardView.IMPORT_RB.name());
+		add(newImportResourceBundlePanel(getModel()), ApplicationDashboardView.IMPORT_RB.name());
 	}
 
 	protected void onOverview(final ActionEvent e)

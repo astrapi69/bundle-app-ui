@@ -44,7 +44,7 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
         btnImport = new javax.swing.JButton();
 
         lblHeaderOverview.setText("Overview of resource bundle to import");
-
+        // TODO set table model...
         tblBundles.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},

@@ -1,6 +1,7 @@
 package de.alpharogroup.bundle.app.panels.dashboard;
 
 import java.io.File;
+import java.util.Properties;
 
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
@@ -30,5 +31,7 @@ public class ApplicationDashboardBean
 	private Resourcebundles selectedResourcebundle;
 
 	private File resourceBundleToImport;
+
+	private Properties importedProperties;
 
 }
