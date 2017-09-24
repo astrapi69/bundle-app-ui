@@ -1,27 +1,34 @@
 package de.alpharogroup.bundle.app.panels.dashboard;
 
 import java.awt.event.ActionEvent;
+import java.io.File;
+
+import javax.swing.JFileChooser;
 
 import de.alpharogroup.bundle.app.MainFrame;
 import de.alpharogroup.bundle.app.panels.creation.NewBundleApplicationPanel;
 import de.alpharogroup.bundle.app.panels.creation.NewBundleNamePanel;
 import de.alpharogroup.bundle.app.panels.creation.NewCustomLocalePanel;
 import de.alpharogroup.bundle.app.panels.creation.NewResourceBundleEntryPanel;
+import de.alpharogroup.bundle.app.panels.imports.ImportResourceBundlePanel;
 import de.alpharogroup.bundle.app.panels.overview.OverviewOfAllResourceBundlesPanel;
 import de.alpharogroup.bundle.app.panels.overview.OverviewResourceBundleAddEntryPanel;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BaseCardLayoutPanel;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * The class {@link ApplicationDashboardContentPanel}.
  */
+@Slf4j
 public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<ApplicationDashboardBean>
 {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+    private JFileChooser fileChooser;
 	/**
 	 * Instantiates a new {@link ApplicationDashboardContentPanel}.
 	 */
@@ -47,6 +54,8 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 	{
 		return new NewBundleApplicationPanel(model)
 		{
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			protected void onSave(final ActionEvent e)
 			{
@@ -60,6 +69,7 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 	{
 		return new NewBundleNamePanel(model)
 		{
+			private static final long serialVersionUID = 1L;
 
 			@Override
 			protected void onCreateNewLocale(final ActionEvent e)
@@ -86,6 +96,7 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 	{
 		return new ApplicationDashboardPanel(model)
 		{
+			private static final long serialVersionUID = 1L;
 
 			@Override
 			protected void onCreateCustomLocale(final ActionEvent e)
@@ -124,12 +135,42 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 	{
 		return new OverviewOfAllResourceBundlesPanel(model)
 		{
+			private static final long serialVersionUID = 1L;
 			@Override
 			protected void onCreateBundle(final ActionEvent e)
 			{
 				ApplicationDashboardContentPanel.this.onCreateRb(e);
 			}
 		};
+	}
+
+	protected ImportResourceBundlePanel newImportResourceBundlePanel(final Model<ApplicationDashboardBean> model) {
+		return new ImportResourceBundlePanel(model) {
+			private static final long serialVersionUID = 1L;
+			@Override
+			protected void onImport(final ActionEvent e)
+			{
+				ApplicationDashboardContentPanel.this.onResourceBundleImport(e);
+			}
+			@Override
+			protected void onCancel(final ActionEvent e)
+			{
+				ApplicationDashboardContentPanel.this.onImportResourceBundleCancel(e);
+			}
+		};
+	}
+
+	protected void onImportResourceBundleCancel(final ActionEvent e)
+	{
+		// TODO Auto-generated method stub
+		log.debug("onImportResourceBundleCancel");
+	}
+
+	protected void onResourceBundleImport(final ActionEvent e)
+	{
+		// TODO Auto-generated method stub
+		log.debug("onResourceBundleImport");
+
 	}
 
 	protected OverviewResourceBundleAddEntryPanel newOverviewResourceBundlePanel(
@@ -161,7 +202,20 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 
 	protected void onImportResourceBundle(final ActionEvent e)
 	{
+		onChooseImportResourceBundle();
 		getCardLayout().show(this, ApplicationDashboardView.IMPORT_RB.name());
+	}
+
+	protected void onChooseImportResourceBundle()
+	{
+		final int returnVal = fileChooser.showOpenDialog(ApplicationDashboardContentPanel.this);
+
+		if (returnVal == JFileChooser.APPROVE_OPTION)
+		{
+			final File resourceBundleToImport = fileChooser.getSelectedFile();
+			getModelObject().setResourceBundleToImport(resourceBundleToImport);
+			// TODO ...
+		}
 	}
 
 	/**
@@ -171,6 +225,10 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 	protected void onInitializeComponents()
 	{
 		super.onInitializeComponents();
+
+		fileChooser = new JFileChooser();
+		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
 		add(newDashboardPanel(getModel()), ApplicationDashboardView.DASHBOARD.name());
 		add(newBundleApplicationPanel(getModel()), ApplicationDashboardView.EDIT_RB_NAME.name());
 		add(newBundleNamePanel(getModel()), ApplicationDashboardView.CREATE_NEW_RB.name());
@@ -179,8 +237,7 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 			ApplicationDashboardView.CREATE_NEW_RB_ENTRY.name());
 		add(newOverviewOfAllResourceBundlesPanel(getModel()),
 			ApplicationDashboardView.OVERVIEW_OF_ALL_RB.name());
-		// TODO change with import panel...
-		add(newOverviewOfAllResourceBundlesPanel(getModel()),
+		add(newImportResourceBundlePanel(getModel()),
 			ApplicationDashboardView.IMPORT_RB.name());
 	}
 

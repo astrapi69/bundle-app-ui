@@ -6,7 +6,7 @@ import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BasePanel;
 import de.alpharogroup.swing.table.model.TableColumnsModel;
-import de.alpharogroup.swing.table.model.properties.StringTableModel;
+import de.alpharogroup.swing.table.model.properties.StringKeyValueTableModel;
 import de.alpharogroup.swing.x.GenericJXTable;
 
 public class OverviewResourceBundlePanel extends BasePanel<ApplicationDashboardBean>
@@ -34,7 +34,7 @@ public class OverviewResourceBundlePanel extends BasePanel<ApplicationDashboardB
 		lblHeaderOverview = new javax.swing.JLabel();
 		lblBundleName = new javax.swing.JLabel();
 		srcBundles = new javax.swing.JScrollPane();
-		tblBundles = new GenericJXTable<>(new StringTableModel(TableColumnsModel.builder()
+		tblBundles = new GenericJXTable<>(new StringKeyValueTableModel(TableColumnsModel.builder()
 			.columnNames(new String[] { "Key", "Value" }).canEdit(new boolean[] { false, false })
 			.columnClasses(new Class<?>[] { String.class, String.class }).build()));
 
