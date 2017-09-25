@@ -1,12 +1,16 @@
 package de.alpharogroup.bundle.app.panels.imports;
 
 import java.awt.event.ActionEvent;
+import java.util.Properties;
 
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BasePanel;
+import de.alpharogroup.swing.table.model.properties.PropertiesTableModel;
+import lombok.Getter;
 
+@Getter
 public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBean>
 {
 
@@ -19,6 +23,8 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
     private javax.swing.JLabel lblHeaderOverview;
     private javax.swing.JScrollPane srcBundles;
     private javax.swing.JTable tblBundles;
+
+    private PropertiesTableModel tableModel;
 
 	ImportResourceBundlePanel()
 	{
@@ -44,18 +50,9 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
         btnImport = new javax.swing.JButton();
 
         lblHeaderOverview.setText("Overview of resource bundle to import");
-        // TODO set table model...
-        tblBundles.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3"
-            }
-        ));
+
+        tableModel = new PropertiesTableModel();
+        tblBundles.setModel(tableModel);
         srcBundles.setViewportView(tblBundles);
 
         btnCancelUp.setText("Cancel");
@@ -76,6 +73,11 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 	}
 	protected void onImport(final ActionEvent e)
 	{
+	}
+
+	protected void  onReloadProperties(final Properties properties) {
+		tableModel.setData(properties);
+		//TODO reload table....
 	}
 
 	@Override

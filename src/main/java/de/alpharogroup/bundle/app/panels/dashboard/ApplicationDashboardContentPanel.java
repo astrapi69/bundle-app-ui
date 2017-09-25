@@ -164,11 +164,22 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 			}
 
 			@Override
+			protected void  onReloadProperties(final Properties properties) {
+				ApplicationDashboardContentPanel.this.onReloadProperties(properties);
+			}
+
+			@Override
 			protected void onCancel(final ActionEvent e)
 			{
 				ApplicationDashboardContentPanel.this.onImportResourceBundleCancel(e);
 			}
 		};
+	}
+
+	protected void onReloadProperties(final Properties properties)
+	{
+		// TODO Auto-generated method stub
+
 	}
 
 	protected void onImportResourceBundleCancel(final ActionEvent e)
@@ -225,12 +236,13 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 		{
 			final File resourceBundleToImport = fileChooser.getSelectedFile();
 			getModelObject().setResourceBundleToImport(resourceBundleToImport);
-			// TODO ...
 			try
 			{
 				final Properties importedProperties = PropertiesExtensions
 					.loadProperties(resourceBundleToImport);
 				getModelObject().setImportedProperties(importedProperties);
+				// TODO ... load into table model...
+				onReloadProperties(importedProperties);
 			}
 			catch (final IOException e)
 			{
