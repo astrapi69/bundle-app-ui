@@ -43,9 +43,8 @@ public class WizardModel extends AbstractWizardModel
 	private BundleStart selected;
 
 	@Builder.Default
-	private EnumRadioButtonGroupBean<BundleStart> bundleAppInitialization =
-		new EnumRadioButtonGroupBean<>(
-		model(from(WizardModel.this).getSelected()));
+	private EnumRadioButtonGroupBean<BundleStart> bundleAppInitialization
+                ;
 //	new AnnumRadioButtonGroupBean<>(
 //		BundleStart.class, model(from(WizardModel.this).getSelected()));
 
