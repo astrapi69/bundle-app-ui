@@ -62,6 +62,9 @@ import lombok.extern.slf4j.Slf4j;
 public class MainFrame extends BaseFrame<MainDashboardBean>
 {
 
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 1L;
+
 	public static final String KEY_DB_APPLICATION_CONTEXT = "db-application-context";
 
 	/** The instance. */
@@ -71,12 +74,10 @@ public class MainFrame extends BaseFrame<MainDashboardBean>
 	 * Gets the single instance of MainFrame.
 	 *
 	 * @return single instance of MainFrame
-	 * @deprecated use intead {@link MainFrame#get()}
 	 */
-	@Deprecated
 	public static MainFrame getInstance()
 	{
-		return instance;
+		return get();
 	}
 	/**
 	 * Gets the single instance of MainFrame.

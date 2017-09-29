@@ -66,6 +66,15 @@ public class SpringApplicationContext
 	 */
 	public static SpringApplicationContext getInstance()
 	{
+		return get();
+	}
+	/**
+	 * Gets the single instance of SpringApplicationContext.
+	 *
+	 * @return single instance of SpringApplicationContext
+	 */
+	public static SpringApplicationContext get()
+	{
 		return instance;
 	}
 
@@ -141,10 +150,10 @@ public class SpringApplicationContext
 
 	protected void initDb(final ApplicationContext ac)
 	{
-		LanguagesService languagesService = (LanguagesService)ac.getBean("languagesService");
-		LanguageLocalesService languageLocalesService = (LanguageLocalesService)ac
+		final LanguagesService languagesService = (LanguagesService)ac.getBean("languagesService");
+		final LanguageLocalesService languageLocalesService = (LanguageLocalesService)ac
 			.getBean("languageLocalesService");
-		BundleApplicationsService bundleApplicationsService = getBundleApplicationsService();
+		final BundleApplicationsService bundleApplicationsService = getBundleApplicationsService();
 
 		final List<Languages> languages = DataObjectFactory.newLanguageList();
 		for (final Languages language : languages)

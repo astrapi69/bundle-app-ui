@@ -48,7 +48,7 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 		this(BaseModel.<MainDashboardBean> of(MainDashboardBean.builder().build()));
 	}
 
-	public OverviewOfAllBundleApplicationsPanel(Model<MainDashboardBean> model)
+	public OverviewOfAllBundleApplicationsPanel(final Model<MainDashboardBean> model)
 	{
 		super(model);
 	}
@@ -58,7 +58,7 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 		if (tableModelList == null)
 		{
 			tableModelList = new ArrayList<>();
-			for (BundleApplications bundleApplication : getModelObject().getBundleApplications())
+			for (final BundleApplications bundleApplication : getModelObject().getBundleApplications())
 			{
 				tableModelList.add(KeyValuePair.<String, BundleApplications> builder()
 					.key(bundleApplication.getName()).value(bundleApplication).build());
@@ -67,7 +67,7 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 		return tableModelList;
 	}
 
-	protected void onCreateBundleApp(ActionEvent e)
+	protected void onCreateBundleApp(final ActionEvent e)
 	{
 	}
 
@@ -89,8 +89,8 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 		valueColumn.setCellRenderer(new TableCellButtonRenderer(null, null)
 		{
 			@Override
-			public Component getTableCellRendererComponent(JTable table, Object value,
-				boolean isSelected, boolean hasFocus, int row, int column)
+			public Component getTableCellRendererComponent(final JTable table, final Object value,
+				final boolean isSelected, final boolean hasFocus, final int row, final int column)
 			{
 				if (isSelected)
 				{
@@ -102,7 +102,7 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 					setForeground(newForeground(table));
 					setBackground(newBackround(table));
 				}
-				String text = "Choose";
+				final String text = "Choose";
 				setText(text);
 				return this;
 			}
@@ -113,24 +113,24 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 			@Override
 			public Object getCellEditorValue()
 			{
-				BundleApplications selectedBundleApplication = (BundleApplications)this.getValue();
+				final BundleApplications selectedBundleApplication = (BundleApplications)this.getValue();
 				MainFrame.getInstance().setSelectedBundleApplication(selectedBundleApplication);
-				Model<ApplicationDashboardBean> baModel = MainFrame.getInstance()
+				final Model<ApplicationDashboardBean> baModel = MainFrame.getInstance()
 					.getSelectedBundleApplicationPropertyModel();
-				ApplicationDashboardContentPanel component = new ApplicationDashboardContentPanel(
+					final ApplicationDashboardContentPanel component = new ApplicationDashboardContentPanel(
 					baModel);
 				MainFrame.getInstance().replaceInternalFrame(
 					"Dashboard of " + selectedBundleApplication.getName() + " bundle app",
 					component);
 
-				String text = "Select";
+				final String text = "Select";
 				return text;
 
 			}
 
 			@Override
-			public Component getTableCellEditorComponent(JTable table, Object value,
-				boolean isSelected, int row, int column)
+			public Component getTableCellEditorComponent(final JTable table, final Object value,
+				final boolean isSelected, final int row, final int column)
 			{
 				setRow(row);
 				setColumn(column);
@@ -145,7 +145,7 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 					getButton().setForeground(table.getForeground());
 					getButton().setBackground(table.getBackground());
 				}
-				String text = "Choose";
+				final String text = "Choose";
 				getButton().setText(text);
 				setClicked(true);
 				return getButton();
@@ -170,7 +170,7 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 	{
 		super.onInitializeLayout();
 
-		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+		final javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
 		this.setLayout(layout);
 		layout.setHorizontalGroup(
 			layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(layout

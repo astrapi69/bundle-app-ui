@@ -1,6 +1,7 @@
 package de.alpharogroup.bundle.app.panels.imports;
 
 import java.awt.event.ActionEvent;
+import java.util.Locale;
 import java.util.Properties;
 
 import com.google.common.eventbus.Subscribe;
@@ -8,8 +9,13 @@ import com.google.common.eventbus.Subscribe;
 import de.alpharogroup.bundle.app.MainApplication;
 import de.alpharogroup.bundle.app.MainFrame;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
+import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
+import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
+import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
+import de.alpharogroup.resourcebundle.locale.LocaleExtensions;
+import de.alpharogroup.resourcebundle.locale.LocaleResolver;
 import de.alpharogroup.swing.base.BasePanel;
 import de.alpharogroup.swing.table.model.properties.PropertiesTableModel;
 import de.alpharogroup.swing.table.model.properties.StringKeyValueTableModel;
@@ -87,8 +93,14 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 	}
 	protected void onImport(final ActionEvent e)
 	{
-		// TODO import the properties to the db...
-		MainFrame.getInstance();
+		// <dimport the properties to the db...
+
+		final String baseName = LocaleResolver.resolveBundlename(getModelObject().getResourceBundleToImport());
+		final Locale locale = LocaleResolver.resolveLocale(getModelObject().getResourceBundleToImport());
+		final BundleNames bundleName = SpringApplicationContext.get().getResourcebundlesService().updateProperties(getModelObject().getImportedProperties(), baseName, locale, true);
+		final BundleApplications bundleApplication = getModelObject().getBundleApplication();
+		bundleApplication.addBundleName(bundleName);
+		SpringApplicationContext.get().getBundleApplicationsService().merge(bundleApplication);
 	}
 
 	@Subscribe

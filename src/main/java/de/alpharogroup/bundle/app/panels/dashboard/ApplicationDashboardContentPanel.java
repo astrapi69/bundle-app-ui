@@ -166,6 +166,7 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 			@Override
 			protected void onImport(final ActionEvent e)
 			{
+				super.onImport(e);
 				ApplicationDashboardContentPanel.this.onResourceBundleImport(e);
 			}
 
