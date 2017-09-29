@@ -34,6 +34,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import com.google.common.eventbus.EventBus;
+
 import de.alpharogroup.bundle.app.panels.imports.ImportWizardModel;
 import de.alpharogroup.bundle.app.panels.imports.NavigationEventState;
 import de.alpharogroup.bundle.app.panels.start.BundleStart;
@@ -43,6 +45,7 @@ import de.alpharogroup.design.pattern.observer.event.EventSource;
 import de.alpharogroup.design.pattern.observer.event.EventSubject;
 import de.alpharogroup.layout.ScreenSizeExtensions;
 import de.alpharogroup.swing.laf.LookAndFeels;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -52,6 +55,9 @@ public class MainApplication
 	/** The instance. */
 	private static MainApplication instance = new MainApplication();
 
+	@Getter
+	private final EventBus applicationEventBus = new EventBus();
+
 	private static final Map<String, EventSource<?>> eventSources = new HashMap<>();
 
 	public static MainApplication get()
@@ -59,7 +65,7 @@ public class MainApplication
 		return instance;
 	}
 
-	public static EventSource<?> get(String key)
+	public static EventSource<?> get(final String key)
 	{
 		return eventSources.get(key);
 	}
@@ -107,14 +113,14 @@ public class MainApplication
 	}
 
 	@SuppressWarnings("unchecked")
-	public static <T> EventSource<EventObject<T>> getEventSource(Class<T> eventSourceTypeClass)
+	public static <T> EventSource<EventObject<T>> getEventSource(final Class<T> eventSourceTypeClass)
 	{
 		final EventSource<EventObject<T>> eventSource = (EventSource<EventObject<T>>)MainApplication
 			.get(eventSourceTypeClass.getSimpleName());
 		return eventSource;
 	}
 
-	public static EventSource<?> put(String key, EventSource<?> value)
+	public static EventSource<?> put(final String key, final EventSource<?> value)
 	{
 		return eventSources.put(key, value);
 	}

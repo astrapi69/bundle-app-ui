@@ -3,10 +3,13 @@ package de.alpharogroup.bundle.app.panels.dashboard;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 import java.util.Properties;
 
 import javax.swing.JFileChooser;
 
+import de.alpharogroup.bundle.app.MainApplication;
 import de.alpharogroup.bundle.app.MainFrame;
 import de.alpharogroup.bundle.app.panels.creation.NewBundleApplicationPanel;
 import de.alpharogroup.bundle.app.panels.creation.NewBundleNamePanel;
@@ -15,6 +18,9 @@ import de.alpharogroup.bundle.app.panels.creation.NewResourceBundleEntryPanel;
 import de.alpharogroup.bundle.app.panels.imports.ImportResourceBundlePanel;
 import de.alpharogroup.bundle.app.panels.overview.OverviewOfAllResourceBundlesPanel;
 import de.alpharogroup.bundle.app.panels.overview.OverviewResourceBundleAddEntryPanel;
+import de.alpharogroup.collections.pairs.KeyValuePair;
+import de.alpharogroup.comparators.NullCheckComparator;
+import de.alpharogroup.comparators.pairs.KeyValuePairKeyComparator;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.resourcebundle.properties.PropertiesExtensions;
@@ -164,22 +170,11 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 			}
 
 			@Override
-			protected void  onReloadProperties(final Properties properties) {
-				ApplicationDashboardContentPanel.this.onReloadProperties(properties);
-			}
-
-			@Override
 			protected void onCancel(final ActionEvent e)
 			{
 				ApplicationDashboardContentPanel.this.onImportResourceBundleCancel(e);
 			}
 		};
-	}
-
-	protected void onReloadProperties(final Properties properties)
-	{
-		// TODO Auto-generated method stub
-
 	}
 
 	protected void onImportResourceBundleCancel(final ActionEvent e)
@@ -241,8 +236,11 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 				final Properties importedProperties = PropertiesExtensions
 					.loadProperties(resourceBundleToImport);
 				getModelObject().setImportedProperties(importedProperties);
+				final List<KeyValuePair<String, String>> keyValuePairs = PropertiesExtensions.toKeyValuePairs(importedProperties);
+				Collections.sort(keyValuePairs, NullCheckComparator.<KeyValuePair<String, String>>of(new KeyValuePairKeyComparator<>()));
+				getModelObject().setImportedKeyValuePairs(keyValuePairs);
 				// TODO ... load into table model...
-				onReloadProperties(importedProperties);
+				MainApplication.get().getApplicationEventBus().post(ApplicationDashboardContentPanel.this.getModelObject());
 			}
 			catch (final IOException e)
 			{

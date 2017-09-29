@@ -71,8 +71,19 @@ public class MainFrame extends BaseFrame<MainDashboardBean>
 	 * Gets the single instance of MainFrame.
 	 *
 	 * @return single instance of MainFrame
+	 * @deprecated use intead {@link MainFrame#get()}
 	 */
+	@Deprecated
 	public static MainFrame getInstance()
+	{
+		return instance;
+	}
+	/**
+	 * Gets the single instance of MainFrame.
+	 *
+	 * @return single instance of MainFrame
+	 */
+	public static MainFrame get()
 	{
 		return instance;
 	}
@@ -150,16 +161,16 @@ public class MainFrame extends BaseFrame<MainDashboardBean>
 			log.error("Icon file could not be readed.", e);
 		}
 
-		ApplicationContext applicationContext = SpringApplicationContext.getInstance()
+		final ApplicationContext applicationContext = SpringApplicationContext.getInstance()
 			.getApplicationContext();
 
-		BundleApplicationsService bundleApplicationsService = (BundleApplicationsService)applicationContext
+		final BundleApplicationsService bundleApplicationsService = (BundleApplicationsService)applicationContext
 			.getBean("bundleApplicationsService");
 
-		Model<MainDashboardBean> model = BaseModel.<MainDashboardBean> of(MainDashboardBean.builder()
+		final Model<MainDashboardBean> model = BaseModel.<MainDashboardBean> of(MainDashboardBean.builder()
 			.bundleApplications(bundleApplicationsService.findAll()).build());
 		setModel(model);
-		MainDashboardPanel mainDashboardPanel = new MainDashboardPanel(
+		final MainDashboardPanel mainDashboardPanel = new MainDashboardPanel(
 			PropertyModel.<MainDashboardBean> of(this, "model.object"));
 		replaceInternalFrame("Main dashboard", mainDashboardPanel);
 	}
@@ -173,7 +184,7 @@ public class MainFrame extends BaseFrame<MainDashboardBean>
 	 * @param component
 	 *            the component
 	 */
-	public void replaceInternalFrame(String title, final Component component)
+	public void replaceInternalFrame(final String title, final Component component)
 	{
 		if (getCurrentVisibleInternalFrame() != null)
 		{
@@ -187,7 +198,7 @@ public class MainFrame extends BaseFrame<MainDashboardBean>
 		setCurrentVisibleInternalFrame(internalFrame);
 	}
 
-	public void setSelectedBundleApplication(BundleApplications bundleApplication)
+	public void setSelectedBundleApplication(final BundleApplications bundleApplication)
 	{
 		initApllicationDashboardBean();
 		getModelObject().getSelectedBundleApplication().setBundleApplication(bundleApplication);

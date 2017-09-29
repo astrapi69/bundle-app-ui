@@ -3,11 +3,16 @@ package de.alpharogroup.bundle.app.panels.imports;
 import java.awt.event.ActionEvent;
 import java.util.Properties;
 
+import com.google.common.eventbus.Subscribe;
+
+import de.alpharogroup.bundle.app.MainApplication;
+import de.alpharogroup.bundle.app.MainFrame;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BasePanel;
 import de.alpharogroup.swing.table.model.properties.PropertiesTableModel;
+import de.alpharogroup.swing.table.model.properties.StringKeyValueTableModel;
 import lombok.Getter;
 
 @Getter
@@ -24,7 +29,7 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
     private javax.swing.JScrollPane srcBundles;
     private javax.swing.JTable tblBundles;
 
-    private PropertiesTableModel tableModel;
+    private StringKeyValueTableModel tableModel;
 
 	ImportResourceBundlePanel()
 	{
@@ -35,6 +40,7 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 	{
 		super(model);
 	}
+
 
 	@Override
 	protected void onInitializeComponents()
@@ -51,7 +57,7 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 
         lblHeaderOverview.setText("Overview of resource bundle to import");
 
-        tableModel = new PropertiesTableModel();
+        tableModel = new StringKeyValueTableModel();
         tblBundles.setModel(tableModel);
         srcBundles.setViewportView(tblBundles);
 
@@ -68,17 +74,30 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
         btnImport.addActionListener(e -> onImport(e));
 	}
 
+	@Override
+	protected void onBeforeInitialize()
+	{
+		super.onBeforeInitialize();
+		MainApplication.get().getApplicationEventBus().register(this);
+	}
+
 	protected void onCancel(final ActionEvent e)
 	{
+		// TODO return to bundle app view...
 	}
 	protected void onImport(final ActionEvent e)
 	{
+		// TODO import the properties to the db...
+		MainFrame.getInstance();
 	}
 
-	protected void  onReloadProperties(final Properties properties) {
-		tableModel.setData(properties);
-		//TODO reload table....
+	@Subscribe
+	public void onReloadProperties(final ApplicationDashboardBean applicationDashboardBean) {
+		tableModel.getData().clear();
+		tableModel.addList(applicationDashboardBean.getImportedKeyValuePairs());
+		revalidate();
 	}
+
 
 	@Override
 	protected void onInitializeLayout()

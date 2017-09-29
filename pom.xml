@@ -156,12 +156,6 @@
 				<artifactId>secured-bundle-application-business</artifactId>
 				<version>${secured-bundle-application-business.version}</version>
 			</dependency>
-			<!-- RESOURCEBUNDLE-CORE DEPENDENCIES -->
-			<dependency>
-				<groupId>de.alpharogroup</groupId>
-				<artifactId>resourcebundle-inspector</artifactId>
-				<version>${resourcebundle-inspector.version}</version>
-			</dependency>
 			<!-- SPRING DEPENDENCIES -->
 			<dependency>
 				<groupId>org.springframework</groupId>
@@ -309,11 +303,6 @@
 		<dependency>
 			<groupId>de.alpharogroup</groupId>
 			<artifactId>secured-bundle-application-business</artifactId>
-		</dependency>
-		<!-- RESOURCEBUNDLE-CORE DEPENDENCIES -->
-		<dependency>
-			<groupId>de.alpharogroup</groupId>
-			<artifactId>resourcebundle-inspector</artifactId>
 		</dependency>
 		<!-- SPRING DEPENDENCIES -->
 		<dependency>
