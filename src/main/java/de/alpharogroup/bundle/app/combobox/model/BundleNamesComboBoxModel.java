@@ -3,6 +3,8 @@ package de.alpharogroup.bundle.app.combobox.model;
 import java.util.Set;
 
 import de.alpharogroup.bundle.app.MainFrame;
+import de.alpharogroup.collections.list.ListExtensions;
+import de.alpharogroup.collections.set.SetExtensions;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.swing.combobox.model.AbstractComboBoxModel;
 
@@ -17,7 +19,11 @@ public class BundleNamesComboBoxModel extends AbstractComboBoxModel<BundleNames>
 	{
 		Set<BundleNames> bundleNames = MainFrame.getInstance().getModelObject()
 			.getSelectedBundleApplication().getBundleApplication().getBundleNames();
-		setComboSet(bundleNames);
+		if(SetExtensions.isNotEmpty(bundleNames)) {
+			setComboSet(bundleNames);
+		} else {
+			setComboList(ListExtensions.newArrayList());
+		}
 	}
 
 	private static final BundleNamesComboBoxModel COMBO_BOX_MODEL = new BundleNamesComboBoxModel();

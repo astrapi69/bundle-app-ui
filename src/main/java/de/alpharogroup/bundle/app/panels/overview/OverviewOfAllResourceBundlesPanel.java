@@ -14,6 +14,7 @@ import de.alpharogroup.bundle.app.MainFrame;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.bundle.app.table.model.StringBundleNamesTableModel;
 import de.alpharogroup.collections.pairs.Triple;
+import de.alpharogroup.collections.set.SetExtensions;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
@@ -50,11 +51,13 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 		{
 			tableModelList = new ArrayList<>();
 			Set<BundleNames> set = getModelObject().getBundleApplication().getBundleNames();
-			for (BundleNames bundleNames : set)
-			{
-				tableModelList.add(Triple.<String, String, BundleNames> builder()
-					.left(bundleNames.getBaseName().getName())
-					.middle(bundleNames.getLocale().getLocale()).right(bundleNames).build());
+			if(SetExtensions.isNotEmpty(set)) {
+				for (BundleNames bundleNames : set)
+				{
+					tableModelList.add(Triple.<String, String, BundleNames> builder()
+						.left(bundleNames.getBaseName().getName())
+						.middle(bundleNames.getLocale().getLocale()).right(bundleNames).build());
+				}
 			}
 		}
 		return tableModelList;
