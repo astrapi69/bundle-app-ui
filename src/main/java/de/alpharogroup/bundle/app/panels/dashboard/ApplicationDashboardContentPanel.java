@@ -19,11 +19,11 @@ import de.alpharogroup.bundle.app.panels.imports.ImportResourceBundlePanel;
 import de.alpharogroup.bundle.app.panels.overview.OverviewOfAllResourceBundlesPanel;
 import de.alpharogroup.bundle.app.panels.overview.OverviewResourceBundleAddEntryPanel;
 import de.alpharogroup.collections.pairs.KeyValuePair;
+import de.alpharogroup.collections.properties.PropertiesExtensions;
 import de.alpharogroup.comparators.NullCheckComparator;
 import de.alpharogroup.comparators.pairs.KeyValuePairKeyComparator;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
-import de.alpharogroup.resourcebundle.properties.PropertiesExtensions;
 import de.alpharogroup.swing.base.BaseCardLayoutPanel;
 import lombok.extern.slf4j.Slf4j;
 
