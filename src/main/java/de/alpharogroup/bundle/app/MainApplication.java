@@ -70,7 +70,6 @@ public class MainApplication
 		return eventSources.get(key);
 	}
 
-	@SuppressWarnings("unchecked")
 	public static EventSource<EventObject<BundleStart>> getBundleStartEventSource()
 	{
 		EventSource<EventObject<BundleStart>> eventSource = getEventSource(BundleStart.class);
