@@ -51,8 +51,6 @@
 	<context:component-scan base-package="de.alpharogroup.user.management.service" />
 	<context:component-scan base-package="de.alpharogroup.user.management.service.mapper" />	
 	
-	<context:component-scan base-package="de.alpharogroup.bundle.management.service.locator" />
-
 	<bean id="propertyPlaceholder"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
@@ -104,9 +102,6 @@
 		<property name="resourcebundlesService" ref="resourcebundlesService"></property>
 	</bean>
 	
-	<bean id="serviceLocator" class="de.alpharogroup.bundle.management.service.locator.ServiceLocatorImpl">
-	</bean>
-
 	<bean id="jpaVendorAdapter"
 		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 		<property name="generateDdl" value="true" />
