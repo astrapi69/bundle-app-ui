@@ -41,7 +41,7 @@
 		<tomcat-dbcp.version>${tomcat.version}</tomcat-dbcp.version>
 		<tomcat-jdbc.version>${tomcat.version}</tomcat-jdbc.version>
 		<!-- USER-MANAGEMENT-DATA versions -->
-		<user-management-data.version>3.12.2</user-management-data.version>
+		<user-management-data.version>3.15.0-SNAPSHOT</user-management-data.version>
 		<user-management-entities.version>${user-management-data.version}</user-management-entities.version>
 		<user-management-business.version>${user-management-data.version}</user-management-business.version>
 		<user-management-domain.version>${user-management-data.version}</user-management-domain.version>
@@ -54,10 +54,10 @@
 		<resource-bundles-domain.version>${resource-bundles-data.version}</resource-bundles-domain.version>
 		<resource-bundles-rest-api.version>${resource-bundles-data.version}</resource-bundles-rest-api.version>
 		<!-- SECURED-BUNDLE-APPLICATION-DATA versions -->
-		<secured-bundle-application-data.version>3.14.0</secured-bundle-application-data.version>
+		<secured-bundle-application-data.version>3.15.0-SNAPSHOT</secured-bundle-application-data.version>
 		<secured-bundle-application-business.version>${secured-bundle-application-data.version}</secured-bundle-application-business.version>
 		<!-- PERSISTENCE-API versions -->
-		<persistence-api.version>3.33.0</persistence-api.version>
+		<persistence-api.version>3.35.1</persistence-api.version>
 		<data-initialization.version>${persistence-api.version}</data-initialization.version>
 		<!-- PROJECT RELATED PROPERTIES -->
 		<full-app-name>bundle-app-ui</full-app-name>

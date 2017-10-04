@@ -30,12 +30,10 @@ import java.util.List;
 import javax.xml.parsers.FactoryConfigurationError;
 
 import org.apache.log4j.xml.DOMConfigurator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.Resource;
 
-import de.alpharogroup.bundle.management.service.locator.ServiceLocator;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.resource.bundles.entities.Languages;
@@ -46,7 +44,6 @@ import de.alpharogroup.db.resource.bundles.service.api.LanguagesService;
 import de.alpharogroup.db.resource.bundles.service.api.PropertiesKeysService;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -77,11 +74,6 @@ public class SpringApplicationContext
 	{
 		return instance;
 	}
-
-	@Getter
-	@Setter
-	@Autowired
-	private ServiceLocator serviceLocator;
 
 	private BundleNamesService bundleNamesService;
 
