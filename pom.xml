@@ -18,9 +18,11 @@
 		<silly-collections.version>4.20.0-SNAPSHOT</silly-collections.version>
 		<!-- MIGLAYOUT-SWING version -->
 		<miglayout-swing.version>5.0</miglayout-swing.version>
+		<!-- GUAVA version -->
+		<guava.version>19.0</guava.version>
 		<!-- GENERIC-DESIGN-PATTERN version -->
 		<design-patterns.version>4.11.0</design-patterns.version>
-		<state.version>${design-patterns.version}</state.version>		
+		<state.version>${design-patterns.version}</state.version>
 		<!-- RESOURCEBUNDLE-CORE versions -->
 		<resourcebundle-core.version>2.16.0-SNAPSHOT</resourcebundle-core.version>
 		<resourcebundle-inspector.version>${resourcebundle-core.version}</resourcebundle-inspector.version>
@@ -85,6 +87,12 @@
 				<artifactId>silly-collections</artifactId>
 				<version>${silly-collections.version}</version>
 			</dependency>
+			<!-- GUAVA DEPENDENCY -->
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>${guava.version}</version>
+			</dependency>
 
 			<!-- RESOURCE-BUNDLES-DATA DEPENDENCIES -->
 			<dependency>
@@ -110,7 +118,7 @@
 				<artifactId>resource-bundles-rest-api</artifactId>
 				<version>${resource-bundles-rest-api.version}</version>
 			</dependency>
-			
+
 			<!-- SPRING DEPENDENCIES -->
 			<dependency>
 				<groupId>org.springframework</groupId>
@@ -209,6 +217,11 @@
 			<groupId>de.alpharogroup</groupId>
 			<artifactId>silly-collections</artifactId>
 		</dependency>
+		<!-- GUAVA DEPENDENCY -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+		</dependency>
 		<!-- RESOURCE-BUNDLES-DATA DEPENDENCIES -->
 		<dependency>
 			<groupId>de.alpharogroup</groupId>
@@ -228,7 +241,7 @@
 		<dependency>
 			<groupId>de.alpharogroup</groupId>
 			<artifactId>resource-bundles-rest-api</artifactId>
-		</dependency>		
+		</dependency>
 		<!-- SPRING DEPENDENCIES -->
 		<dependency>
 			<groupId>org.springframework</groupId>

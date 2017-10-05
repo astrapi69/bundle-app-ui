@@ -18,10 +18,6 @@ import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import de.alpharogroup.address.book.service.api.AddressesService;
-import de.alpharogroup.address.book.service.api.CountriesService;
-import de.alpharogroup.address.book.service.api.FederalstatesService;
-import de.alpharogroup.address.book.service.api.ZipcodesService;
 import de.alpharogroup.db.resource.bundles.service.api.BaseNamesService;
 import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
 import de.alpharogroup.db.resource.bundles.service.api.BundleNamesService;
@@ -29,23 +25,9 @@ import de.alpharogroup.db.resource.bundles.service.api.LanguageLocalesService;
 import de.alpharogroup.db.resource.bundles.service.api.LanguagesService;
 import de.alpharogroup.db.resource.bundles.service.api.PropertiesKeysService;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
-import de.alpharogroup.resource.system.service.api.ResourcesService;
 import de.alpharogroup.springconfig.DataSourceBean;
 import de.alpharogroup.springconfig.JdbcUrlBean;
 import de.alpharogroup.springconfig.SpringJpaFactory;
-import de.alpharogroup.user.management.service.api.ContactmethodsService;
-import de.alpharogroup.user.management.service.api.RecommendationsService;
-import de.alpharogroup.user.management.service.api.RobinsonsService;
-import de.alpharogroup.user.management.service.api.RuleViolationsService;
-import de.alpharogroup.user.management.service.api.UserCreditsService;
-import de.alpharogroup.user.management.service.api.UserDatasService;
-import de.alpharogroup.user.management.service.api.UsersService;
-import de.alpharogroup.user.service.api.BaseAuthenticationsService;
-import de.alpharogroup.user.service.api.PermissionsService;
-import de.alpharogroup.user.service.api.RelationPermissionsService;
-import de.alpharogroup.user.service.api.ResetPasswordsService;
-import de.alpharogroup.user.service.api.RolesService;
-import de.alpharogroup.user.service.api.UserTokensService;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -93,73 +75,6 @@ public class PersistenceJPAConfig
 
 	@Autowired
 	private PropertiesKeysService propertiesKeysService;
-
-	@Autowired
-	private CountriesService countriesService;
-
-	@Autowired
-	private ZipcodesService zipcodesService;
-
-	@Autowired
-	private AddressesService addressesService;
-
-	@Autowired
-	private FederalstatesService federalstatesService;
-
-	@Autowired
-	private ResourcesService resourcesService;
-
-	/** The {@link BaseAuthenticationsService}. */
-	@Autowired
-	private BaseAuthenticationsService baseAuthenticationsService;
-
-	/** The contactmethods business service. */
-	@Autowired
-	private ContactmethodsService contactmethodsService;
-
-	/** The roles business service. */
-	@Autowired
-	private RolesService rolesService;
-
-	/** The users business service. */
-	@Autowired
-	private UsersService usersService;
-
-	/** The users business service. */
-	@Autowired
-	private UserDatasService userDatasService;
-
-	/** The user tokens business service. */
-	@Autowired
-	private UserTokensService userTokensService;
-
-	/** The reset passwords business service. */
-	@Autowired
-	private ResetPasswordsService resetPasswordsService;
-
-	/** The permission business service. */
-	@Autowired
-	private PermissionsService permissionsService;
-
-	/** The RelationPermissions business service. */
-	@Autowired
-	private RelationPermissionsService relationPermissionsService;
-
-	/** The UserCredits business service. */
-	@Autowired
-	private UserCreditsService userCreditsService;
-
-	/** The RuleViolations business service. */
-	@Autowired
-	private RuleViolationsService ruleViolationsService;
-
-	/** The Robinsons business service. */
-	@Autowired
-	private RobinsonsService robinsonsService;
-
-	/** The RecommendationsService service. */
-	@Autowired
-	private RecommendationsService recommendationsService;
 
 	@Bean
 	public DataSource dataSource()
