@@ -40,22 +40,12 @@
 		<tomcat.version>7.0.79</tomcat.version>
 		<tomcat-dbcp.version>${tomcat.version}</tomcat-dbcp.version>
 		<tomcat-jdbc.version>${tomcat.version}</tomcat-jdbc.version>
-		<!-- USER-MANAGEMENT-DATA versions -->
-		<user-management-data.version>3.15.0-SNAPSHOT</user-management-data.version>
-		<user-management-entities.version>${user-management-data.version}</user-management-entities.version>
-		<user-management-business.version>${user-management-data.version}</user-management-business.version>
-		<user-management-domain.version>${user-management-data.version}</user-management-domain.version>
-		<user-management-rest-api.version>${user-management-data.version}</user-management-rest-api.version>
-		<user-management-rest-client.version>${user-management-data.version}</user-management-rest-client.version>
 		<!-- RESOURCE-BUNDLES-DATA versions -->
 		<resource-bundles-data.version>3.15.0-SNAPSHOT</resource-bundles-data.version>
 		<resource-bundles-business.version>${resource-bundles-data.version}</resource-bundles-business.version>
 		<resource-bundles-entities.version>${resource-bundles-data.version}</resource-bundles-entities.version>
 		<resource-bundles-domain.version>${resource-bundles-data.version}</resource-bundles-domain.version>
 		<resource-bundles-rest-api.version>${resource-bundles-data.version}</resource-bundles-rest-api.version>
-		<!-- SECURED-BUNDLE-APPLICATION-DATA versions -->
-		<secured-bundle-application-data.version>3.15.0-SNAPSHOT</secured-bundle-application-data.version>
-		<secured-bundle-application-business.version>${secured-bundle-application-data.version}</secured-bundle-application-business.version>
 		<!-- PERSISTENCE-API versions -->
 		<persistence-api.version>3.35.1</persistence-api.version>
 		<data-initialization.version>${persistence-api.version}</data-initialization.version>
@@ -96,36 +86,6 @@
 				<version>${silly-collections.version}</version>
 			</dependency>
 
-			<!-- USER-MANAGEMENT-DATA DEPENDENCIES -->
-			<dependency>
-				<groupId>de.alpharogroup</groupId>
-				<artifactId>user-management-entities</artifactId>
-				<version>${user-management-entities.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>de.alpharogroup</groupId>
-				<artifactId>user-management-business</artifactId>
-				<version>${user-management-business.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>de.alpharogroup</groupId>
-				<artifactId>user-management-domain</artifactId>
-				<version>${user-management-domain.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>de.alpharogroup</groupId>
-				<artifactId>user-management-rest-api</artifactId>
-				<version>${user-management-rest-api.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>de.alpharogroup</groupId>
-				<artifactId>user-management-rest-client</artifactId>
-				<version>${user-management-rest-client.version}</version>
-			</dependency>
 			<!-- RESOURCE-BUNDLES-DATA DEPENDENCIES -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
@@ -150,12 +110,7 @@
 				<artifactId>resource-bundles-rest-api</artifactId>
 				<version>${resource-bundles-rest-api.version}</version>
 			</dependency>
-			<!-- SECURED-BUNDLE-APPLICATION-DATA DEPENDENCIES -->
-			<dependency>
-				<groupId>de.alpharogroup</groupId>
-				<artifactId>secured-bundle-application-business</artifactId>
-				<version>${secured-bundle-application-business.version}</version>
-			</dependency>
+			
 			<!-- SPRING DEPENDENCIES -->
 			<dependency>
 				<groupId>org.springframework</groupId>
@@ -254,31 +209,6 @@
 			<groupId>de.alpharogroup</groupId>
 			<artifactId>silly-collections</artifactId>
 		</dependency>
-		<!-- USER-MANAGEMENT-DATA DEPENDENCIES -->
-		<dependency>
-			<groupId>de.alpharogroup</groupId>
-			<artifactId>user-management-entities</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>de.alpharogroup</groupId>
-			<artifactId>user-management-business</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>de.alpharogroup</groupId>
-			<artifactId>user-management-domain</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>de.alpharogroup</groupId>
-			<artifactId>user-management-rest-api</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>de.alpharogroup</groupId>
-			<artifactId>user-management-rest-client</artifactId>
-		</dependency>
 		<!-- RESOURCE-BUNDLES-DATA DEPENDENCIES -->
 		<dependency>
 			<groupId>de.alpharogroup</groupId>
@@ -298,12 +228,7 @@
 		<dependency>
 			<groupId>de.alpharogroup</groupId>
 			<artifactId>resource-bundles-rest-api</artifactId>
-		</dependency>
-		<!-- SECURED-BUNDLE-APPLICATION-DATA DEPENDENCIES -->
-		<dependency>
-			<groupId>de.alpharogroup</groupId>
-			<artifactId>secured-bundle-application-business</artifactId>
-		</dependency>
+		</dependency>		
 		<!-- SPRING DEPENDENCIES -->
 		<dependency>
 			<groupId>org.springframework</groupId>
