@@ -23,34 +23,7 @@
 	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.service.api" />
 	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.rest" />
 	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.rest.api" />
-	
-	<context:component-scan base-package="de.alpharogroup.address.book.daos" />
-	<context:component-scan base-package="de.alpharogroup.address.book.entities" />
-	<context:component-scan base-package="de.alpharogroup.address.book.mapper" />
-	<context:component-scan base-package="de.alpharogroup.address.book.service.api" />
-	<context:component-scan base-package="de.alpharogroup.address.book.service" />
-	<context:component-scan base-package="de.alpharogroup.address.book.service.mapper" />
-
-	<context:component-scan base-package="de.alpharogroup.resource.system.daos" />
-	<context:component-scan base-package="de.alpharogroup.resource.system.entities" />
-	<context:component-scan base-package="de.alpharogroup.resource.system.mapper" />
-	<context:component-scan base-package="de.alpharogroup.resource.system.service.api" />
-	<context:component-scan base-package="de.alpharogroup.resource.system.service" />
-	
-	<context:component-scan base-package="de.alpharogroup.user.repositories" />
-	<context:component-scan base-package="de.alpharogroup.user.entities" />
-	<context:component-scan base-package="de.alpharogroup.user.mapper" />
-	<context:component-scan base-package="de.alpharogroup.user.service.api" />
-	<context:component-scan base-package="de.alpharogroup.user.service" />
-	<context:component-scan base-package="de.alpharogroup.user.service.mapper" />
-
-	<context:component-scan base-package="de.alpharogroup.user.management.daos" />
-	<context:component-scan base-package="de.alpharogroup.user.management.entities" />
-	<context:component-scan base-package="de.alpharogroup.user.management.mapper" />
-	<context:component-scan base-package="de.alpharogroup.user.management.service.api" />
-	<context:component-scan base-package="de.alpharogroup.user.management.service" />
-	<context:component-scan base-package="de.alpharogroup.user.management.service.mapper" />	
-	
+		
 	<bean id="propertyPlaceholder"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
