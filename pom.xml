@@ -14,8 +14,8 @@
 
 	<properties>
 		<!-- UI properties -->
-		<swing-components.version>4.24.0-SNAPSHOT</swing-components.version>
-		<silly-collections.version>4.20.0-SNAPSHOT</silly-collections.version>
+		<swing-components.version>4.24.0</swing-components.version>
+		<silly-collections.version>4.19.0</silly-collections.version>
 		<!-- MIGLAYOUT-SWING version -->
 		<miglayout-swing.version>5.0</miglayout-swing.version>
 		<!-- GUAVA version -->
@@ -24,7 +24,7 @@
 		<design-patterns.version>4.11.0</design-patterns.version>
 		<state.version>${design-patterns.version}</state.version>
 		<!-- RESOURCEBUNDLE-CORE versions -->
-		<resourcebundle-core.version>2.16.0-SNAPSHOT</resourcebundle-core.version>
+		<resourcebundle-core.version>2.15.1</resourcebundle-core.version>
 		<resourcebundle-inspector.version>${resourcebundle-core.version}</resourcebundle-inspector.version>
 		<!-- MODEL-DATA version -->
 		<model-data.version>1.5.0</model-data.version>
