@@ -3,6 +3,7 @@ package de.alpharogroup.bundle.app.panels.overview;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -16,6 +17,7 @@ import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
 import de.alpharogroup.bundle.app.table.model.StringResourcebundlesTableModel;
 import de.alpharogroup.collections.pairs.Quattro;
+import de.alpharogroup.comparators.NullCheckComparator;
 import de.alpharogroup.db.resource.bundles.entities.PropertiesKeys;
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObjectFactory;
@@ -32,8 +34,9 @@ import de.alpharogroup.swing.x.GenericJXTable;
 public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDashboardBean>
 {
 
+	private static final long serialVersionUID = 1L;
 	private javax.swing.JButton btnAddEntry;
-    private javax.swing.JButton btnToDashboard;
+	private javax.swing.JButton btnToDashboard;
 	private javax.swing.JLabel lblHeaderOverview;
 	private javax.swing.JLabel lblKey;
 	private javax.swing.JLabel lblValue;
@@ -67,12 +70,13 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 		tableModel = new StringResourcebundlesTableModel();
 		tableModel.addList(getTableModelList());
 		tblBundles = new GenericJXTable<>(tableModel);
-        btnToDashboard = new javax.swing.JButton();
+		btnToDashboard = new javax.swing.JButton();
 
 		final TableColumn editValueColumn = tblBundles.getColumn("Edit");
 
 		editValueColumn.setCellRenderer(new TableCellButtonRenderer(null, null)
 		{
+			private static final long serialVersionUID = 1L;
 			@Override
 			public Component getTableCellRendererComponent(final JTable table, final Object value,
 				final boolean isSelected, final boolean hasFocus, final int row, final int column)
@@ -94,7 +98,7 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 		});
 		editValueColumn.setCellEditor(new TableCellButtonEditor(new JCheckBox())
 		{
-
+			private static final long serialVersionUID = 1L;
 			@Override
 			public Object getCellEditorValue()
 			{
@@ -140,6 +144,7 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 
 		deleteValueColumn.setCellRenderer(new TableCellButtonRenderer(null, null)
 		{
+			private static final long serialVersionUID = 1L;
 			@Override
 			public Component getTableCellRendererComponent(final JTable table, final Object value,
 				final boolean isSelected, final boolean hasFocus, final int row, final int column)
@@ -161,7 +166,7 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 		});
 		deleteValueColumn.setCellEditor(new TableCellButtonEditor(new JCheckBox())
 		{
-
+			private static final long serialVersionUID = 1L;
 			@Override
 			public Object getCellEditorValue()
 			{
@@ -218,7 +223,8 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 
 		lblKey.setText("Key");
 
-		lblHeaderOverview.setText("Overview of resource bundle " + getModelObject().getSelectedBundleName().getBaseName().getName());
+		lblHeaderOverview.setText("Overview of resource bundle "
+			+ getModelObject().getSelectedBundleName().getBaseName().getName());
 
 		lblValue.setText("Value");
 
@@ -227,8 +233,8 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 		btnAddEntry.setText("Add new entry");
 		btnAddEntry.addActionListener(e -> onAddEntry(e));
 
-        btnToDashboard.setText("Return to Dashboard");
-        btnToDashboard.addActionListener(ReturnToDashboardAction.of());
+		btnToDashboard.setText("Return to Dashboard");
+		btnToDashboard.addActionListener(ReturnToDashboardAction.of());
 	}
 
 	protected void onAddEntry(final ActionEvent e)
@@ -299,13 +305,17 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 		final String baseName = getModelObject().getSelectedBundleName().getBaseName().getName();
 		final Locale locale = LocaleResolver
 			.resolveLocale(getModelObject().getSelectedBundleName().getLocale().getLocale());
-		final List<Resourcebundles> list = resourcebundlesService.findResourceBundles(baseName, locale);
+		final List<Resourcebundles> list = resourcebundlesService.findResourceBundles(baseName,
+			locale);
 		for (final Resourcebundles resourcebundle : list)
 		{
 			tableModelList.add(Quattro.<String, String, Resourcebundles, Resourcebundles> builder()
 				.topLeft(resourcebundle.getKey().getName()).topRight(resourcebundle.getValue())
 				.bottomLeft(resourcebundle).bottomRight(resourcebundle).build());
 		}
+		Collections.sort(tableModelList,
+			NullCheckComparator.<Quattro<String, String, Resourcebundles, Resourcebundles>> of(
+				(o1, o2) -> o1.getTopLeft().compareTo(o2.getTopLeft())));
 	}
 
 	@Override
@@ -313,56 +323,69 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 	{
 		super.onInitializeLayout();
 
-        final javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblHeaderOverview, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnToDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btnAddEntry, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(srcBundles, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblValue, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblKey, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtValue)
-                                    .addComponent(txtKey))))))
-                .addContainerGap(334, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(lblHeaderOverview, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(19, 19, 19))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnToDashboard)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtKey, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblKey, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblValue, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAddEntry)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(srcBundles, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+		final javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+		this.setLayout(layout);
+		layout.setHorizontalGroup(
+			layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(layout
+				.createSequentialGroup().addGap(40, 40, 40).addGroup(layout
+					.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+					.addGroup(layout.createSequentialGroup()
+						.addComponent(lblHeaderOverview, javax.swing.GroupLayout.PREFERRED_SIZE,
+							540, javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+							javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(btnToDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 300,
+							javax.swing.GroupLayout.PREFERRED_SIZE))
+					.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+						.addComponent(btnAddEntry, javax.swing.GroupLayout.PREFERRED_SIZE, 296,
+							javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addGroup(layout
+							.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+							.addComponent(srcBundles, javax.swing.GroupLayout.PREFERRED_SIZE, 1000,
+								javax.swing.GroupLayout.PREFERRED_SIZE)
+							.addGroup(layout.createSequentialGroup()
+								.addGroup(layout
+									.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+									.addComponent(lblValue, javax.swing.GroupLayout.PREFERRED_SIZE,
+										324, javax.swing.GroupLayout.PREFERRED_SIZE)
+									.addComponent(lblKey, javax.swing.GroupLayout.PREFERRED_SIZE,
+										326, javax.swing.GroupLayout.PREFERRED_SIZE))
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+								.addGroup(layout
+									.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+									.addComponent(txtValue).addComponent(txtKey))))))
+				.addContainerGap(334, Short.MAX_VALUE)));
+		layout.setVerticalGroup(layout
+			.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+			.addGroup(layout.createSequentialGroup().addGroup(layout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(layout.createSequentialGroup().addGap(40, 40, 40)
+					.addComponent(lblHeaderOverview, javax.swing.GroupLayout.PREFERRED_SIZE, 33,
+						javax.swing.GroupLayout.PREFERRED_SIZE)
+					.addGap(19, 19, 19))
+				.addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+					layout.createSequentialGroup().addContainerGap().addComponent(btnToDashboard)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+				.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+					.addComponent(txtKey, javax.swing.GroupLayout.PREFERRED_SIZE,
+						javax.swing.GroupLayout.DEFAULT_SIZE,
+						javax.swing.GroupLayout.PREFERRED_SIZE)
+					.addComponent(lblKey, javax.swing.GroupLayout.PREFERRED_SIZE, 34,
+						javax.swing.GroupLayout.PREFERRED_SIZE))
+				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+				.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+					.addComponent(lblValue, javax.swing.GroupLayout.PREFERRED_SIZE, 34,
+						javax.swing.GroupLayout.PREFERRED_SIZE)
+					.addComponent(txtValue, javax.swing.GroupLayout.PREFERRED_SIZE,
+						javax.swing.GroupLayout.DEFAULT_SIZE,
+						javax.swing.GroupLayout.PREFERRED_SIZE))
+				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+					javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+				.addComponent(btnAddEntry)
+				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+				.addComponent(srcBundles, javax.swing.GroupLayout.PREFERRED_SIZE, 443,
+					javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addContainerGap()));
 	}
 
 }

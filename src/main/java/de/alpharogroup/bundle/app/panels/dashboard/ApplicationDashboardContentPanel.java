@@ -239,7 +239,7 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 				final List<KeyValuePair<String, String>> keyValuePairs = PropertiesExtensions.toKeyValuePairs(importedProperties);
 				Collections.sort(keyValuePairs, NullCheckComparator.<KeyValuePair<String, String>>of(new KeyValuePairKeyComparator<>()));
 				getModelObject().setImportedKeyValuePairs(keyValuePairs);
-				// TODO ... load into table model...
+
 				MainApplication.get().getApplicationEventBus().post(ApplicationDashboardContentPanel.this.getModelObject());
 				getCardLayout().show(this, ApplicationDashboardView.IMPORT_RB.name());
 			}
