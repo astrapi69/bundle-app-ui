@@ -84,6 +84,8 @@ public class SpringApplicationContext
 
 	private PropertiesKeysService propertiesKeysService;
 
+	private LanguageLocalesService languageLocalesService;
+
 	/** The application context. */
 	@Getter
 	private final ApplicationContext applicationContext;
@@ -159,6 +161,16 @@ public class SpringApplicationContext
 				"resourcebundlesService", ResourcebundlesService.class);
 		}
 		return resourcebundlesService;
+	}
+
+	public LanguageLocalesService getLanguageLocalesService()
+	{
+		if (languageLocalesService == null)
+		{
+			languageLocalesService = SpringApplicationContextExtensions.getBean(applicationContext,
+				"languageLocalesService", LanguageLocalesService.class);
+		}
+		return languageLocalesService;
 	}
 
 	protected void initDb(final ApplicationContext ac)

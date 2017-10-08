@@ -36,8 +36,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import com.google.common.eventbus.EventBus;
 
-import de.alpharogroup.bundle.app.panels.imports.ImportWizardModel;
-import de.alpharogroup.bundle.app.panels.imports.NavigationEventState;
+import de.alpharogroup.bundle.app.panels.imports.bundlefolder.ImportWizardModel;
+import de.alpharogroup.bundle.app.panels.imports.bundlefolder.NavigationEventState;
 import de.alpharogroup.bundle.app.panels.start.BundleStart;
 import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
 import de.alpharogroup.design.pattern.observer.event.EventObject;

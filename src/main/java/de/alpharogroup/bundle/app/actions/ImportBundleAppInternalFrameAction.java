@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 
 import de.alpharogroup.bundle.app.MainFrame;
-import de.alpharogroup.bundle.app.panels.imports.ImportWizardPanel;
+import de.alpharogroup.bundle.app.panels.imports.bundlefolder.ImportWizardPanel;
 
 /**
  * The class {@link ImportBundleAppInternalFrameAction}.

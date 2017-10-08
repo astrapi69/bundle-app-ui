@@ -1,4 +1,4 @@
-package de.alpharogroup.bundle.app.panels.imports;
+package de.alpharogroup.bundle.app.panels.imports.file;
 
 import java.awt.event.ActionEvent;
 import java.util.Locale;

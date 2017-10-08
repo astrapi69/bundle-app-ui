@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.alpharogroup.bundle.app.panels.imports;
+package de.alpharogroup.bundle.app.panels.imports.bundlefolder;
 
 import static de.alpharogroup.model.typesafe.TypeSafeModel.from;
 import static de.alpharogroup.model.typesafe.TypeSafeModel.model;

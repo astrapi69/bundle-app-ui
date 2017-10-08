@@ -27,6 +27,8 @@ package de.alpharogroup.bundle.app;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 
 import javax.help.CSH;
 import javax.help.DefaultHelpBroker;
@@ -36,6 +38,7 @@ import javax.help.WindowPresentation;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
@@ -57,7 +60,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * The Class DesktopMenu.
+ * The class {@link DesktopMenu} holds the menu items from the application.
  */
 @Slf4j
 public class DesktopMenu
@@ -67,9 +70,9 @@ public class DesktopMenu
 	private static DesktopMenu instance = new DesktopMenu();
 
 	/**
-	 * Gets the single instance of DesktopMenu.
+	 * Gets the single instance of this {@link DesktopMenu}
 	 *
-	 * @return single instance of DesktopMenu
+	 * @return single instance of this {@link DesktopMenu}
 	 */
 	public static DesktopMenu getInstance()
 	{
@@ -194,10 +197,11 @@ public class DesktopMenu
 		// Separator
 		fileMenu.addSeparator();
 
-		// Configuration
+		// exit
 		JMenuItem jmiExit;
 		jmiExit = new JMenuItem("Exit", 'E');
 		jmiExit.addActionListener(new ExitApplicationAction("Exit"));
+		jmiExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, InputEvent.ALT_MASK));
 		fileMenu.add(jmiExit);
 
 		return fileMenu;

@@ -1,4 +1,4 @@
-package de.alpharogroup.bundle.app.panels.imports;
+package de.alpharogroup.bundle.app.panels.imports.bundlefolder;
 
 import java.io.File;
 import java.io.IOException;

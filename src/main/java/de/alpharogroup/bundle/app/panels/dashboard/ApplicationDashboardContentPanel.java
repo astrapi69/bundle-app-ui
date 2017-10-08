@@ -15,7 +15,7 @@ import de.alpharogroup.bundle.app.panels.creation.NewBundleApplicationPanel;
 import de.alpharogroup.bundle.app.panels.creation.NewBundleNamePanel;
 import de.alpharogroup.bundle.app.panels.creation.NewCustomLocalePanel;
 import de.alpharogroup.bundle.app.panels.creation.NewResourceBundleEntryPanel;
-import de.alpharogroup.bundle.app.panels.imports.ImportResourceBundlePanel;
+import de.alpharogroup.bundle.app.panels.imports.file.ImportResourceBundlePanel;
 import de.alpharogroup.bundle.app.panels.overview.OverviewOfAllResourceBundlesPanel;
 import de.alpharogroup.bundle.app.panels.overview.OverviewResourceBundleAddEntryPanel;
 import de.alpharogroup.collections.pairs.KeyValuePair;

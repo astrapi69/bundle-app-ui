@@ -1,4 +1,4 @@
-package de.alpharogroup.bundle.app.panels.imports;
+package de.alpharogroup.bundle.app.panels.imports.bundlefolder;
 
 import de.alpharogroup.bundle.app.panels.start.WizardModelState;
 import de.alpharogroup.design.pattern.state.wizard.WizardState;

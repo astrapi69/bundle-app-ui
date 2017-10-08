@@ -1,4 +1,4 @@
-package de.alpharogroup.bundle.app.panels.imports;
+package de.alpharogroup.bundle.app.panels.imports.bundlefolder;
 
 import de.alpharogroup.design.pattern.state.wizard.model.WizardModelStateMachine;
 import de.alpharogroup.model.api.Model;
