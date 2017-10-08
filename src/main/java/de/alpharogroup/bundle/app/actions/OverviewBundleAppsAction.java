@@ -21,6 +21,14 @@ public class OverviewBundleAppsAction extends AbstractAction
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	public static OverviewBundleAppsAction of() {
+		return new OverviewBundleAppsAction();
+	}
+
+	public OverviewBundleAppsAction()
+	{
+	}
+
 	/**
 	 * Instantiates a new new action.
 	 *

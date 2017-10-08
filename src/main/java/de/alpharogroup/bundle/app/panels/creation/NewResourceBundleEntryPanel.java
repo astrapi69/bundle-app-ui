@@ -2,6 +2,7 @@ package de.alpharogroup.bundle.app.panels.creation;
 
 import java.awt.event.ActionEvent;
 
+import de.alpharogroup.bundle.app.actions.ReturnToDashboardAction;
 import de.alpharogroup.bundle.app.combobox.model.BundleNamesComboBoxModel;
 import de.alpharogroup.bundle.app.combobox.renderer.BundleNamesComboBoxRenderer;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
@@ -17,6 +18,7 @@ public class NewResourceBundleEntryPanel extends BasePanel<ApplicationDashboardB
 
 	private javax.swing.JButton btnCreate;
 	private javax.swing.JButton btnSave;
+    private javax.swing.JButton btnToDashboard;
 	private javax.swing.JComboBox<BundleNames> cmbBundle;
 	private javax.swing.JLabel lblBundle;
 	private javax.swing.JLabel lblHeaderNewBundleEntry;
@@ -30,12 +32,12 @@ public class NewResourceBundleEntryPanel extends BasePanel<ApplicationDashboardB
 		this(BaseModel.<ApplicationDashboardBean> of(ApplicationDashboardBean.builder().build()));
 	}
 
-	public NewResourceBundleEntryPanel(Model<ApplicationDashboardBean> model)
+	public NewResourceBundleEntryPanel(final Model<ApplicationDashboardBean> model)
 	{
 		super(model);
 	}
 
-	private void onCreate(ActionEvent e)
+	private void onCreate(final ActionEvent e)
 	{
 		System.out.println(
 			"de.alpharogroup.bundle.app.panels.creation.NewResourceBundleEntryPanel.onCreate()");
@@ -69,6 +71,10 @@ public class NewResourceBundleEntryPanel extends BasePanel<ApplicationDashboardB
 		lblHeaderNewBundleEntry.setText("Create new resourcebundle entry");
 
 		btnCreate.setText("Create new Bundle");
+
+        btnToDashboard = new javax.swing.JButton();
+        btnToDashboard.setText("Return to Dashboard");
+        btnToDashboard.addActionListener(ReturnToDashboardAction.of());
 	}
 
 	@Override
@@ -76,69 +82,62 @@ public class NewResourceBundleEntryPanel extends BasePanel<ApplicationDashboardB
 	{
 		super.onInitializeLayout();
 
-		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-		this.setLayout(layout);
-		layout.setHorizontalGroup(
-			layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(layout
-				.createSequentialGroup().addGap(40, 40, 40).addGroup(layout
-					.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING).addGroup(layout
-						.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-						.addComponent(lblHeaderNewBundleEntry,
-							javax.swing.GroupLayout.PREFERRED_SIZE, 720,
-							javax.swing.GroupLayout.PREFERRED_SIZE)
-						.addGroup(layout.createSequentialGroup().addGroup(layout
-							.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-							.addComponent(lblValue, javax.swing.GroupLayout.DEFAULT_SIZE,
-								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(lblBundle, javax.swing.GroupLayout.Alignment.LEADING,
-								javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-							.addComponent(lblKey, javax.swing.GroupLayout.Alignment.LEADING,
-								javax.swing.GroupLayout.DEFAULT_SIZE,
-								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-							.addGap(18, 18, 18)
-							.addGroup(layout
-								.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-								.addGroup(layout.createSequentialGroup()
-									.addComponent(cmbBundle, javax.swing.GroupLayout.PREFERRED_SIZE,
-										359, javax.swing.GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(
-										javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE,
-										177, javax.swing.GroupLayout.PREFERRED_SIZE))
-								.addComponent(txtKey).addComponent(txtValue))))
-					.addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 175,
-						javax.swing.GroupLayout.PREFERRED_SIZE))
-				.addContainerGap(40, Short.MAX_VALUE)));
-		layout
-			.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(layout.createSequentialGroup().addContainerGap()
-					.addComponent(lblHeaderNewBundleEntry, javax.swing.GroupLayout.PREFERRED_SIZE,
-						35, javax.swing.GroupLayout.PREFERRED_SIZE)
-					.addGap(18, 18, 18)
-					.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-						.addComponent(lblBundle)
-						.addComponent(cmbBundle, javax.swing.GroupLayout.PREFERRED_SIZE,
-							javax.swing.GroupLayout.DEFAULT_SIZE,
-							javax.swing.GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnCreate))
-					.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-					.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-						.addComponent(lblKey).addComponent(txtKey,
-							javax.swing.GroupLayout.PREFERRED_SIZE,
-							javax.swing.GroupLayout.DEFAULT_SIZE,
-							javax.swing.GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-					.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-						.addComponent(lblValue).addComponent(txtValue,
-							javax.swing.GroupLayout.PREFERRED_SIZE,
-							javax.swing.GroupLayout.DEFAULT_SIZE,
-							javax.swing.GroupLayout.PREFERRED_SIZE))
-					.addGap(18, 18, 18).addComponent(btnSave)
-					.addContainerGap(21, Short.MAX_VALUE)));
+        final javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(lblValue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblBundle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                            .addComponent(lblKey, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cmbBundle, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                                .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtKey)
+                            .addComponent(txtValue)))
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(lblHeaderNewBundleEntry, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnToDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(40, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblHeaderNewBundleEntry, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnToDashboard))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblBundle)
+                    .addComponent(cmbBundle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCreate))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblKey)
+                    .addComponent(txtKey, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblValue)
+                    .addComponent(txtValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(btnSave)
+                .addContainerGap(21, Short.MAX_VALUE))
+        );
+
+
 	}
 
-	private void onSave(ActionEvent e)
+	private void onSave(final ActionEvent e)
 	{
 		System.out.println(
 			"de.alpharogroup.bundle.app.panels.creation.NewResourceBundleEntryPanel.onSave()");

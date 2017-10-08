@@ -19,6 +19,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="btnReturnToMainDashboard" min="-2" pref="740" max="-2" attributes="0"/>
                   <Component id="btnImportResourceBundle" min="-2" pref="740" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="btnCreateRb" max="32767" attributes="0"/>
@@ -44,7 +45,9 @@
               <Component id="btnCreateCustomLocale" min="-2" pref="80" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnImportResourceBundle" min="-2" pref="80" max="-2" attributes="0"/>
-              <EmptySpace pref="44" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="btnReturnToMainDashboard" min="-2" pref="80" max="-2" attributes="0"/>
+              <EmptySpace pref="41" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -73,6 +76,11 @@
     <Component class="javax.swing.JButton" name="btnImportResourceBundle">
       <Properties>
         <Property name="text" type="java.lang.String" value="Import new resource bundle"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnReturnToMainDashboard">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Return to overview of bundle applications"/>
       </Properties>
     </Component>
   </SubComponents>

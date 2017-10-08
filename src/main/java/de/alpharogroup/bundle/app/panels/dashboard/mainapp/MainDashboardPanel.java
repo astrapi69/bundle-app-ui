@@ -15,27 +15,30 @@ import lombok.Getter;
 public class MainDashboardPanel extends BaseCardLayoutPanel<MainDashboardBean>
 {
 
+	private static final long serialVersionUID = 1L;
+
 	public MainDashboardPanel()
 	{
 		this(BaseModel.<MainDashboardBean> of(MainDashboardBean.builder().build()));
 	}
 
-	public MainDashboardPanel(Model<MainDashboardBean> model)
+	public MainDashboardPanel(final Model<MainDashboardBean> model)
 	{
 		super(model);
 		getCardLayout().show(this, MainDashboardView.MAIN_DASHBOARD.name());
 	}
 
-	protected NewBundleApplicationPanel newBundleApplicationPanel(Model<MainDashboardBean> model)
+	protected NewBundleApplicationPanel newBundleApplicationPanel(final Model<MainDashboardBean> model)
 	{
 		model.getObject().setSelectedBundleApplication(ApplicationDashboardBean.builder().build());
-		Model<ApplicationDashboardBean> baModel = PropertyModel.<ApplicationDashboardBean> of(model,
+		final Model<ApplicationDashboardBean> baModel = PropertyModel.<ApplicationDashboardBean> of(model,
 			"selectedBundleApplication");
 
 		return new NewBundleApplicationPanel(baModel)
 		{
+			private static final long serialVersionUID = 1L;
 			@Override
-			protected void onSave(ActionEvent e)
+			protected void onSave(final ActionEvent e)
 			{
 				super.onSave(e);
 				MainDashboardPanel.this.onSaveBundleApplication(e);
@@ -44,20 +47,21 @@ public class MainDashboardPanel extends BaseCardLayoutPanel<MainDashboardBean>
 	}
 
 	protected OverviewOfAllBundleApplicationsPanel newOverviewOfAllBundleApplicationsPanel(
-		Model<MainDashboardBean> model)
+		final Model<MainDashboardBean> model)
 	{
 		return new OverviewOfAllBundleApplicationsPanel(model)
 		{
+			private static final long serialVersionUID = 1L;
 
 			@Override
-			protected void onCreateBundleApp(ActionEvent e)
+			protected void onCreateBundleApp(final ActionEvent e)
 			{
 				MainDashboardPanel.this.onCreateBundleApp(e);
 			}
 		};
 	}
 
-	protected void onCreateBundleApp(ActionEvent e)
+	protected void onCreateBundleApp(final ActionEvent e)
 	{
 		getCardLayout().show(this, MainDashboardView.CREATE_NEW_BUNDLE_APP.name());
 	}
@@ -71,7 +75,7 @@ public class MainDashboardPanel extends BaseCardLayoutPanel<MainDashboardBean>
 		add(newBundleApplicationPanel(getModel()), MainDashboardView.CREATE_NEW_BUNDLE_APP.name());
 	}
 
-	protected void onSaveBundleApplication(ActionEvent e)
+	protected void onSaveBundleApplication(final ActionEvent e)
 	{
 		add(newOverviewOfAllBundleApplicationsPanel(getModel()),
 			MainDashboardView.MAIN_DASHBOARD.name());

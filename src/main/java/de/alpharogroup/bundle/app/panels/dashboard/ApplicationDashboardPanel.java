@@ -2,6 +2,7 @@ package de.alpharogroup.bundle.app.panels.dashboard;
 
 import java.awt.event.ActionEvent;
 
+import de.alpharogroup.bundle.app.actions.OverviewBundleAppsAction;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BasePanel;
@@ -15,6 +16,7 @@ public class ApplicationDashboardPanel extends BasePanel<ApplicationDashboardBea
     private javax.swing.JButton btnEditBundleAppName;
     private javax.swing.JButton btnImportResourceBundle;
     private javax.swing.JButton btnOverview;
+    private javax.swing.JButton btnReturnToMainDashboard;
 
 	public ApplicationDashboardPanel()
 	{
@@ -36,6 +38,7 @@ public class ApplicationDashboardPanel extends BasePanel<ApplicationDashboardBea
         btnCreateRb = new javax.swing.JButton();
         btnCreateCustomLocale = new javax.swing.JButton();
         btnImportResourceBundle = new javax.swing.JButton();
+        btnReturnToMainDashboard = new javax.swing.JButton();
 
         btnEditBundleAppName.setText("Edit Bundle-Application name");
 
@@ -47,6 +50,8 @@ public class ApplicationDashboardPanel extends BasePanel<ApplicationDashboardBea
 
         btnImportResourceBundle.setText("Import new resource bundle");
 
+        btnReturnToMainDashboard.setText("Return to overview of bundle applications");
+
 		// =====================================================
 		// specific actions
 
@@ -55,6 +60,7 @@ public class ApplicationDashboardPanel extends BasePanel<ApplicationDashboardBea
 		btnCreateRb.addActionListener(e -> onCreateRb(e));
 		btnCreateCustomLocale.addActionListener(e -> onCreateCustomLocale(e));
         btnImportResourceBundle.addActionListener(e -> onImportResourceBundle(e));
+        btnReturnToMainDashboard.addActionListener(OverviewBundleAppsAction.of());
 
 	}
 
@@ -70,6 +76,7 @@ public class ApplicationDashboardPanel extends BasePanel<ApplicationDashboardBea
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnReturnToMainDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnImportResourceBundle, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(btnCreateRb, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -91,8 +98,12 @@ public class ApplicationDashboardPanel extends BasePanel<ApplicationDashboardBea
                 .addComponent(btnCreateCustomLocale, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnImportResourceBundle, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnReturnToMainDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(41, Short.MAX_VALUE))
         );
+
+
 	}
 
 	protected void onOverview(final ActionEvent e)

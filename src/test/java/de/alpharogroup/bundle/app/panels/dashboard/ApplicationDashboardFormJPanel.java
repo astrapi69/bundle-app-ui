@@ -28,6 +28,7 @@ public class ApplicationDashboardFormJPanel extends javax.swing.JPanel
     private javax.swing.JButton btnEditBundleAppName;
     private javax.swing.JButton btnImportResourceBundle;
     private javax.swing.JButton btnOverview;
+    private javax.swing.JButton btnReturnToMainDashboard;
     // End of variables declaration//GEN-END:variables
 	/**
 	 * Creates new form DashboardFormJPanel
@@ -50,6 +51,7 @@ public class ApplicationDashboardFormJPanel extends javax.swing.JPanel
         btnCreateRb = new javax.swing.JButton();
         btnCreateCustomLocale = new javax.swing.JButton();
         btnImportResourceBundle = new javax.swing.JButton();
+        btnReturnToMainDashboard = new javax.swing.JButton();
 
         btnEditBundleAppName.setText("Edit Bundle-Application name");
 
@@ -61,6 +63,8 @@ public class ApplicationDashboardFormJPanel extends javax.swing.JPanel
 
         btnImportResourceBundle.setText("Import new resource bundle");
 
+        btnReturnToMainDashboard.setText("Return to overview of bundle applications");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -68,6 +72,7 @@ public class ApplicationDashboardFormJPanel extends javax.swing.JPanel
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnReturnToMainDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnImportResourceBundle, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(btnCreateRb, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -89,7 +94,9 @@ public class ApplicationDashboardFormJPanel extends javax.swing.JPanel
                 .addComponent(btnCreateCustomLocale, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnImportResourceBundle, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnReturnToMainDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(41, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 }
