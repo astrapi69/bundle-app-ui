@@ -13,6 +13,7 @@ import lombok.Getter;
 @Getter
 public class NewBundleAppPanel extends BasePanel<WizardModelStateMachine<WizardModel>>
 {
+	private static final long serialVersionUID = 1L;
 	private JLabel lblBundleAppName;
 	private JLabel lblHeaderNewUser;
 	private JLabel lblHeaderSetAppName;
@@ -24,7 +25,7 @@ public class NewBundleAppPanel extends BasePanel<WizardModelStateMachine<WizardM
 	private JTextField txtRepeatPw;
 	private JTextField txtUsername;
 
-	public NewBundleAppPanel(Model<WizardModelStateMachine<WizardModel>> model)
+	public NewBundleAppPanel(final Model<WizardModelStateMachine<WizardModel>> model)
 	{
 		super(model);
 	}
@@ -63,7 +64,7 @@ public class NewBundleAppPanel extends BasePanel<WizardModelStateMachine<WizardM
 	protected void onInitializeLayout()
 	{
 
-		GroupLayout layout = new GroupLayout(this);
+		final GroupLayout layout = new GroupLayout(this);
 		this.setLayout(layout);
 		layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 			.addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()

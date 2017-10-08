@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import de.alpharogroup.bundle.app.MainApplication;
 import de.alpharogroup.bundle.app.MainFrame;
@@ -23,8 +21,6 @@ import de.alpharogroup.design.pattern.state.wizard.model.WizardModelStateMachine
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.resourcebundle.inspector.search.PropertiesListResolver;
-import de.alpharogroup.resourcebundle.inspector.search.PropertiesResolver;
-import de.alpharogroup.resourcebundle.locale.LocaleResolver;
 import de.alpharogroup.swing.wizard.AbstractWizardPanel;
 import de.alpharogroup.swing.wizard.BaseWizardContentPanel;
 import lombok.extern.slf4j.Slf4j;
@@ -42,13 +38,13 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 	}
 
 
-	public ImportWizardPanel(Model<ImportWizardModel> model)
+	public ImportWizardPanel(final Model<ImportWizardModel> model)
 	{
 		super(model);
 	}
 
 	@Override
-	public void onEvent(EventObject<NavigationEventState> event)
+	public void onEvent(final EventObject<NavigationEventState> event)
 	{
 		final NavigationEventState navigationState = event.getSource();
 		if(NavigationEventState.UPDATE.equals(navigationState)) {
@@ -58,7 +54,7 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 
 	@Override
 	protected BaseWizardContentPanel<ImportWizardModel> newWizardContentPanel(
-		Model<WizardModelStateMachine<ImportWizardModel>> model)
+		final Model<WizardModelStateMachine<ImportWizardModel>> model)
 	{
 		return new ImportWizardContentPanel(model);
 	}

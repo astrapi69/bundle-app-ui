@@ -2,22 +2,18 @@ package de.alpharogroup.bundle.app.panels.imports;
 
 import java.awt.event.ActionEvent;
 import java.util.Locale;
-import java.util.Properties;
 
 import com.google.common.eventbus.Subscribe;
 
 import de.alpharogroup.bundle.app.MainApplication;
-import de.alpharogroup.bundle.app.MainFrame;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
-import de.alpharogroup.resourcebundle.locale.LocaleExtensions;
 import de.alpharogroup.resourcebundle.locale.LocaleResolver;
 import de.alpharogroup.swing.base.BasePanel;
-import de.alpharogroup.swing.table.model.properties.PropertiesTableModel;
 import de.alpharogroup.swing.table.model.properties.StringKeyValueTableModel;
 import lombok.Getter;
 

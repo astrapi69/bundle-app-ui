@@ -26,7 +26,7 @@ import de.alpharogroup.swing.x.GenericJXTable;
 
 public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDashboardBean>
 {
-
+	private static final long serialVersionUID = 1L;
 	private javax.swing.JButton btnCreateBundle;
     private javax.swing.JButton btnToDashboard;
 	private javax.swing.JLabel lblBundleName;
@@ -93,6 +93,7 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 
 		valueColumn.setCellRenderer(new TableCellButtonRenderer(null, null)
 		{
+			private static final long serialVersionUID = 1L;
 			@Override
 			public Component getTableCellRendererComponent(final JTable table, final Object value,
 				final boolean isSelected, final boolean hasFocus, final int row, final int column)
@@ -114,7 +115,7 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 		});
 		valueColumn.setCellEditor(new TableCellButtonEditor(new JCheckBox())
 		{
-
+			private static final long serialVersionUID = 1L;
 			@Override
 			public Object getCellEditorValue()
 			{

@@ -31,7 +31,7 @@ import lombok.Getter;
 @Getter
 public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboardBean>
 {
-
+	private static final long serialVersionUID = 1L;
 	private javax.swing.JButton btnCreateBundleApp;
 	private javax.swing.JLabel lblBundleApp;
 	private javax.swing.JLabel lblHeaderOverview;
@@ -88,6 +88,7 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 		final TableColumn valueColumn = tblBundleApps.getColumn("Action");
 		valueColumn.setCellRenderer(new TableCellButtonRenderer(null, null)
 		{
+			private static final long serialVersionUID = 1L;
 			@Override
 			public Component getTableCellRendererComponent(final JTable table, final Object value,
 				final boolean isSelected, final boolean hasFocus, final int row, final int column)
@@ -109,7 +110,7 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 		});
 		valueColumn.setCellEditor(new TableCellButtonEditor(new JCheckBox())
 		{
-
+			private static final long serialVersionUID = 1L;
 			@Override
 			public Object getCellEditorValue()
 			{

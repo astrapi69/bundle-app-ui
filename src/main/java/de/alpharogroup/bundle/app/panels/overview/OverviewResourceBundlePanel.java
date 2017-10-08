@@ -11,7 +11,7 @@ import de.alpharogroup.swing.x.GenericJXTable;
 
 public class OverviewResourceBundlePanel extends BasePanel<ApplicationDashboardBean>
 {
-
+	private static final long serialVersionUID = 1L;
 	private javax.swing.JLabel lblBundleName;
 	private javax.swing.JLabel lblHeaderOverview;
 	private javax.swing.JScrollPane srcBundles;
@@ -22,7 +22,7 @@ public class OverviewResourceBundlePanel extends BasePanel<ApplicationDashboardB
 		this(BaseModel.<ApplicationDashboardBean> of(ApplicationDashboardBean.builder().build()));
 	}
 
-	public OverviewResourceBundlePanel(Model<ApplicationDashboardBean> model)
+	public OverviewResourceBundlePanel(final Model<ApplicationDashboardBean> model)
 	{
 		super(model);
 	}
@@ -50,7 +50,7 @@ public class OverviewResourceBundlePanel extends BasePanel<ApplicationDashboardB
 	{
 		super.onInitializeLayout();
 
-		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+		final javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
 		this.setLayout(layout);
 		layout.setHorizontalGroup(
 			layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

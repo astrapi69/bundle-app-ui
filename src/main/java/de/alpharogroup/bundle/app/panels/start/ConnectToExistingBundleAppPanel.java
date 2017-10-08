@@ -15,7 +15,7 @@ import lombok.Getter;
 @Getter
 public class ConnectToExistingBundleAppPanel extends BasePanel<WizardModelStateMachine<WizardModel>>
 {
-
+	private static final long serialVersionUID = 1L;
 	private JComboBox<String> cmbDriver;
 	private JLabel lblDbUrl;
 	private JLabel lblDriver;
@@ -26,7 +26,7 @@ public class ConnectToExistingBundleAppPanel extends BasePanel<WizardModelStateM
 	private JTextField txtPw;
 	private JTextField txtUsername;
 
-	public ConnectToExistingBundleAppPanel(Model<WizardModelStateMachine<WizardModel>> model)
+	public ConnectToExistingBundleAppPanel(final Model<WizardModelStateMachine<WizardModel>> model)
 	{
 		super(model);
 	}
@@ -66,7 +66,7 @@ public class ConnectToExistingBundleAppPanel extends BasePanel<WizardModelStateM
 	@Override
 	protected void onInitializeLayout()
 	{
-		GroupLayout layout = new GroupLayout(this);
+		final GroupLayout layout = new GroupLayout(this);
 		this.setLayout(layout);
 		layout.setHorizontalGroup(
 			layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(layout

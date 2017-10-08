@@ -14,20 +14,20 @@ public class SuccessfulConnectionToBundleAppPanel
 	implements
 		EventListener<EventObject<BundleStart>>
 {
-
+	private static final long serialVersionUID = 1L;
 	private javax.swing.JLabel lblBundleAppName;
 	private javax.swing.JLabel lblHeaderCongratulation;
 	private javax.swing.JLabel lblLabelName;
 
-	public SuccessfulConnectionToBundleAppPanel(Model<WizardModelStateMachine<WizardModel>> model)
+	public SuccessfulConnectionToBundleAppPanel(final Model<WizardModelStateMachine<WizardModel>> model)
 	{
 		super(model);
 	}
 
 	protected String getLabelHeaderCongratulationText(
-		Model<WizardModelStateMachine<WizardModel>> model)
+		final Model<WizardModelStateMachine<WizardModel>> model)
 	{
-		BundleStart initState = model.getObject().getModelObject().getBundleAppInitialization()
+		final BundleStart initState = model.getObject().getModelObject().getBundleAppInitialization()
 			.getValue();
 		String labelHeaderCongratulationText = "Congratulation you have created a new bundle application";
 		if (initState != null && initState.equals(BundleStart.CONNECT))
@@ -38,9 +38,9 @@ public class SuccessfulConnectionToBundleAppPanel
 	}
 
 	@Override
-	public void onEvent(EventObject<BundleStart> event)
+	public void onEvent(final EventObject<BundleStart> event)
 	{
-		BundleStart initState = event.getSource();
+		final BundleStart initState = event.getSource();
 		String labelHeaderCongratulationText = "Congratulation you have created a new bundle application";
 		if (initState.equals(BundleStart.CONNECT))
 		{
@@ -70,7 +70,7 @@ public class SuccessfulConnectionToBundleAppPanel
 	@Override
 	protected void onInitializeLayout()
 	{
-		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+		final javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
 		this.setLayout(layout);
 		layout.setHorizontalGroup(layout
 			.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

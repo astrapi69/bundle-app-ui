@@ -10,6 +10,7 @@ import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 
 public class BundleNamesComboBoxRenderer extends JLabel implements ListCellRenderer<BundleNames>
 {
+	private static final long serialVersionUID = 1L;
 
 	public BundleNamesComboBoxRenderer()
 	{
@@ -19,8 +20,8 @@ public class BundleNamesComboBoxRenderer extends JLabel implements ListCellRende
 	}
 
 	@Override
-	public Component getListCellRendererComponent(JList<? extends BundleNames> list,
-		BundleNames value, int index, boolean isSelected, boolean cellHasFocus)
+	public Component getListCellRendererComponent(final JList<? extends BundleNames> list,
+		final BundleNames value, final int index, final boolean isSelected, final boolean cellHasFocus)
 	{
 
 		if (isSelected)
