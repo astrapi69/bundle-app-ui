@@ -22,6 +22,7 @@ package de.alpharogroup.bundle.app.panels.overview;
 public class OverviewResourceBundleAddEntryFormPanel extends javax.swing.JPanel
 {
 
+    private static final long serialVersionUID = 1L;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddEntry;
     private javax.swing.JButton btnToDashboard;
