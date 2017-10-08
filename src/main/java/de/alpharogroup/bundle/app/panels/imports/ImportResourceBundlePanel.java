@@ -45,6 +45,35 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 
 
 	@Override
+	protected void onBeforeInitialize()
+	{
+		super.onBeforeInitialize();
+		MainApplication.get().getApplicationEventBus().register(this);
+	}
+
+	protected void onCancel(final ActionEvent e)
+	{
+		// TODO return to bundle app view...
+	}
+
+	protected void onImport(final ActionEvent e)
+	{
+		// <dimport the properties to the db...
+
+		final String baseName = LocaleResolver
+			.resolveBundlename(getModelObject().getResourceBundleToImport());
+		final Locale locale = LocaleResolver
+			.resolveLocale(getModelObject().getResourceBundleToImport());
+		final BundleNames bundleName = SpringApplicationContext.get().getResourcebundlesService()
+			.updateProperties(getModelObject().getImportedProperties(), baseName, locale, true);
+		BundleApplications bundleApplication = getModelObject().getBundleApplication();
+		bundleApplication.addBundleName(bundleName);
+		bundleApplication = SpringApplicationContext.get().getBundleApplicationsService()
+			.merge(bundleApplication);
+		getModelObject().setBundleApplication(bundleApplication);
+	}
+
+	@Override
 	protected void onInitializeComponents()
 	{
 		super.onInitializeComponents();
@@ -75,44 +104,6 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 		btnImport.setText("Import");
 		btnImport.addActionListener(e -> onImport(e));
 	}
-
-	@Override
-	protected void onBeforeInitialize()
-	{
-		super.onBeforeInitialize();
-		MainApplication.get().getApplicationEventBus().register(this);
-	}
-
-	protected void onCancel(final ActionEvent e)
-	{
-		// TODO return to bundle app view...
-	}
-
-	protected void onImport(final ActionEvent e)
-	{
-		// <dimport the properties to the db...
-
-		final String baseName = LocaleResolver
-			.resolveBundlename(getModelObject().getResourceBundleToImport());
-		final Locale locale = LocaleResolver
-			.resolveLocale(getModelObject().getResourceBundleToImport());
-		final BundleNames bundleName = SpringApplicationContext.get().getResourcebundlesService()
-			.updateProperties(getModelObject().getImportedProperties(), baseName, locale, true);
-		BundleApplications bundleApplication = getModelObject().getBundleApplication();
-		bundleApplication.addBundleName(bundleName);
-		bundleApplication = SpringApplicationContext.get().getBundleApplicationsService()
-			.merge(bundleApplication);
-		getModelObject().setBundleApplication(bundleApplication);
-	}
-
-	@Subscribe
-	public void onReloadProperties(final ApplicationDashboardBean applicationDashboardBean)
-	{
-		tableModel.getData().clear();
-		tableModel.addList(applicationDashboardBean.getImportedKeyValuePairs());
-		revalidate();
-	}
-
 
 	@Override
 	protected void onInitializeLayout()
@@ -161,6 +152,15 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 					.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
 						.addComponent(btnCancel).addComponent(btnImport))
 					.addContainerGap(48, Short.MAX_VALUE)));
+	}
+
+
+	@Subscribe
+	public void onReloadProperties(final ApplicationDashboardBean applicationDashboardBean)
+	{
+		tableModel.getData().clear();
+		tableModel.addList(applicationDashboardBean.getImportedKeyValuePairs());
+		revalidate();
 	}
 
 }

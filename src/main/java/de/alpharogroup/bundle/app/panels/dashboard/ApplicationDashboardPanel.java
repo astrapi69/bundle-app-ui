@@ -28,6 +28,23 @@ public class ApplicationDashboardPanel extends BasePanel<ApplicationDashboardBea
 		super(model);
 	}
 
+	protected void onCreateCustomLocale(final ActionEvent e)
+	{
+	}
+
+	protected void onCreateRb(final ActionEvent e)
+	{
+	}
+
+	protected void onEditBundleAppName(final ActionEvent e)
+	{
+	}
+
+
+	protected void onImportResourceBundle(final ActionEvent e)
+	{
+	}
+
 	@Override
 	protected void onInitializeComponents()
 	{
@@ -125,23 +142,6 @@ public class ApplicationDashboardPanel extends BasePanel<ApplicationDashboardBea
 	}
 
 	protected void onOverview(final ActionEvent e)
-	{
-	}
-
-
-	protected void onImportResourceBundle(final ActionEvent e)
-	{
-	}
-
-	protected void onCreateCustomLocale(final ActionEvent e)
-	{
-	}
-
-	protected void onCreateRb(final ActionEvent e)
-	{
-	}
-
-	protected void onEditBundleAppName(final ActionEvent e)
 	{
 	}
 

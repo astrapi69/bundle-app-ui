@@ -66,6 +66,30 @@ public class ImportBundleApplicationStartPanel extends BaseWizardContentPanel<Im
 		super(model);
 	}
 
+	protected void onBundleAppName(ActionEvent e)
+	{
+		updateWizardButtons();
+	};
+
+	protected void onChangeDefaultLocale(ItemEvent e)
+	{
+		updateWizardButtons();
+	}
+
+	protected void onChooseRootDir(ActionEvent actionEvent)
+	{
+		final int returnVal = fileChooser.showOpenDialog(ImportBundleApplicationStartPanel.this);
+
+		if (returnVal == JFileChooser.APPROVE_OPTION)
+		{
+			final File rootDir = fileChooser.getSelectedFile();
+			getModelObject().getModelObject().setRootDir(rootDir);
+			txtSelectedRootDir
+				.setText(getModelObject().getModelObject().getRootDir().getAbsolutePath());
+		}
+		updateWizardButtons();
+	}
+
 	@Override
 	protected void onInitializeComponents()
 	{
@@ -116,54 +140,6 @@ public class ImportBundleApplicationStartPanel extends BaseWizardContentPanel<Im
 		lblSelectedRootDir.setText("Selected root directory of your project");
 
 		txtSelectedRootDir.setText("None");
-
-	};
-
-	protected void onChangeDefaultLocale(ItemEvent e)
-	{
-		updateWizardButtons();
-	}
-
-	protected void onBundleAppName(ActionEvent e)
-	{
-		updateWizardButtons();
-	}
-
-	protected void onChooseRootDir(ActionEvent actionEvent)
-	{
-		final int returnVal = fileChooser.showOpenDialog(ImportBundleApplicationStartPanel.this);
-
-		if (returnVal == JFileChooser.APPROVE_OPTION)
-		{
-			final File rootDir = fileChooser.getSelectedFile();
-			getModelObject().getModelObject().setRootDir(rootDir);
-			txtSelectedRootDir
-				.setText(getModelObject().getModelObject().getRootDir().getAbsolutePath());
-		}
-		updateWizardButtons();
-	}
-
-	protected void updateWizardButtons()
-	{
-		final ImportWizardModel modelObject = getModelObject().getModelObject();
-		final String bundleAppName = modelObject.getBundleAppName();
-		if (bundleAppName != null)
-		{
-			bundleAppName.trim();
-		}
-		final Locale defaultLocale = modelObject.getDefaultLocale();
-		final File rootDir = modelObject.getRootDir();
-		if (StringUtils.isNotEmpty(bundleAppName) && defaultLocale != null && rootDir != null)
-		{
-			modelObject.setAllValid();
-			final EventSource<EventObject<NavigationEventState>> eventSource = MainApplication
-				.getImportNavigationState();
-			eventSource.fireEvent(new EventObject<>(NavigationEventState.UPDATE));
-		}
-		else
-		{
-			modelObject.reset();
-		}
 
 	}
 
@@ -248,6 +224,30 @@ public class ImportBundleApplicationStartPanel extends BaseWizardContentPanel<Im
 						javax.swing.GroupLayout.PREFERRED_SIZE))
 				.addContainerGap(31, Short.MAX_VALUE)));
 
+
+	}
+
+	protected void updateWizardButtons()
+	{
+		final ImportWizardModel modelObject = getModelObject().getModelObject();
+		final String bundleAppName = modelObject.getBundleAppName();
+		if (bundleAppName != null)
+		{
+			bundleAppName.trim();
+		}
+		final Locale defaultLocale = modelObject.getDefaultLocale();
+		final File rootDir = modelObject.getRootDir();
+		if (StringUtils.isNotEmpty(bundleAppName) && defaultLocale != null && rootDir != null)
+		{
+			modelObject.setAllValid();
+			final EventSource<EventObject<NavigationEventState>> eventSource = MainApplication
+				.getImportNavigationState();
+			eventSource.fireEvent(new EventObject<>(NavigationEventState.UPDATE));
+		}
+		else
+		{
+			modelObject.reset();
+		}
 
 	}
 }

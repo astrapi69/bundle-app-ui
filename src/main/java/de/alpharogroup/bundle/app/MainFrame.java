@@ -75,9 +75,9 @@ public class MainFrame extends BaseFrame<MainDashboardBean>
 	 *
 	 * @return single instance of MainFrame
 	 */
-	public static MainFrame getInstance()
+	public static MainFrame get()
 	{
-		return get();
+		return instance;
 	}
 
 	/**
@@ -85,9 +85,9 @@ public class MainFrame extends BaseFrame<MainDashboardBean>
 	 *
 	 * @return single instance of MainFrame
 	 */
-	public static MainFrame get()
+	public static MainFrame getInstance()
 	{
-		return instance;
+		return get();
 	}
 
 	/** The desktop pane. */

@@ -128,15 +128,37 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 			}
 
 			@Override
+			protected void onImportResourceBundle(final ActionEvent e)
+			{
+				ApplicationDashboardContentPanel.this.onImportResourceBundle(e);
+			}
+
+			@Override
 			protected void onOverview(final ActionEvent e)
 			{
 				ApplicationDashboardContentPanel.this.onOverview(e);
 			}
+		};
+	}
+
+	protected ImportResourceBundlePanel newImportResourceBundlePanel(
+		final Model<ApplicationDashboardBean> model)
+	{
+		return new ImportResourceBundlePanel(model)
+		{
+			private static final long serialVersionUID = 1L;
 
 			@Override
-			protected void onImportResourceBundle(final ActionEvent e)
+			protected void onCancel(final ActionEvent e)
 			{
-				ApplicationDashboardContentPanel.this.onImportResourceBundle(e);
+				ApplicationDashboardContentPanel.this.onImportResourceBundleCancel(e);
+			}
+
+			@Override
+			protected void onImport(final ActionEvent e)
+			{
+				super.onImport(e);
+				ApplicationDashboardContentPanel.this.onResourceBundleImport(e);
 			}
 		};
 	}
@@ -156,41 +178,6 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 		};
 	}
 
-	protected ImportResourceBundlePanel newImportResourceBundlePanel(
-		final Model<ApplicationDashboardBean> model)
-	{
-		return new ImportResourceBundlePanel(model)
-		{
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			protected void onImport(final ActionEvent e)
-			{
-				super.onImport(e);
-				ApplicationDashboardContentPanel.this.onResourceBundleImport(e);
-			}
-
-			@Override
-			protected void onCancel(final ActionEvent e)
-			{
-				ApplicationDashboardContentPanel.this.onImportResourceBundleCancel(e);
-			}
-		};
-	}
-
-	protected void onImportResourceBundleCancel(final ActionEvent e)
-	{
-		// TODO Auto-generated method stub
-		log.debug("onImportResourceBundleCancel");
-	}
-
-	protected void onResourceBundleImport(final ActionEvent e)
-	{
-		// TODO Auto-generated method stub
-		log.debug("onResourceBundleImport");
-
-	}
-
 	protected OverviewResourceBundleAddEntryPanel newOverviewResourceBundlePanel(
 		final Model<ApplicationDashboardBean> model)
 	{
@@ -201,26 +188,6 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 		final Model<ApplicationDashboardBean> model)
 	{
 		return new NewResourceBundleEntryPanel(model);
-	}
-
-	protected void onCreateCustomLocale(final ActionEvent e)
-	{
-		getCardLayout().show(this, ApplicationDashboardView.CREATE_NEW_LOCALE.name());
-	}
-
-	protected void onCreateRb(final ActionEvent e)
-	{
-		getCardLayout().show(this, ApplicationDashboardView.CREATE_NEW_RB.name());
-	}
-
-	protected void onEditBundleAppName(final ActionEvent e)
-	{
-		getCardLayout().show(this, ApplicationDashboardView.EDIT_RB_NAME.name());
-	}
-
-	protected void onImportResourceBundle(final ActionEvent e)
-	{
-		onChooseImportResourceBundle();
 	}
 
 	protected void onChooseImportResourceBundle()
@@ -253,6 +220,32 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 		}
 	}
 
+	protected void onCreateCustomLocale(final ActionEvent e)
+	{
+		getCardLayout().show(this, ApplicationDashboardView.CREATE_NEW_LOCALE.name());
+	}
+
+	protected void onCreateRb(final ActionEvent e)
+	{
+		getCardLayout().show(this, ApplicationDashboardView.CREATE_NEW_RB.name());
+	}
+
+	protected void onEditBundleAppName(final ActionEvent e)
+	{
+		getCardLayout().show(this, ApplicationDashboardView.EDIT_RB_NAME.name());
+	}
+
+	protected void onImportResourceBundle(final ActionEvent e)
+	{
+		onChooseImportResourceBundle();
+	}
+
+	protected void onImportResourceBundleCancel(final ActionEvent e)
+	{
+		// TODO Auto-generated method stub
+		log.debug("onImportResourceBundleCancel");
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -278,6 +271,13 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 	protected void onOverview(final ActionEvent e)
 	{
 		getCardLayout().show(this, ApplicationDashboardView.OVERVIEW_OF_ALL_RB.name());
+	}
+
+	protected void onResourceBundleImport(final ActionEvent e)
+	{
+		// TODO Auto-generated method stub
+		log.debug("onResourceBundleImport");
+
 	}
 
 	protected void onSaveBundleApplication(final ActionEvent e)

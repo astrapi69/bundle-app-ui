@@ -11,6 +11,13 @@ public class BundleNamesComboBoxModel extends AbstractComboBoxModel<BundleNames>
 
 	private static final long serialVersionUID = 1L;
 
+	private static final BundleNamesComboBoxModel COMBO_BOX_MODEL = new BundleNamesComboBoxModel();
+
+	public static final BundleNamesComboBoxModel get()
+	{
+		return COMBO_BOX_MODEL;
+	}
+
 	/**
 	 * init block
 	 **/
@@ -18,13 +25,6 @@ public class BundleNamesComboBoxModel extends AbstractComboBoxModel<BundleNames>
 		Set<BundleNames> bundleNames = MainFrame.getInstance().getModelObject()
 			.getSelectedBundleApplication().getBundleApplication().getBundleNames();
 		setComboSet(bundleNames);
-	}
-
-	private static final BundleNamesComboBoxModel COMBO_BOX_MODEL = new BundleNamesComboBoxModel();
-
-	public static final BundleNamesComboBoxModel get()
-	{
-		return COMBO_BOX_MODEL;
 	}
 
 

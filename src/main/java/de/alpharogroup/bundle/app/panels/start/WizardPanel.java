@@ -41,6 +41,16 @@ public class WizardPanel extends AbstractWizardPanel<WizardModel>
 
 
 	@Override
+	protected void onBeforeInitializeComponents()
+	{
+		super.onBeforeInitializeComponents();
+
+		setStateMachine(WizardModelStateMachine.<WizardModel> builder()
+			.currentState(WizardModelState.FIRST).modelObject(getModelObject()).build());
+		getModelObject().setAllValid();
+	}
+
+	@Override
 	protected void onCancel()
 	{
 		super.onCancel();
@@ -56,16 +66,6 @@ public class WizardPanel extends AbstractWizardPanel<WizardModel>
 		MainFrame.getInstance().replaceInternalFrame("Dashboard bundle app",
 			new ApplicationDashboardContentPanel());
 
-	}
-
-	@Override
-	protected void onBeforeInitializeComponents()
-	{
-		super.onBeforeInitializeComponents();
-
-		setStateMachine(WizardModelStateMachine.<WizardModel> builder()
-			.currentState(WizardModelState.FIRST).modelObject(getModelObject()).build());
-		getModelObject().setAllValid();
 	}
 
 	@Override

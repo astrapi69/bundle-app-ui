@@ -45,20 +45,21 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 	}
 
 	@Override
-	public void onEvent(final EventObject<NavigationEventState> event)
-	{
-		final NavigationEventState navigationState = event.getSource();
-		if (NavigationEventState.UPDATE.equals(navigationState))
-		{
-			updateButtonState();
-		}
-	};
-
-	@Override
 	protected BaseWizardContentPanel<ImportWizardModel> newWizardContentPanel(
 		final Model<WizardModelStateMachine<ImportWizardModel>> model)
 	{
 		return new ImportWizardContentPanel(model);
+	};
+
+	@Override
+	protected void onBeforeInitializeComponents()
+	{
+		super.onBeforeInitializeComponents();
+
+		setStateMachine(WizardModelStateMachine.<ImportWizardModel> builder()
+			.currentState(ImportWizardState.FIRST).modelObject(getModelObject()).build());
+		getModelObject().setAllValid();
+		getModelObject().setValidNext(false);
 	}
 
 
@@ -71,11 +72,50 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 	}
 
 	@Override
+	public void onEvent(final EventObject<NavigationEventState> event)
+	{
+		final NavigationEventState navigationState = event.getSource();
+		if (NavigationEventState.UPDATE.equals(navigationState))
+		{
+			updateButtonState();
+		}
+	}
+
+	@Override
 	protected void onFinish()
 	{
 		super.onFinish();
 		startDbImport();
 		MainFrame.getInstance().getCurrentVisibleInternalFrame().dispose();
+
+	}
+
+
+	@Override
+	protected void onInitializeComponents()
+	{
+		super.onInitializeComponents();
+		// register as listener...
+		final EventSource<EventObject<NavigationEventState>> eventSource = MainApplication
+			.getImportNavigationState();
+		eventSource.add(this);
+		updateButtonState();
+	}
+
+
+	@Override
+	protected void onNext()
+	{
+		super.onNext();
+		// TBD move to appropriate place...
+		try
+		{
+			startResolving();
+		}
+		catch (final IOException e)
+		{
+			log.error("Import failed.", e);
+		}
 
 	}
 
@@ -118,24 +158,6 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 
 	}
 
-
-	@Override
-	protected void onNext()
-	{
-		super.onNext();
-		// TBD move to appropriate place...
-		try
-		{
-			startResolving();
-		}
-		catch (final IOException e)
-		{
-			log.error("Import failed.", e);
-		}
-
-	}
-
-
 	private void startResolving() throws IOException
 	{
 		final File rootDir = getModelObject().getRootDir();
@@ -155,28 +177,6 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 			.getImportNavigationState();
 		navigationEventState.fireEvent(new EventObject<>(NavigationEventState.UPDATE));
 
-	}
-
-	@Override
-	protected void onBeforeInitializeComponents()
-	{
-		super.onBeforeInitializeComponents();
-
-		setStateMachine(WizardModelStateMachine.<ImportWizardModel> builder()
-			.currentState(ImportWizardState.FIRST).modelObject(getModelObject()).build());
-		getModelObject().setAllValid();
-		getModelObject().setValidNext(false);
-	}
-
-	@Override
-	protected void onInitializeComponents()
-	{
-		super.onInitializeComponents();
-		// register as listener...
-		final EventSource<EventObject<NavigationEventState>> eventSource = MainApplication
-			.getImportNavigationState();
-		eventSource.add(this);
-		updateButtonState();
 	}
 
 	@Override

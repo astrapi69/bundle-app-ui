@@ -61,9 +61,9 @@ public class SpringApplicationContext
 	 *
 	 * @return single instance of SpringApplicationContext
 	 */
-	public static SpringApplicationContext getInstance()
+	public static SpringApplicationContext get()
 	{
-		return get();
+		return instance;
 	}
 
 	/**
@@ -71,9 +71,9 @@ public class SpringApplicationContext
 	 *
 	 * @return single instance of SpringApplicationContext
 	 */
-	public static SpringApplicationContext get()
+	public static SpringApplicationContext getInstance()
 	{
-		return instance;
+		return get();
 	}
 
 	private BundleNamesService bundleNamesService;
@@ -141,6 +141,26 @@ public class SpringApplicationContext
 		return bundleNamesService;
 	}
 
+	public PropertiesKeysService getPropertiesKeysService()
+	{
+		if (propertiesKeysService == null)
+		{
+			propertiesKeysService = SpringApplicationContextExtensions.getBean(applicationContext,
+				"propertiesKeysService", PropertiesKeysService.class);
+		}
+		return propertiesKeysService;
+	}
+
+	public ResourcebundlesService getResourcebundlesService()
+	{
+		if (resourcebundlesService == null)
+		{
+			resourcebundlesService = SpringApplicationContextExtensions.getBean(applicationContext,
+				"resourcebundlesService", ResourcebundlesService.class);
+		}
+		return resourcebundlesService;
+	}
+
 	protected void initDb(final ApplicationContext ac)
 	{
 		final LanguagesService languagesService = (LanguagesService)ac.getBean("languagesService");
@@ -177,26 +197,6 @@ public class SpringApplicationContext
 				.name(BundleApplications.BASE_BUNDLE_APPLICATION).build();
 			baseBundleApplication = bundleApplicationsService.merge(baseBundleApplication);
 		}
-	}
-
-	public ResourcebundlesService getResourcebundlesService()
-	{
-		if (resourcebundlesService == null)
-		{
-			resourcebundlesService = SpringApplicationContextExtensions.getBean(applicationContext,
-				"resourcebundlesService", ResourcebundlesService.class);
-		}
-		return resourcebundlesService;
-	}
-
-	public PropertiesKeysService getPropertiesKeysService()
-	{
-		if (propertiesKeysService == null)
-		{
-			propertiesKeysService = SpringApplicationContextExtensions.getBean(applicationContext,
-				"propertiesKeysService", PropertiesKeysService.class);
-		}
-		return propertiesKeysService;
 	}
 
 }

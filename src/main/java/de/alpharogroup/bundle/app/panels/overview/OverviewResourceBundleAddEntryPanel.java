@@ -58,6 +58,59 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 		super(model);
 	}
 
+	private List<Quattro<String, String, Resourcebundles, Resourcebundles>> getTableModelList()
+	{
+		if (tableModelList == null)
+		{
+			reloadTableModelList();
+		}
+		return tableModelList;
+	}
+
+	protected void onAddEntry(final ActionEvent e)
+	{
+		final String key = txtKey.getText();
+		final String value = txtValue.getText();
+		final String baseName = getModelObject().getSelectedBundleName().getBaseName().getName();
+		final Locale locale = LocaleResolver
+			.resolveLocale(getModelObject().getSelectedBundleName().getLocale().getLocale());
+		final PropertiesKeysService propertiesKeysService = SpringApplicationContext.getInstance()
+			.getPropertiesKeysService();
+		final ResourcebundlesService resourcebundlesService = SpringApplicationContext.getInstance()
+			.getResourcebundlesService();
+		final boolean update = true;
+
+		Resourcebundles resourcebundle = resourcebundlesService.getResourcebundle(baseName, locale,
+			key);
+		if (resourcebundle != null)
+		{
+			if (update)
+			{
+				resourcebundle.setValue(value);
+			}
+		}
+		else
+		{
+			final PropertiesKeys pkey = propertiesKeysService.getOrCreateNewPropertiesKeys(key);
+
+			resourcebundle = Resourcebundles.builder()
+				.bundleName(getModelObject().getSelectedBundleName()).key(pkey).value(value)
+				.build();
+			ResourceBundlesDomainObjectFactory.getInstance()
+				.newResourcebundles(getModelObject().getSelectedBundleName(), pkey, value);
+		}
+		resourcebundle = resourcebundlesService.merge(resourcebundle);
+
+		reloadTableModel();
+
+		MainFrame.getInstance().getModelObject().getSelectedBundleApplication()
+			.setSelectedResourcebundle(null);
+
+		txtKey.setText("");
+		txtValue.setText("");
+		revalidate();
+	}
+
 	@Override
 	protected void onInitializeComponents()
 	{
@@ -241,87 +294,6 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 		btnToDashboard.addActionListener(ReturnToDashboardAction.of());
 	}
 
-	protected void onAddEntry(final ActionEvent e)
-	{
-		final String key = txtKey.getText();
-		final String value = txtValue.getText();
-		final String baseName = getModelObject().getSelectedBundleName().getBaseName().getName();
-		final Locale locale = LocaleResolver
-			.resolveLocale(getModelObject().getSelectedBundleName().getLocale().getLocale());
-		final PropertiesKeysService propertiesKeysService = SpringApplicationContext.getInstance()
-			.getPropertiesKeysService();
-		final ResourcebundlesService resourcebundlesService = SpringApplicationContext.getInstance()
-			.getResourcebundlesService();
-		final boolean update = true;
-
-		Resourcebundles resourcebundle = resourcebundlesService.getResourcebundle(baseName, locale,
-			key);
-		if (resourcebundle != null)
-		{
-			if (update)
-			{
-				resourcebundle.setValue(value);
-			}
-		}
-		else
-		{
-			final PropertiesKeys pkey = propertiesKeysService.getOrCreateNewPropertiesKeys(key);
-
-			resourcebundle = Resourcebundles.builder()
-				.bundleName(getModelObject().getSelectedBundleName()).key(pkey).value(value)
-				.build();
-			ResourceBundlesDomainObjectFactory.getInstance()
-				.newResourcebundles(getModelObject().getSelectedBundleName(), pkey, value);
-		}
-		resourcebundle = resourcebundlesService.merge(resourcebundle);
-
-		reloadTableModel();
-
-		MainFrame.getInstance().getModelObject().getSelectedBundleApplication()
-			.setSelectedResourcebundle(null);
-
-		txtKey.setText("");
-		txtValue.setText("");
-		revalidate();
-	}
-
-	private List<Quattro<String, String, Resourcebundles, Resourcebundles>> getTableModelList()
-	{
-		if (tableModelList == null)
-		{
-			reloadTableModelList();
-		}
-		return tableModelList;
-	}
-
-	private void reloadTableModel()
-	{
-		tableModel.getData().clear();
-		reloadTableModelList();
-		tableModel.addList(getTableModelList());
-	}
-
-	private void reloadTableModelList()
-	{
-		tableModelList = new ArrayList<>();
-		final ResourcebundlesService resourcebundlesService = SpringApplicationContext.getInstance()
-			.getResourcebundlesService();
-		final String baseName = getModelObject().getSelectedBundleName().getBaseName().getName();
-		final Locale locale = LocaleResolver
-			.resolveLocale(getModelObject().getSelectedBundleName().getLocale().getLocale());
-		final List<Resourcebundles> list = resourcebundlesService.findResourceBundles(baseName,
-			locale);
-		for (final Resourcebundles resourcebundle : list)
-		{
-			tableModelList.add(Quattro.<String, String, Resourcebundles, Resourcebundles> builder()
-				.topLeft(resourcebundle.getKey().getName()).topRight(resourcebundle.getValue())
-				.bottomLeft(resourcebundle).bottomRight(resourcebundle).build());
-		}
-		Collections.sort(tableModelList,
-			NullCheckComparator.<Quattro<String, String, Resourcebundles, Resourcebundles>> of(
-				(o1, o2) -> o1.getTopLeft().compareTo(o2.getTopLeft())));
-	}
-
 	@Override
 	protected void onInitializeLayout()
 	{
@@ -390,6 +362,34 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 				.addComponent(srcBundles, javax.swing.GroupLayout.PREFERRED_SIZE, 443,
 					javax.swing.GroupLayout.PREFERRED_SIZE)
 				.addContainerGap()));
+	}
+
+	private void reloadTableModel()
+	{
+		tableModel.getData().clear();
+		reloadTableModelList();
+		tableModel.addList(getTableModelList());
+	}
+
+	private void reloadTableModelList()
+	{
+		tableModelList = new ArrayList<>();
+		final ResourcebundlesService resourcebundlesService = SpringApplicationContext.getInstance()
+			.getResourcebundlesService();
+		final String baseName = getModelObject().getSelectedBundleName().getBaseName().getName();
+		final Locale locale = LocaleResolver
+			.resolveLocale(getModelObject().getSelectedBundleName().getLocale().getLocale());
+		final List<Resourcebundles> list = resourcebundlesService.findResourceBundles(baseName,
+			locale);
+		for (final Resourcebundles resourcebundle : list)
+		{
+			tableModelList.add(Quattro.<String, String, Resourcebundles, Resourcebundles> builder()
+				.topLeft(resourcebundle.getKey().getName()).topRight(resourcebundle.getValue())
+				.bottomLeft(resourcebundle).bottomRight(resourcebundle).build());
+		}
+		Collections.sort(tableModelList,
+			NullCheckComparator.<Quattro<String, String, Resourcebundles, Resourcebundles>> of(
+				(o1, o2) -> o1.getTopLeft().compareTo(o2.getTopLeft())));
 	}
 
 }

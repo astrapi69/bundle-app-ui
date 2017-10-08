@@ -11,6 +11,30 @@ public enum ImportWizardState implements WizardState<WizardModelStateMachine<Imp
 	FIRST {
 
 		@Override
+		public void cancel(final WizardModelStateMachine<ImportWizardModel> stateMachine)
+		{
+			if (stateMachine.getModelObject().isValidCancel())
+			{
+				stateMachine.setCurrentState(CANCELED);
+			}
+		}
+
+		@Override
+		public void finish(final WizardModelStateMachine<ImportWizardModel> stateMachine)
+		{
+			if (stateMachine.getModelObject().isValidFinish())
+			{
+				stateMachine.setCurrentState(FINISHED);
+			}
+		}
+
+		@Override
+		public String getName()
+		{
+			return name();
+		}
+
+		@Override
 		public void goNext(final WizardModelStateMachine<ImportWizardModel> stateMachine)
 		{
 			if (stateMachine.getModelObject().isValidNext())
@@ -39,6 +63,11 @@ public enum ImportWizardState implements WizardState<WizardModelStateMachine<Imp
 			return true;
 		}
 
+	},
+
+	/** The first {@link WizardModelState} object. */
+	PROGRESS {
+
 		@Override
 		public void cancel(final WizardModelStateMachine<ImportWizardModel> stateMachine)
 		{
@@ -62,11 +91,6 @@ public enum ImportWizardState implements WizardState<WizardModelStateMachine<Imp
 		{
 			return name();
 		}
-
-	},
-
-	/** The first {@link WizardModelState} object. */
-	PROGRESS {
 
 		@Override
 		public void goNext(final WizardModelStateMachine<ImportWizardModel> stateMachine)
@@ -96,30 +120,6 @@ public enum ImportWizardState implements WizardState<WizardModelStateMachine<Imp
 		public boolean isFirst()
 		{
 			return false;
-		}
-
-		@Override
-		public void cancel(final WizardModelStateMachine<ImportWizardModel> stateMachine)
-		{
-			if (stateMachine.getModelObject().isValidCancel())
-			{
-				stateMachine.setCurrentState(CANCELED);
-			}
-		}
-
-		@Override
-		public void finish(final WizardModelStateMachine<ImportWizardModel> stateMachine)
-		{
-			if (stateMachine.getModelObject().isValidFinish())
-			{
-				stateMachine.setCurrentState(FINISHED);
-			}
-		}
-
-		@Override
-		public String getName()
-		{
-			return name();
 		}
 
 	},

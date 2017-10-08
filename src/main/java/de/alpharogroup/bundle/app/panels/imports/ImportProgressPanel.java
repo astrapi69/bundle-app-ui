@@ -66,6 +66,12 @@ public class ImportProgressPanel extends BaseWizardContentPanel<ImportWizardMode
 	}
 
 	@Override
+	public void onEvent(EventObject<ImportWizardModel> event)
+	{
+		tableModel.addList(getModelObject().getModelObject().getFoundProperties());
+	}
+
+	@Override
 	protected void onInitializeComponents()
 	{
 		super.onInitializeComponents();
@@ -124,12 +130,6 @@ public class ImportProgressPanel extends BaseWizardContentPanel<ImportWizardMode
 					javax.swing.GroupLayout.PREFERRED_SIZE)
 				.addContainerGap(46, Short.MAX_VALUE)));
 
-	}
-
-	@Override
-	public void onEvent(EventObject<ImportWizardModel> event)
-	{
-		tableModel.addList(getModelObject().getModelObject().getFoundProperties());
 	}
 
 

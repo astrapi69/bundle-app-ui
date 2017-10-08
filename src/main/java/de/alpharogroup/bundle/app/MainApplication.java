@@ -55,9 +55,6 @@ public class MainApplication
 	/** The instance. */
 	private static MainApplication instance = new MainApplication();
 
-	@Getter
-	private final EventBus applicationEventBus = new EventBus();
-
 	private static final Map<String, EventSource<?>> eventSources = new HashMap<>();
 
 	public static MainApplication get()
@@ -80,6 +77,15 @@ public class MainApplication
 				new EventSubject<EventObject<BundleStart>>());
 			eventSource = getEventSource(BundleStart.class);
 		}
+		return eventSource;
+	}
+
+	@SuppressWarnings("unchecked")
+	public static <T> EventSource<EventObject<T>> getEventSource(
+		final Class<T> eventSourceTypeClass)
+	{
+		final EventSource<EventObject<T>> eventSource = (EventSource<EventObject<T>>)MainApplication
+			.get(eventSourceTypeClass.getSimpleName());
 		return eventSource;
 	}
 
@@ -110,21 +116,6 @@ public class MainApplication
 		}
 		return eventSource;
 	}
-
-	@SuppressWarnings("unchecked")
-	public static <T> EventSource<EventObject<T>> getEventSource(
-		final Class<T> eventSourceTypeClass)
-	{
-		final EventSource<EventObject<T>> eventSource = (EventSource<EventObject<T>>)MainApplication
-			.get(eventSourceTypeClass.getSimpleName());
-		return eventSource;
-	}
-
-	public static EventSource<?> put(final String key, final EventSource<?> value)
-	{
-		return eventSources.put(key, value);
-	}
-
 
 	/**
 	 * The main method.
@@ -173,4 +164,13 @@ public class MainApplication
 			log.error("UnsupportedLookAndFeelException:", e1);
 		}
 	}
+
+	public static EventSource<?> put(final String key, final EventSource<?> value)
+	{
+		return eventSources.put(key, value);
+	}
+
+
+	@Getter
+	private final EventBus applicationEventBus = new EventBus();
 }
