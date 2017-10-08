@@ -5,11 +5,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Properties;
+import java.util.Set;
 
 import de.alpharogroup.bundle.app.MainApplication;
 import de.alpharogroup.bundle.app.MainFrame;
 import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
 import de.alpharogroup.collections.pairs.KeyValuePair;
+import de.alpharogroup.collections.properties.PropertiesExtensions;
+import de.alpharogroup.collections.set.SetExtensions;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
@@ -21,6 +25,7 @@ import de.alpharogroup.design.pattern.state.wizard.model.WizardModelStateMachine
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.resourcebundle.inspector.search.PropertiesListResolver;
+import de.alpharogroup.resourcebundle.locale.LocaleResolver;
 import de.alpharogroup.swing.wizard.AbstractWizardPanel;
 import de.alpharogroup.swing.wizard.BaseWizardContentPanel;
 import lombok.extern.slf4j.Slf4j;
@@ -124,37 +129,39 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 		// 1. create bundleapp
 		final BundleApplicationsService bundleApplicationsService = SpringApplicationContext
 			.getInstance().getBundleApplicationsService();
-		final BundleApplications bundleApplication = bundleApplicationsService
+		final ResourcebundlesService resourcebundlesService = SpringApplicationContext
+			.getInstance().getResourcebundlesService();
+		BundleApplications bundleApplication = bundleApplicationsService
 			.getOrCreateNewBundleApplications(getModelObject().getBundleAppName());
 		// 2. get properties files
 		final List<KeyValuePair<File, Locale>> foundProperties = getModelObject()
 			.getFoundProperties();
 		// 3. save properties files the to the bundleapp
-		final Runnable importRunnable = new Runnable()
-		{
 
-			@Override
-			public void run()
+		final List<BundleNames> importedBundleNames;
+		// TODO improve import process...
+		final Set<BundleNames> set = SetExtensions.newHashSet();
+		for (final KeyValuePair<File, Locale> entry : foundProperties)
+		{
+			final File propertiesFile = entry.getKey();
+			final Locale locale = entry.getValue();
+			final String bundlename = LocaleResolver.resolveBundlename(propertiesFile);
+			Properties properties = null;
+			try
 			{
-				final ResourcebundlesService resourcebundlesService = SpringApplicationContext
-					.getInstance().getResourcebundlesService();
-				List<BundleNames> importedBundleNames;
-				try
-				{
-					importedBundleNames = resourcebundlesService.importProperties(bundleApplication,
-						foundProperties);
-					System.out.println("importedBundleNames.size():" + importedBundleNames.size());
-				}
-				catch (final IOException e)
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				properties = PropertiesExtensions.loadProperties(propertiesFile);
 			}
-		};
-		final Thread thread = new Thread(importRunnable);
-		thread.setPriority(Thread.MIN_PRIORITY);
-		thread.start();
+			catch (final IOException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			final BundleNames bundleNames = resourcebundlesService.updateProperties(properties, bundlename, locale, false);
+			set.add(bundleNames);
+
+		}
+		bundleApplication.setBundleNames(set);
+		bundleApplication = bundleApplicationsService.merge(bundleApplication);
 
 	}
 

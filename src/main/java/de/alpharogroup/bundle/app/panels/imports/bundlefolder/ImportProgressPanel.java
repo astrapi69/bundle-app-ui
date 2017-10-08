@@ -50,7 +50,7 @@ public class ImportProgressPanel extends BaseWizardContentPanel<ImportWizardMode
 
 	BundleFileTableModel tableModel;
 
-	public ImportProgressPanel(Model<WizardModelStateMachine<ImportWizardModel>> model)
+	public ImportProgressPanel(final Model<WizardModelStateMachine<ImportWizardModel>> model)
 	{
 		super(model);
 	}
@@ -66,8 +66,9 @@ public class ImportProgressPanel extends BaseWizardContentPanel<ImportWizardMode
 	}
 
 	@Override
-	public void onEvent(EventObject<ImportWizardModel> event)
+	public void onEvent(final EventObject<ImportWizardModel> event)
 	{
+		// TODO sort list
 		tableModel.addList(getModelObject().getModelObject().getFoundProperties());
 	}
 
