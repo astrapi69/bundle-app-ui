@@ -46,19 +46,19 @@ public class ImportBundleApplicationStartPanel extends BaseWizardContentPanel<Im
 
 	private static final long serialVersionUID = 1L;
 
-    private javax.swing.JButton btnChooseRootDir;
-    private javax.swing.JComboBox<Locale> cmbDefaultLocale;
-    private javax.swing.JLabel lblBundleAppName;
-    private javax.swing.JLabel lblChooseRootDir;
-    private javax.swing.JLabel lblDefaultLocale;
-    private javax.swing.JLabel lblHeaderChooseBundleAppName;
-    private javax.swing.JLabel lblWelcomeImportHeader;
-    private javax.swing.JTextField txtBundleAppName;
+	private javax.swing.JButton btnChooseRootDir;
+	private javax.swing.JComboBox<Locale> cmbDefaultLocale;
+	private javax.swing.JLabel lblBundleAppName;
+	private javax.swing.JLabel lblChooseRootDir;
+	private javax.swing.JLabel lblDefaultLocale;
+	private javax.swing.JLabel lblHeaderChooseBundleAppName;
+	private javax.swing.JLabel lblWelcomeImportHeader;
+	private javax.swing.JTextField txtBundleAppName;
 
-    private javax.swing.JLabel lblSelectedRootDir;
-    private javax.swing.JTextField txtSelectedRootDir;
+	private javax.swing.JLabel lblSelectedRootDir;
+	private javax.swing.JTextField txtSelectedRootDir;
 
-    private JFileChooser fileChooser;
+	private JFileChooser fileChooser;
 
 	public ImportBundleApplicationStartPanel(
 		Model<WizardModelStateMachine<ImportWizardModel>> model)
@@ -73,49 +73,53 @@ public class ImportBundleApplicationStartPanel extends BaseWizardContentPanel<Im
 
 		fileChooser = new JFileChooser();
 		fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        lblWelcomeImportHeader = new javax.swing.JLabel();
-        lblBundleAppName = new javax.swing.JLabel();
+		lblWelcomeImportHeader = new javax.swing.JLabel();
+		lblBundleAppName = new javax.swing.JLabel();
 
-        txtBundleAppName = new javax.swing.JTextField();
-        final Model<String> bundleAppNameModel = model(from(getModelObject().getModelObject()).getBundleAppName());
-        txtBundleAppName.getDocument().addDocumentListener(new StringBindingListener(bundleAppNameModel));
-        txtBundleAppName.addActionListener(e -> onBundleAppName(e));
+		txtBundleAppName = new javax.swing.JTextField();
+		final Model<String> bundleAppNameModel = model(
+			from(getModelObject().getModelObject()).getBundleAppName());
+		txtBundleAppName.getDocument()
+			.addDocumentListener(new StringBindingListener(bundleAppNameModel));
+		txtBundleAppName.addActionListener(e -> onBundleAppName(e));
 
-        lblHeaderChooseBundleAppName = new javax.swing.JLabel();
+		lblHeaderChooseBundleAppName = new javax.swing.JLabel();
 
-        btnChooseRootDir = new javax.swing.JButton();
-        btnChooseRootDir.addActionListener(actionEvent -> onChooseRootDir(actionEvent));
+		btnChooseRootDir = new javax.swing.JButton();
+		btnChooseRootDir.addActionListener(actionEvent -> onChooseRootDir(actionEvent));
 
-        lblChooseRootDir = new javax.swing.JLabel();
-        lblDefaultLocale = new javax.swing.JLabel();
+		lblChooseRootDir = new javax.swing.JLabel();
+		lblDefaultLocale = new javax.swing.JLabel();
 
-        cmbDefaultLocale = new javax.swing.JComboBox<>(LocalesComboBoxModel.get());
-        cmbDefaultLocale.addItemListener(e -> onChangeDefaultLocale(e));
-        final Model<Locale> defaultLocaleModel = model(from(getModelObject().getModelObject()).getDefaultLocale());
-        cmbDefaultLocale.setRenderer(new LocalesComboBoxRenderer(defaultLocaleModel));
+		cmbDefaultLocale = new javax.swing.JComboBox<>(LocalesComboBoxModel.get());
+		cmbDefaultLocale.addItemListener(e -> onChangeDefaultLocale(e));
+		final Model<Locale> defaultLocaleModel = model(
+			from(getModelObject().getModelObject()).getDefaultLocale());
+		cmbDefaultLocale.setRenderer(new LocalesComboBoxRenderer(defaultLocaleModel));
 
-        lblSelectedRootDir = new javax.swing.JLabel();
-        txtSelectedRootDir = new javax.swing.JTextField();
+		lblSelectedRootDir = new javax.swing.JLabel();
+		txtSelectedRootDir = new javax.swing.JTextField();
 
-        lblWelcomeImportHeader.setText("Import of an existing application with the bundle-manager ");
+		lblWelcomeImportHeader
+			.setText("Import of an existing application with the bundle-manager ");
 
-        lblBundleAppName.setText("Application name");
+		lblBundleAppName.setText("Application name");
 
-        lblHeaderChooseBundleAppName.setText("Give your imported bundle-application a name");
+		lblHeaderChooseBundleAppName.setText("Give your imported bundle-application a name");
 
-        btnChooseRootDir.setText("Choose root directory");
+		btnChooseRootDir.setText("Choose root directory");
 
-        lblChooseRootDir.setText("Choose the root directory of your project");
+		lblChooseRootDir.setText("Choose the root directory of your project");
 
-        lblDefaultLocale.setText("Choose default locale");
+		lblDefaultLocale.setText("Choose default locale");
 
-        lblSelectedRootDir.setText("Selected root directory of your project");
+		lblSelectedRootDir.setText("Selected root directory of your project");
 
-        txtSelectedRootDir.setText("None");
+		txtSelectedRootDir.setText("None");
 
-    };
+	};
 
-    protected void onChangeDefaultLocale(ItemEvent e)
+	protected void onChangeDefaultLocale(ItemEvent e)
 	{
 		updateWizardButtons();
 	}
@@ -133,28 +137,31 @@ public class ImportBundleApplicationStartPanel extends BaseWizardContentPanel<Im
 		{
 			final File rootDir = fileChooser.getSelectedFile();
 			getModelObject().getModelObject().setRootDir(rootDir);
-			txtSelectedRootDir.setText(getModelObject().getModelObject().getRootDir().getAbsolutePath());
+			txtSelectedRootDir
+				.setText(getModelObject().getModelObject().getRootDir().getAbsolutePath());
 		}
 		updateWizardButtons();
 	}
 
 	protected void updateWizardButtons()
 	{
-		 final ImportWizardModel modelObject = getModelObject().getModelObject();
-		 final String bundleAppName = modelObject.getBundleAppName();
-		 if(bundleAppName != null) {
-			 bundleAppName.trim();
-		 }
-		 final Locale defaultLocale = modelObject.getDefaultLocale();
-		 final File rootDir = modelObject.getRootDir();
-		 if(StringUtils.isNotEmpty(bundleAppName) &&
-			 defaultLocale!=null &&
-			 rootDir != null) {
-			 modelObject.setAllValid();
-			 final EventSource<EventObject<NavigationEventState>> eventSource = MainApplication
-					.getImportNavigationState();
-				eventSource.fireEvent(new EventObject<>(NavigationEventState.UPDATE));
-		 } else {
+		final ImportWizardModel modelObject = getModelObject().getModelObject();
+		final String bundleAppName = modelObject.getBundleAppName();
+		if (bundleAppName != null)
+		{
+			bundleAppName.trim();
+		}
+		final Locale defaultLocale = modelObject.getDefaultLocale();
+		final File rootDir = modelObject.getRootDir();
+		if (StringUtils.isNotEmpty(bundleAppName) && defaultLocale != null && rootDir != null)
+		{
+			modelObject.setAllValid();
+			final EventSource<EventObject<NavigationEventState>> eventSource = MainApplication
+				.getImportNavigationState();
+			eventSource.fireEvent(new EventObject<>(NavigationEventState.UPDATE));
+		}
+		else
+		{
 			modelObject.reset();
 		}
 
@@ -165,60 +172,81 @@ public class ImportBundleApplicationStartPanel extends BaseWizardContentPanel<Im
 	{
 		super.onInitializeLayout();
 
-        final javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblWelcomeImportHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(296, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblHeaderChooseBundleAppName, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lblSelectedRootDir, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(lblChooseRootDir, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
-                                    .addComponent(lblDefaultLocale, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addComponent(lblBundleAppName, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtBundleAppName, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(cmbDefaultLocale, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnChooseRootDir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-                            .addComponent(txtSelectedRootDir, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblWelcomeImportHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblHeaderChooseBundleAppName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblBundleAppName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtBundleAppName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblDefaultLocale)
-                    .addComponent(cmbDefaultLocale, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblChooseRootDir, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnChooseRootDir))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblSelectedRootDir, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSelectedRootDir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(31, Short.MAX_VALUE))
-        );
+		final javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+		this.setLayout(layout);
+		layout.setHorizontalGroup(layout
+			.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+			.addGroup(layout.createSequentialGroup().addGap(26, 26, 26).addGroup(layout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(layout.createSequentialGroup()
+					.addComponent(lblWelcomeImportHeader, javax.swing.GroupLayout.PREFERRED_SIZE,
+						473, javax.swing.GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(296, Short.MAX_VALUE))
+				.addGroup(layout.createSequentialGroup()
+					.addComponent(lblHeaderChooseBundleAppName,
+						javax.swing.GroupLayout.PREFERRED_SIZE, 395,
+						javax.swing.GroupLayout.PREFERRED_SIZE)
+					.addGap(0, 0, Short.MAX_VALUE))
+				.addGroup(layout.createSequentialGroup().addGroup(layout
+					.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+					.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+						.addComponent(lblSelectedRootDir, javax.swing.GroupLayout.Alignment.LEADING,
+							javax.swing.GroupLayout.PREFERRED_SIZE, 309,
+							javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addGroup(layout
+							.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+							.addComponent(lblChooseRootDir, javax.swing.GroupLayout.DEFAULT_SIZE,
+								309, Short.MAX_VALUE)
+							.addComponent(lblDefaultLocale, javax.swing.GroupLayout.DEFAULT_SIZE,
+								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+					.addComponent(lblBundleAppName, javax.swing.GroupLayout.PREFERRED_SIZE, 309,
+						javax.swing.GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+						javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGroup(layout
+						.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+						.addComponent(txtBundleAppName, javax.swing.GroupLayout.Alignment.TRAILING)
+						.addComponent(cmbDefaultLocale, javax.swing.GroupLayout.Alignment.TRAILING,
+							0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(btnChooseRootDir, javax.swing.GroupLayout.Alignment.TRAILING,
+							javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+						.addComponent(txtSelectedRootDir,
+							javax.swing.GroupLayout.Alignment.TRAILING))
+					.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))));
+		layout.setVerticalGroup(layout
+			.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+			.addGroup(layout.createSequentialGroup().addContainerGap()
+				.addComponent(lblWelcomeImportHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 30,
+					javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+				.addComponent(lblHeaderChooseBundleAppName, javax.swing.GroupLayout.PREFERRED_SIZE,
+					30, javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+				.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+					.addComponent(lblBundleAppName, javax.swing.GroupLayout.PREFERRED_SIZE, 30,
+						javax.swing.GroupLayout.PREFERRED_SIZE)
+					.addComponent(txtBundleAppName, javax.swing.GroupLayout.PREFERRED_SIZE,
+						javax.swing.GroupLayout.DEFAULT_SIZE,
+						javax.swing.GroupLayout.PREFERRED_SIZE))
+				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+				.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+					.addComponent(lblDefaultLocale).addComponent(cmbDefaultLocale,
+						javax.swing.GroupLayout.PREFERRED_SIZE,
+						javax.swing.GroupLayout.DEFAULT_SIZE,
+						javax.swing.GroupLayout.PREFERRED_SIZE))
+				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+				.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+					.addComponent(lblChooseRootDir, javax.swing.GroupLayout.PREFERRED_SIZE, 30,
+						javax.swing.GroupLayout.PREFERRED_SIZE)
+					.addComponent(btnChooseRootDir))
+				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+				.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+					.addComponent(lblSelectedRootDir, javax.swing.GroupLayout.PREFERRED_SIZE, 30,
+						javax.swing.GroupLayout.PREFERRED_SIZE)
+					.addComponent(txtSelectedRootDir, javax.swing.GroupLayout.PREFERRED_SIZE,
+						javax.swing.GroupLayout.DEFAULT_SIZE,
+						javax.swing.GroupLayout.PREFERRED_SIZE))
+				.addContainerGap(31, Short.MAX_VALUE)));
 
 
 	}

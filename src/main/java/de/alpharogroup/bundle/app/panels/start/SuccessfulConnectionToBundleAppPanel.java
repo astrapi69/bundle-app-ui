@@ -19,7 +19,8 @@ public class SuccessfulConnectionToBundleAppPanel
 	private javax.swing.JLabel lblHeaderCongratulation;
 	private javax.swing.JLabel lblLabelName;
 
-	public SuccessfulConnectionToBundleAppPanel(final Model<WizardModelStateMachine<WizardModel>> model)
+	public SuccessfulConnectionToBundleAppPanel(
+		final Model<WizardModelStateMachine<WizardModel>> model)
 	{
 		super(model);
 	}
@@ -27,8 +28,8 @@ public class SuccessfulConnectionToBundleAppPanel
 	protected String getLabelHeaderCongratulationText(
 		final Model<WizardModelStateMachine<WizardModel>> model)
 	{
-		final BundleStart initState = model.getObject().getModelObject().getBundleAppInitialization()
-			.getValue();
+		final BundleStart initState = model.getObject().getModelObject()
+			.getBundleAppInitialization().getValue();
 		String labelHeaderCongratulationText = "Congratulation you have created a new bundle application";
 		if (initState != null && initState.equals(BundleStart.CONNECT))
 		{

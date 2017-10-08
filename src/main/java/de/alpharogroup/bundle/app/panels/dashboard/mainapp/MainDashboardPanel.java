@@ -28,15 +28,17 @@ public class MainDashboardPanel extends BaseCardLayoutPanel<MainDashboardBean>
 		getCardLayout().show(this, MainDashboardView.MAIN_DASHBOARD.name());
 	}
 
-	protected NewBundleApplicationPanel newBundleApplicationPanel(final Model<MainDashboardBean> model)
+	protected NewBundleApplicationPanel newBundleApplicationPanel(
+		final Model<MainDashboardBean> model)
 	{
 		model.getObject().setSelectedBundleApplication(ApplicationDashboardBean.builder().build());
-		final Model<ApplicationDashboardBean> baModel = PropertyModel.<ApplicationDashboardBean> of(model,
-			"selectedBundleApplication");
+		final Model<ApplicationDashboardBean> baModel = PropertyModel
+			.<ApplicationDashboardBean> of(model, "selectedBundleApplication");
 
 		return new NewBundleApplicationPanel(baModel)
 		{
 			private static final long serialVersionUID = 1L;
+
 			@Override
 			protected void onSave(final ActionEvent e)
 			{

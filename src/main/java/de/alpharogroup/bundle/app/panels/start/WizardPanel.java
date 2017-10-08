@@ -81,15 +81,18 @@ public class WizardPanel extends AbstractWizardPanel<WizardModel>
 		super.updateButtonState();
 		if (getStateMachine().getCurrentState().hasNext())
 		{
-			getNavigationPanel().getBtnNext().setEnabled(getStateMachine().getModelObject().isValidNext());
+			getNavigationPanel().getBtnNext()
+				.setEnabled(getStateMachine().getModelObject().isValidNext());
 		}
 		if (getStateMachine().getCurrentState().hasPrevious())
 		{
 			getNavigationPanel().getBtnPrevious()
 				.setEnabled(getStateMachine().getModelObject().isValidPrevious());
 		}
-		getNavigationPanel().getBtnCancel().setEnabled(getStateMachine().getModelObject().isValidCancel());
-		getNavigationPanel().getBtnFinish().setEnabled(getStateMachine().getModelObject().isValidFinish());
+		getNavigationPanel().getBtnCancel()
+			.setEnabled(getStateMachine().getModelObject().isValidCancel());
+		getNavigationPanel().getBtnFinish()
+			.setEnabled(getStateMachine().getModelObject().isValidFinish());
 	}
 
 }

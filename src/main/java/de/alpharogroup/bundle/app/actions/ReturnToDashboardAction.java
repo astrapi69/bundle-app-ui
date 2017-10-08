@@ -15,7 +15,8 @@ public class ReturnToDashboardAction extends AbstractAction
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	public static ReturnToDashboardAction of()	{
+	public static ReturnToDashboardAction of()
+	{
 		return new ReturnToDashboardAction();
 	}
 
@@ -27,7 +28,8 @@ public class ReturnToDashboardAction extends AbstractAction
 		final ApplicationDashboardContentPanel component = new ApplicationDashboardContentPanel(
 			baModel);
 		MainFrame.getInstance().replaceInternalFrame(
-			"Dashboard of " + baModel.getObject().getBundleApplication().getName() + " bundle app", component);
+			"Dashboard of " + baModel.getObject().getBundleApplication().getName() + " bundle app",
+			component);
 
 	}
 

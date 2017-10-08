@@ -9,7 +9,7 @@ import de.alpharogroup.swing.combobox.model.AbstractComboBoxModel;
 public class BundleNamesComboBoxModel extends AbstractComboBoxModel<BundleNames>
 {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * init block

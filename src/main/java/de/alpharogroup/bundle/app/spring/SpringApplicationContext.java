@@ -65,6 +65,7 @@ public class SpringApplicationContext
 	{
 		return get();
 	}
+
 	/**
 	 * Gets the single instance of SpringApplicationContext.
 	 *

@@ -21,7 +21,8 @@ public class OverviewBundleAppsAction extends AbstractAction
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	public static OverviewBundleAppsAction of() {
+	public static OverviewBundleAppsAction of()
+	{
 		return new OverviewBundleAppsAction();
 	}
 
@@ -46,7 +47,8 @@ public class OverviewBundleAppsAction extends AbstractAction
 	@Override
 	public void actionPerformed(final ActionEvent e)
 	{
-		final List<BundleApplications> bundleApplications = SpringApplicationContext.getInstance().getBundleApplicationsService().findAll();
+		final List<BundleApplications> bundleApplications = SpringApplicationContext.getInstance()
+			.getBundleApplicationsService().findAll();
 		MainFrame.getInstance().getModelObject().setBundleApplications(bundleApplications);
 		MainFrame.getInstance().replaceInternalFrame("Overview bundle apps", new MainDashboardPanel(
 			PropertyModel.<MainDashboardBean> of(MainFrame.getInstance(), "model.object")));

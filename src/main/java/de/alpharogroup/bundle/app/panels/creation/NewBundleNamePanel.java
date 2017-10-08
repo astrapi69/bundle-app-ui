@@ -24,7 +24,7 @@ public class NewBundleNamePanel extends BasePanel<ApplicationDashboardBean>
 
 	private javax.swing.JButton btnCreateNewLocale;
 	private javax.swing.JButton btnSave;
-    private javax.swing.JButton btnToDashboard;
+	private javax.swing.JButton btnToDashboard;
 	private JComboBox<LanguageLocales> cmbLocale;
 	private javax.swing.JLabel lblBasename;
 	private javax.swing.JLabel lblHeaderNewBundleName;
@@ -69,9 +69,9 @@ public class NewBundleNamePanel extends BasePanel<ApplicationDashboardBean>
 		lblHeaderNewBundleName.setText("Create new Bundle name");
 		btnCreateNewLocale.setText("Create new custom locale");
 
-        btnToDashboard = new javax.swing.JButton();
-        btnToDashboard.setText("Return to Dashboard");
-        btnToDashboard.addActionListener(ReturnToDashboardAction.of());
+		btnToDashboard = new javax.swing.JButton();
+		btnToDashboard.setText("Return to Dashboard");
+		btnToDashboard.addActionListener(ReturnToDashboardAction.of());
 	}
 
 	@Override
@@ -79,54 +79,63 @@ public class NewBundleNamePanel extends BasePanel<ApplicationDashboardBean>
 	{
 		super.onInitializeLayout();
 
-        final javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblBasename, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtBasename, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblLocale, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(387, 387, 387)
-                                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(cmbLocale, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnCreateNewLocale, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblHeaderNewBundleName, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnToDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(40, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblHeaderNewBundleName, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnToDashboard))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblBasename)
-                    .addComponent(txtBasename, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblLocale)
-                    .addComponent(cmbLocale, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCreateNewLocale))
-                .addGap(18, 18, 18)
-                .addComponent(btnSave)
-                .addContainerGap(37, Short.MAX_VALUE))
-        );
+		final javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+		this.setLayout(layout);
+		layout.setHorizontalGroup(layout
+			.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+			.addGroup(layout.createSequentialGroup().addGap(40, 40, 40).addGroup(layout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+				.addGroup(layout.createSequentialGroup()
+					.addComponent(lblBasename, javax.swing.GroupLayout.PREFERRED_SIZE,
+						140, javax.swing.GroupLayout.PREFERRED_SIZE)
+					.addGap(18, 18, 18).addComponent(txtBasename,
+						javax.swing.GroupLayout.PREFERRED_SIZE, 562,
+						javax.swing.GroupLayout.PREFERRED_SIZE))
+				.addGroup(layout.createSequentialGroup()
+					.addComponent(lblLocale, javax.swing.GroupLayout.PREFERRED_SIZE, 140,
+						javax.swing.GroupLayout.PREFERRED_SIZE)
+					.addGap(18, 18, 18)
+					.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addGroup(layout.createSequentialGroup().addGap(387, 387, 387).addComponent(
+							btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 175,
+							javax.swing.GroupLayout.PREFERRED_SIZE))
+						.addGroup(layout.createSequentialGroup()
+							.addComponent(cmbLocale, javax.swing.GroupLayout.PREFERRED_SIZE, 300,
+								javax.swing.GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(btnCreateNewLocale,
+								javax.swing.GroupLayout.PREFERRED_SIZE, 220,
+								javax.swing.GroupLayout.PREFERRED_SIZE))))
+				.addGroup(layout.createSequentialGroup()
+					.addComponent(lblHeaderNewBundleName, javax.swing.GroupLayout.PREFERRED_SIZE,
+						300, javax.swing.GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+						javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addComponent(btnToDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 220,
+						javax.swing.GroupLayout.PREFERRED_SIZE)))
+				.addContainerGap(40, Short.MAX_VALUE)));
+		layout.setVerticalGroup(layout
+			.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+			.addGroup(layout.createSequentialGroup().addGap(27, 27, 27)
+				.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+					.addComponent(lblHeaderNewBundleName, javax.swing.GroupLayout.PREFERRED_SIZE,
+						35, javax.swing.GroupLayout.PREFERRED_SIZE)
+					.addComponent(btnToDashboard))
+				.addGap(18, 18, 18)
+				.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+					.addComponent(lblBasename).addComponent(txtBasename,
+						javax.swing.GroupLayout.PREFERRED_SIZE,
+						javax.swing.GroupLayout.DEFAULT_SIZE,
+						javax.swing.GroupLayout.PREFERRED_SIZE))
+				.addGap(18, 18, 18)
+				.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+					.addComponent(lblLocale)
+					.addComponent(cmbLocale, javax.swing.GroupLayout.PREFERRED_SIZE,
+						javax.swing.GroupLayout.DEFAULT_SIZE,
+						javax.swing.GroupLayout.PREFERRED_SIZE)
+					.addComponent(btnCreateNewLocale))
+				.addGap(18, 18, 18).addComponent(btnSave).addContainerGap(37, Short.MAX_VALUE)));
 
 	}
 

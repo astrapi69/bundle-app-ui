@@ -19,15 +19,21 @@ public class ImportWizardContentPanel extends BaseWizardContentPanel<ImportWizar
 		super(model);
 	}
 
-	protected ImportBundleApplicationStartPanel newImportBundleApplicationStartPanel(Model<WizardModelStateMachine<ImportWizardModel>> model) {
+	protected ImportBundleApplicationStartPanel newImportBundleApplicationStartPanel(
+		Model<WizardModelStateMachine<ImportWizardModel>> model)
+	{
 		return new ImportBundleApplicationStartPanel(model);
 	}
 
-	protected ImportProgressPanel newImportProgressPanel(Model<WizardModelStateMachine<ImportWizardModel>> model) {
+	protected ImportProgressPanel newImportProgressPanel(
+		Model<WizardModelStateMachine<ImportWizardModel>> model)
+	{
 		return new ImportProgressPanel(model);
 	}
 
-	protected ImportFinishedPanel newImportFinishedPanel(Model<WizardModelStateMachine<ImportWizardModel>> model) {
+	protected ImportFinishedPanel newImportFinishedPanel(
+		Model<WizardModelStateMachine<ImportWizardModel>> model)
+	{
 		return new ImportFinishedPanel(model);
 	}
 

@@ -36,52 +36,52 @@ import lombok.Getter;
  */
 @Getter
 public class ImportProgressPanel extends BaseWizardContentPanel<ImportWizardModel>
-implements
-EventListener<EventObject<ImportWizardModel>>
+	implements
+		EventListener<EventObject<ImportWizardModel>>
 {
 
 	private static final long serialVersionUID = 1L;
 
-    private javax.swing.JLabel lblFoundProperties;
-    private javax.swing.JLabel lblWelcomeImportHeader;
-    private javax.swing.JProgressBar prbImport;
-    private javax.swing.JScrollPane scrFoundProperties;
-    private GenericJXTable<KeyValuePair<File, Locale>> tblFoundProperties;
+	private javax.swing.JLabel lblFoundProperties;
+	private javax.swing.JLabel lblWelcomeImportHeader;
+	private javax.swing.JProgressBar prbImport;
+	private javax.swing.JScrollPane scrFoundProperties;
+	private GenericJXTable<KeyValuePair<File, Locale>> tblFoundProperties;
 
-    BundleFileTableModel tableModel;
+	BundleFileTableModel tableModel;
 
-    public ImportProgressPanel(Model<WizardModelStateMachine<ImportWizardModel>> model)
+	public ImportProgressPanel(Model<WizardModelStateMachine<ImportWizardModel>> model)
 	{
 		super(model);
 	}
 
-    @Override
-    protected void onBeforeInitialize()
-    {
-    	super.onBeforeInitialize();
+	@Override
+	protected void onBeforeInitialize()
+	{
+		super.onBeforeInitialize();
 		// register as listener...
 		final EventSource<EventObject<ImportWizardModel>> eventSource = MainApplication
 			.getImportWizardModel();
 		eventSource.add(this);
-    }
+	}
 
 	@Override
 	protected void onInitializeComponents()
 	{
 		super.onInitializeComponents();
 
-        lblWelcomeImportHeader = new javax.swing.JLabel();
-        prbImport = new javax.swing.JProgressBar();
-        scrFoundProperties = new javax.swing.JScrollPane();
-        lblFoundProperties = new javax.swing.JLabel();
+		lblWelcomeImportHeader = new javax.swing.JLabel();
+		prbImport = new javax.swing.JProgressBar();
+		scrFoundProperties = new javax.swing.JScrollPane();
+		lblFoundProperties = new javax.swing.JLabel();
 
-        lblWelcomeImportHeader.setText("Progress of Import ");
-        tableModel = new BundleFileTableModel();
-        tableModel.addList(getModelObject().getModelObject().getFoundProperties());
-        tblFoundProperties = new GenericJXTable<>(tableModel);
-        scrFoundProperties.setViewportView(tblFoundProperties);
+		lblWelcomeImportHeader.setText("Progress of Import ");
+		tableModel = new BundleFileTableModel();
+		tableModel.addList(getModelObject().getModelObject().getFoundProperties());
+		tblFoundProperties = new GenericJXTable<>(tableModel);
+		scrFoundProperties.setViewportView(tblFoundProperties);
 
-        lblFoundProperties.setText("Found properties");
+		lblFoundProperties.setText("Found properties");
 	}
 
 	@Override
@@ -89,45 +89,47 @@ EventListener<EventObject<ImportWizardModel>>
 	{
 		super.onInitializeLayout();
 
-        final javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblWelcomeImportHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(prbImport, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 761, Short.MAX_VALUE))
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(scrFoundProperties)
-                        .addGap(26, 26, 26))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblFoundProperties, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblWelcomeImportHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(prbImport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblFoundProperties, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrFoundProperties, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(46, Short.MAX_VALUE))
-        );
+		final javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+		this.setLayout(layout);
+		layout.setHorizontalGroup(layout
+			.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+			.addGroup(layout.createSequentialGroup().addContainerGap().addGroup(layout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(layout.createSequentialGroup()
+					.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addComponent(lblWelcomeImportHeader, javax.swing.GroupLayout.DEFAULT_SIZE,
+							javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(prbImport, javax.swing.GroupLayout.Alignment.TRAILING,
+							javax.swing.GroupLayout.DEFAULT_SIZE, 761, Short.MAX_VALUE))
+					.addContainerGap())
+				.addGroup(layout.createSequentialGroup().addComponent(scrFoundProperties).addGap(26,
+					26, 26))
+				.addGroup(layout.createSequentialGroup()
+					.addComponent(lblFoundProperties, javax.swing.GroupLayout.PREFERRED_SIZE, 200,
+						javax.swing.GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))));
+		layout.setVerticalGroup(layout
+			.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+			.addGroup(layout.createSequentialGroup().addContainerGap()
+				.addComponent(lblWelcomeImportHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 39,
+					javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addGap(18, 18, 18)
+				.addComponent(prbImport, javax.swing.GroupLayout.PREFERRED_SIZE,
+					javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+				.addComponent(lblFoundProperties, javax.swing.GroupLayout.PREFERRED_SIZE, 30,
+					javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+				.addComponent(scrFoundProperties, javax.swing.GroupLayout.PREFERRED_SIZE, 262,
+					javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addContainerGap(46, Short.MAX_VALUE)));
 
 	}
 
 	@Override
 	public void onEvent(EventObject<ImportWizardModel> event)
 	{
-        tableModel.addList(getModelObject().getModelObject().getFoundProperties());
+		tableModel.addList(getModelObject().getModelObject().getFoundProperties());
 	}
 
 

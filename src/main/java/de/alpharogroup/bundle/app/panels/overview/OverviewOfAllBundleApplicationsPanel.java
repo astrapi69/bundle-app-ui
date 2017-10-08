@@ -58,7 +58,8 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 		if (tableModelList == null)
 		{
 			tableModelList = new ArrayList<>();
-			for (final BundleApplications bundleApplication : getModelObject().getBundleApplications())
+			for (final BundleApplications bundleApplication : getModelObject()
+				.getBundleApplications())
 			{
 				tableModelList.add(KeyValuePair.<String, BundleApplications> builder()
 					.key(bundleApplication.getName()).value(bundleApplication).build());
@@ -89,6 +90,7 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 		valueColumn.setCellRenderer(new TableCellButtonRenderer(null, null)
 		{
 			private static final long serialVersionUID = 1L;
+
 			@Override
 			public Component getTableCellRendererComponent(final JTable table, final Object value,
 				final boolean isSelected, final boolean hasFocus, final int row, final int column)
@@ -111,14 +113,16 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 		valueColumn.setCellEditor(new TableCellButtonEditor(new JCheckBox())
 		{
 			private static final long serialVersionUID = 1L;
+
 			@Override
 			public Object getCellEditorValue()
 			{
-				final BundleApplications selectedBundleApplication = (BundleApplications)this.getValue();
+				final BundleApplications selectedBundleApplication = (BundleApplications)this
+					.getValue();
 				MainFrame.getInstance().setSelectedBundleApplication(selectedBundleApplication);
 				final Model<ApplicationDashboardBean> baModel = MainFrame.getInstance()
 					.getSelectedBundleApplicationPropertyModel();
-					final ApplicationDashboardContentPanel component = new ApplicationDashboardContentPanel(
+				final ApplicationDashboardContentPanel component = new ApplicationDashboardContentPanel(
 					baModel);
 				MainFrame.getInstance().replaceInternalFrame(
 					"Dashboard of " + selectedBundleApplication.getName() + " bundle app",

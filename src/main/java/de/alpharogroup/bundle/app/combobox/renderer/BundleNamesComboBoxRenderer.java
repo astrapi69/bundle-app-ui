@@ -21,7 +21,8 @@ public class BundleNamesComboBoxRenderer extends JLabel implements ListCellRende
 
 	@Override
 	public Component getListCellRendererComponent(final JList<? extends BundleNames> list,
-		final BundleNames value, final int index, final boolean isSelected, final boolean cellHasFocus)
+		final BundleNames value, final int index, final boolean isSelected,
+		final boolean cellHasFocus)
 	{
 
 		if (isSelected)

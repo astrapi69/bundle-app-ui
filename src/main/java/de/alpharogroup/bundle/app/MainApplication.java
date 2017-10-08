@@ -112,7 +112,8 @@ public class MainApplication
 	}
 
 	@SuppressWarnings("unchecked")
-	public static <T> EventSource<EventObject<T>> getEventSource(final Class<T> eventSourceTypeClass)
+	public static <T> EventSource<EventObject<T>> getEventSource(
+		final Class<T> eventSourceTypeClass)
 	{
 		final EventSource<EventObject<T>> eventSource = (EventSource<EventObject<T>>)MainApplication
 			.get(eventSourceTypeClass.getSimpleName());

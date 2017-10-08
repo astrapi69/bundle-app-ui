@@ -236,11 +236,14 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 				final Properties importedProperties = PropertiesExtensions
 					.loadProperties(resourceBundleToImport);
 				getModelObject().setImportedProperties(importedProperties);
-				final List<KeyValuePair<String, String>> keyValuePairs = PropertiesExtensions.toKeyValuePairs(importedProperties);
-				Collections.sort(keyValuePairs, NullCheckComparator.<KeyValuePair<String, String>>of(new KeyValuePairKeyComparator<>()));
+				final List<KeyValuePair<String, String>> keyValuePairs = PropertiesExtensions
+					.toKeyValuePairs(importedProperties);
+				Collections.sort(keyValuePairs, NullCheckComparator
+					.<KeyValuePair<String, String>> of(new KeyValuePairKeyComparator<>()));
 				getModelObject().setImportedKeyValuePairs(keyValuePairs);
 
-				MainApplication.get().getApplicationEventBus().post(ApplicationDashboardContentPanel.this.getModelObject());
+				MainApplication.get().getApplicationEventBus()
+					.post(ApplicationDashboardContentPanel.this.getModelObject());
 				getCardLayout().show(this, ApplicationDashboardView.IMPORT_RB.name());
 			}
 			catch (final IOException e)

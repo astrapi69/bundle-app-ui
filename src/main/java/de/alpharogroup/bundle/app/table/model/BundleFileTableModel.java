@@ -10,9 +10,7 @@ import de.alpharogroup.swing.table.model.properties.KeyValueTableModel;
 /**
  * The class {@link BundleFileTableModel} that lists of file and the locale.
  */
-public class BundleFileTableModel
-	extends
-		KeyValueTableModel<File, Locale>
+public class BundleFileTableModel extends KeyValueTableModel<File, Locale>
 {
 
 	/** The Constant serialVersionUID. */

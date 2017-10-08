@@ -42,8 +42,8 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 		{
 			if (stateMachine.getModelObject().isValidNext())
 			{
-				final BundleStart initState = stateMachine.getModelObject().getBundleAppInitialization()
-					.getSelectedEnum();
+				final BundleStart initState = stateMachine.getModelObject()
+					.getBundleAppInitialization().getSelectedEnum();
 				if (initState.equals(BundleStart.CONNECT))
 				{
 					stateMachine.setCurrentState(WizardModelState.CONNECT_TO_EXISTING_BUNDLE_APP);
@@ -107,7 +107,8 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 		{
 			if (stateMachine.getModelObject().isValidNext())
 			{
-				final String pw = stateMachine.getModelObject().getChangePassword().getNewPassword();
+				final String pw = stateMachine.getModelObject().getChangePassword()
+					.getNewPassword();
 				final String rpw = stateMachine.getModelObject().getChangePassword()
 					.getRepeatNewPassword();
 				if (pw.equals(rpw))
@@ -209,7 +210,8 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 		{
 			if (stateMachine.getModelObject().isValidNext())
 			{
-				final String pw = stateMachine.getModelObject().getChangePassword().getNewPassword();
+				final String pw = stateMachine.getModelObject().getChangePassword()
+					.getNewPassword();
 				final String rpw = stateMachine.getModelObject().getChangePassword()
 					.getRepeatNewPassword();
 				if (pw.equals(rpw))
@@ -225,8 +227,8 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 			if (stateMachine.getModelObject().isValidPrevious())
 			{
 
-				final BundleStart initState = stateMachine.getModelObject().getBundleAppInitialization()
-					.getValue();
+				final BundleStart initState = stateMachine.getModelObject()
+					.getBundleAppInitialization().getValue();
 				if (initState.equals(BundleStart.CONNECT))
 				{
 					stateMachine.setCurrentState(WizardModelState.CONNECT_TO_EXISTING_BUNDLE_APP);

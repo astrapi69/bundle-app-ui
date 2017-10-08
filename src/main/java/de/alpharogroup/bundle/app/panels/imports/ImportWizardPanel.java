@@ -34,7 +34,8 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 
 	public ImportWizardPanel()
 	{
-		this(BaseModel.<ImportWizardModel> of(ImportWizardModel.builder().foundProperties(new ArrayList<>()).build()));
+		this(BaseModel.<ImportWizardModel> of(
+			ImportWizardModel.builder().foundProperties(new ArrayList<>()).build()));
 	}
 
 
@@ -47,7 +48,8 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 	public void onEvent(final EventObject<NavigationEventState> event)
 	{
 		final NavigationEventState navigationState = event.getSource();
-		if(NavigationEventState.UPDATE.equals(navigationState)) {
+		if (NavigationEventState.UPDATE.equals(navigationState))
+		{
 			updateButtonState();
 		}
 	};
@@ -80,10 +82,13 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 	private void startDbImport()
 	{
 		// 1. create bundleapp
-		final BundleApplicationsService bundleApplicationsService = SpringApplicationContext.getInstance().getBundleApplicationsService();
-		final BundleApplications bundleApplication = bundleApplicationsService.getOrCreateNewBundleApplications(getModelObject().getBundleAppName());
+		final BundleApplicationsService bundleApplicationsService = SpringApplicationContext
+			.getInstance().getBundleApplicationsService();
+		final BundleApplications bundleApplication = bundleApplicationsService
+			.getOrCreateNewBundleApplications(getModelObject().getBundleAppName());
 		// 2. get properties files
-		final List<KeyValuePair<File, Locale>> foundProperties = getModelObject().getFoundProperties();
+		final List<KeyValuePair<File, Locale>> foundProperties = getModelObject()
+			.getFoundProperties();
 		// 3. save properties files the to the bundleapp
 		final Runnable importRunnable = new Runnable()
 		{
@@ -91,12 +96,14 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 			@Override
 			public void run()
 			{
-				final ResourcebundlesService resourcebundlesService = SpringApplicationContext.getInstance().getResourcebundlesService();
+				final ResourcebundlesService resourcebundlesService = SpringApplicationContext
+					.getInstance().getResourcebundlesService();
 				List<BundleNames> importedBundleNames;
 				try
 				{
-					importedBundleNames = resourcebundlesService.importProperties(bundleApplication, foundProperties);
-					System.out.println("importedBundleNames.size():"+importedBundleNames.size());
+					importedBundleNames = resourcebundlesService.importProperties(bundleApplication,
+						foundProperties);
+					System.out.println("importedBundleNames.size():" + importedBundleNames.size());
 				}
 				catch (final IOException e)
 				{
@@ -138,15 +145,15 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 		final List<KeyValuePair<File, Locale>> propertiesList = resolver1.getPropertiesList();
 		getModelObject().setFoundProperties(propertiesList);
 		getModelObject().setDbImport(true);
-		 final EventSource<EventObject<ImportWizardModel>> eventSource = MainApplication
-				.getImportWizardModel();
-			eventSource.fireEvent(new EventObject<>(getModelObject()));
-			// set buttons state...
-			getModelObject().setValidPrevious(true);
-			getModelObject().setValidFinish(true);
-			final EventSource<EventObject<NavigationEventState>> navigationEventState = MainApplication
-				.getImportNavigationState();
-			navigationEventState.fireEvent(new EventObject<>(NavigationEventState.UPDATE));
+		final EventSource<EventObject<ImportWizardModel>> eventSource = MainApplication
+			.getImportWizardModel();
+		eventSource.fireEvent(new EventObject<>(getModelObject()));
+		// set buttons state...
+		getModelObject().setValidPrevious(true);
+		getModelObject().setValidFinish(true);
+		final EventSource<EventObject<NavigationEventState>> navigationEventState = MainApplication
+			.getImportNavigationState();
+		navigationEventState.fireEvent(new EventObject<>(NavigationEventState.UPDATE));
 
 	}
 
@@ -156,9 +163,7 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 		super.onBeforeInitializeComponents();
 
 		setStateMachine(WizardModelStateMachine.<ImportWizardModel> builder()
-			.currentState(ImportWizardState.FIRST)
-			.modelObject(getModelObject())
-			.build());
+			.currentState(ImportWizardState.FIRST).modelObject(getModelObject()).build());
 		getModelObject().setAllValid();
 		getModelObject().setValidNext(false);
 	}

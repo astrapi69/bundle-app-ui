@@ -20,7 +20,7 @@ import lombok.ToString;
  */
 @Getter
 @Setter
-@EqualsAndHashCode(callSuper=true)
+@EqualsAndHashCode(callSuper = true)
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
@@ -39,7 +39,6 @@ public class ImportWizardModel extends AbstractWizardModel
 
 	@Builder.Default
 	private List<KeyValuePair<File, Locale>> foundProperties = new ArrayList<>();
-
 
 
 }

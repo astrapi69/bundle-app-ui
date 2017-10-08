@@ -20,7 +20,7 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 	private static final long serialVersionUID = 1L;
 
 	private javax.swing.JButton btnSave;
-    private javax.swing.JButton btnToDashboard;
+	private javax.swing.JButton btnToDashboard;
 	private javax.swing.JLabel lblBundleName;
 	private javax.swing.JLabel lblHeaderNewBundleApp;
 	private javax.swing.JTextField txtBundleName;
@@ -45,9 +45,9 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 		btnSave = new javax.swing.JButton();
 		btnSave.addActionListener(e -> onSave(e));
 
-        btnToDashboard = new javax.swing.JButton();
-        btnToDashboard.setText("Return to Dashboard");
-        btnToDashboard.addActionListener(ReturnToDashboardAction.of());
+		btnToDashboard = new javax.swing.JButton();
+		btnToDashboard.setText("Return to Dashboard");
+		btnToDashboard.addActionListener(ReturnToDashboardAction.of());
 
 		lblHeaderNewBundleApp.setText("Create new bundle application");
 
@@ -66,39 +66,43 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 	{
 		super.onInitializeLayout();
 
-        final javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblBundleName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40)
-                        .addComponent(txtBundleName, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(lblHeaderNewBundleApp, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnToDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(54, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblHeaderNewBundleApp, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnToDashboard))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblBundleName)
-                    .addComponent(txtBundleName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(btnSave)
-                .addContainerGap(34, Short.MAX_VALUE))
-        );
+		final javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+		this.setLayout(layout);
+		layout.setHorizontalGroup(layout
+			.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+			.addGroup(layout.createSequentialGroup().addGap(46, 46, 46).addGroup(layout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+				.addGroup(layout.createSequentialGroup()
+					.addComponent(lblBundleName, javax.swing.GroupLayout.PREFERRED_SIZE,
+						200, javax.swing.GroupLayout.PREFERRED_SIZE)
+					.addGap(40, 40, 40)
+					.addComponent(txtBundleName, javax.swing.GroupLayout.PREFERRED_SIZE, 460,
+						javax.swing.GroupLayout.PREFERRED_SIZE))
+				.addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 222,
+					javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addGroup(javax.swing.GroupLayout.Alignment.LEADING,
+					layout.createSequentialGroup()
+						.addComponent(lblHeaderNewBundleApp, javax.swing.GroupLayout.PREFERRED_SIZE,
+							265, javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+							javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(btnToDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 217,
+							javax.swing.GroupLayout.PREFERRED_SIZE)))
+				.addContainerGap(54, Short.MAX_VALUE)));
+		layout.setVerticalGroup(layout
+			.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+			.addGroup(layout.createSequentialGroup().addContainerGap()
+				.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+					.addComponent(lblHeaderNewBundleApp, javax.swing.GroupLayout.PREFERRED_SIZE, 30,
+						javax.swing.GroupLayout.PREFERRED_SIZE)
+					.addComponent(btnToDashboard))
+				.addGap(18, 18, 18)
+				.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+					.addComponent(lblBundleName).addComponent(txtBundleName,
+						javax.swing.GroupLayout.PREFERRED_SIZE,
+						javax.swing.GroupLayout.DEFAULT_SIZE,
+						javax.swing.GroupLayout.PREFERRED_SIZE))
+				.addGap(18, 18, 18).addComponent(btnSave).addContainerGap(34, Short.MAX_VALUE)));
 	}
 
 	protected void onSave(final ActionEvent e)
@@ -107,11 +111,14 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 			.getInstance().getApplicationContext().getBean("bundleApplicationsService");
 		final String name = getTxtBundleName().getText();
 		BundleApplications currentBundleApplication;
-		if (getModelObject().getBundleApplication() != null) {
+		if (getModelObject().getBundleApplication() != null)
+		{
 			currentBundleApplication = getModelObject().getBundleApplication();
 			currentBundleApplication.setName(name);
 			currentBundleApplication = bundleApplicationsService.merge(currentBundleApplication);
-		} else {
+		}
+		else
+		{
 			BundleApplications newBundleApplication = bundleApplicationsService.find(name);
 			if (newBundleApplication == null)
 			{

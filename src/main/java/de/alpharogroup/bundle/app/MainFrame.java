@@ -79,6 +79,7 @@ public class MainFrame extends BaseFrame<MainDashboardBean>
 	{
 		return get();
 	}
+
 	/**
 	 * Gets the single instance of MainFrame.
 	 *
@@ -168,8 +169,8 @@ public class MainFrame extends BaseFrame<MainDashboardBean>
 		final BundleApplicationsService bundleApplicationsService = (BundleApplicationsService)applicationContext
 			.getBean("bundleApplicationsService");
 
-		final Model<MainDashboardBean> model = BaseModel.<MainDashboardBean> of(MainDashboardBean.builder()
-			.bundleApplications(bundleApplicationsService.findAll()).build());
+		final Model<MainDashboardBean> model = BaseModel.<MainDashboardBean> of(MainDashboardBean
+			.builder().bundleApplications(bundleApplicationsService.findAll()).build());
 		setModel(model);
 		final MainDashboardPanel mainDashboardPanel = new MainDashboardPanel(
 			PropertyModel.<MainDashboardBean> of(this, "model.object"));

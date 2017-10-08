@@ -81,9 +81,10 @@ public class WizardStartPanel extends BasePanel<WizardModelStateMachine<WizardMo
 		lblWelcomeHeader = new JLabel();
 		lblWelcomeIntro = new JLabel();
 		rbnImport = new JRadioButton();
-		if(getModelObject().getModelObject().getBundleAppInitialization() == null) {
+		if (getModelObject().getModelObject().getBundleAppInitialization() == null)
+		{
 			getModelObject().getModelObject().setBundleAppInitialization(
-				new EnumRadioButtonGroupBean<>( new EnumMap<>(BundleStart.class),
+				new EnumRadioButtonGroupBean<>(new EnumMap<>(BundleStart.class),
 					model(from(getModelObject().getModelObject()).getSelected())));
 
 		}
