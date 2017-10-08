@@ -221,7 +221,6 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 	protected void onImportResourceBundle(final ActionEvent e)
 	{
 		onChooseImportResourceBundle();
-		getCardLayout().show(this, ApplicationDashboardView.IMPORT_RB.name());
 	}
 
 	protected void onChooseImportResourceBundle()
@@ -242,6 +241,7 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 				getModelObject().setImportedKeyValuePairs(keyValuePairs);
 				// TODO ... load into table model...
 				MainApplication.get().getApplicationEventBus().post(ApplicationDashboardContentPanel.this.getModelObject());
+				getCardLayout().show(this, ApplicationDashboardView.IMPORT_RB.name());
 			}
 			catch (final IOException e)
 			{
