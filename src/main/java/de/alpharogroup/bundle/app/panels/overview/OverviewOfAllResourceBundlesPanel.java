@@ -3,6 +3,7 @@ package de.alpharogroup.bundle.app.panels.overview;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -16,6 +17,7 @@ import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.bundle.app.table.model.StringBundleNamesTableModel;
 import de.alpharogroup.collections.pairs.Triple;
 import de.alpharogroup.collections.set.SetExtensions;
+import de.alpharogroup.comparators.NullCheckComparator;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
@@ -28,7 +30,7 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 {
 	private static final long serialVersionUID = 1L;
 	private javax.swing.JButton btnCreateBundle;
-    private javax.swing.JButton btnToDashboard;
+	private javax.swing.JButton btnToDashboard;
 	private javax.swing.JLabel lblBundleName;
 	private javax.swing.JLabel lblHeaderOverview;
 	private javax.swing.JScrollPane srcBundles;
@@ -53,7 +55,8 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 		{
 			tableModelList = new ArrayList<>();
 			final Set<BundleNames> set = getModelObject().getBundleApplication().getBundleNames();
-			if(SetExtensions.isNotEmpty(set)) {
+			if (SetExtensions.isNotEmpty(set))
+			{
 				for (final BundleNames bundleNames : set)
 				{
 					tableModelList.add(Triple.<String, String, BundleNames> builder()
@@ -61,6 +64,9 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 						.middle(bundleNames.getLocale().getLocale()).right(bundleNames).build());
 				}
 			}
+			Collections.sort(tableModelList,
+				NullCheckComparator.<Triple<String, String, BundleNames>> of(
+					(o1, o2) -> o1.getLeft().compareTo(o2.getLeft())));
 		}
 		return tableModelList;
 	}
@@ -80,9 +86,9 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 
 		btnCreateBundle.addActionListener(e -> onCreateBundle(e));
 
-        btnToDashboard = new javax.swing.JButton();
-        btnToDashboard.setText("Return to Dashboard");
-        btnToDashboard.addActionListener(ReturnToDashboardAction.of());
+		btnToDashboard = new javax.swing.JButton();
+		btnToDashboard.setText("Return to Dashboard");
+		btnToDashboard.addActionListener(ReturnToDashboardAction.of());
 
 		tableModel = new StringBundleNamesTableModel();
 
@@ -94,6 +100,7 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 		valueColumn.setCellRenderer(new TableCellButtonRenderer(null, null)
 		{
 			private static final long serialVersionUID = 1L;
+
 			@Override
 			public Component getTableCellRendererComponent(final JTable table, final Object value,
 				final boolean isSelected, final boolean hasFocus, final int row, final int column)
@@ -116,6 +123,7 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 		valueColumn.setCellEditor(new TableCellButtonEditor(new JCheckBox())
 		{
 			private static final long serialVersionUID = 1L;
+
 			@Override
 			public Object getCellEditorValue()
 			{
@@ -123,12 +131,15 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 
 				final Model<ApplicationDashboardBean> baModel = MainFrame.getInstance()
 					.getSelectedBundleApplicationPropertyModel();
-				MainFrame.getInstance().getModelObject().getSelectedBundleApplication().setSelectedBundleName(selectedBundleName);
+				MainFrame.getInstance().getModelObject().getSelectedBundleApplication()
+					.setSelectedBundleName(selectedBundleName);
 
-				final OverviewResourceBundleAddEntryPanel component = new OverviewResourceBundleAddEntryPanel(baModel);
+				final OverviewResourceBundleAddEntryPanel component = new OverviewResourceBundleAddEntryPanel(
+					baModel);
 
 				MainFrame.getInstance().replaceInternalFrame(
-					"Values of resource bundle " + selectedBundleName.getBaseName().getName() + " with locale " + selectedBundleName.getLocale().getLocale()+ "",
+					"Values of resource bundle " + selectedBundleName.getBaseName().getName()
+						+ " with locale " + selectedBundleName.getLocale().getLocale() + "",
 					component);
 
 				final String text = "Choose";
@@ -174,39 +185,46 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 	{
 		super.onInitializeLayout();
 
-        final javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblHeaderOverview, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnToDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblBundleName, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCreateBundle, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(srcBundles, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(40, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblHeaderOverview, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnToDashboard))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblBundleName, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCreateBundle))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(srcBundles, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(54, Short.MAX_VALUE))
-        );
+		final javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+		this.setLayout(layout);
+		layout
+			.setHorizontalGroup(
+				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+					.addGroup(layout.createSequentialGroup().addGap(40, 40, 40).addGroup(layout
+						.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+						.addGroup(layout.createSequentialGroup()
+							.addComponent(lblHeaderOverview, javax.swing.GroupLayout.PREFERRED_SIZE,
+								540, javax.swing.GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(btnToDashboard, javax.swing.GroupLayout.PREFERRED_SIZE,
+								220, javax.swing.GroupLayout.PREFERRED_SIZE))
+						.addGroup(layout.createSequentialGroup()
+							.addComponent(lblBundleName, javax.swing.GroupLayout.PREFERRED_SIZE,
+								540, javax.swing.GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(btnCreateBundle, javax.swing.GroupLayout.PREFERRED_SIZE,
+								280, javax.swing.GroupLayout.PREFERRED_SIZE))
+						.addComponent(srcBundles, javax.swing.GroupLayout.PREFERRED_SIZE, 1000,
+							javax.swing.GroupLayout.PREFERRED_SIZE))
+						.addContainerGap(40, Short.MAX_VALUE)));
+		layout
+			.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(layout.createSequentialGroup().addGap(40, 40, 40)
+					.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+						.addComponent(lblHeaderOverview, javax.swing.GroupLayout.PREFERRED_SIZE, 33,
+							javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnToDashboard))
+					.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+					.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addComponent(lblBundleName, javax.swing.GroupLayout.PREFERRED_SIZE, 34,
+							javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnCreateBundle))
+					.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+					.addComponent(srcBundles, javax.swing.GroupLayout.PREFERRED_SIZE, 480,
+						javax.swing.GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(54, Short.MAX_VALUE)));
 
 
 	}
