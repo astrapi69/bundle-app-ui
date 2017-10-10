@@ -2,6 +2,7 @@ package de.alpharogroup.bundle.app.panels.dashboard;
 
 import java.io.File;
 import java.util.List;
+import java.util.Locale;
 import java.util.Properties;
 
 import de.alpharogroup.collections.pairs.KeyValuePair;
@@ -27,6 +28,8 @@ public class ApplicationDashboardBean
 {
 
 	private BundleApplications bundleApplication;
+
+	private Locale defaultLocale;
 
 	private BundleNames selectedBundleName;
 

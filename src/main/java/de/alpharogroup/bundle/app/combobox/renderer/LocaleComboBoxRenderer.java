@@ -7,24 +7,34 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
+import de.alpharogroup.check.Check;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
+import de.alpharogroup.model.BaseModel;
+import de.alpharogroup.model.api.Model;
 import de.alpharogroup.resourcebundle.locale.LocaleResolver;
 
 public class LocaleComboBoxRenderer extends JLabel implements ListCellRenderer<LanguageLocales>
 {
 
 	private static final long serialVersionUID = 1L;
-
+	private final Model<LanguageLocales> model;
 	public LocaleComboBoxRenderer()
 	{
+		this(BaseModel.<LanguageLocales>of());
+	}
+
+	public LocaleComboBoxRenderer(final Model<LanguageLocales> model)
+	{
+		Check.get().notNull(model, "model");
+		this.model = model;
 		setOpaque(true);
 		setHorizontalAlignment(CENTER);
 		setVerticalAlignment(CENTER);
 	}
 
 	@Override
-	public Component getListCellRendererComponent(JList<? extends LanguageLocales> list,
-		LanguageLocales value, int index, boolean isSelected, boolean cellHasFocus)
+	public Component getListCellRendererComponent(final JList<? extends LanguageLocales> list,
+		final LanguageLocales value, final int index, final boolean isSelected, final boolean cellHasFocus)
 	{
 
 		if (isSelected)
@@ -38,6 +48,7 @@ public class LocaleComboBoxRenderer extends JLabel implements ListCellRenderer<L
 			setForeground(list.getForeground());
 		}
 		String locale = "";
+		model.setObject(value);
 		if (value != null)
 		{
 			locale = value.getLocale();

@@ -16,7 +16,7 @@ public class LocalesComboBoxRenderer extends JLabel implements ListCellRenderer<
 	private static final long serialVersionUID = 1L;
 	private final Model<Locale> model;
 
-	public LocalesComboBoxRenderer(Model<Locale> model)
+	public LocalesComboBoxRenderer(final Model<Locale> model)
 	{
 		setOpaque(true);
 		Check.get().notNull(model, "model");
@@ -26,8 +26,8 @@ public class LocalesComboBoxRenderer extends JLabel implements ListCellRenderer<
 	}
 
 	@Override
-	public Component getListCellRendererComponent(JList<? extends Locale> list, Locale value,
-		int index, boolean isSelected, boolean cellHasFocus)
+	public Component getListCellRendererComponent(final JList<? extends Locale> list, final Locale value,
+		final int index, final boolean isSelected, final boolean cellHasFocus)
 	{
 
 		if (isSelected)
@@ -41,9 +41,9 @@ public class LocalesComboBoxRenderer extends JLabel implements ListCellRenderer<
 			setForeground(list.getForeground());
 		}
 		String locale = "";
+		model.setObject(value);
 		if (value != null)
 		{
-			model.setObject(value);
 			final String englishName = value.getDisplayName(Locale.ENGLISH);
 			locale = englishName;
 		}

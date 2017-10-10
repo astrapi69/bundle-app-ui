@@ -1,14 +1,25 @@
 package de.alpharogroup.bundle.app.panels.creation;
 
+import static de.alpharogroup.model.typesafe.TypeSafeModel.from;
+import static de.alpharogroup.model.typesafe.TypeSafeModel.model;
+
 import java.awt.event.ActionEvent;
+import java.awt.event.ItemEvent;
+import java.util.Locale;
 
 import de.alpharogroup.bundle.app.MainFrame;
 import de.alpharogroup.bundle.app.actions.ReturnToDashboardAction;
+import de.alpharogroup.bundle.app.combobox.model.LanguageLocalesComboBoxModel;
+import de.alpharogroup.bundle.app.combobox.model.LocalesComboBoxModel;
+import de.alpharogroup.bundle.app.combobox.renderer.LocaleComboBoxRenderer;
+import de.alpharogroup.bundle.app.combobox.renderer.LocalesComboBoxRenderer;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
+import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
 import de.alpharogroup.model.BaseModel;
+import de.alpharogroup.model.PropertyModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BasePanel;
 import lombok.Getter;
@@ -21,7 +32,7 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 
 	private javax.swing.JButton btnSave;
 	private javax.swing.JButton btnToDashboard;
-    private javax.swing.JComboBox<String> cmbDefaultLocale;
+    private javax.swing.JComboBox<LanguageLocales> cmbDefaultLocale;
     private javax.swing.JLabel lbDefaultlLocale;
 	private javax.swing.JLabel lblBundleName;
 	private javax.swing.JLabel lblHeaderNewBundleApp;
@@ -63,11 +74,23 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 		}
 
         lbDefaultlLocale = new javax.swing.JLabel();
-        cmbDefaultLocale = new javax.swing.JComboBox<>();
 
         lbDefaultlLocale.setText("Choose default Locale");
-        cmbDefaultLocale.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+
+		cmbDefaultLocale = new javax.swing.JComboBox<>(
+			LanguageLocalesComboBoxModel.get()
+			);
+		cmbDefaultLocale.addItemListener(e -> onChangeDefaultLocale(e));
+		final Model<LanguageLocales> defaultLocaleModel =
+			model(
+			from(getModelObject().getBundleApplication()).getDefaultLocale());
+		cmbDefaultLocale.setRenderer(new LocaleComboBoxRenderer(defaultLocaleModel));
+
+	}
+
+	protected void onChangeDefaultLocale(final ItemEvent e)
+	{
 	}
 
 	@Override
@@ -137,7 +160,10 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 			BundleApplications newBundleApplication = bundleApplicationsService.find(name);
 			if (newBundleApplication == null)
 			{
-				newBundleApplication = BundleApplications.builder().name(name).build();
+				//
+				newBundleApplication = BundleApplications.builder().name(name)
+//					.defaultLocale(defaultLocale)
+					.build();
 				newBundleApplication = bundleApplicationsService.merge(newBundleApplication);
 			}
 			if (!MainFrame.getInstance().getModelObject().getBundleApplications()
