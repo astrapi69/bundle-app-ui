@@ -74,16 +74,31 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 
         lbDefaultlLocale.setText("Choose default Locale");
 
+		cmbDefaultLocale = newCmbDefaultLocale(getModel());
 
-		cmbDefaultLocale = new javax.swing.JComboBox<>(
-			LocalesComboBoxModel.get()
-			);
-		cmbDefaultLocale.addItemListener(e -> onChangeDefaultLocale(e));
-		final Model<Locale> defaultLocaleModel =
-			model(
-			from(getModel()).getDefaultLocale());
-		cmbDefaultLocale.setRenderer(new LocalesComboBoxRenderer(defaultLocaleModel));
-
+	}
+	
+	protected javax.swing.JComboBox<Locale> newCmbDefaultLocale(final Model<ApplicationDashboardBean> model) {
+		ApplicationDashboardBean bean = model.getObject();
+		BundleApplications bundleApplication = bean.getBundleApplication();
+		LocalesComboBoxModel cmbModel = LocalesComboBoxModel.get();
+		Locale dl = Locale.getDefault();
+		if(bundleApplication != null) {
+			LanguageLocales defaultLocale = bundleApplication.getDefaultLocale();
+			if(defaultLocale!=null) {
+				dl = SpringApplicationContext.get().getLanguageLocalesService().resolveLocale(defaultLocale);
+			}
+		}
+		cmbModel.setSelectedItem(dl);
+		final javax.swing.JComboBox<Locale> cmbDefaultLocale = new javax.swing.JComboBox<>(
+				LocalesComboBoxModel.get()
+				);
+			cmbDefaultLocale.addItemListener(e -> onChangeDefaultLocale(e));
+			final Model<Locale> defaultLocaleModel =
+				model(
+				from(getModel()).getDefaultLocale());
+			cmbDefaultLocale.setRenderer(new LocalesComboBoxRenderer(defaultLocaleModel));
+			return cmbDefaultLocale;
 	}
 
 	protected void onChangeDefaultLocale(final ItemEvent e)
@@ -150,16 +165,29 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 		{
 			currentBundleApplication = getModelObject().getBundleApplication();
 			currentBundleApplication.setName(name);
+			Locale dl = getModelObject().getDefaultLocale();
+			LanguageLocales defaultLocale = SpringApplicationContext.get().getLanguageLocalesService().getOrCreateNewLanguageLocales(dl);
+			if(currentBundleApplication.getDefaultLocale() !=null ) {
+				if(!currentBundleApplication.getDefaultLocale().equals(defaultLocale)) {
+					currentBundleApplication.setDefaultLocale(defaultLocale);
+				}
+			}else {
+				currentBundleApplication.setDefaultLocale(defaultLocale);				
+			}
+			
 			currentBundleApplication = bundleApplicationsService.merge(currentBundleApplication);
+			getModelObject().setBundleApplication(currentBundleApplication);
 		}
 		else
 		{
 			BundleApplications newBundleApplication = bundleApplicationsService.find(name);
 			if (newBundleApplication == null)
 			{
-				//
+				Locale dl = getModelObject().getDefaultLocale();
+				LanguageLocales defaultLocale = SpringApplicationContext.get().getLanguageLocalesService().find(dl);
+			
 				newBundleApplication = BundleApplications.builder().name(name)
-//					.defaultLocale(defaultLocale)
+					.defaultLocale(defaultLocale)
 					.build();
 				newBundleApplication = bundleApplicationsService.merge(newBundleApplication);
 			}
