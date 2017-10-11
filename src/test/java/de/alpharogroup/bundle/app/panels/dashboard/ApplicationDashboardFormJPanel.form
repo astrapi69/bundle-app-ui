@@ -18,36 +18,37 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="btnReturnToMainDashboard" min="-2" pref="740" max="-2" attributes="0"/>
-                  <Component id="btnImportResourceBundle" min="-2" pref="740" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="btnCreateRb" max="32767" attributes="0"/>
-                      <Component id="btnOverview" pref="740" max="32767" attributes="0"/>
-                      <Component id="btnEditBundleAppName" max="32767" attributes="0"/>
-                      <Component id="btnCreateCustomLocale" alignment="0" max="32767" attributes="0"/>
-                  </Group>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="btnImportResourceBundlesFromDir" pref="740" max="32767" attributes="0"/>
+                  <Component id="btnImportResourceBundleFromFile" pref="740" max="32767" attributes="0"/>
+                  <Component id="btnOverview" alignment="0" max="32767" attributes="0"/>
+                  <Component id="btnReturnToMainDashboard" alignment="0" pref="740" max="32767" attributes="0"/>
+                  <Component id="btnCreateRb" alignment="0" max="32767" attributes="0"/>
+                  <Component id="btnEditBundleAppName" alignment="0" pref="740" max="32767" attributes="0"/>
+                  <Component id="btnCreateCustomLocale" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="33" max="32767" attributes="0"/>
+              <EmptySpace pref="27" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-              <Component id="btnEditBundleAppName" min="-2" pref="80" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+              <Component id="btnReturnToMainDashboard" min="-2" pref="80" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnOverview" min="-2" pref="80" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="btnImportResourceBundlesFromDir" min="-2" pref="80" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="btnImportResourceBundleFromFile" min="-2" pref="80" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="btnEditBundleAppName" min="-2" pref="80" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnCreateRb" min="-2" pref="80" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
               <Component id="btnCreateCustomLocale" min="-2" pref="80" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="btnImportResourceBundle" min="-2" pref="80" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="btnReturnToMainDashboard" min="-2" pref="80" max="-2" attributes="0"/>
-              <EmptySpace pref="41" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -73,9 +74,14 @@
         <Property name="text" type="java.lang.String" value="Create new custom locale"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnImportResourceBundle">
+    <Component class="javax.swing.JButton" name="btnImportResourceBundleFromFile">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Import new resource bundle"/>
+        <Property name="text" type="java.lang.String" value="Import new resource bundle from file"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnImportResourceBundlesFromDir">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Import all new resource bundles from folder"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnReturnToMainDashboard">
