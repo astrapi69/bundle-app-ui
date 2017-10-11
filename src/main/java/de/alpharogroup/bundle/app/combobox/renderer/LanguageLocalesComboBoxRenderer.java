@@ -13,17 +13,17 @@ import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.resourcebundle.locale.LocaleResolver;
 
-public class LocaleComboBoxRenderer extends JLabel implements ListCellRenderer<LanguageLocales>
+public class LanguageLocalesComboBoxRenderer extends JLabel implements ListCellRenderer<LanguageLocales>
 {
 
 	private static final long serialVersionUID = 1L;
 	private final Model<LanguageLocales> model;
-	public LocaleComboBoxRenderer()
+	public LanguageLocalesComboBoxRenderer()
 	{
 		this(BaseModel.<LanguageLocales>of());
 	}
 
-	public LocaleComboBoxRenderer(final Model<LanguageLocales> model)
+	public LanguageLocalesComboBoxRenderer(final Model<LanguageLocales> model)
 	{
 		Check.get().notNull(model, "model");
 		this.model = model;

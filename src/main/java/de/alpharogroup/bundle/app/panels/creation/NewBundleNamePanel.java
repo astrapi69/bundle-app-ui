@@ -7,7 +7,7 @@ import javax.swing.JComboBox;
 
 import de.alpharogroup.bundle.app.actions.ReturnToDashboardAction;
 import de.alpharogroup.bundle.app.combobox.model.LanguageLocalesComboBoxModel;
-import de.alpharogroup.bundle.app.combobox.renderer.LocaleComboBoxRenderer;
+import de.alpharogroup.bundle.app.combobox.renderer.LanguageLocalesComboBoxRenderer;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
@@ -56,7 +56,7 @@ public class NewBundleNamePanel extends BasePanel<ApplicationDashboardBean>
 		lblLocale = new javax.swing.JLabel();
 		cmbLocale = new javax.swing.JComboBox<>(LanguageLocalesComboBoxModel.get());
 		cmbLocale.setEditable(true);
-		cmbLocale.setRenderer(new LocaleComboBoxRenderer());
+		cmbLocale.setRenderer(new LanguageLocalesComboBoxRenderer());
 		lblBasename = new javax.swing.JLabel();
 		txtBasename = new javax.swing.JTextField();
 		btnSave = new javax.swing.JButton();

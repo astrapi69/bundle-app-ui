@@ -9,9 +9,7 @@ import java.util.Locale;
 
 import de.alpharogroup.bundle.app.MainFrame;
 import de.alpharogroup.bundle.app.actions.ReturnToDashboardAction;
-import de.alpharogroup.bundle.app.combobox.model.LanguageLocalesComboBoxModel;
 import de.alpharogroup.bundle.app.combobox.model.LocalesComboBoxModel;
-import de.alpharogroup.bundle.app.combobox.renderer.LocaleComboBoxRenderer;
 import de.alpharogroup.bundle.app.combobox.renderer.LocalesComboBoxRenderer;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
@@ -19,7 +17,6 @@ import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
 import de.alpharogroup.model.BaseModel;
-import de.alpharogroup.model.PropertyModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BasePanel;
 import lombok.Getter;
@@ -32,7 +29,7 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 
 	private javax.swing.JButton btnSave;
 	private javax.swing.JButton btnToDashboard;
-    private javax.swing.JComboBox<LanguageLocales> cmbDefaultLocale;
+    private javax.swing.JComboBox<Locale> cmbDefaultLocale;
     private javax.swing.JLabel lbDefaultlLocale;
 	private javax.swing.JLabel lblBundleName;
 	private javax.swing.JLabel lblHeaderNewBundleApp;
@@ -79,13 +76,13 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 
 
 		cmbDefaultLocale = new javax.swing.JComboBox<>(
-			LanguageLocalesComboBoxModel.get()
+			LocalesComboBoxModel.get()
 			);
 		cmbDefaultLocale.addItemListener(e -> onChangeDefaultLocale(e));
-		final Model<LanguageLocales> defaultLocaleModel =
+		final Model<Locale> defaultLocaleModel =
 			model(
-			from(getModelObject().getBundleApplication()).getDefaultLocale());
-		cmbDefaultLocale.setRenderer(new LocaleComboBoxRenderer(defaultLocaleModel));
+			from(getModel()).getDefaultLocale());
+		cmbDefaultLocale.setRenderer(new LocalesComboBoxRenderer(defaultLocaleModel));
 
 	}
 
