@@ -140,12 +140,14 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 			@Override
 			protected void onImportResourceBundledFile(final ActionEvent e)
 			{
+				fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 				ApplicationDashboardContentPanel.this.onImportResourceBundleFromFile(e);
 			}
 
 			@Override
 			protected void onImportResourceBundlesFromDir(final ActionEvent e)
 			{
+				fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				ApplicationDashboardContentPanel.this.onImportResourceBundleFromDir(e);
 			}
 
@@ -209,12 +211,6 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 	protected void onChooseImportResourceBundle(final boolean dir)
 	{
 		final int returnVal = fileChooser.showOpenDialog(ApplicationDashboardContentPanel.this);
-		if(dir) {
-			fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-		} else {
-			fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-		}
-
 		if (returnVal == JFileChooser.APPROVE_OPTION)
 		{
 			final File resourceBundleToImport = fileChooser.getSelectedFile();
@@ -222,20 +218,18 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 			try
 			{
 				if(dir) {
-					// TODO impl...
 					final Locale defaultLocale = getModelObject().getDefaultLocale();
 					final PropertiesListResolver resolver1 = new PropertiesListResolver(resourceBundleToImport, defaultLocale);
 					resolver1.resolve();
 					final List<KeyValuePair<File, Locale>> propertiesList = resolver1.getPropertiesList();
 					getModelObject().setFoundProperties(propertiesList);
-					
+					// TODO change to new panel for overview of import... ---start
 					// 1. create bundleapp
 					final BundleApplicationsService bundleApplicationsService = SpringApplicationContext
 						.getInstance().getBundleApplicationsService();
 					final ResourcebundlesService resourcebundlesService = SpringApplicationContext
 						.getInstance().getResourcebundlesService();
-					BundleApplications bundleApplication = getModelObject().getBundleApplication();
-					
+					BundleApplications bundleApplication = getModelObject().getBundleApplication();					
 					// 2. get properties files
 					final List<KeyValuePair<File, Locale>> foundProperties = getModelObject()
 						.getFoundProperties();
@@ -262,7 +256,7 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 					}
 					bundleApplication.setBundleNames(set);
 					bundleApplication = bundleApplicationsService.merge(bundleApplication);
-					
+					// TODO ---end
 					
 				} else {
 					final Properties importedProperties = PropertiesExtensions
