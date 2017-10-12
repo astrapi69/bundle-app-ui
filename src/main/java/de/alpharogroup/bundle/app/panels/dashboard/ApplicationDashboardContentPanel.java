@@ -130,7 +130,13 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 			@Override
 			protected void onImportResourceBundledFile(final ActionEvent e)
 			{
-				ApplicationDashboardContentPanel.this.onImportResourceBundle(e);
+				ApplicationDashboardContentPanel.this.onImportResourceBundleFromFile(e);
+			}
+
+			@Override
+			protected void onImportResourceBundlesFromDir(final ActionEvent e)
+			{
+				ApplicationDashboardContentPanel.this.onImportResourceBundleFromDir(e);
 			}
 
 			@Override
@@ -190,9 +196,14 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 		return new NewResourceBundleEntryPanel(model);
 	}
 
-	protected void onChooseImportResourceBundle()
+	protected void onChooseImportResourceBundle(final boolean dir)
 	{
 		final int returnVal = fileChooser.showOpenDialog(ApplicationDashboardContentPanel.this);
+		if(dir) {
+			fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		} else {
+			fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		}
 
 		if (returnVal == JFileChooser.APPROVE_OPTION)
 		{
@@ -203,15 +214,20 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 				final Properties importedProperties = PropertiesExtensions
 					.loadProperties(resourceBundleToImport);
 				getModelObject().setImportedProperties(importedProperties);
-				final List<KeyValuePair<String, String>> keyValuePairs = PropertiesExtensions
-					.toKeyValuePairs(importedProperties);
-				Collections.sort(keyValuePairs, NullCheckComparator
-					.<KeyValuePair<String, String>> of(new KeyValuePairKeyComparator<>()));
-				getModelObject().setImportedKeyValuePairs(keyValuePairs);
+				if(dir) {
+					// TODO impl...
 
-				MainApplication.get().getApplicationEventBus()
-					.post(ApplicationDashboardContentPanel.this.getModelObject());
-				getCardLayout().show(this, ApplicationDashboardView.IMPORT_RB.name());
+				} else {
+					final List<KeyValuePair<String, String>> keyValuePairs = PropertiesExtensions
+						.toKeyValuePairs(importedProperties);
+					Collections.sort(keyValuePairs, NullCheckComparator
+						.<KeyValuePair<String, String>> of(new KeyValuePairKeyComparator<>()));
+					getModelObject().setImportedKeyValuePairs(keyValuePairs);
+
+					MainApplication.get().getApplicationEventBus()
+						.post(ApplicationDashboardContentPanel.this.getModelObject());
+					getCardLayout().show(this, ApplicationDashboardView.IMPORT_RB.name());
+				}
 			}
 			catch (final IOException e)
 			{
@@ -235,9 +251,14 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 		getCardLayout().show(this, ApplicationDashboardView.EDIT_RB_NAME.name());
 	}
 
-	protected void onImportResourceBundle(final ActionEvent e)
+	protected void onImportResourceBundleFromFile(final ActionEvent e)
 	{
-		onChooseImportResourceBundle();
+		onChooseImportResourceBundle(false);
+	}
+
+	protected void onImportResourceBundleFromDir(final ActionEvent e)
+	{
+		onChooseImportResourceBundle(true);
 	}
 
 	protected void onImportResourceBundleCancel(final ActionEvent e)
@@ -255,7 +276,6 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 		super.onInitializeComponents();
 
 		fileChooser = new JFileChooser();
-		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
 		add(newDashboardPanel(getModel()), ApplicationDashboardView.DASHBOARD.name());
 		add(newBundleApplicationPanel(getModel()), ApplicationDashboardView.EDIT_RB_NAME.name());
