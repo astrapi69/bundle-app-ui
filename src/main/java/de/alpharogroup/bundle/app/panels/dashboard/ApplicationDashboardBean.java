@@ -1,6 +1,7 @@
 package de.alpharogroup.bundle.app.panels.dashboard;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
@@ -40,5 +41,8 @@ public class ApplicationDashboardBean
 	private Properties importedProperties;
 
 	private List<KeyValuePair<String, String>> importedKeyValuePairs;
+	
+	@Builder.Default
+	private List<KeyValuePair<File, Locale>> foundProperties = new ArrayList<>();
 
 }
