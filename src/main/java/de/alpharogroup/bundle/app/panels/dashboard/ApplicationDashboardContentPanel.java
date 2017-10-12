@@ -5,7 +5,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.Properties;
+import java.util.Set;
 
 import javax.swing.JFileChooser;
 
@@ -18,12 +20,20 @@ import de.alpharogroup.bundle.app.panels.creation.NewResourceBundleEntryPanel;
 import de.alpharogroup.bundle.app.panels.imports.file.ImportResourceBundlePanel;
 import de.alpharogroup.bundle.app.panels.overview.OverviewOfAllResourceBundlesPanel;
 import de.alpharogroup.bundle.app.panels.overview.OverviewResourceBundleAddEntryPanel;
+import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
 import de.alpharogroup.collections.pairs.KeyValuePair;
 import de.alpharogroup.collections.properties.PropertiesExtensions;
+import de.alpharogroup.collections.set.SetExtensions;
 import de.alpharogroup.comparators.NullCheckComparator;
 import de.alpharogroup.comparators.pairs.KeyValuePairKeyComparator;
+import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
+import de.alpharogroup.db.resource.bundles.entities.BundleNames;
+import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
+import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
+import de.alpharogroup.resourcebundle.inspector.search.PropertiesListResolver;
+import de.alpharogroup.resourcebundle.locale.LocaleResolver;
 import de.alpharogroup.swing.base.BaseCardLayoutPanel;
 import lombok.extern.slf4j.Slf4j;
 
@@ -211,13 +221,53 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 			getModelObject().setResourceBundleToImport(resourceBundleToImport);
 			try
 			{
-				final Properties importedProperties = PropertiesExtensions
-					.loadProperties(resourceBundleToImport);
-				getModelObject().setImportedProperties(importedProperties);
 				if(dir) {
 					// TODO impl...
+					final Locale defaultLocale = getModelObject().getDefaultLocale();
+					final PropertiesListResolver resolver1 = new PropertiesListResolver(resourceBundleToImport, defaultLocale);
+					resolver1.resolve();
+					final List<KeyValuePair<File, Locale>> propertiesList = resolver1.getPropertiesList();
+					getModelObject().setFoundProperties(propertiesList);
+					
+					// 1. create bundleapp
+					final BundleApplicationsService bundleApplicationsService = SpringApplicationContext
+						.getInstance().getBundleApplicationsService();
+					final ResourcebundlesService resourcebundlesService = SpringApplicationContext
+						.getInstance().getResourcebundlesService();
+					BundleApplications bundleApplication = getModelObject().getBundleApplication();
+					
+					// 2. get properties files
+					final List<KeyValuePair<File, Locale>> foundProperties = getModelObject()
+						.getFoundProperties();
+					// 3. save properties files the to the bundleapp
+					final Set<BundleNames> set = SetExtensions.newHashSet();
+					for (final KeyValuePair<File, Locale> entry : foundProperties)
+					{
+						final File propertiesFile = entry.getKey();
+						final Locale locale = entry.getValue();
+						final String bundlename = LocaleResolver.resolveBundlename(propertiesFile);
+						Properties properties = null;
+						try
+						{
+							properties = PropertiesExtensions.loadProperties(propertiesFile);
+						}
+						catch (final IOException e)
+						{
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						final BundleNames bundleNames = resourcebundlesService.updateProperties(properties, bundlename, locale, false);
+						set.add(bundleNames);
 
+					}
+					bundleApplication.setBundleNames(set);
+					bundleApplication = bundleApplicationsService.merge(bundleApplication);
+					
+					
 				} else {
+					final Properties importedProperties = PropertiesExtensions
+							.loadProperties(resourceBundleToImport);
+					getModelObject().setImportedProperties(importedProperties);
 					final List<KeyValuePair<String, String>> keyValuePairs = PropertiesExtensions
 						.toKeyValuePairs(importedProperties);
 					Collections.sort(keyValuePairs, NullCheckComparator
