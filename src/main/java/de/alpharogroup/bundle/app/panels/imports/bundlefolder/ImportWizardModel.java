@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import de.alpharogroup.collections.pairs.KeyValuePair;
+import de.alpharogroup.collections.pairs.Triple;
 import de.alpharogroup.swing.wizard.model.AbstractWizardModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,7 +38,7 @@ public class ImportWizardModel extends AbstractWizardModel
 	private Locale defaultLocale;
 
 	@Builder.Default
-	private List<KeyValuePair<File, Locale>> foundProperties = new ArrayList<>();
+	private List<Triple<File, Locale, Boolean>> foundProperties = new ArrayList<>();
 
 
 }

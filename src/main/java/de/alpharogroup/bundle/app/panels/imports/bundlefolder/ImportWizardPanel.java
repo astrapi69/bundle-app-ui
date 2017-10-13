@@ -8,10 +8,14 @@ import java.util.Locale;
 import java.util.Properties;
 import java.util.Set;
 
+import org.apache.commons.lang3.BooleanUtils;
+
 import de.alpharogroup.bundle.app.MainApplication;
 import de.alpharogroup.bundle.app.MainFrame;
+import de.alpharogroup.bundle.app.panels.imports.ext.ConvertExtensions;
 import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
 import de.alpharogroup.collections.pairs.KeyValuePair;
+import de.alpharogroup.collections.pairs.Triple;
 import de.alpharogroup.collections.properties.PropertiesExtensions;
 import de.alpharogroup.collections.set.SetExtensions;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
@@ -134,31 +138,32 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 		BundleApplications bundleApplication = bundleApplicationsService
 			.getOrCreateNewBundleApplications(getModelObject().getBundleAppName());
 		// 2. get properties files
-		final List<KeyValuePair<File, Locale>> foundProperties = getModelObject()
+		final List<Triple<File, Locale, Boolean>> foundProperties = getModelObject()
 			.getFoundProperties();
 		// 3. save properties files the to the bundleapp
 
 		final List<BundleNames> importedBundleNames;
 		// TODO improve import process...
 		final Set<BundleNames> set = SetExtensions.newHashSet();
-		for (final KeyValuePair<File, Locale> entry : foundProperties)
+		for (final Triple<File, Locale, Boolean> entry : foundProperties)
 		{
-			final File propertiesFile = entry.getKey();
-			final Locale locale = entry.getValue();
-			final String bundlename = LocaleResolver.resolveBundlename(propertiesFile);
-			Properties properties = null;
-			try
-			{
-				properties = PropertiesExtensions.loadProperties(propertiesFile);
+			if(BooleanUtils.toBoolean(entry.getRight())) {
+				final File propertiesFile = entry.getLeft();
+				final Locale locale = entry.getMiddle();
+				final String bundlename = LocaleResolver.resolveBundlename(propertiesFile);
+				Properties properties = null;
+				try
+				{
+					properties = PropertiesExtensions.loadProperties(propertiesFile);
+				}
+				catch (final IOException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				final BundleNames bundleNames = resourcebundlesService.updateProperties(properties, bundlename, locale, false);
+				set.add(bundleNames);
 			}
-			catch (final IOException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			final BundleNames bundleNames = resourcebundlesService.updateProperties(properties, bundlename, locale, false);
-			set.add(bundleNames);
-
 		}
 		bundleApplication.setBundleNames(set);
 		bundleApplication = bundleApplicationsService.merge(bundleApplication);
@@ -172,7 +177,7 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 		final PropertiesListResolver resolver1 = new PropertiesListResolver(rootDir, defaultLocale);
 		resolver1.resolve();
 		final List<KeyValuePair<File, Locale>> propertiesList = resolver1.getPropertiesList();
-		getModelObject().setFoundProperties(propertiesList);
+		getModelObject().setFoundProperties(ConvertExtensions.convertAndSort(propertiesList));
 		getModelObject().setDbImport(true);
 		final EventSource<EventObject<ImportWizardModel>> eventSource = MainApplication
 			.getImportWizardModel();

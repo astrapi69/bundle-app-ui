@@ -16,11 +16,22 @@
 package de.alpharogroup.bundle.app.panels.imports.bundlefolder;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import de.alpharogroup.bundle.app.MainApplication;
 import de.alpharogroup.bundle.app.table.model.BundleFileTableModel;
+import de.alpharogroup.bundle.app.table.model.FileLocaleBooleanTableModel;
+import de.alpharogroup.collections.list.ListExtensions;
 import de.alpharogroup.collections.pairs.KeyValuePair;
+import de.alpharogroup.collections.pairs.Triple;
+import de.alpharogroup.collections.set.SetExtensions;
+import de.alpharogroup.comparators.NullCheckComparator;
+import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.design.pattern.observer.event.EventListener;
 import de.alpharogroup.design.pattern.observer.event.EventObject;
 import de.alpharogroup.design.pattern.observer.event.EventSource;
@@ -46,9 +57,9 @@ public class ImportProgressPanel extends BaseWizardContentPanel<ImportWizardMode
 	private javax.swing.JLabel lblWelcomeImportHeader;
 	private javax.swing.JProgressBar prbImport;
 	private javax.swing.JScrollPane scrFoundProperties;
-	private GenericJXTable<KeyValuePair<File, Locale>> tblFoundProperties;
-
-	BundleFileTableModel tableModel;
+	private GenericJXTable<Triple<File, Locale, Boolean>> tblFoundProperties;
+	private FileLocaleBooleanTableModel tableModel;
+	private List<Triple<File, Locale, Boolean>> tableModelList;
 
 	public ImportProgressPanel(final Model<WizardModelStateMachine<ImportWizardModel>> model)
 	{
@@ -68,8 +79,7 @@ public class ImportProgressPanel extends BaseWizardContentPanel<ImportWizardMode
 	@Override
 	public void onEvent(final EventObject<ImportWizardModel> event)
 	{
-		// TODO sort list
-		tableModel.addList(getModelObject().getModelObject().getFoundProperties());
+		tableModel.addList(getTableModelList());
 	}
 
 	@Override
@@ -83,13 +93,24 @@ public class ImportProgressPanel extends BaseWizardContentPanel<ImportWizardMode
 		lblFoundProperties = new javax.swing.JLabel();
 
 		lblWelcomeImportHeader.setText("Progress of Import ");
-		tableModel = new BundleFileTableModel();
-		tableModel.addList(getModelObject().getModelObject().getFoundProperties());
+		tableModel = new FileLocaleBooleanTableModel();
+		tableModel.addList(getTableModelList());
 		tblFoundProperties = new GenericJXTable<>(tableModel);
 		scrFoundProperties.setViewportView(tblFoundProperties);
 
 		lblFoundProperties.setText("Found properties");
 	}
+
+
+	private List<Triple<File, Locale, Boolean>> getTableModelList()
+	{
+		if (tableModelList == null)
+		{
+			tableModelList = getModelObject().getModelObject().getFoundProperties();
+		}
+		return tableModelList;
+	}
+
 
 	@Override
 	protected void onInitializeLayout()

@@ -7,6 +7,7 @@ import java.util.Locale;
 import java.util.Properties;
 
 import de.alpharogroup.collections.pairs.KeyValuePair;
+import de.alpharogroup.collections.pairs.Triple;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
@@ -41,8 +42,8 @@ public class ApplicationDashboardBean
 	private Properties importedProperties;
 
 	private List<KeyValuePair<String, String>> importedKeyValuePairs;
-	
+
 	@Builder.Default
-	private List<KeyValuePair<File, Locale>> foundProperties = new ArrayList<>();
+	private List<Triple<File, Locale, Boolean>> foundProperties = new ArrayList<>();
 
 }

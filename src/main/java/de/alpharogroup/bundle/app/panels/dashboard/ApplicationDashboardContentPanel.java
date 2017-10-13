@@ -3,6 +3,7 @@ package de.alpharogroup.bundle.app.panels.dashboard;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -11,17 +12,22 @@ import java.util.Set;
 
 import javax.swing.JFileChooser;
 
+import org.apache.commons.lang3.BooleanUtils;
+
 import de.alpharogroup.bundle.app.MainApplication;
 import de.alpharogroup.bundle.app.MainFrame;
 import de.alpharogroup.bundle.app.panels.creation.NewBundleApplicationPanel;
 import de.alpharogroup.bundle.app.panels.creation.NewBundleNamePanel;
 import de.alpharogroup.bundle.app.panels.creation.NewCustomLocalePanel;
 import de.alpharogroup.bundle.app.panels.creation.NewResourceBundleEntryPanel;
+import de.alpharogroup.bundle.app.panels.imports.ext.ConvertExtensions;
 import de.alpharogroup.bundle.app.panels.imports.file.ImportResourceBundlePanel;
 import de.alpharogroup.bundle.app.panels.overview.OverviewOfAllResourceBundlesPanel;
 import de.alpharogroup.bundle.app.panels.overview.OverviewResourceBundleAddEntryPanel;
 import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
+import de.alpharogroup.collections.list.ListExtensions;
 import de.alpharogroup.collections.pairs.KeyValuePair;
+import de.alpharogroup.collections.pairs.Triple;
 import de.alpharogroup.collections.properties.PropertiesExtensions;
 import de.alpharogroup.collections.set.SetExtensions;
 import de.alpharogroup.comparators.NullCheckComparator;
@@ -222,42 +228,45 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 					final PropertiesListResolver resolver1 = new PropertiesListResolver(resourceBundleToImport, defaultLocale);
 					resolver1.resolve();
 					final List<KeyValuePair<File, Locale>> propertiesList = resolver1.getPropertiesList();
-					getModelObject().setFoundProperties(propertiesList);
+
+					getModelObject().setFoundProperties(ConvertExtensions.convertAndSort(propertiesList));
+
 					// TODO change to new panel for overview of import... ---start
 					// 1. create bundleapp
 					final BundleApplicationsService bundleApplicationsService = SpringApplicationContext
 						.getInstance().getBundleApplicationsService();
 					final ResourcebundlesService resourcebundlesService = SpringApplicationContext
 						.getInstance().getResourcebundlesService();
-					BundleApplications bundleApplication = getModelObject().getBundleApplication();					
+					BundleApplications bundleApplication = getModelObject().getBundleApplication();
 					// 2. get properties files
-					final List<KeyValuePair<File, Locale>> foundProperties = getModelObject()
+					final List<Triple<File, Locale, Boolean>> foundProperties = getModelObject()
 						.getFoundProperties();
 					// 3. save properties files the to the bundleapp
 					final Set<BundleNames> set = SetExtensions.newHashSet();
-					for (final KeyValuePair<File, Locale> entry : foundProperties)
+					for (final Triple<File, Locale, Boolean> entry : foundProperties)
 					{
-						final File propertiesFile = entry.getKey();
-						final Locale locale = entry.getValue();
-						final String bundlename = LocaleResolver.resolveBundlename(propertiesFile);
-						Properties properties = null;
-						try
-						{
-							properties = PropertiesExtensions.loadProperties(propertiesFile);
+						if(BooleanUtils.toBoolean(entry.getRight())) {
+							final File propertiesFile = entry.getLeft();
+							final Locale locale = entry.getMiddle();
+							final String bundlename = LocaleResolver.resolveBundlename(propertiesFile);
+							Properties properties = null;
+							try
+							{
+								properties = PropertiesExtensions.loadProperties(propertiesFile);
+							}
+							catch (final IOException e)
+							{
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							final BundleNames bundleNames = resourcebundlesService.updateProperties(properties, bundlename, locale, false);
+							set.add(bundleNames);
 						}
-						catch (final IOException e)
-						{
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						final BundleNames bundleNames = resourcebundlesService.updateProperties(properties, bundlename, locale, false);
-						set.add(bundleNames);
-
 					}
 					bundleApplication.setBundleNames(set);
 					bundleApplication = bundleApplicationsService.merge(bundleApplication);
 					// TODO ---end
-					
+
 				} else {
 					final Properties importedProperties = PropertiesExtensions
 							.loadProperties(resourceBundleToImport);
