@@ -44,6 +44,6 @@ public class ApplicationDashboardBean
 	private List<KeyValuePair<String, String>> importedKeyValuePairs;
 
 	@Builder.Default
-	private List<Triple<File, Locale, Boolean>> foundProperties = new ArrayList<>();
+	private List<Triple<File, Locale, KeyValuePair<Boolean, File>>> foundProperties = new ArrayList<>();
 
 }

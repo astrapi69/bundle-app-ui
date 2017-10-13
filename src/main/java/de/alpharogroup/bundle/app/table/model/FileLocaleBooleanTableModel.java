@@ -3,6 +3,7 @@ package de.alpharogroup.bundle.app.table.model;
 import java.io.File;
 import java.util.Locale;
 
+import de.alpharogroup.collections.pairs.KeyValuePair;
 import de.alpharogroup.collections.pairs.Triple;
 import de.alpharogroup.swing.table.model.TableColumnsModel;
 import de.alpharogroup.swing.table.model.triple.TripleTableModel;
@@ -13,7 +14,7 @@ import de.alpharogroup.swing.table.model.triple.TripleTableModel;
  * {@link Locale} of the properties file and the right is a {@link Boolean} flag that signals if the
  * properties file will be imported or not..
  */
-public class FileLocaleBooleanTableModel extends TripleTableModel<File, Locale, Boolean>
+public class FileLocaleBooleanTableModel extends TripleTableModel<File, Locale, KeyValuePair<Boolean, File>>
 {
 
 	/** The Constant serialVersionUID. */
@@ -27,7 +28,7 @@ public class FileLocaleBooleanTableModel extends TripleTableModel<File, Locale, 
 		this(TableColumnsModel.builder()
 			.columnNames(new String[] { "Properties file name", "Locale", "Action" })
 			.canEdit(new boolean[] { false, false, true })
-			.columnClasses(new Class<?>[] { File.class, Locale.class, Boolean.class })
+			.columnClasses(new Class<?>[] { File.class, Locale.class, KeyValuePair.class })
 			.build());
 	}
 

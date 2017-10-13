@@ -239,13 +239,13 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 						.getInstance().getResourcebundlesService();
 					BundleApplications bundleApplication = getModelObject().getBundleApplication();
 					// 2. get properties files
-					final List<Triple<File, Locale, Boolean>> foundProperties = getModelObject()
+					final List<Triple<File, Locale, KeyValuePair<Boolean, File>>> foundProperties = getModelObject()
 						.getFoundProperties();
 					// 3. save properties files the to the bundleapp
 					final Set<BundleNames> set = SetExtensions.newHashSet();
-					for (final Triple<File, Locale, Boolean> entry : foundProperties)
+					for (final Triple<File, Locale, KeyValuePair<Boolean, File>> entry : foundProperties)
 					{
-						if(BooleanUtils.toBoolean(entry.getRight())) {
+						if(BooleanUtils.toBoolean(entry.getRight().getKey())) {
 							final File propertiesFile = entry.getLeft();
 							final Locale locale = entry.getMiddle();
 							final String bundlename = LocaleResolver.resolveBundlename(propertiesFile);

@@ -138,16 +138,18 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 		BundleApplications bundleApplication = bundleApplicationsService
 			.getOrCreateNewBundleApplications(getModelObject().getBundleAppName());
 		// 2. get properties files
-		final List<Triple<File, Locale, Boolean>> foundProperties = getModelObject()
+		final List<Triple<File, Locale, KeyValuePair<Boolean, File>>> foundProperties = getModelObject()
 			.getFoundProperties();
 		// 3. save properties files the to the bundleapp
 
-		final List<BundleNames> importedBundleNames;
 		// TODO improve import process...
-		final Set<BundleNames> set = SetExtensions.newHashSet();
-		for (final Triple<File, Locale, Boolean> entry : foundProperties)
+		if(bundleApplication.getBundleNames() == null) {
+			bundleApplication.setBundleNames(SetExtensions.newHashSet());
+		}
+		final Set<BundleNames> set = bundleApplication.getBundleNames();
+		for (final Triple<File, Locale, KeyValuePair<Boolean, File>> entry : foundProperties)
 		{
-			if(BooleanUtils.toBoolean(entry.getRight())) {
+			if(BooleanUtils.toBoolean(entry.getRight().getKey())) {
 				final File propertiesFile = entry.getLeft();
 				final Locale locale = entry.getMiddle();
 				final String bundlename = LocaleResolver.resolveBundlename(propertiesFile);
@@ -158,14 +160,13 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 				}
 				catch (final IOException e)
 				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					log.error("Loading Properties file " + propertiesFile.getAbsolutePath()
+						+ " failed.", e);
 				}
 				final BundleNames bundleNames = resourcebundlesService.updateProperties(properties, bundlename, locale, false);
 				set.add(bundleNames);
 			}
 		}
-		bundleApplication.setBundleNames(set);
 		bundleApplication = bundleApplicationsService.merge(bundleApplication);
 
 	}
