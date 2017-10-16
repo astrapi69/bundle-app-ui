@@ -163,7 +163,7 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 					log.error("Loading Properties file " + propertiesFile.getAbsolutePath()
 						+ " failed.", e);
 				}
-				final BundleNames bundleNames = resourcebundlesService.updateProperties(properties, bundlename, locale, false);
+				final BundleNames bundleNames = resourcebundlesService.updateProperties(bundleApplication, properties, bundlename, locale);
 				set.add(bundleNames);
 			}
 		}
