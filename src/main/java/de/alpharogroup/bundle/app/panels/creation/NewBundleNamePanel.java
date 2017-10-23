@@ -143,6 +143,7 @@ public class NewBundleNamePanel extends BasePanel<ApplicationDashboardBean>
 
 	protected void onSave(final ActionEvent e)
 	{
+		BundleApplications bundleApplication = getModelObject().getBundleApplication();
 		final BundleNamesService bundleNamesService = SpringApplicationContext.getInstance()
 			.getBundleNamesService();
 		final String baseName = txtBasename.getText();
@@ -151,15 +152,13 @@ public class NewBundleNamePanel extends BasePanel<ApplicationDashboardBean>
 		if (selectedItem != null)
 		{
 			final Locale locale = LocaleResolver.resolveLocale(selectedItem.getLocale());
-			bundleNames = bundleNamesService.getOrCreateNewBundleNames(baseName, locale);
+			bundleNames = bundleNamesService.getOrCreateNewBundleNames(bundleApplication, baseName, locale);
 		} else {
 			final LanguageLocales languageLocales = getModelObject().getBundleApplication().getDefaultLocale();
 			final Locale locale = SpringApplicationContext.getInstance()
 			.getLanguageLocalesService().resolveLocale(languageLocales);
-			bundleNames = bundleNamesService.getOrCreateNewBundleNames(baseName, locale);
+			bundleNames = bundleNamesService.getOrCreateNewBundleNames(bundleApplication, baseName, locale);
 		}
-		BundleApplications bundleApplication =
-		getModelObject().getBundleApplication();
 		bundleApplication.addBundleName(bundleNames);
 		bundleApplication = SpringApplicationContext.getInstance()
 		.getBundleApplicationsService().merge(bundleApplication);

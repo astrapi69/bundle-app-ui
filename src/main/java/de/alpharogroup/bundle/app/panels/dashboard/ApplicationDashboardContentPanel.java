@@ -256,10 +256,9 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 							}
 							catch (final IOException e)
 							{
-								// TODO Auto-generated catch block
-								e.printStackTrace();
+								log.error(e.getLocalizedMessage(), e);
 							}
-							final BundleNames bundleNames = resourcebundlesService.updateProperties(properties, bundlename, locale, false);
+							final BundleNames bundleNames = resourcebundlesService.updateProperties(bundleApplication, properties, bundlename, locale);
 							set.add(bundleNames);
 						}
 					}
