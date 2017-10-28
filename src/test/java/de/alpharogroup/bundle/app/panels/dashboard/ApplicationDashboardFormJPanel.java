@@ -23,9 +23,10 @@ public class ApplicationDashboardFormJPanel extends javax.swing.JPanel
 {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCreateCustomLocale;
+    private javax.swing.JButton btnCreateCustomLocale1;
     private javax.swing.JButton btnCreateRb;
     private javax.swing.JButton btnEditBundleAppName;
+    private javax.swing.JButton btnExportBundleApplication;
     private javax.swing.JButton btnImportResourceBundleFromFile;
     private javax.swing.JButton btnImportResourceBundlesFromDir;
     private javax.swing.JButton btnOverview;
@@ -50,10 +51,11 @@ public class ApplicationDashboardFormJPanel extends javax.swing.JPanel
         btnEditBundleAppName = new javax.swing.JButton();
         btnOverview = new javax.swing.JButton();
         btnCreateRb = new javax.swing.JButton();
-        btnCreateCustomLocale = new javax.swing.JButton();
+        btnExportBundleApplication = new javax.swing.JButton();
         btnImportResourceBundleFromFile = new javax.swing.JButton();
         btnImportResourceBundlesFromDir = new javax.swing.JButton();
         btnReturnToMainDashboard = new javax.swing.JButton();
+        btnCreateCustomLocale1 = new javax.swing.JButton();
 
         btnEditBundleAppName.setText("Edit Bundle-Application name");
 
@@ -61,13 +63,15 @@ public class ApplicationDashboardFormJPanel extends javax.swing.JPanel
 
         btnCreateRb.setText("Create new resource-bundle");
 
-        btnCreateCustomLocale.setText("Create new custom locale");
+        btnExportBundleApplication.setText("Export Bundle-Application");
 
         btnImportResourceBundleFromFile.setText("Import new resource bundle from file");
 
         btnImportResourceBundlesFromDir.setText("Import all new resource bundles from folder");
 
         btnReturnToMainDashboard.setText("Return to overview of bundle applications");
+
+        btnCreateCustomLocale1.setText("Create new custom locale");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -76,13 +80,14 @@ public class ApplicationDashboardFormJPanel extends javax.swing.JPanel
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnImportResourceBundlesFromDir, javax.swing.GroupLayout.DEFAULT_SIZE, 740, Short.MAX_VALUE)
-                    .addComponent(btnImportResourceBundleFromFile, javax.swing.GroupLayout.DEFAULT_SIZE, 740, Short.MAX_VALUE)
+                    .addComponent(btnImportResourceBundlesFromDir, javax.swing.GroupLayout.DEFAULT_SIZE, 751, Short.MAX_VALUE)
+                    .addComponent(btnImportResourceBundleFromFile, javax.swing.GroupLayout.DEFAULT_SIZE, 751, Short.MAX_VALUE)
                     .addComponent(btnOverview, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnReturnToMainDashboard, javax.swing.GroupLayout.DEFAULT_SIZE, 740, Short.MAX_VALUE)
+                    .addComponent(btnReturnToMainDashboard, javax.swing.GroupLayout.DEFAULT_SIZE, 751, Short.MAX_VALUE)
                     .addComponent(btnCreateRb, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnEditBundleAppName, javax.swing.GroupLayout.DEFAULT_SIZE, 740, Short.MAX_VALUE)
-                    .addComponent(btnCreateCustomLocale, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnEditBundleAppName, javax.swing.GroupLayout.DEFAULT_SIZE, 751, Short.MAX_VALUE)
+                    .addComponent(btnExportBundleApplication, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCreateCustomLocale1, javax.swing.GroupLayout.DEFAULT_SIZE, 751, Short.MAX_VALUE))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -100,9 +105,11 @@ public class ApplicationDashboardFormJPanel extends javax.swing.JPanel
                 .addComponent(btnEditBundleAppName, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnCreateRb, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCreateCustomLocale, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(104, 104, 104))
+                .addGap(18, 18, 18)
+                .addComponent(btnCreateCustomLocale1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnExportBundleApplication, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(40, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 }

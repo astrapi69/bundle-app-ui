@@ -36,7 +36,11 @@
                           <Component id="txtKey" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <Component id="btnAddEntry" alignment="1" min="-2" pref="220" max="-2" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="btnExport" min="-2" pref="220" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="btnAddEntry" min="-2" pref="220" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace pref="334" max="32767" attributes="0"/>
           </Group>
@@ -67,7 +71,10 @@
                   <Component id="txtValue" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="btnAddEntry" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="btnAddEntry" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnExport" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="srcBundles" min="-2" pref="443" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -152,6 +159,14 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Return to Dashboard"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnExport">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Export resource bundle"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExportActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
