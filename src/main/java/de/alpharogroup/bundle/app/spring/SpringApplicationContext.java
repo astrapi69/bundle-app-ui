@@ -53,7 +53,7 @@ import lombok.extern.slf4j.Slf4j;
 public class SpringApplicationContext
 {
 
-	/** The only one instance. */
+	/** The only single one instance. */
 	private static SpringApplicationContext instance = new SpringApplicationContext();
 
 	/**
