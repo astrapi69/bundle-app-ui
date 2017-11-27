@@ -262,7 +262,6 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 							set.add(bundleNames);
 						}
 					}
-					bundleApplication.setBundleNames(set);
 					bundleApplication = bundleApplicationsService.merge(bundleApplication);
 					// TODO ---end
 

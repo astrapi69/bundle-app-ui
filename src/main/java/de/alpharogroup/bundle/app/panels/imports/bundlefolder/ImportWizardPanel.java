@@ -142,11 +142,9 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 			.getFoundProperties();
 		// 3. save properties files the to the bundleapp
 
-		// TODO improve import process...
-		if(bundleApplication.getBundleNames() == null) {
-			bundleApplication.setBundleNames(SetExtensions.newHashSet());
-		}
-		final Set<BundleNames> set = bundleApplication.getBundleNames();
+
+		final Set<BundleNames> set = // TODO get from service
+			SetExtensions.newHashSet();
 		for (final Triple<File, Locale, KeyValuePair<Boolean, File>> entry : foundProperties)
 		{
 			if(BooleanUtils.toBoolean(entry.getRight().getKey())) {

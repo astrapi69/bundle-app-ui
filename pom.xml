@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>de.alpharogroup</groupId>
 		<artifactId>mvn-ui-parent</artifactId>
-		<version>1.14.0</version>
+		<version>1.15.0</version>
 		<relativePath></relativePath>
 	</parent>
 
@@ -35,21 +35,21 @@
 		<!-- DB DRIVER version -->
 		<h2.version>1.4.196</h2.version>
 		<!-- HIBERNATE versions -->
-		<hibernate.version>4.3.11.Final</hibernate.version>
-		<hibernate-validator.version>5.1.3.Final</hibernate-validator.version>
+		<hibernate.version>5.2.12.Final</hibernate.version>
+		<hibernate-validator.version>5.4.1.Final</hibernate-validator.version>
 		<cglib.version>2.2.2</cglib.version>
 		<!-- CONNECTION POOL versions -->
 		<tomcat.version>7.0.79</tomcat.version>
 		<tomcat-dbcp.version>${tomcat.version}</tomcat-dbcp.version>
 		<tomcat-jdbc.version>${tomcat.version}</tomcat-jdbc.version>
 		<!-- RESOURCE-BUNDLES-DATA versions -->
-		<resource-bundles-data.version>3.15.0-SNAPSHOT</resource-bundles-data.version>
+		<resource-bundles-data.version>5.1.0-SNAPSHOT</resource-bundles-data.version>
 		<resource-bundles-business.version>${resource-bundles-data.version}</resource-bundles-business.version>
 		<resource-bundles-entities.version>${resource-bundles-data.version}</resource-bundles-entities.version>
 		<resource-bundles-domain.version>${resource-bundles-data.version}</resource-bundles-domain.version>
 		<resource-bundles-rest-api.version>${resource-bundles-data.version}</resource-bundles-rest-api.version>
 		<!-- PERSISTENCE-API versions -->
-		<persistence-api.version>3.35.1</persistence-api.version>
+		<persistence-api.version>5.0.0</persistence-api.version>
 		<data-initialization.version>${persistence-api.version}</data-initialization.version>
 		<!-- PROJECT RELATED PROPERTIES -->
 		<full-app-name>bundle-app-ui</full-app-name>

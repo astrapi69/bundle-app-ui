@@ -54,7 +54,7 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 		if (tableModelList == null)
 		{
 			tableModelList = new ArrayList<>();
-			final Set<BundleNames> set = getModelObject().getBundleApplication().getBundleNames();
+			final Set<BundleNames> set = getModelObject().getBundleNames();
 			if (SetExtensions.isNotEmpty(set))
 			{
 				for (final BundleNames bundleNames : set)

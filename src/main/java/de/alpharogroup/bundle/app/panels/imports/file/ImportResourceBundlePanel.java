@@ -67,7 +67,7 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 		BundleApplications bundleApplication = getModelObject().getBundleApplication();
 		final BundleNames bundleName = SpringApplicationContext.get().getResourcebundlesService()
 			.updateProperties(bundleApplication, getModelObject().getImportedProperties(), baseName, locale);
-		bundleApplication.addBundleName(bundleName);
+
 		bundleApplication = SpringApplicationContext.get().getBundleApplicationsService()
 			.merge(bundleApplication);
 		getModelObject().setBundleApplication(bundleApplication);
