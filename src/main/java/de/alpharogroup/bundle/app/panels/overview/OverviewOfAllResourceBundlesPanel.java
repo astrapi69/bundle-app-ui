@@ -14,10 +14,12 @@ import javax.swing.table.TableColumn;
 import de.alpharogroup.bundle.app.MainFrame;
 import de.alpharogroup.bundle.app.actions.ReturnToDashboardAction;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
+import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
 import de.alpharogroup.bundle.app.table.model.StringBundleNamesTableModel;
 import de.alpharogroup.collections.pairs.Triple;
 import de.alpharogroup.collections.set.SetExtensions;
 import de.alpharogroup.comparators.NullCheckComparator;
+import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
@@ -54,6 +56,10 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 		if (tableModelList == null)
 		{
 			tableModelList = new ArrayList<>();
+
+			BundleApplications bundleApplication = getModelObject().getBundleApplication();
+			getModelObject().setBundleNames(SpringApplicationContext.getInstance()
+				.getBundleApplicationsService().find(bundleApplication));
 			final Set<BundleNames> set = getModelObject().getBundleNames();
 			if (SetExtensions.isNotEmpty(set))
 			{
