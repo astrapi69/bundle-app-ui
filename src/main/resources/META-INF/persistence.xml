@@ -1,31 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	
 	<persistence-unit name="bundlemanagement" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>		
-		
-		<class>de.alpharogroup.address.book.entities.Addresses</class>
-		<class>de.alpharogroup.address.book.entities.Countries</class>
-		<class>de.alpharogroup.address.book.entities.Federalstates</class>
-		<class>de.alpharogroup.address.book.entities.Zipcodes</class>
-
-		<class>de.alpharogroup.resource.system.entities.Resources</class>
-		
-		<class>de.alpharogroup.user.entities.Permissions</class>
-		<class>de.alpharogroup.user.entities.RelationPermissions</class>
-		<class>de.alpharogroup.user.entities.ResetPasswords</class>
-		<class>de.alpharogroup.user.entities.Roles</class>
-		<class>de.alpharogroup.user.entities.Users</class>
-		<class>de.alpharogroup.user.entities.UserTokens</class>
-
-		<class>de.alpharogroup.user.management.entities.Contactmethods</class>
-		<class>de.alpharogroup.user.management.entities.Recommendations</class>
-		<class>de.alpharogroup.user.management.entities.Robinsons</class>
-		<class>de.alpharogroup.user.management.entities.RuleViolations</class>
-		<class>de.alpharogroup.user.management.entities.UserDatas</class>
-		<class>de.alpharogroup.user.management.entities.UserCredits</class>
 
 		<class>de.alpharogroup.db.resource.bundles.entities.BaseNames</class>
 		<class>de.alpharogroup.db.resource.bundles.entities.BundleApplications</class>
@@ -53,4 +32,5 @@
         </properties>
 
 	</persistence-unit>
+	
 </persistence>
