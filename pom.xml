@@ -10,7 +10,7 @@
 	</parent>
 
 	<artifactId>bundle-app-ui</artifactId>
-	<version>0.1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 
 	<properties>
 		<!-- UI properties -->
@@ -43,7 +43,7 @@
 		<tomcat-dbcp.version>${tomcat.version}</tomcat-dbcp.version>
 		<tomcat-jdbc.version>${tomcat.version}</tomcat-jdbc.version>
 		<!-- RESOURCE-BUNDLES-DATA versions -->
-		<resource-bundles-data.version>5.1.0-SNAPSHOT</resource-bundles-data.version>
+		<resource-bundles-data.version>5.1.0</resource-bundles-data.version>
 		<resource-bundles-business.version>${resource-bundles-data.version}</resource-bundles-business.version>
 		<resource-bundles-entities.version>${resource-bundles-data.version}</resource-bundles-entities.version>
 		<resource-bundles-domain.version>${resource-bundles-data.version}</resource-bundles-domain.version>
