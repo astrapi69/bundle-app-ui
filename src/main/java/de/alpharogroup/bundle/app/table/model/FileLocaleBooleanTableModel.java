@@ -14,7 +14,9 @@ import de.alpharogroup.swing.table.model.triple.TripleTableModel;
  * {@link Locale} of the properties file and the right is a {@link Boolean} flag that signals if the
  * properties file will be imported or not..
  */
-public class FileLocaleBooleanTableModel extends TripleTableModel<File, Locale, KeyValuePair<Boolean, File>>
+public class FileLocaleBooleanTableModel
+	extends
+		TripleTableModel<File, Locale, KeyValuePair<Boolean, File>>
 {
 
 	/** The Constant serialVersionUID. */

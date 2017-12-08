@@ -130,8 +130,8 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 		// 1. create bundleapp
 		final BundleApplicationsService bundleApplicationsService = SpringApplicationContext
 			.getInstance().getBundleApplicationsService();
-		final ResourcebundlesService resourcebundlesService = SpringApplicationContext
-			.getInstance().getResourcebundlesService();
+		final ResourcebundlesService resourcebundlesService = SpringApplicationContext.getInstance()
+			.getResourcebundlesService();
 		BundleApplications bundleApplication = bundleApplicationsService
 			.find(getModelObject().getBundleAppName());
 		// 2. get properties files
@@ -140,7 +140,8 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 		// 3. save properties files the to the bundleapp
 		for (final Triple<File, Locale, KeyValuePair<Boolean, File>> entry : foundProperties)
 		{
-			if(BooleanUtils.toBoolean(entry.getRight().getKey())) {
+			if (BooleanUtils.toBoolean(entry.getRight().getKey()))
+			{
 				final File propertiesFile = entry.getLeft();
 				final Locale locale = entry.getMiddle();
 				final String bundlename = LocaleResolver.resolveBundlename(propertiesFile);
@@ -151,10 +152,12 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 				}
 				catch (final IOException e)
 				{
-					log.error("Loading Properties file " + propertiesFile.getAbsolutePath()
-						+ " failed.", e);
+					log.error(
+						"Loading Properties file " + propertiesFile.getAbsolutePath() + " failed.",
+						e);
 				}
-				resourcebundlesService.updateProperties(bundleApplication, properties, bundlename, locale);
+				resourcebundlesService.updateProperties(bundleApplication, properties, bundlename,
+					locale);
 			}
 		}
 

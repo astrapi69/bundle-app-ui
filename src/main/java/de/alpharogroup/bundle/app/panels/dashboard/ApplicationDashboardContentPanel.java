@@ -221,13 +221,17 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 			getModelObject().setResourceBundleToImport(resourceBundleToImport);
 			try
 			{
-				if(dir) {
+				if (dir)
+				{
 					final Locale defaultLocale = getModelObject().getDefaultLocale();
-					final PropertiesListResolver resolver1 = new PropertiesListResolver(resourceBundleToImport, defaultLocale);
+					final PropertiesListResolver resolver1 = new PropertiesListResolver(
+						resourceBundleToImport, defaultLocale);
 					resolver1.resolve();
-					final List<KeyValuePair<File, Locale>> propertiesList = resolver1.getPropertiesList();
+					final List<KeyValuePair<File, Locale>> propertiesList = resolver1
+						.getPropertiesList();
 
-					getModelObject().setFoundProperties(ConvertExtensions.convertAndSort(propertiesList));
+					getModelObject()
+						.setFoundProperties(ConvertExtensions.convertAndSort(propertiesList));
 
 					// TODO change to new panel for overview of import... ---start
 					// 1. create bundleapp
@@ -243,10 +247,12 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 					final Set<BundleNames> set = SetExtensions.newHashSet();
 					for (final Triple<File, Locale, KeyValuePair<Boolean, File>> entry : foundProperties)
 					{
-						if(BooleanUtils.toBoolean(entry.getRight().getKey())) {
+						if (BooleanUtils.toBoolean(entry.getRight().getKey()))
+						{
 							final File propertiesFile = entry.getLeft();
 							final Locale locale = entry.getMiddle();
-							final String bundlename = LocaleResolver.resolveBundlename(propertiesFile);
+							final String bundlename = LocaleResolver
+								.resolveBundlename(propertiesFile);
 							Properties properties = null;
 							try
 							{
@@ -256,16 +262,19 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 							{
 								log.error(e.getLocalizedMessage(), e);
 							}
-							final BundleNames bundleNames = resourcebundlesService.updateProperties(bundleApplication, properties, bundlename, locale);
+							final BundleNames bundleNames = resourcebundlesService.updateProperties(
+								bundleApplication, properties, bundlename, locale);
 							set.add(bundleNames);
 						}
 					}
 					bundleApplication = bundleApplicationsService.merge(bundleApplication);
 					// TODO ---end
 
-				} else {
+				}
+				else
+				{
 					final Properties importedProperties = PropertiesExtensions
-							.loadProperties(resourceBundleToImport);
+						.loadProperties(resourceBundleToImport);
 					getModelObject().setImportedProperties(importedProperties);
 					final List<KeyValuePair<String, String>> keyValuePairs = PropertiesExtensions
 						.toKeyValuePairs(importedProperties);
@@ -300,9 +309,10 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 		getCardLayout().show(this, ApplicationDashboardView.EDIT_RB_NAME.name());
 	}
 
-	protected void onImportResourceBundleFromFile(final ActionEvent e)
+	protected void onImportResourceBundleCancel(final ActionEvent e)
 	{
-		onChooseImportResourceBundle(false);
+		// TODO Auto-generated method stub
+		log.debug("onImportResourceBundleCancel");
 	}
 
 	protected void onImportResourceBundleFromDir(final ActionEvent e)
@@ -310,10 +320,9 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 		onChooseImportResourceBundle(true);
 	}
 
-	protected void onImportResourceBundleCancel(final ActionEvent e)
+	protected void onImportResourceBundleFromFile(final ActionEvent e)
 	{
-		// TODO Auto-generated method stub
-		log.debug("onImportResourceBundleCancel");
+		onChooseImportResourceBundle(false);
 	}
 
 	/**

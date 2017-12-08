@@ -12,7 +12,8 @@ import de.alpharogroup.collections.pairs.Triple;
 import de.alpharogroup.comparators.NullCheckComparator;
 
 /**
- * The class {@link ConvertExtensions} provides algorithms for converting and sorting from {@link KeyValuePair} to {@link Triple}.
+ * The class {@link ConvertExtensions} provides algorithms for converting and sorting from
+ * {@link KeyValuePair} to {@link Triple}.
  */
 public class ConvertExtensions
 {
@@ -20,18 +21,21 @@ public class ConvertExtensions
 	/**
 	 * Convert the given {@link KeyValuePair} to {@link Triple}.
 	 *
-	 * @param foundProperties the found properties
+	 * @param foundProperties
+	 *            the found properties
 	 * @return the list
 	 */
-	public static List<Triple<File, Locale, KeyValuePair<Boolean, File>>> convert(final List<KeyValuePair<File, Locale>> foundProperties)
+	public static List<Triple<File, Locale, KeyValuePair<Boolean, File>>> convert(
+		final List<KeyValuePair<File, Locale>> foundProperties)
 	{
 		final List<Triple<File, Locale, KeyValuePair<Boolean, File>>> list = new ArrayList<>();
-		if(ListExtensions.isNotEmpty(foundProperties)) {
-			for(final KeyValuePair<File, Locale> pair : foundProperties) {
-				list.add(Triple.<File, Locale, KeyValuePair<Boolean, File>>builder()
-					.left(pair.getKey())
-					.middle(pair.getValue())
-					.right(KeyValuePair.<Boolean, File>builder().key(Boolean.TRUE).value(pair.getKey()).build())
+		if (ListExtensions.isNotEmpty(foundProperties))
+		{
+			for (final KeyValuePair<File, Locale> pair : foundProperties)
+			{
+				list.add(Triple.<File, Locale, KeyValuePair<Boolean, File>> builder()
+					.left(pair.getKey()).middle(pair.getValue()).right(KeyValuePair
+						.<Boolean, File> builder().key(Boolean.TRUE).value(pair.getKey()).build())
 					.build());
 			}
 		}
@@ -41,12 +45,15 @@ public class ConvertExtensions
 	/**
 	 * Convert and sort the given {@link KeyValuePair} to {@link Triple}.
 	 *
-	 * @param foundProperties the found properties
+	 * @param foundProperties
+	 *            the found properties
 	 * @return the list
 	 */
-	public static List<Triple<File, Locale, KeyValuePair<Boolean, File>>> convertAndSort(final List<KeyValuePair<File, Locale>> foundProperties)
+	public static List<Triple<File, Locale, KeyValuePair<Boolean, File>>> convertAndSort(
+		final List<KeyValuePair<File, Locale>> foundProperties)
 	{
-		final List<Triple<File, Locale, KeyValuePair<Boolean, File>>> list = convert(foundProperties);
+		final List<Triple<File, Locale, KeyValuePair<Boolean, File>>> list = convert(
+			foundProperties);
 		Collections.sort(list,
 			NullCheckComparator.<Triple<File, Locale, KeyValuePair<Boolean, File>>> of(
 				(o1, o2) -> o1.getLeft().compareTo(o2.getLeft())));
@@ -54,11 +61,15 @@ public class ConvertExtensions
 	}
 
 
-	public static void update(final KeyValuePair<Boolean, File> selectedPropertiesFile, final List<Triple<File, Locale, KeyValuePair<Boolean, File>>> tableModel) {
+	public static void update(final KeyValuePair<Boolean, File> selectedPropertiesFile,
+		final List<Triple<File, Locale, KeyValuePair<Boolean, File>>> tableModel)
+	{
 
 		final File propertiesFile = selectedPropertiesFile.getValue();
-		for(final Triple<File, Locale, KeyValuePair<Boolean, File>> triple : tableModel) {
-			if(triple.getLeft().equals(propertiesFile)) {
+		for (final Triple<File, Locale, KeyValuePair<Boolean, File>> triple : tableModel)
+		{
+			if (triple.getLeft().equals(propertiesFile))
+			{
 				triple.getRight().setKey(selectedPropertiesFile.getKey());
 				break;
 			}

@@ -13,14 +13,17 @@ import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.resourcebundle.locale.LocaleResolver;
 
-public class LanguageLocalesComboBoxRenderer extends JLabel implements ListCellRenderer<LanguageLocales>
+public class LanguageLocalesComboBoxRenderer extends JLabel
+	implements
+		ListCellRenderer<LanguageLocales>
 {
 
 	private static final long serialVersionUID = 1L;
 	private final Model<LanguageLocales> model;
+
 	public LanguageLocalesComboBoxRenderer()
 	{
-		this(BaseModel.<LanguageLocales>of());
+		this(BaseModel.<LanguageLocales> of());
 	}
 
 	public LanguageLocalesComboBoxRenderer(final Model<LanguageLocales> model)
@@ -34,7 +37,8 @@ public class LanguageLocalesComboBoxRenderer extends JLabel implements ListCellR
 
 	@Override
 	public Component getListCellRendererComponent(final JList<? extends LanguageLocales> list,
-		final LanguageLocales value, final int index, final boolean isSelected, final boolean cellHasFocus)
+		final LanguageLocales value, final int index, final boolean isSelected,
+		final boolean cellHasFocus)
 	{
 
 		if (isSelected)
