@@ -25,6 +25,7 @@
 package de.alpharogroup.bundle.app.spring;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.xml.parsers.FactoryConfigurationError;
 
@@ -33,14 +34,26 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.Resource;
 
+import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
+import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
+import de.alpharogroup.db.resource.bundles.entities.Languages;
+import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
+import de.alpharogroup.db.resource.bundles.service.api.BundleNamesService;
+import de.alpharogroup.db.resource.bundles.service.api.LanguageLocalesService;
+import de.alpharogroup.db.resource.bundles.service.api.LanguagesService;
+import de.alpharogroup.db.resource.bundles.service.api.PropertiesKeysService;
+import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 /**
- * The Class SpringApplicationContext.
+ * The class {@link SpringApplicationContext}.
  */
-public class SpringApplicationContext {
+@Slf4j
+public class SpringApplicationContext
+{
 
-	/** The instance. */
+	/** The only single one instance. */
 	private static SpringApplicationContext instance = new SpringApplicationContext();
 
 	/**
@@ -48,9 +61,30 @@ public class SpringApplicationContext {
 	 *
 	 * @return single instance of SpringApplicationContext
 	 */
-	public static SpringApplicationContext getInstance() {
+	public static SpringApplicationContext get()
+	{
 		return instance;
 	}
+
+	/**
+	 * Gets the single instance of SpringApplicationContext.
+	 *
+	 * @return single instance of SpringApplicationContext
+	 */
+	public static SpringApplicationContext getInstance()
+	{
+		return get();
+	}
+
+	private BundleNamesService bundleNamesService;
+
+	private BundleApplicationsService bundleApplicationsService;
+
+	private ResourcebundlesService resourcebundlesService;
+
+	private PropertiesKeysService propertiesKeysService;
+
+	private LanguageLocalesService languageLocalesService;
 
 	/** The application context. */
 	@Getter
@@ -59,26 +93,122 @@ public class SpringApplicationContext {
 	/**
 	 * Instantiates a new spring application context.
 	 */
-	private SpringApplicationContext() {
+	private SpringApplicationContext()
+	{
+
 		final String rootContextDirectoryClassPath = "/ctx";
 
-		final String applicationContextPath = rootContextDirectoryClassPath + "/application-context.xml";
+		final String applicationContextPath = rootContextDirectoryClassPath
+			+ "/application-context.xml";
 
 		final ApplicationContext ac = new ClassPathXmlApplicationContext(applicationContextPath);
 
 		final Resource resource = ac.getResource("classpath:conf/log4j/log4jconfig.xml");
 
-		try {
+		// initDb(ac);
+
+		try
+		{
 			DOMConfigurator.configure(resource.getURL());
-		} catch (final FactoryConfigurationError e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (final IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		}
+		catch (final FactoryConfigurationError e)
+		{
+			log.error("FactoryConfigurationError:", e);
+		}
+		catch (final IOException e)
+		{
+			log.error("IOException:", e);
 		}
 
 		applicationContext = ac;
+	}
+
+	public BundleApplicationsService getBundleApplicationsService()
+	{
+		if (bundleApplicationsService == null)
+		{
+			bundleApplicationsService = SpringApplicationContextExtensions.getBean(
+				applicationContext, "bundleApplicationsService", BundleApplicationsService.class);
+		}
+		return bundleApplicationsService;
+	}
+
+	public BundleNamesService getBundleNamesService()
+	{
+		if (bundleNamesService == null)
+		{
+			bundleNamesService = SpringApplicationContextExtensions.getBean(applicationContext,
+				"bundleNamesService", BundleNamesService.class);
+		}
+		return bundleNamesService;
+	}
+
+	public LanguageLocalesService getLanguageLocalesService()
+	{
+		if (languageLocalesService == null)
+		{
+			languageLocalesService = SpringApplicationContextExtensions.getBean(applicationContext,
+				"languageLocalesService", LanguageLocalesService.class);
+		}
+		return languageLocalesService;
+	}
+
+	public PropertiesKeysService getPropertiesKeysService()
+	{
+		if (propertiesKeysService == null)
+		{
+			propertiesKeysService = SpringApplicationContextExtensions.getBean(applicationContext,
+				"propertiesKeysService", PropertiesKeysService.class);
+		}
+		return propertiesKeysService;
+	}
+
+	public ResourcebundlesService getResourcebundlesService()
+	{
+		if (resourcebundlesService == null)
+		{
+			resourcebundlesService = SpringApplicationContextExtensions.getBean(applicationContext,
+				"resourcebundlesService", ResourcebundlesService.class);
+		}
+		return resourcebundlesService;
+	}
+
+	protected void initDb(final ApplicationContext ac)
+	{
+		final LanguagesService languagesService = (LanguagesService)ac.getBean("languagesService");
+		final LanguageLocalesService languageLocalesService = (LanguageLocalesService)ac
+			.getBean("languageLocalesService");
+		final BundleApplicationsService bundleApplicationsService = getBundleApplicationsService();
+
+		final List<Languages> languages = DataObjectFactory.newLanguageList();
+		for (final Languages language : languages)
+		{
+			final Languages found = languagesService.find(language.getName(),
+				language.getIso639Dash1());
+			if (found == null)
+			{
+				languagesService.merge(language);
+			}
+		}
+		final List<LanguageLocales> languageLocales = DataObjectFactory.newLanguageLocales();
+
+		for (final LanguageLocales languageLocale : languageLocales)
+		{
+			final LanguageLocales found = languageLocalesService.find(languageLocale.getLocale());
+			if (found == null)
+			{
+				languageLocalesService.merge(languageLocale);
+			}
+		}
+
+		BundleApplications baseBundleApplication = bundleApplicationsService
+			.find(BundleApplications.BASE_BUNDLE_APPLICATION);
+		if (baseBundleApplication == null)
+		{
+			baseBundleApplication = BundleApplications.builder()
+				.name(BundleApplications.BASE_BUNDLE_APPLICATION).build();
+			baseBundleApplication = bundleApplicationsService.merge(baseBundleApplication);
+		}
 	}
 
 }

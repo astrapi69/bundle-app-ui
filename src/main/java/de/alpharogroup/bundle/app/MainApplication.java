@@ -26,17 +26,96 @@ package de.alpharogroup.bundle.app;
 
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import com.google.common.eventbus.EventBus;
+
+import de.alpharogroup.bundle.app.panels.imports.bundlefolder.ImportWizardModel;
+import de.alpharogroup.bundle.app.panels.imports.bundlefolder.NavigationEventState;
+import de.alpharogroup.bundle.app.panels.start.BundleStart;
+import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
+import de.alpharogroup.design.pattern.observer.event.EventObject;
+import de.alpharogroup.design.pattern.observer.event.EventSource;
+import de.alpharogroup.design.pattern.observer.event.EventSubject;
 import de.alpharogroup.layout.ScreenSizeExtensions;
 import de.alpharogroup.swing.laf.LookAndFeels;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class MainApplication
 {
+
+	/** The instance. */
+	private static MainApplication instance = new MainApplication();
+
+	private static final Map<String, EventSource<?>> eventSources = new HashMap<>();
+
+	public static MainApplication get()
+	{
+		return instance;
+	}
+
+	public static EventSource<?> get(final String key)
+	{
+		return eventSources.get(key);
+	}
+
+	public static EventSource<EventObject<BundleStart>> getBundleStartEventSource()
+	{
+		EventSource<EventObject<BundleStart>> eventSource = getEventSource(BundleStart.class);
+
+		if (eventSource == null)
+		{
+			MainApplication.put(BundleStart.class.getSimpleName(),
+				new EventSubject<EventObject<BundleStart>>());
+			eventSource = getEventSource(BundleStart.class);
+		}
+		return eventSource;
+	}
+
+	@SuppressWarnings("unchecked")
+	public static <T> EventSource<EventObject<T>> getEventSource(
+		final Class<T> eventSourceTypeClass)
+	{
+		final EventSource<EventObject<T>> eventSource = (EventSource<EventObject<T>>)MainApplication
+			.get(eventSourceTypeClass.getSimpleName());
+		return eventSource;
+	}
+
+	public static EventSource<EventObject<NavigationEventState>> getImportNavigationState()
+	{
+		EventSource<EventObject<NavigationEventState>> eventSource = getEventSource(
+			NavigationEventState.class);
+
+		if (eventSource == null)
+		{
+			MainApplication.put(NavigationEventState.class.getSimpleName(),
+				new EventSubject<EventObject<NavigationEventState>>());
+			eventSource = getEventSource(NavigationEventState.class);
+		}
+		return eventSource;
+	}
+
+	public static EventSource<EventObject<ImportWizardModel>> getImportWizardModel()
+	{
+		EventSource<EventObject<ImportWizardModel>> eventSource = getEventSource(
+			ImportWizardModel.class);
+
+		if (eventSource == null)
+		{
+			MainApplication.put(ImportWizardModel.class.getSimpleName(),
+				new EventSubject<EventObject<ImportWizardModel>>());
+			eventSource = getEventSource(ImportWizardModel.class);
+		}
+		return eventSource;
+	}
 
 	/**
 	 * The main method.
@@ -44,35 +123,54 @@ public class MainApplication
 	 * @param args
 	 *            the arguments
 	 */
-	public static void main(final String[] args) {
+	public static void main(final String[] args)
+	{
+
+		SpringApplicationContext.getInstance().getApplicationContext();
 
 		final MainFrame mainFrame = MainFrame.getInstance();
 		final DesktopMenu menu = DesktopMenu.getInstance();
 		mainFrame.setJMenuBar(menu.getMenubar());
 
+
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		final GraphicsDevice[] gs = ge.getScreenDevices();
-		mainFrame.setSize(ScreenSizeExtensions.getScreenWidth(gs[0]), ScreenSizeExtensions.getScreenHeight(gs[0]));
+		mainFrame.setSize(ScreenSizeExtensions.getScreenWidth(gs[0]),
+			ScreenSizeExtensions.getScreenHeight(gs[0]));
 		mainFrame.setVisible(true);
 
 		// Set default look and feel...
-		try {
+		try
+		{
 			UIManager.setLookAndFeel(LookAndFeels.SYSTEM.getLookAndFeelName());
 			SwingUtilities.updateComponentTreeUI(mainFrame);
 			mainFrame.setCurrentLookAndFeels(LookAndFeels.SYSTEM);
-		} catch (final ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (final InstantiationException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (final IllegalAccessException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (final UnsupportedLookAndFeelException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		}
+		catch (final ClassNotFoundException e1)
+		{
+			log.error("ClassNotFoundException:", e1);
+		}
+		catch (final InstantiationException e1)
+		{
+			log.error("InstantiationException:", e1);
+		}
+		catch (final IllegalAccessException e1)
+		{
+			log.error("IllegalAccessException:", e1);
+		}
+		catch (final UnsupportedLookAndFeelException e1)
+		{
+			log.error("UnsupportedLookAndFeelException:", e1);
 		}
 	}
+
+	public static EventSource<?> put(final String key, final EventSource<?> value)
+	{
+		return eventSources.put(key, value);
+	}
+
+
+	@Getter
+	private final EventBus applicationEventBus = new EventBus();
 }

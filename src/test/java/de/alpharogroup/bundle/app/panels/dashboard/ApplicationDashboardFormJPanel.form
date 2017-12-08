@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="btnImportResourceBundlesFromDir" pref="751" max="32767" attributes="0"/>
+                  <Component id="btnImportResourceBundleFromFile" pref="751" max="32767" attributes="0"/>
+                  <Component id="btnOverview" alignment="0" max="32767" attributes="0"/>
+                  <Component id="btnReturnToMainDashboard" alignment="0" pref="751" max="32767" attributes="0"/>
+                  <Component id="btnCreateRb" alignment="0" max="32767" attributes="0"/>
+                  <Component id="btnEditBundleAppName" alignment="0" pref="751" max="32767" attributes="0"/>
+                  <Component id="btnExportBundleApplication" alignment="0" max="32767" attributes="0"/>
+                  <Component id="btnCreateCustomLocale1" alignment="0" pref="751" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace pref="27" max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+              <Component id="btnReturnToMainDashboard" min="-2" pref="80" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="btnOverview" min="-2" pref="80" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="btnImportResourceBundlesFromDir" min="-2" pref="80" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="btnImportResourceBundleFromFile" min="-2" pref="80" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="btnEditBundleAppName" min="-2" pref="80" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="btnCreateRb" min="-2" pref="80" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="btnCreateCustomLocale1" min="-2" pref="80" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="btnExportBundleApplication" min="-2" pref="80" max="-2" attributes="0"/>
+              <EmptySpace pref="40" max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JButton" name="btnEditBundleAppName">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Edit Bundle-Application name"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnOverview">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Overview of resource-bundles"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnCreateRb">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Create new resource-bundle"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnExportBundleApplication">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Export Bundle-Application"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnImportResourceBundleFromFile">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Import new resource bundle from file"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnImportResourceBundlesFromDir">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Import all new resource bundles from folder"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnReturnToMainDashboard">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Return to overview of bundle applications"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnCreateCustomLocale1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Create new custom locale"/>
+      </Properties>
+    </Component>
+  </SubComponents>
+</Form>

@@ -24,6 +24,7 @@
  */
 package de.alpharogroup.bundle.app;
 
+import java.awt.Component;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -33,85 +34,176 @@ import javax.swing.JInternalFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JToolBar;
 
-import org.jdesktop.swingx.JXFrame;
+import org.springframework.context.ApplicationContext;
 
+import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
+import de.alpharogroup.bundle.app.panels.dashboard.mainapp.MainDashboardBean;
+import de.alpharogroup.bundle.app.panels.dashboard.mainapp.MainDashboardPanel;
+import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
+import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
+import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
 import de.alpharogroup.lang.ClassExtensions;
+import de.alpharogroup.model.BaseModel;
+import de.alpharogroup.model.PropertyModel;
+import de.alpharogroup.model.api.Model;
+import de.alpharogroup.swing.base.BaseFrame;
+import de.alpharogroup.swing.components.factories.JComponentFactory;
 import de.alpharogroup.swing.desktoppane.SingletonDesktopPane;
 import de.alpharogroup.swing.laf.LookAndFeels;
+import de.alpharogroup.swing.utils.JInternalFrameExtensions;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * The Class MainFrame.
  */
-@SuppressWarnings("serial")
-public class MainFrame extends JXFrame {
+@Slf4j
+public class MainFrame extends BaseFrame<MainDashboardBean>
+{
+
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 1L;
+
+	public static final String KEY_DB_APPLICATION_CONTEXT = "db-application-context";
 
 	/** The instance. */
 	private static MainFrame instance = new MainFrame();
-
-	/** The desktop pane. */
-	@Getter
-	private final JDesktopPane desktopPane = SingletonDesktopPane.getInstance();
-
-	/** The menubar. */
-	@Getter
-	private JMenuBar menubar;
-
-	/** The toolbar. */
-	@Getter
-	private JToolBar toolbar;
-
-	/** The internal frame. */
-	@Getter
-	private JInternalFrame internalFrame;
-
-	/** The current look and feels. */
-	@Getter
-	@Setter
-	private LookAndFeels currentLookAndFeels = LookAndFeels.SYSTEM;
 
 	/**
 	 * Gets the single instance of MainFrame.
 	 *
 	 * @return single instance of MainFrame
 	 */
-	public static MainFrame getInstance() {
+	public static MainFrame get()
+	{
 		return instance;
 	}
 
 	/**
-	 * Instantiates a new main frame.
+	 * Gets the single instance of MainFrame.
+	 *
+	 * @return single instance of MainFrame
 	 */
-	private MainFrame() {
-		super(Messages.getString("mainframe.title"));
-		initComponents();
+	public static MainFrame getInstance()
+	{
+		return get();
 	}
 
+	/** The desktop pane. */
+	private JDesktopPane desktopPane;
+
+	/** The menubar. */
+	private JMenuBar menubar;
+
+	/** The toolbar. */
+	private JToolBar toolbar;
+
+	/** The current visible internal frame. */
+	@Getter
+	@Setter
+	private JInternalFrame currentVisibleInternalFrame;
+
+	/** The current look and feels. */
+	@Getter
+	@Setter
+	private LookAndFeels currentLookAndFeels;
+
+	private Model<ApplicationDashboardBean> selectedBundleApplicationPropertyModel;
+
 	/**
-	 * Inits the components.
+	 * Instantiates a new main frame.
 	 */
-	private void initComponents() {
+	private MainFrame()
+	{
+		super(Messages.getString("mainframe.title"));
+	}
+
+	public Model<ApplicationDashboardBean> getSelectedBundleApplicationPropertyModel()
+	{
+		if (this.selectedBundleApplicationPropertyModel == null)
+		{
+			initApllicationDashboardBean();
+			this.selectedBundleApplicationPropertyModel = PropertyModel
+				.<ApplicationDashboardBean> of(getModelObject(), "selectedBundleApplication");
+		}
+		return this.selectedBundleApplicationPropertyModel;
+	}
+
+	private void initApllicationDashboardBean()
+	{
+		if (getModelObject().getSelectedBundleApplication() == null)
+		{
+			getModelObject()
+				.setSelectedBundleApplication(ApplicationDashboardBean.builder().build());
+		}
+	}
+
+	@Override
+	protected void onInitializeComponents()
+	{
+		super.onInitializeComponents();
 
 		toolbar = new JToolBar(); // create the tool bar
 		setJMenuBar(menubar);
 		setToolBar(toolbar);
-
+		desktopPane = SingletonDesktopPane.getInstance();
+		currentLookAndFeels = LookAndFeels.SYSTEM;
 		getContentPane().add(desktopPane);
 
 		try
 		{
 			final String iconPath = Messages.getString("global.icon.app.path");
 			final BufferedImage appIcon = ImageIO
-					.read(ClassExtensions.getResourceAsStream(iconPath));
+				.read(ClassExtensions.getResourceAsStream(iconPath));
 			setIconImage(appIcon);
 		}
 		catch (final IOException e)
 		{
-			// TODO log error...
-			e.printStackTrace();
+			log.error("Icon file could not be readed.", e);
 		}
 
+		final ApplicationContext applicationContext = SpringApplicationContext.getInstance()
+			.getApplicationContext();
+
+		final BundleApplicationsService bundleApplicationsService = (BundleApplicationsService)applicationContext
+			.getBean("bundleApplicationsService");
+
+		final Model<MainDashboardBean> model = BaseModel.<MainDashboardBean> of(MainDashboardBean
+			.builder().bundleApplications(bundleApplicationsService.findAll()).build());
+		setModel(model);
+		final MainDashboardPanel mainDashboardPanel = new MainDashboardPanel(
+			PropertyModel.<MainDashboardBean> of(this, "model.object"));
+		replaceInternalFrame("Main dashboard", mainDashboardPanel);
+	}
+
+	/**
+	 * Replace the current internal frame with a new internal frame with the given {@link Component}
+	 * as content.
+	 *
+	 * @param title
+	 *            the title
+	 * @param component
+	 *            the component
+	 */
+	public void replaceInternalFrame(final String title, final Component component)
+	{
+		if (getCurrentVisibleInternalFrame() != null)
+		{
+			getCurrentVisibleInternalFrame().dispose();
+		}
+		// create internal frame
+		final JInternalFrame internalFrame = JComponentFactory.newInternalFrame(title, true, true,
+			true, true);
+		JInternalFrameExtensions.addComponentToFrame(internalFrame, component);
+		JInternalFrameExtensions.addJInternalFrame(desktopPane, internalFrame);
+		setCurrentVisibleInternalFrame(internalFrame);
+	}
+
+	public void setSelectedBundleApplication(final BundleApplications bundleApplication)
+	{
+		initApllicationDashboardBean();
+		getModelObject().getSelectedBundleApplication().setBundleApplication(bundleApplication);
 	}
 
 }
