@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
-import java.util.Set;
 
 import org.apache.commons.lang3.BooleanUtils;
 
@@ -17,9 +16,7 @@ import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
 import de.alpharogroup.collections.pairs.KeyValuePair;
 import de.alpharogroup.collections.pairs.Triple;
 import de.alpharogroup.collections.properties.PropertiesExtensions;
-import de.alpharogroup.collections.set.SetExtensions;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
-import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import de.alpharogroup.design.pattern.observer.event.EventListener;
@@ -136,15 +133,11 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 		final ResourcebundlesService resourcebundlesService = SpringApplicationContext
 			.getInstance().getResourcebundlesService();
 		BundleApplications bundleApplication = bundleApplicationsService
-			.getOrCreateNewBundleApplications(getModelObject().getBundleAppName());
+			.find(getModelObject().getBundleAppName());
 		// 2. get properties files
 		final List<Triple<File, Locale, KeyValuePair<Boolean, File>>> foundProperties = getModelObject()
 			.getFoundProperties();
 		// 3. save properties files the to the bundleapp
-
-
-		final Set<BundleNames> set = // TODO get from service
-			SetExtensions.newHashSet();
 		for (final Triple<File, Locale, KeyValuePair<Boolean, File>> entry : foundProperties)
 		{
 			if(BooleanUtils.toBoolean(entry.getRight().getKey())) {
@@ -161,11 +154,9 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 					log.error("Loading Properties file " + propertiesFile.getAbsolutePath()
 						+ " failed.", e);
 				}
-				final BundleNames bundleNames = resourcebundlesService.updateProperties(bundleApplication, properties, bundlename, locale);
-				set.add(bundleNames);
+				resourcebundlesService.updateProperties(bundleApplication, properties, bundlename, locale);
 			}
 		}
-		bundleApplication = bundleApplicationsService.merge(bundleApplication);
 
 	}
 

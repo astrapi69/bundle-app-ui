@@ -10,7 +10,6 @@ import de.alpharogroup.bundle.app.actions.OverviewBundleAppsAction;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
-import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.resourcebundle.locale.LocaleResolver;
@@ -55,7 +54,6 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 
 	protected void onCancel(final ActionEvent e)
 	{
-		// TODO return to bundle app view...
 	}
 
 	protected void onImport(final ActionEvent e)
@@ -67,12 +65,8 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 		final Locale locale = LocaleResolver
 			.resolveLocale(getModelObject().getResourceBundleToImport());
 		BundleApplications bundleApplication = getModelObject().getBundleApplication();
-		final BundleNames bundleName = SpringApplicationContext.get().getResourcebundlesService()
+		SpringApplicationContext.get().getResourcebundlesService()
 			.updateProperties(bundleApplication, getModelObject().getImportedProperties(), baseName, locale);
-
-		bundleApplication = SpringApplicationContext.get().getBundleApplicationsService()
-			.merge(bundleApplication);
-		getModelObject().setBundleApplication(bundleApplication);
 	}
 
 	@Override
@@ -99,13 +93,13 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 		srcBundles.setViewportView(tblBundles);
 
 		btnCancelUp.setText("Cancel");
-		btnCancelUp.addActionListener(e -> onCancel(e));
+		btnCancelUp.addActionListener(OverviewBundleAppsAction.of());
 
 		btnImportUp.setText("Import");
 		btnImportUp.addActionListener(e -> onImport(e));
 
 		btnCancel.setText("Cancel");
-		btnCancel.addActionListener(e -> onCancel(e));
+		btnCancel.addActionListener(OverviewBundleAppsAction.of());
 
 		btnImport.setText("Import");
 		btnImport.addActionListener(e -> onImport(e));

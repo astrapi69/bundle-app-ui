@@ -11,9 +11,18 @@ import de.alpharogroup.collections.pairs.KeyValuePair;
 import de.alpharogroup.collections.pairs.Triple;
 import de.alpharogroup.comparators.NullCheckComparator;
 
+/**
+ * The class {@link ConvertExtensions} provides algorithms for converting and sorting from {@link KeyValuePair} to {@link Triple}.
+ */
 public class ConvertExtensions
 {
 
+	/**
+	 * Convert the given {@link KeyValuePair} to {@link Triple}.
+	 *
+	 * @param foundProperties the found properties
+	 * @return the list
+	 */
 	public static List<Triple<File, Locale, KeyValuePair<Boolean, File>>> convert(final List<KeyValuePair<File, Locale>> foundProperties)
 	{
 		final List<Triple<File, Locale, KeyValuePair<Boolean, File>>> list = new ArrayList<>();
@@ -29,7 +38,12 @@ public class ConvertExtensions
 		return list;
 	}
 
-
+	/**
+	 * Convert and sort the given {@link KeyValuePair} to {@link Triple}.
+	 *
+	 * @param foundProperties the found properties
+	 * @return the list
+	 */
 	public static List<Triple<File, Locale, KeyValuePair<Boolean, File>>> convertAndSort(final List<KeyValuePair<File, Locale>> foundProperties)
 	{
 		final List<Triple<File, Locale, KeyValuePair<Boolean, File>>> list = convert(foundProperties);

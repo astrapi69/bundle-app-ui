@@ -11,7 +11,6 @@ import de.alpharogroup.bundle.app.combobox.renderer.LanguageLocalesComboBoxRende
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
-import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.resource.bundles.service.api.BundleNamesService;
 import de.alpharogroup.model.BaseModel;
@@ -148,21 +147,16 @@ public class NewBundleNamePanel extends BasePanel<ApplicationDashboardBean>
 			.getBundleNamesService();
 		final String baseName = txtBasename.getText();
 		final LanguageLocales selectedItem = (LanguageLocales)cmbLocale.getSelectedItem();
-		final BundleNames bundleNames;
 		if (selectedItem != null)
 		{
 			final Locale locale = LocaleResolver.resolveLocale(selectedItem.getLocale());
-			bundleNames = bundleNamesService.getOrCreateNewBundleNames(bundleApplication, baseName, locale);
+			bundleNamesService.getOrCreateNewBundleNames(bundleApplication, baseName, locale);
 		} else {
 			final LanguageLocales languageLocales = getModelObject().getBundleApplication().getDefaultLocale();
 			final Locale locale = SpringApplicationContext.getInstance()
 			.getLanguageLocalesService().resolveLocale(languageLocales);
-			bundleNames = bundleNamesService.getOrCreateNewBundleNames(bundleApplication, baseName, locale);
+			bundleNamesService.getOrCreateNewBundleNames(bundleApplication, baseName, locale);
 		}
-		bundleApplication = SpringApplicationContext.getInstance()
-		.getBundleApplicationsService().merge(bundleApplication);
-		getModelObject().setBundleApplication(bundleApplication);
-
 	}
 
 }

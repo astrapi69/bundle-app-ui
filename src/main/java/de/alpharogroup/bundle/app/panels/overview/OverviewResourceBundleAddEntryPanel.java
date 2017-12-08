@@ -18,6 +18,7 @@ import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
 import de.alpharogroup.bundle.app.table.model.StringResourcebundlesTableModel;
 import de.alpharogroup.collections.pairs.Quattro;
 import de.alpharogroup.comparators.NullCheckComparator;
+import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.PropertiesKeys;
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObjectFactory;
@@ -71,6 +72,7 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 	{
 		final String key = txtKey.getText();
 		final String value = txtValue.getText();
+		BundleApplications bundleApplication = getModelObject().getBundleApplication();
 		final String baseName = getModelObject().getSelectedBundleName().getBaseName().getName();
 		final Locale locale = LocaleResolver
 			.resolveLocale(getModelObject().getSelectedBundleName().getLocale().getLocale());
@@ -80,7 +82,7 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 			.getResourcebundlesService();
 		final boolean update = true;
 
-		Resourcebundles resourcebundle = resourcebundlesService.getResourcebundle(baseName, locale,
+		Resourcebundles resourcebundle = resourcebundlesService.getResourcebundle(bundleApplication, baseName, locale,
 			key);
 		if (resourcebundle != null)
 		{
@@ -376,10 +378,11 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 		tableModelList = new ArrayList<>();
 		final ResourcebundlesService resourcebundlesService = SpringApplicationContext.getInstance()
 			.getResourcebundlesService();
+		BundleApplications bundleApplication = getModelObject().getBundleApplication();
 		final String baseName = getModelObject().getSelectedBundleName().getBaseName().getName();
 		final Locale locale = LocaleResolver
 			.resolveLocale(getModelObject().getSelectedBundleName().getLocale().getLocale());
-		final List<Resourcebundles> list = resourcebundlesService.findResourceBundles(baseName,
+		final List<Resourcebundles> list = resourcebundlesService.findResourceBundles(bundleApplication, baseName,
 			locale);
 		for (final Resourcebundles resourcebundle : list)
 		{
