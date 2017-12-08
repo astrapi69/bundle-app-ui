@@ -30,7 +30,7 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 	private javax.swing.JLabel lblHeaderOverview;
 	private javax.swing.JScrollPane srcBundles;
 	private javax.swing.JTable tblBundles;
-    private javax.swing.JButton btnToDashboard;
+	private javax.swing.JButton btnToDashboard;
 
 	private StringKeyValueTableModel tableModel;
 
@@ -65,8 +65,8 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 		final Locale locale = LocaleResolver
 			.resolveLocale(getModelObject().getResourceBundleToImport());
 		BundleApplications bundleApplication = getModelObject().getBundleApplication();
-		SpringApplicationContext.get().getResourcebundlesService()
-			.updateProperties(bundleApplication, getModelObject().getImportedProperties(), baseName, locale);
+		SpringApplicationContext.get().getResourcebundlesService().updateProperties(
+			bundleApplication, getModelObject().getImportedProperties(), baseName, locale);
 	}
 
 	@Override
@@ -81,10 +81,10 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 		btnImportUp = new javax.swing.JButton();
 		btnCancel = new javax.swing.JButton();
 		btnImport = new javax.swing.JButton();
-        btnToDashboard = new javax.swing.JButton();
+		btnToDashboard = new javax.swing.JButton();
 
-        btnToDashboard.setText("Return to Dashboard");
-        btnToDashboard.addActionListener(OverviewBundleAppsAction.of());
+		btnToDashboard.setText("Return to Dashboard");
+		btnToDashboard.addActionListener(OverviewBundleAppsAction.of());
 
 		lblHeaderOverview.setText("Overview of resource bundle to import");
 
@@ -112,47 +112,54 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 
 		final javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
 		this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblHeaderOverview, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnToDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(srcBundles, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnCancelUp, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnImportUp, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(44, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnImport, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblHeaderOverview, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnToDashboard))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCancelUp)
-                    .addComponent(btnImportUp))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(srcBundles, javax.swing.GroupLayout.PREFERRED_SIZE, 485, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCancel)
-                    .addComponent(btnImport))
-                .addContainerGap(48, Short.MAX_VALUE))
-        );
+		layout.setHorizontalGroup(
+			layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(layout.createSequentialGroup().addGap(40, 40, 40)
+					.addGroup(layout
+						.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+						.addGroup(layout.createSequentialGroup()
+							.addComponent(lblHeaderOverview, javax.swing.GroupLayout.PREFERRED_SIZE,
+								540, javax.swing.GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(btnToDashboard, javax.swing.GroupLayout.PREFERRED_SIZE,
+								220, javax.swing.GroupLayout.PREFERRED_SIZE))
+						.addComponent(srcBundles, javax.swing.GroupLayout.PREFERRED_SIZE, 1000,
+							javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout
+							.createSequentialGroup()
+							.addComponent(btnCancelUp, javax.swing.GroupLayout.PREFERRED_SIZE, 280,
+								javax.swing.GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+							.addComponent(btnImportUp, javax.swing.GroupLayout.PREFERRED_SIZE, 280,
+								javax.swing.GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(44, Short.MAX_VALUE))
+				.addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+					layout.createSequentialGroup()
+						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 280,
+							javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addGap(18, 18, 18)
+						.addComponent(btnImport, javax.swing.GroupLayout.PREFERRED_SIZE, 280,
+							javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addGap(43, 43, 43)));
+		layout
+			.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(layout.createSequentialGroup().addGap(40, 40, 40)
+					.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+						.addComponent(lblHeaderOverview, javax.swing.GroupLayout.PREFERRED_SIZE, 33,
+							javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnToDashboard))
+					.addGap(18, 18, 18)
+					.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+						.addComponent(btnCancelUp).addComponent(btnImportUp))
+					.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+					.addComponent(srcBundles, javax.swing.GroupLayout.PREFERRED_SIZE, 485,
+						javax.swing.GroupLayout.PREFERRED_SIZE)
+					.addGap(18, 18, 18)
+					.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+						.addComponent(btnCancel).addComponent(btnImport))
+					.addContainerGap(48, Short.MAX_VALUE)));
 	}
 
 

@@ -143,6 +143,16 @@ public class SpringApplicationContext
 		return bundleNamesService;
 	}
 
+	public LanguageLocalesService getLanguageLocalesService()
+	{
+		if (languageLocalesService == null)
+		{
+			languageLocalesService = SpringApplicationContextExtensions.getBean(applicationContext,
+				"languageLocalesService", LanguageLocalesService.class);
+		}
+		return languageLocalesService;
+	}
+
 	public PropertiesKeysService getPropertiesKeysService()
 	{
 		if (propertiesKeysService == null)
@@ -161,16 +171,6 @@ public class SpringApplicationContext
 				"resourcebundlesService", ResourcebundlesService.class);
 		}
 		return resourcebundlesService;
-	}
-
-	public LanguageLocalesService getLanguageLocalesService()
-	{
-		if (languageLocalesService == null)
-		{
-			languageLocalesService = SpringApplicationContextExtensions.getBean(applicationContext,
-				"languageLocalesService", LanguageLocalesService.class);
-		}
-		return languageLocalesService;
 	}
 
 	protected void initDb(final ApplicationContext ac)

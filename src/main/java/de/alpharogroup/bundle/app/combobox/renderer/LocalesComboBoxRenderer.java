@@ -26,8 +26,8 @@ public class LocalesComboBoxRenderer extends JLabel implements ListCellRenderer<
 	}
 
 	@Override
-	public Component getListCellRendererComponent(final JList<? extends Locale> list, final Locale value,
-		final int index, final boolean isSelected, final boolean cellHasFocus)
+	public Component getListCellRendererComponent(final JList<? extends Locale> list,
+		final Locale value, final int index, final boolean isSelected, final boolean cellHasFocus)
 	{
 
 		if (isSelected)

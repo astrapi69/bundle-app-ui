@@ -82,8 +82,8 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 			.getResourcebundlesService();
 		final boolean update = true;
 
-		Resourcebundles resourcebundle = resourcebundlesService.getResourcebundle(bundleApplication, baseName, locale,
-			key);
+		Resourcebundles resourcebundle = resourcebundlesService.getResourcebundle(bundleApplication,
+			baseName, locale, key);
 		if (resourcebundle != null)
 		{
 			if (update)
@@ -382,8 +382,8 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 		final String baseName = getModelObject().getSelectedBundleName().getBaseName().getName();
 		final Locale locale = LocaleResolver
 			.resolveLocale(getModelObject().getSelectedBundleName().getLocale().getLocale());
-		final List<Resourcebundles> list = resourcebundlesService.findResourceBundles(bundleApplication, baseName,
-			locale);
+		final List<Resourcebundles> list = resourcebundlesService
+			.findResourceBundles(bundleApplication, baseName, locale);
 		for (final Resourcebundles resourcebundle : list)
 		{
 			tableModelList.add(Quattro.<String, String, Resourcebundles, Resourcebundles> builder()

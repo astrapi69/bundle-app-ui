@@ -151,10 +151,13 @@ public class NewBundleNamePanel extends BasePanel<ApplicationDashboardBean>
 		{
 			final Locale locale = LocaleResolver.resolveLocale(selectedItem.getLocale());
 			bundleNamesService.getOrCreateNewBundleNames(bundleApplication, baseName, locale);
-		} else {
-			final LanguageLocales languageLocales = getModelObject().getBundleApplication().getDefaultLocale();
-			final Locale locale = SpringApplicationContext.getInstance()
-			.getLanguageLocalesService().resolveLocale(languageLocales);
+		}
+		else
+		{
+			final LanguageLocales languageLocales = getModelObject().getBundleApplication()
+				.getDefaultLocale();
+			final Locale locale = SpringApplicationContext.getInstance().getLanguageLocalesService()
+				.resolveLocale(languageLocales);
 			bundleNamesService.getOrCreateNewBundleNames(bundleApplication, baseName, locale);
 		}
 	}

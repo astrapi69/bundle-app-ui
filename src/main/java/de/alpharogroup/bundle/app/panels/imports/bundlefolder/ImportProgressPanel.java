@@ -65,6 +65,12 @@ public class ImportProgressPanel extends BaseWizardContentPanel<ImportWizardMode
 		super(model);
 	}
 
+	private List<Triple<File, Locale, KeyValuePair<Boolean, File>>> getTableModelList()
+	{
+		tableModelList = getModelObject().getModelObject().getFoundProperties();
+		return tableModelList;
+	}
+
 	@Override
 	protected void onBeforeInitialize()
 	{
@@ -80,6 +86,7 @@ public class ImportProgressPanel extends BaseWizardContentPanel<ImportWizardMode
 	{
 		tableModel.addList(getTableModelList());
 	}
+
 
 	@Override
 	protected void onInitializeComponents()
@@ -121,9 +128,12 @@ public class ImportProgressPanel extends BaseWizardContentPanel<ImportWizardMode
 				}
 				final KeyValuePair<Boolean, File> selectedPropertiesFile = (KeyValuePair<Boolean, File>)value;
 				final String text;
-				if(selectedPropertiesFile.getKey()) {
+				if (selectedPropertiesFile.getKey())
+				{
 					text = "Exclude";
-				} else {
+				}
+				else
+				{
 					text = "Include";
 				}
 				setText(text);
@@ -138,13 +148,17 @@ public class ImportProgressPanel extends BaseWizardContentPanel<ImportWizardMode
 			@Override
 			public Object getCellEditorValue()
 			{
-				final KeyValuePair<Boolean, File> selectedPropertiesFile = (KeyValuePair<Boolean, File>)this.getValue();
+				final KeyValuePair<Boolean, File> selectedPropertiesFile = (KeyValuePair<Boolean, File>)this
+					.getValue();
 				selectedPropertiesFile.setKey(!selectedPropertiesFile.getKey());
 				ConvertExtensions.update(selectedPropertiesFile, tableModelList);
 				final String text;
-				if(selectedPropertiesFile.getKey()) {
+				if (selectedPropertiesFile.getKey())
+				{
 					text = "Include";
-				} else {
+				}
+				else
+				{
 					text = "Exclude";
 				}
 				return text;
@@ -169,12 +183,16 @@ public class ImportProgressPanel extends BaseWizardContentPanel<ImportWizardMode
 					getButton().setForeground(table.getForeground());
 					getButton().setBackground(table.getBackground());
 				}
-				final KeyValuePair<Boolean, File> selectedPropertiesFile = (KeyValuePair<Boolean, File>)this.getValue();
+				final KeyValuePair<Boolean, File> selectedPropertiesFile = (KeyValuePair<Boolean, File>)this
+					.getValue();
 
 				final String text;
-				if(selectedPropertiesFile.getKey()) {
+				if (selectedPropertiesFile.getKey())
+				{
 					text = "Include";
-				} else {
+				}
+				else
+				{
 					text = "Exclude";
 				}
 				getButton().setText(text);
@@ -182,13 +200,6 @@ public class ImportProgressPanel extends BaseWizardContentPanel<ImportWizardMode
 				return getButton();
 			}
 		});
-	}
-
-
-	private List<Triple<File, Locale, KeyValuePair<Boolean, File>>> getTableModelList()
-	{
-		tableModelList = getModelObject().getModelObject().getFoundProperties();
-		return tableModelList;
 	}
 
 
