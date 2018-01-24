@@ -15,7 +15,7 @@
 	<properties>
 		<!-- UI properties -->
 		<swing-components.version>4.24.0</swing-components.version>
-		<silly-collections.version>4.21.1</silly-collections.version>
+		<silly-collections.version>4.23.0</silly-collections.version>
 		<!-- MIGLAYOUT-SWING version -->
 		<miglayout-swing.version>5.0</miglayout-swing.version>
 		<!-- GUAVA version -->
