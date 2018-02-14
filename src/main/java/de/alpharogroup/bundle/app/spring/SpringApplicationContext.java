@@ -96,10 +96,10 @@ public class SpringApplicationContext
 	private SpringApplicationContext()
 	{
 
-		final String rootContextDirectoryClassPath = "/ctx";
+		final String rootContextDirectoryClassPath = "";
 
 		final String applicationContextPath = rootContextDirectoryClassPath
-			+ "/application-context.xml";
+			+ "application-context.xml";
 
 		final ApplicationContext ac = new ClassPathXmlApplicationContext(applicationContextPath);
 
