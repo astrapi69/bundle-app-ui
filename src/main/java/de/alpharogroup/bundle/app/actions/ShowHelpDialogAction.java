@@ -34,10 +34,12 @@ import javax.swing.UIManager;
 import de.alpharogroup.bundle.app.DesktopMenu;
 import de.alpharogroup.bundle.app.MainFrame;
 import de.alpharogroup.swing.laf.LookAndFeels;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * The Class ShowHelpDialogAction.
  */
+@Slf4j
 public class ShowHelpDialogAction extends AbstractAction
 {
 
@@ -68,9 +70,9 @@ public class ShowHelpDialogAction extends AbstractAction
 		{
 			UIManager.setLookAndFeel(currentLaf.getLookAndFeelName());
 		}
-		catch (final Exception e1)
+		catch (final Exception ex)
 		{
-			e1.printStackTrace();
+			log.error(ex.getLocalizedMessage(), ex);
 		}
 		SwingUtilities.updateComponentTreeUI(helpWindow);
 	}

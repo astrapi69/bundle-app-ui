@@ -38,10 +38,12 @@ import org.springframework.core.io.Resource;
 import de.alpharogroup.bundle.app.help.HelpJFrame;
 import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
 import de.alpharogroup.io.StreamExtensions;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * The Class ShowLicenseFrameAction.
  */
+@Slf4j
 public class ShowLicenseFrameAction extends AbstractAction
 {
 
@@ -97,7 +99,7 @@ public class ShowLicenseFrameAction extends AbstractAction
 		}
 		catch (final IOException ex)
 		{
-			ex.printStackTrace();
+			log.error(ex.getLocalizedMessage(), ex);
 		}
 		finally
 		{
@@ -107,7 +109,7 @@ public class ShowLicenseFrameAction extends AbstractAction
 			}
 			catch (final IOException e)
 			{
-				e.printStackTrace();
+				log.error(e.getLocalizedMessage(), e);
 			}
 		}
 		return license.toString();

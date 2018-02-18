@@ -291,7 +291,7 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 			}
 			catch (final IOException e)
 			{
-				log.error("", e);
+				log.error(e.getLocalizedMessage(), e);
 			}
 		}
 	}
