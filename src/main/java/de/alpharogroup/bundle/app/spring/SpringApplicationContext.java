@@ -89,7 +89,7 @@ public class SpringApplicationContext
 	private SpringApplicationContext()
 	{
 
-		final String rootContextDirectoryClassPath = "";
+		final String rootContextDirectoryClassPath = "classpath:";
 
 		final String applicationContextPath = rootContextDirectoryClassPath
 			+ "application-context.xml";
