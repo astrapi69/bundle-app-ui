@@ -57,7 +57,7 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 			LanguageLocales defaultLocale = bundleApplication.getDefaultLocale();
 			if (defaultLocale != null)
 			{
-				dl = SpringApplicationContext.get().getLanguageLocalesService()
+				dl = SpringApplicationContext.getInstance().getLanguageLocalesService()
 					.resolveLocale(defaultLocale);
 			}
 		}
@@ -186,7 +186,7 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 			currentBundleApplication = getModelObject().getBundleApplication();
 			currentBundleApplication.setName(name);
 			Locale dl = getModelObject().getDefaultLocale();
-			LanguageLocales defaultLocale = SpringApplicationContext.get()
+			LanguageLocales defaultLocale = SpringApplicationContext.getInstance()
 				.getLanguageLocalesService().getOrCreateNewLanguageLocales(dl);
 			if (currentBundleApplication.getDefaultLocale() != null)
 			{
@@ -209,7 +209,7 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 			if (newBundleApplication == null)
 			{
 				Locale dl = getModelObject().getDefaultLocale();
-				LanguageLocales defaultLocale = SpringApplicationContext.get()
+				LanguageLocales defaultLocale = SpringApplicationContext.getInstance()
 					.getLanguageLocalesService().find(dl);
 
 				newBundleApplication = BundleApplications.builder().name(name)

@@ -235,7 +235,6 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 					getModelObject()
 						.setFoundProperties(ConvertExtensions.convertAndSort(propertiesList));
 
-					// TODO change to new panel for overview of import... ---start
 					// 1. create bundleapp
 					final BundleApplicationsService bundleApplicationsService = SpringApplicationContext
 						.getInstance().getBundleApplicationsService();
@@ -270,8 +269,6 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 						}
 					}
 					bundleApplication = bundleApplicationsService.merge(bundleApplication);
-					// TODO ---end
-
 				}
 				else
 				{

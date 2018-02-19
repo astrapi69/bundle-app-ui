@@ -61,19 +61,9 @@ public class SpringApplicationContext
 	 *
 	 * @return single instance of SpringApplicationContext
 	 */
-	public static SpringApplicationContext get()
-	{
-		return instance;
-	}
-
-	/**
-	 * Gets the single instance of SpringApplicationContext.
-	 *
-	 * @return single instance of SpringApplicationContext
-	 */
 	public static SpringApplicationContext getInstance()
 	{
-		return get();
+		return instance;
 	}
 
 	private BundleNamesService bundleNamesService;
@@ -87,8 +77,11 @@ public class SpringApplicationContext
 	private LanguageLocalesService languageLocalesService;
 
 	/** The application context. */
-	@Getter
 	private final ApplicationContext applicationContext;
+
+	public ApplicationContext getApplicationContext() {
+		return applicationContext;
+	}
 
 	/**
 	 * Instantiates a new spring application context.
