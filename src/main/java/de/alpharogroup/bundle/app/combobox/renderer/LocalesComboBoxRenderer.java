@@ -37,8 +37,10 @@ public class LocalesComboBoxRenderer extends JLabel implements ListCellRenderer<
 		}
 		else
 		{
-			setBackground(list.getBackground());
-			setForeground(list.getForeground());
+			if(list != null) {
+				setBackground(list.getBackground());
+				setForeground(list.getForeground());
+			}
 		}
 		String locale = "";
 		model.setObject(value);

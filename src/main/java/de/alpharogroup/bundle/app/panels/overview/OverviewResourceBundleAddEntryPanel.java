@@ -16,7 +16,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
-import javax.transaction.NotSupportedException;
 
 import de.alpharogroup.bundle.app.MainFrame;
 import de.alpharogroup.bundle.app.actions.ReturnToDashboardAction;
@@ -323,17 +322,22 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 
 	protected void onDelete(ActionEvent e)
 	{
-		int dialogResult = JOptionPane.showConfirmDialog (null, "This will delete this resource bundle and is not recoverable?(cannot be undone)","Warning",JOptionPane.YES_NO_OPTION);
-		 if (dialogResult == JOptionPane.YES_OPTION) {
-				SpringApplicationContext.getInstance().getResourcebundlesService().delete(getModelObject().getSelectedBundleName());
-				final Model<ApplicationDashboardBean> baModel = MainFrame.getInstance()
-					.getSelectedBundleApplicationPropertyModel();
-				final ApplicationDashboardContentPanel component = new ApplicationDashboardContentPanel(
-					baModel);
-				MainFrame.getInstance().replaceInternalFrame(
-					"Dashboard of " + baModel.getObject().getBundleApplication().getName() + " bundle app",
+		int dialogResult = JOptionPane.showConfirmDialog(null,
+			"This will delete this resource bundle and is not recoverable?(cannot be undone)",
+			"Warning", JOptionPane.YES_NO_OPTION);
+		if (dialogResult == JOptionPane.YES_OPTION)
+		{
+			SpringApplicationContext.getInstance().getResourcebundlesService()
+				.delete(getModelObject().getSelectedBundleName());
+			final Model<ApplicationDashboardBean> baModel = MainFrame.getInstance()
+				.getSelectedBundleApplicationPropertyModel();
+			final ApplicationDashboardContentPanel component = new ApplicationDashboardContentPanel(
+				baModel);
+			MainFrame.getInstance()
+				.replaceInternalFrame("Dashboard of "
+					+ baModel.getObject().getBundleApplication().getName() + " bundle app",
 					component);
-		 }
+		}
 	}
 
 	@Override
@@ -449,14 +453,14 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 
 		int userSelection = fileChooser.showSaveDialog(MainFrame.get());
 
-		if (userSelection == JFileChooser.APPROVE_OPTION) {
+		if (userSelection == JFileChooser.APPROVE_OPTION)
+		{
 			File fileToSave = fileChooser.getSelectedFile();
 
 			Properties properties = new Properties();
 
-			tableModelList.forEach(
-				quattro -> {
-					properties.setProperty(quattro.getTopLeft(), quattro.getTopRight());
+			tableModelList.forEach(quattro -> {
+				properties.setProperty(quattro.getTopLeft(), quattro.getTopRight());
 			});
 			try
 			{

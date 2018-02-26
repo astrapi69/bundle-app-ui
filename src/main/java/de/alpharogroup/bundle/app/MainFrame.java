@@ -204,7 +204,7 @@ public class MainFrame extends BaseFrame<MainDashboardBean>
 	{
 		initApllicationDashboardBean();
 		final BundleApplications bundleApplications = SpringApplicationContext.getInstance()
-		.getBundleApplicationsService().get(bundleApplication.getId());
+			.getBundleApplicationsService().get(bundleApplication.getId());
 		getModelObject().getSelectedBundleApplication().setBundleApplication(bundleApplications);
 	}
 

@@ -32,18 +32,23 @@ public class ReturnToDashboardAction extends AbstractAction
 		final Model<ApplicationDashboardBean> baModel = MainFrame.getInstance()
 			.getSelectedBundleApplicationPropertyModel();
 
-		if(baModel.getObject().getBundleApplication() != null) {
+		if (baModel.getObject().getBundleApplication() != null)
+		{
 			final ApplicationDashboardContentPanel component = new ApplicationDashboardContentPanel(
 				baModel);
-			MainFrame.getInstance().replaceInternalFrame(
-				"Dashboard of " + baModel.getObject().getBundleApplication().getName() + " bundle app",
-				component);
-		} else {
-			final List<BundleApplications> bundleApplications = SpringApplicationContext.getInstance()
-				.getBundleApplicationsService().findAll();
+			MainFrame.getInstance()
+				.replaceInternalFrame("Dashboard of "
+					+ baModel.getObject().getBundleApplication().getName() + " bundle app",
+					component);
+		}
+		else
+		{
+			final List<BundleApplications> bundleApplications = SpringApplicationContext
+				.getInstance().getBundleApplicationsService().findAll();
 			MainFrame.getInstance().getModelObject().setBundleApplications(bundleApplications);
-			MainFrame.getInstance().replaceInternalFrame("Overview bundle apps", new MainDashboardPanel(
-				PropertyModel.<MainDashboardBean> of(MainFrame.getInstance(), "model.object")));
+			MainFrame.getInstance().replaceInternalFrame("Overview bundle apps",
+				new MainDashboardPanel(
+					PropertyModel.<MainDashboardBean> of(MainFrame.getInstance(), "model.object")));
 		}
 
 	}

@@ -43,7 +43,6 @@ import de.alpharogroup.db.resource.bundles.service.api.LanguageLocalesService;
 import de.alpharogroup.db.resource.bundles.service.api.LanguagesService;
 import de.alpharogroup.db.resource.bundles.service.api.PropertiesKeysService;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -79,7 +78,8 @@ public class SpringApplicationContext
 	/** The application context. */
 	private final ApplicationContext applicationContext;
 
-	public ApplicationContext getApplicationContext() {
+	public ApplicationContext getApplicationContext()
+	{
 		return applicationContext;
 	}
 
@@ -88,17 +88,12 @@ public class SpringApplicationContext
 	 */
 	private SpringApplicationContext()
 	{
+		final String applicationContextPath = "application-context.xml";
 
-		final String rootContextDirectoryClassPath = "classpath:";
-
-		final String applicationContextPath = rootContextDirectoryClassPath
-			+ "application-context.xml";
-
-		final ApplicationContext ac = new ClassPathXmlApplicationContext(applicationContextPath);
+		final ApplicationContext ac =
+			new ClassPathXmlApplicationContext(applicationContextPath);
 
 		final Resource resource = ac.getResource("classpath:conf/log4j/log4jconfig.xml");
-
-		// initDb(ac);
 
 		try
 		{

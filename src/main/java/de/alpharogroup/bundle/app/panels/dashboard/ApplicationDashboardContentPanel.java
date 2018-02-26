@@ -224,8 +224,11 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 				if (dir)
 				{
 					ApplicationDashboardBean mo = getModelObject();
-					BundleApplications bundleApplications = SpringApplicationContext.getInstance().getBundleApplicationsService().get(mo.getBundleApplication().getId());
-					final Locale defaultLocale = SpringApplicationContext.getInstance().getLanguageLocalesService().resolveLocale(bundleApplications.getDefaultLocale());
+					BundleApplications bundleApplications = SpringApplicationContext.getInstance()
+						.getBundleApplicationsService().get(mo.getBundleApplication().getId());
+					final Locale defaultLocale = SpringApplicationContext.getInstance()
+						.getLanguageLocalesService()
+						.resolveLocale(bundleApplications.getDefaultLocale());
 					final PropertiesListResolver resolver1 = new PropertiesListResolver(
 						resourceBundleToImport, defaultLocale);
 					resolver1.resolve();

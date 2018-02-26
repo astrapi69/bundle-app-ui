@@ -5,26 +5,18 @@ import java.util.Properties;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.Database;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import de.alpharogroup.db.resource.bundles.service.api.BaseNamesService;
-import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
-import de.alpharogroup.db.resource.bundles.service.api.BundleNamesService;
-import de.alpharogroup.db.resource.bundles.service.api.LanguageLocalesService;
-import de.alpharogroup.db.resource.bundles.service.api.LanguagesService;
-import de.alpharogroup.db.resource.bundles.service.api.PropertiesKeysService;
-import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import de.alpharogroup.springconfig.DataSourceBean;
 import de.alpharogroup.springconfig.JdbcUrlBean;
 import de.alpharogroup.springconfig.SpringJpaFactory;
@@ -46,35 +38,36 @@ import lombok.Setter;
 		"de.alpharogroup.user.*", "de.alpharogroup.user.*.*",
 
 		"de.alpharogroup.user.management.*", "de.alpharogroup.user.management.*.*", })
+
 public class PersistenceJPAConfig
 {
-	@Autowired
-	private EntityManagerFactory entityManagerFactory;
 
-	@Autowired
-	private DataSource dataSource;
+	@Bean
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory()
+	{
+//		final LocalContainerEntityManagerFactoryBean em = SpringJpaFactory
+//			.newEntityManagerFactoryBean("bundlemanagement", dataSource(),
+//				SpringJpaFactory.newJpaVendorAdapter(Database.H2), jpaProperties());
+		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
 
-	@Autowired
-	private ResourcebundlesService resourcebundlesService;
+		em.setPersistenceUnitName("bundlemanagement");
+	      em.setDataSource(dataSource());
+	      em.setPackagesToScan(new String[] { "de.alpharogroup.db.resource.bundles.*",
+	    			"de.alpharogroup.db.resource.bundles.*.*",
 
+	    			"de.alpharogroup.address.book.*", "de.alpharogroup.address.book.*.*",
 
-	@Autowired
-	private BundleApplicationsService bundleApplicationsService;
+	    			"de.alpharogroup.resource.system.*", "de.alpharogroup.resource.system.*.*",
 
-	@Autowired
-	private BundleNamesService bundleNamesService;
+	    			"de.alpharogroup.user.*", "de.alpharogroup.user.*.*",
 
-	@Autowired
-	private BaseNamesService baseNamesService;
+	    			"de.alpharogroup.user.management.*", "de.alpharogroup.user.management.*.*",});
 
-	@Autowired
-	private LanguageLocalesService languageLocalesService;
-
-	@Autowired
-	private LanguagesService languagesService;
-
-	@Autowired
-	private PropertiesKeysService propertiesKeysService;
+	      JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+	      em.setJpaVendorAdapter(vendorAdapter);
+	      em.setJpaProperties(jpaProperties());
+		return em;
+	}
 
 	@Bean
 	public DataSource dataSource()
@@ -91,13 +84,10 @@ public class PersistenceJPAConfig
 	}
 
 	@Bean
-	public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean()
+	public PlatformTransactionManager transactionManager(EntityManagerFactory emf)
 	{
-
-		final LocalContainerEntityManagerFactoryBean em = SpringJpaFactory
-			.newEntityManagerFactoryBean("bundlemanagement", dataSource(),
-				SpringJpaFactory.newJpaVendorAdapter(Database.H2), jpaProperties());
-		return em;
+		return SpringJpaFactory
+			.newTransactionManager(emf);
 	}
 
 	@Bean
@@ -136,7 +126,7 @@ public class PersistenceJPAConfig
 	@Bean
 	public JdbcTemplate jdbcTemplate()
 	{
-		final JdbcTemplate jdbcTemplate = SpringJpaFactory.newJdbcTemplate(dataSource);
+		final JdbcTemplate jdbcTemplate = SpringJpaFactory.newJdbcTemplate(dataSource());
 		return jdbcTemplate;
 	}
 
@@ -150,11 +140,4 @@ public class PersistenceJPAConfig
 		return properties;
 	}
 
-	@Bean
-	public PlatformTransactionManager transactionManager()
-	{
-		final JpaTransactionManager transactionManager = SpringJpaFactory
-			.newTransactionManager(entityManagerFactory);
-		return transactionManager;
-	}
 }

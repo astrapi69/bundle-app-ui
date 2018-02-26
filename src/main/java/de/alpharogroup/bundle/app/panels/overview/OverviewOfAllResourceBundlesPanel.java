@@ -16,8 +16,8 @@ import de.alpharogroup.bundle.app.actions.ReturnToDashboardAction;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
 import de.alpharogroup.bundle.app.table.model.StringBundleNamesTableModel;
+import de.alpharogroup.collections.CollectionExtensions;
 import de.alpharogroup.collections.pairs.Triple;
-import de.alpharogroup.collections.set.SetExtensions;
 import de.alpharogroup.comparators.NullCheckComparator;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
@@ -61,7 +61,7 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 			getModelObject().setBundleNames(SpringApplicationContext.getInstance()
 				.getBundleApplicationsService().find(bundleApplication));
 			final Set<BundleNames> set = getModelObject().getBundleNames();
-			if (SetExtensions.isNotEmpty(set))
+			if (CollectionExtensions.isNotEmpty(set))
 			{
 				for (final BundleNames bundleNames : set)
 				{
