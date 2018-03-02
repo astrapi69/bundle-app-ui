@@ -246,7 +246,7 @@ public class DesktopMenu
 		}
 		catch (final Exception e1)
 		{
-			e1.printStackTrace();
+			log.error(e1.getLocalizedMessage(), e1);
 		}
 		SwingUtilities.updateComponentTreeUI(helpWindow);
 

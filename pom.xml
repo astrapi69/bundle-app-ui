@@ -5,26 +5,27 @@
 	<parent>
 		<groupId>de.alpharogroup</groupId>
 		<artifactId>mvn-ui-parent</artifactId>
-		<version>1.15.0</version>
+		<version>1.18.0</version>
 		<relativePath></relativePath>
 	</parent>
 
 	<artifactId>bundle-app-ui</artifactId>
-	<version>1.0.0</version>
+	<version>1.1.0</version>
 
 	<properties>
 		<!-- UI properties -->
-		<swing-components.version>4.24.0</swing-components.version>
-		<silly-collections.version>4.20.0</silly-collections.version>
+		<swing-components.version>4.25.0</swing-components.version>
+		<silly-collections.version>4.25.0</silly-collections.version>
 		<!-- MIGLAYOUT-SWING version -->
 		<miglayout-swing.version>5.0</miglayout-swing.version>
 		<!-- GUAVA version -->
-		<guava.version>19.0</guava.version>
+		<guava.version>23.0</guava.version>
 		<!-- GENERIC-DESIGN-PATTERN version -->
-		<design-patterns.version>4.11.0</design-patterns.version>
+		<design-patterns.version>4.12.0</design-patterns.version>
+		<observer.version>${design-patterns.version}</observer.version>
 		<state.version>${design-patterns.version}</state.version>
 		<!-- RESOURCEBUNDLE-CORE versions -->
-		<resourcebundle-core.version>2.15.1</resourcebundle-core.version>
+		<resourcebundle-core.version>2.19.0</resourcebundle-core.version>
 		<resourcebundle-inspector.version>${resourcebundle-core.version}</resourcebundle-inspector.version>
 		<!-- MODEL-DATA version -->
 		<model-data.version>1.5.0</model-data.version>
@@ -36,24 +37,27 @@
 		<h2.version>1.4.196</h2.version>
 		<!-- HIBERNATE versions -->
 		<hibernate.version>5.2.12.Final</hibernate.version>
-		<hibernate-validator.version>5.4.1.Final</hibernate-validator.version>
-		<cglib.version>2.2.2</cglib.version>
+		<hibernate-validator.version>6.0.7.Final</hibernate-validator.version>
+		<validation-api.version>2.0.1.Final</validation-api.version>
+		<cglib.version>3.2.6</cglib.version>
 		<!-- CONNECTION POOL versions -->
-		<tomcat.version>7.0.79</tomcat.version>
+		<tomcat.version>7.0.84</tomcat.version>
 		<tomcat-dbcp.version>${tomcat.version}</tomcat-dbcp.version>
 		<tomcat-jdbc.version>${tomcat.version}</tomcat-jdbc.version>
 		<!-- RESOURCE-BUNDLES-DATA versions -->
-		<resource-bundles-data.version>5.1.0</resource-bundles-data.version>
+		<resource-bundles-data.version>5.2.0</resource-bundles-data.version>
 		<resource-bundles-business.version>${resource-bundles-data.version}</resource-bundles-business.version>
 		<resource-bundles-entities.version>${resource-bundles-data.version}</resource-bundles-entities.version>
 		<resource-bundles-domain.version>${resource-bundles-data.version}</resource-bundles-domain.version>
+		<resource-bundles-domain-model.version>${resource-bundles-data.version}</resource-bundles-domain-model.version>
 		<resource-bundles-rest-api.version>${resource-bundles-data.version}</resource-bundles-rest-api.version>
 		<!-- PERSISTENCE-API versions -->
-		<persistence-api.version>5.0.0</persistence-api.version>
+		<persistence-api.version>5.4.1</persistence-api.version>
 		<data-initialization.version>${persistence-api.version}</data-initialization.version>
 		<!-- PROJECT RELATED PROPERTIES -->
 		<full-app-name>bundle-app-ui</full-app-name>
 		<info.appName>bundle-app-ui</info.appName>
+		<info.appsubpath>bundle-app-ui/standard</info.appsubpath>
 		<main-app-package-name>de.alpharogroup.bundle.app</main-app-package-name>
 		<main-full-app-name>${main-app-package-name}.MainApplication</main-full-app-name>
 		<file-name-with-dependencies>${full-app-name}-jar-with-dependencies.jar</file-name-with-dependencies>
@@ -70,6 +74,11 @@
 				<version>${miglayout-swing.version}</version>
 			</dependency>
 			<!-- STATE DESIGN-PATTERN DEPENDENCIES -->
+			<dependency>
+				<groupId>de.alpharogroup</groupId>
+				<artifactId>observer</artifactId>
+				<version>${observer.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>state</artifactId>
@@ -93,7 +102,6 @@
 				<artifactId>guava</artifactId>
 				<version>${guava.version}</version>
 			</dependency>
-
 			<!-- RESOURCE-BUNDLES-DATA DEPENDENCIES -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
@@ -112,13 +120,18 @@
 				<artifactId>resource-bundles-domain</artifactId>
 				<version>${resource-bundles-domain.version}</version>
 			</dependency>
+			
+			<dependency>
+				<groupId>de.alpharogroup</groupId>
+				<artifactId>resource-bundles-domain-model</artifactId>
+				<version>${resource-bundles-domain-model.version}</version>
+			</dependency>
 
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>resource-bundles-rest-api</artifactId>
 				<version>${resource-bundles-rest-api.version}</version>
 			</dependency>
-
 			<!-- SPRING DEPENDENCIES -->
 			<dependency>
 				<groupId>org.springframework</groupId>
@@ -131,6 +144,19 @@
 				<artifactId>spring-web</artifactId>
 				<version>${spring.version}</version>
 			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context-support</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
 			<!-- PERSISTENCE-API DEPENDENCIES -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
@@ -163,9 +189,15 @@
 			</dependency>
 
 			<dependency>
-				<groupId>org.hibernate</groupId>
+				<groupId>org.hibernate.validator</groupId>
 				<artifactId>hibernate-validator</artifactId>
 				<version>${hibernate-validator.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>javax.validation</groupId>
+				<artifactId>validation-api</artifactId>
+				<version>${validation-api.version}</version>
 			</dependency>
 
 			<dependency>
@@ -203,6 +235,10 @@
 			<artifactId>miglayout-swing</artifactId>
 		</dependency>
 		<!-- STATE DESIGN-PATTERN DEPENDENCIES -->
+		<dependency>
+			<groupId>de.alpharogroup</groupId>
+			<artifactId>observer</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>de.alpharogroup</groupId>
 			<artifactId>state</artifactId>
@@ -252,6 +288,16 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+		</dependency>
 		<!-- PERSISTENCE-API DEPENDENCIES -->
 		<dependency>
 			<groupId>de.alpharogroup</groupId>
@@ -279,10 +325,14 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>cglib</groupId>
 			<artifactId>cglib</artifactId>

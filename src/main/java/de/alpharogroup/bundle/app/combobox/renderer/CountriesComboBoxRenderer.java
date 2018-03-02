@@ -7,27 +7,29 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
-import de.alpharogroup.check.Check;
+import de.alpharogroup.db.resource.bundles.entities.Countries;
+import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
+import de.alpharogroup.resourcebundle.locale.LocaleExtensions;
 
-public class LocalesComboBoxRenderer extends JLabel implements ListCellRenderer<Locale>
+public class CountriesComboBoxRenderer extends JLabel implements ListCellRenderer<Countries>
 {
 
 	private static final long serialVersionUID = 1L;
-	private final Model<Locale> model;
+	private Model<Countries> model;
 
-	public LocalesComboBoxRenderer(final Model<Locale> model)
+	public CountriesComboBoxRenderer()
 	{
 		setOpaque(true);
-		Check.get().notNull(model, "model");
-		this.model = model;
+		model = BaseModel.of();
 		setHorizontalAlignment(CENTER);
 		setVerticalAlignment(CENTER);
 	}
 
 	@Override
-	public Component getListCellRendererComponent(final JList<? extends Locale> list,
-		final Locale value, final int index, final boolean isSelected, final boolean cellHasFocus)
+	public Component getListCellRendererComponent(final JList<? extends Countries> list,
+		final Countries value, final int index, final boolean isSelected,
+		final boolean cellHasFocus)
 	{
 
 		if (isSelected)
@@ -37,19 +39,19 @@ public class LocalesComboBoxRenderer extends JLabel implements ListCellRenderer<
 		}
 		else
 		{
-			if(list != null) {
+			if (list != null)
+			{
 				setBackground(list.getBackground());
 				setForeground(list.getForeground());
 			}
 		}
-		String locale = "";
+		String country = "";
 		model.setObject(value);
 		if (value != null)
 		{
-			final String englishName = value.getDisplayName(Locale.ENGLISH);
-			locale = englishName;
+			country = LocaleExtensions.getCountryName(value.getIso3166A2name(), Locale.ENGLISH);
 		}
-		setText(locale);
+		setText(country);
 
 		return this;
 	}

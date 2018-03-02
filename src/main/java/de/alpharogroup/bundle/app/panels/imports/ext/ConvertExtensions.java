@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-import de.alpharogroup.collections.list.ListExtensions;
+import de.alpharogroup.collections.CollectionExtensions;
 import de.alpharogroup.collections.pairs.KeyValuePair;
 import de.alpharogroup.collections.pairs.Triple;
 import de.alpharogroup.comparators.NullCheckComparator;
@@ -29,7 +29,7 @@ public class ConvertExtensions
 		final List<KeyValuePair<File, Locale>> foundProperties)
 	{
 		final List<Triple<File, Locale, KeyValuePair<Boolean, File>>> list = new ArrayList<>();
-		if (ListExtensions.isNotEmpty(foundProperties))
+		if (CollectionExtensions.isNotEmpty(foundProperties))
 		{
 			for (final KeyValuePair<File, Locale> pair : foundProperties)
 			{

@@ -223,7 +223,12 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 			{
 				if (dir)
 				{
-					final Locale defaultLocale = getModelObject().getDefaultLocale();
+					ApplicationDashboardBean mo = getModelObject();
+					BundleApplications bundleApplications = SpringApplicationContext.getInstance()
+						.getBundleApplicationsService().get(mo.getBundleApplication().getId());
+					final Locale defaultLocale = SpringApplicationContext.getInstance()
+						.getLanguageLocalesService()
+						.resolveLocale(bundleApplications.getDefaultLocale());
 					final PropertiesListResolver resolver1 = new PropertiesListResolver(
 						resourceBundleToImport, defaultLocale);
 					resolver1.resolve();
@@ -233,7 +238,6 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 					getModelObject()
 						.setFoundProperties(ConvertExtensions.convertAndSort(propertiesList));
 
-					// TODO change to new panel for overview of import... ---start
 					// 1. create bundleapp
 					final BundleApplicationsService bundleApplicationsService = SpringApplicationContext
 						.getInstance().getBundleApplicationsService();
@@ -268,8 +272,6 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 						}
 					}
 					bundleApplication = bundleApplicationsService.merge(bundleApplication);
-					// TODO ---end
-
 				}
 				else
 				{
@@ -289,7 +291,7 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 			}
 			catch (final IOException e)
 			{
-				log.error("", e);
+				log.error(e.getLocalizedMessage(), e);
 			}
 		}
 	}

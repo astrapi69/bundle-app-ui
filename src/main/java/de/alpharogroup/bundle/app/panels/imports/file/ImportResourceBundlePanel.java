@@ -65,7 +65,7 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 		final Locale locale = LocaleResolver
 			.resolveLocale(getModelObject().getResourceBundleToImport());
 		BundleApplications bundleApplication = getModelObject().getBundleApplication();
-		SpringApplicationContext.get().getResourcebundlesService().updateProperties(
+		SpringApplicationContext.getInstance().getResourcebundlesService().updateProperties(
 			bundleApplication, getModelObject().getImportedProperties(), baseName, locale);
 	}
 

@@ -43,7 +43,6 @@ import de.alpharogroup.db.resource.bundles.service.api.LanguageLocalesService;
 import de.alpharogroup.db.resource.bundles.service.api.LanguagesService;
 import de.alpharogroup.db.resource.bundles.service.api.PropertiesKeysService;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -61,19 +60,9 @@ public class SpringApplicationContext
 	 *
 	 * @return single instance of SpringApplicationContext
 	 */
-	public static SpringApplicationContext get()
-	{
-		return instance;
-	}
-
-	/**
-	 * Gets the single instance of SpringApplicationContext.
-	 *
-	 * @return single instance of SpringApplicationContext
-	 */
 	public static SpringApplicationContext getInstance()
 	{
-		return get();
+		return instance;
 	}
 
 	private BundleNamesService bundleNamesService;
@@ -87,25 +76,24 @@ public class SpringApplicationContext
 	private LanguageLocalesService languageLocalesService;
 
 	/** The application context. */
-	@Getter
 	private final ApplicationContext applicationContext;
+
+	public ApplicationContext getApplicationContext()
+	{
+		return applicationContext;
+	}
 
 	/**
 	 * Instantiates a new spring application context.
 	 */
 	private SpringApplicationContext()
 	{
+		final String applicationContextPath = "application-context.xml";
 
-		final String rootContextDirectoryClassPath = "/ctx";
-
-		final String applicationContextPath = rootContextDirectoryClassPath
-			+ "/application-context.xml";
-
-		final ApplicationContext ac = new ClassPathXmlApplicationContext(applicationContextPath);
+		final ApplicationContext ac =
+			new ClassPathXmlApplicationContext(applicationContextPath);
 
 		final Resource resource = ac.getResource("classpath:conf/log4j/log4jconfig.xml");
-
-		// initDb(ac);
 
 		try
 		{
@@ -180,7 +168,7 @@ public class SpringApplicationContext
 			.getBean("languageLocalesService");
 		final BundleApplicationsService bundleApplicationsService = getBundleApplicationsService();
 
-		final List<Languages> languages = DataObjectFactory.newLanguageList();
+		final List<Languages> languages = DataObjectFactory.newLanguages();
 		for (final Languages language : languages)
 		{
 			final Languages found = languagesService.find(language.getName(),
