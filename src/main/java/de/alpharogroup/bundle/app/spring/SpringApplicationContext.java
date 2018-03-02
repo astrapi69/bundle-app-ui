@@ -168,7 +168,7 @@ public class SpringApplicationContext
 			.getBean("languageLocalesService");
 		final BundleApplicationsService bundleApplicationsService = getBundleApplicationsService();
 
-		final List<Languages> languages = DataObjectFactory.newLanguageList();
+		final List<Languages> languages = DataObjectFactory.newLanguages();
 		for (final Languages language : languages)
 		{
 			final Languages found = languagesService.find(language.getName(),
