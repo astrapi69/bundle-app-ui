@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 
@@ -13,15 +14,17 @@ import de.alpharogroup.bundle.app.MainFrame;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardContentPanel;
 import de.alpharogroup.bundle.app.panels.dashboard.mainapp.MainDashboardBean;
-import de.alpharogroup.bundle.app.table.model.StringBundleApplicationsTableModel;
-import de.alpharogroup.collections.pairs.KeyValuePair;
+import de.alpharogroup.bundle.app.panels.dashboard.mainapp.MainDashboardPanel;
+import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
+import de.alpharogroup.bundle.app.table.model.StringBundleApplicationsBundleApplicationsTableModel;
+import de.alpharogroup.collections.pairs.Triple;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.model.BaseModel;
+import de.alpharogroup.model.PropertyModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BasePanel;
 import de.alpharogroup.swing.renderer.TableCellButtonRenderer;
 import de.alpharogroup.swing.table.editor.TableCellButtonEditor;
-import de.alpharogroup.swing.table.model.TableColumnsModel;
 import de.alpharogroup.swing.x.GenericJXTable;
 import lombok.Getter;
 
@@ -37,11 +40,11 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 	private javax.swing.JLabel lblHeaderOverview;
 	private javax.swing.JScrollPane srcBundleApps;
 
-	private StringBundleApplicationsTableModel tableModel;
+	private StringBundleApplicationsBundleApplicationsTableModel tableModel;
 
-	private GenericJXTable<KeyValuePair<String, BundleApplications>> tblBundleApps;
+	private GenericJXTable<Triple<String, BundleApplications, BundleApplications>> tblBundleApps;
 
-	private List<KeyValuePair<String, BundleApplications>> tableModelList;
+	private List<Triple<String, BundleApplications, BundleApplications>> tableModelList;
 
 	public OverviewOfAllBundleApplicationsPanel()
 	{
@@ -53,7 +56,7 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 		super(model);
 	}
 
-	private List<KeyValuePair<String, BundleApplications>> getTableModelList()
+	private List<Triple<String, BundleApplications, BundleApplications>> getTableModelList()
 	{
 		if (tableModelList == null)
 		{
@@ -61,8 +64,8 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 			for (final BundleApplications bundleApplication : getModelObject()
 				.getBundleApplications())
 			{
-				tableModelList.add(KeyValuePair.<String, BundleApplications> builder()
-					.key(bundleApplication.getName()).value(bundleApplication).build());
+				tableModelList.add(Triple.<String, BundleApplications, BundleApplications> builder()
+					.left(bundleApplication.getName()).middle(bundleApplication).right(bundleApplication).build());
 			}
 		}
 		return tableModelList;
@@ -81,13 +84,13 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 		lblBundleApp = new javax.swing.JLabel();
 		srcBundleApps = new javax.swing.JScrollPane();
 
-		tableModel = new StringBundleApplicationsTableModel(TableColumnsModel.builder()
-			.columnNames(new String[] { "Name", "Action" }).canEdit(new boolean[] { false, true })
-			.columnClasses(new Class<?>[] { String.class, BundleApplications.class }).build());
+		tableModel = new StringBundleApplicationsBundleApplicationsTableModel();
+		
 		tableModel.addList(getTableModelList());
 		tblBundleApps = new GenericJXTable<>(tableModel);
-		final TableColumn valueColumn = tblBundleApps.getColumn("Action");
-		valueColumn.setCellRenderer(new TableCellButtonRenderer(null, null)
+		
+		final TableColumn chooseColumn = tblBundleApps.getColumn("Choose");
+		chooseColumn.setCellRenderer(new TableCellButtonRenderer(null, null)
 		{
 			private static final long serialVersionUID = 1L;
 
@@ -110,7 +113,7 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 				return this;
 			}
 		});
-		valueColumn.setCellEditor(new TableCellButtonEditor(new JCheckBox())
+		chooseColumn.setCellEditor(new TableCellButtonEditor(new JCheckBox())
 		{
 			private static final long serialVersionUID = 1L;
 
@@ -156,6 +159,85 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 				return getButton();
 			}
 		});
+		
+		final TableColumn deleteColumn = tblBundleApps.getColumn("Delete");
+		deleteColumn.setCellRenderer(new TableCellButtonRenderer(null, null)
+		{
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public Component getTableCellRendererComponent(final JTable table, final Object value,
+				final boolean isSelected, final boolean hasFocus, final int row, final int column)
+			{
+				if (isSelected)
+				{
+					setForeground(newSelectionForeground(table));
+					setBackground(newSelectionBackround(table));
+				}
+				else
+				{
+					setForeground(newForeground(table));
+					setBackground(newBackround(table));
+				}
+				final String text = "Delete";
+				setText(text);
+				return this;
+			}
+		});
+		
+		deleteColumn.setCellEditor(new TableCellButtonEditor(new JCheckBox())
+		{
+			private static final long serialVersionUID = 1L;
+			
+			@Override
+			protected void onClick()
+			{
+				try
+				{
+					super.onClick();
+				}
+				catch (IndexOutOfBoundsException e)
+				{
+					e.printStackTrace();
+				}
+			}
+			
+			@Override
+			public Object getCellEditorValue()
+			{
+				final BundleApplications selectedBundleApplication = (BundleApplications)this
+					.getValue();
+				onDelete(selectedBundleApplication);
+
+				final String text = "Delete";
+				return text;
+
+			}
+
+			@Override
+			public Component getTableCellEditorComponent(final JTable table, final Object value,
+				final boolean isSelected, final int row, final int column)
+			{
+				setRow(row);
+				setColumn(column);
+				setValue(value);
+				if (isSelected)
+				{
+					getButton().setForeground(table.getSelectionForeground());
+					getButton().setBackground(table.getSelectionBackground());
+				}
+				else
+				{
+					getButton().setForeground(table.getForeground());
+					getButton().setBackground(table.getBackground());
+				}
+				final String text = "Delete";
+				getButton().setText(text);
+				setClicked(true);
+				return getButton();
+			}
+		});
+		
 		btnCreateBundleApp = new javax.swing.JButton();
 
 		lblHeaderOverview.setText("Overview of all bundle applications");
@@ -168,6 +250,18 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 		btnCreateBundleApp.addActionListener(e -> onCreateBundleApp(e));
 
 
+	}	
+
+	protected void reloadTableModel()
+	{
+		tableModel.getData().clear();
+
+		final List<BundleApplications> bundleApplications = SpringApplicationContext.getInstance()
+			.getBundleApplicationsService().findAll();
+		getModelObject().setBundleApplications(bundleApplications);
+		
+		tableModelList = null;
+		tableModel.addList(getTableModelList());
 	}
 
 	@Override
@@ -213,6 +307,27 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 								500, javax.swing.GroupLayout.PREFERRED_SIZE))
 						.addComponent(btnCreateBundleApp))
 					.addContainerGap(40, Short.MAX_VALUE)));
+	}
+	
+
+	protected void onDelete(final BundleApplications selectedBundleApplication)
+	{
+		int dialogResult = JOptionPane.showConfirmDialog(null,
+			"This will delete this bundle application and is not recoverable?(cannot be undone)",
+			"Warning", JOptionPane.YES_NO_OPTION);
+		if (dialogResult == JOptionPane.YES_OPTION)
+		{
+
+			SpringApplicationContext
+			.getInstance().getBundleApplicationsService().delete(selectedBundleApplication);				
+
+			final List<BundleApplications> bundleApplications = SpringApplicationContext.getInstance()
+				.getBundleApplicationsService().findAll();
+			MainFrame.getInstance().getModelObject().setBundleApplications(bundleApplications);
+			MainFrame.getInstance().replaceInternalFrame("Overview bundle apps", new MainDashboardPanel(
+				PropertyModel.<MainDashboardBean> of(MainFrame.getInstance(), "model.object")));
+
+		}
 	}
 
 }
