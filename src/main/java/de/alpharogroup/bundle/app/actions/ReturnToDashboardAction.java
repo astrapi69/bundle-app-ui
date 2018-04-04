@@ -29,6 +29,11 @@ public class ReturnToDashboardAction extends AbstractAction
 	@Override
 	public void actionPerformed(final ActionEvent e)
 	{
+		now();
+	}
+
+	public void now()
+	{
 		final Model<ApplicationDashboardBean> baModel = MainFrame.getInstance()
 			.getSelectedBundleApplicationPropertyModel();
 
@@ -50,7 +55,6 @@ public class ReturnToDashboardAction extends AbstractAction
 				new MainDashboardPanel(
 					PropertyModel.<MainDashboardBean> of(MainFrame.getInstance(), "model.object")));
 		}
-
 	}
 
 }
