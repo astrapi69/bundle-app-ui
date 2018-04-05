@@ -12,6 +12,8 @@ import de.alpharogroup.swing.table.model.quattro.QuattroTableModel;
 public class StringBundleNamesTableModel extends QuattroTableModel<String, String, BundleNames, BundleNames>
 {
 
+	public static final String DELETE_COLUMN_NAME = "Delete";
+	public static final String CHOOSE_COLUMN_NAME = "Choose";
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
@@ -21,7 +23,7 @@ public class StringBundleNamesTableModel extends QuattroTableModel<String, Strin
 	public StringBundleNamesTableModel()
 	{
 		this(TableColumnsModel.builder()
-			.columnNames(new String[] { "Base name", "Locale", "Choose", "Delete" })
+			.columnNames(new String[] { "Base name", "Locale", CHOOSE_COLUMN_NAME, DELETE_COLUMN_NAME })
 			.canEdit(new boolean[] { false, false, true, true })
 			.columnClasses(new Class<?>[] { String.class, String.class, BundleNames.class, BundleNames.class })
 			.build());

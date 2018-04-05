@@ -86,7 +86,7 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 
 		tblBundles = new GenericJXTable<>(tableModel);
 
-		final TableColumn chooseColumn = tblBundles.getColumn("Choose");
+		final TableColumn chooseColumn = tblBundles.getColumn(StringBundleNamesTableModel.CHOOSE_COLUMN_NAME);
 
 		chooseColumn.setCellRenderer(new TableCellButtonRenderer(null, null)
 		{
@@ -106,7 +106,7 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 					setForeground(newForeground(table));
 					setBackground(newBackround(table));
 				}
-				final String text = "Choose";
+				final String text = StringBundleNamesTableModel.CHOOSE_COLUMN_NAME;
 				setText(text);
 				return this;
 			}
@@ -133,7 +133,7 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 						+ " with locale " + selectedBundleName.getLocale().getLocale() + "",
 					component);
 
-				final String text = "Choose";
+				final String text = StringBundleNamesTableModel.CHOOSE_COLUMN_NAME;
 				return text;
 
 			}
@@ -155,14 +155,14 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 					getButton().setForeground(table.getForeground());
 					getButton().setBackground(table.getBackground());
 				}
-				final String text = "Choose";
+				final String text = StringBundleNamesTableModel.CHOOSE_COLUMN_NAME;
 				getButton().setText(text);
 				setClicked(true);
 				return getButton();
 			}
 		});
 
-		final TableColumn deleteColumn = tblBundles.getColumn("Delete");
+		final TableColumn deleteColumn = tblBundles.getColumn(StringBundleNamesTableModel.DELETE_COLUMN_NAME);
 
 		deleteColumn.setCellRenderer(new TableCellButtonRenderer(null, null)
 		{
@@ -182,7 +182,7 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 					setForeground(newForeground(table));
 					setBackground(newBackround(table));
 				}
-				final String text = "Delete";
+				final String text = StringBundleNamesTableModel.DELETE_COLUMN_NAME;
 				setText(text);
 				return this;
 			}
@@ -196,7 +196,7 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 			{
 				final BundleNames selectedBundleName = (BundleNames)this.getValue();
 				onDelete(selectedBundleName);
-				final String text = "Delete";
+				final String text = StringBundleNamesTableModel.DELETE_COLUMN_NAME;
 				return text;
 			}
 
@@ -217,7 +217,7 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 					getButton().setForeground(table.getForeground());
 					getButton().setBackground(table.getBackground());
 				}
-				final String text = "Delete";
+				final String text = StringBundleNamesTableModel.DELETE_COLUMN_NAME;
 				getButton().setText(text);
 				setClicked(true);
 				return getButton();

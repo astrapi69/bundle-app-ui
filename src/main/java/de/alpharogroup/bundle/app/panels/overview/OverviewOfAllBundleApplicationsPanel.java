@@ -89,7 +89,7 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 		tableModel.addList(getTableModelList());
 		tblBundleApps = new GenericJXTable<>(tableModel);
 		
-		final TableColumn chooseColumn = tblBundleApps.getColumn("Choose");
+		final TableColumn chooseColumn = tblBundleApps.getColumn(StringBundleApplicationsBundleApplicationsTableModel.CHOOSE_COLUMN_NAME);
 		chooseColumn.setCellRenderer(new TableCellButtonRenderer(null, null)
 		{
 			private static final long serialVersionUID = 1L;
@@ -108,7 +108,7 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 					setForeground(newForeground(table));
 					setBackground(newBackround(table));
 				}
-				final String text = "Choose";
+				final String text = StringBundleApplicationsBundleApplicationsTableModel.CHOOSE_COLUMN_NAME;
 				setText(text);
 				return this;
 			}
@@ -153,14 +153,14 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 					getButton().setForeground(table.getForeground());
 					getButton().setBackground(table.getBackground());
 				}
-				final String text = "Choose";
+				final String text = StringBundleApplicationsBundleApplicationsTableModel.CHOOSE_COLUMN_NAME;
 				getButton().setText(text);
 				setClicked(true);
 				return getButton();
 			}
 		});
 		
-		final TableColumn deleteColumn = tblBundleApps.getColumn("Delete");
+		final TableColumn deleteColumn = tblBundleApps.getColumn(StringBundleApplicationsBundleApplicationsTableModel.DELETE_COLUMN_NAME);
 		deleteColumn.setCellRenderer(new TableCellButtonRenderer(null, null)
 		{
 			private static final long serialVersionUID = 1L;
@@ -179,7 +179,7 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 					setForeground(newForeground(table));
 					setBackground(newBackround(table));
 				}
-				final String text = "Delete";
+				final String text = StringBundleApplicationsBundleApplicationsTableModel.DELETE_COLUMN_NAME;
 				setText(text);
 				return this;
 			}
@@ -209,7 +209,7 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 					.getValue();
 				onDelete(selectedBundleApplication);
 
-				final String text = "Delete";
+				final String text = StringBundleApplicationsBundleApplicationsTableModel.DELETE_COLUMN_NAME;
 				return text;
 
 			}
@@ -231,7 +231,7 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 					getButton().setForeground(table.getForeground());
 					getButton().setBackground(table.getBackground());
 				}
-				final String text = "Delete";
+				final String text = StringBundleApplicationsBundleApplicationsTableModel.DELETE_COLUMN_NAME;
 				getButton().setText(text);
 				setClicked(true);
 				return getButton();

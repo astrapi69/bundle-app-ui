@@ -13,6 +13,9 @@ public class StringBundleApplicationsBundleApplicationsTableModel
 	TripleTableModel<String, BundleApplications, BundleApplications>
 {
 
+	public static final String DELETE_COLUMN_NAME = "Delete";
+	public static final String CHOOSE_COLUMN_NAME = "Choose";
+
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
@@ -21,7 +24,7 @@ public class StringBundleApplicationsBundleApplicationsTableModel
 	 */
 	public StringBundleApplicationsBundleApplicationsTableModel()
 	{
-		this(TableColumnsModel.builder().columnNames(new String[] { "Name", "Choose", "Delete" })
+		this(TableColumnsModel.builder().columnNames(new String[] { "Name", CHOOSE_COLUMN_NAME, DELETE_COLUMN_NAME })
 			.canEdit(new boolean[] { false, true, true })
 			.columnClasses(new Class<?>[] { String.class, BundleApplications.class, BundleApplications.class }).build());
 	}
