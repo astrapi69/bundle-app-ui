@@ -27,11 +27,13 @@ import de.alpharogroup.swing.renderer.TableCellButtonRenderer;
 import de.alpharogroup.swing.table.editor.TableCellButtonEditor;
 import de.alpharogroup.swing.x.GenericJXTable;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * The class {@link OverviewOfAllBundleApplicationsPanel}.
  */
 @Getter
+@Slf4j
 public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboardBean>
 {
 	private static final long serialVersionUID = 1L;
@@ -198,7 +200,7 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 				}
 				catch (IndexOutOfBoundsException e)
 				{
-					e.printStackTrace();
+					log.error(e.getLocalizedMessage(), e);
 				}
 			}
 			
