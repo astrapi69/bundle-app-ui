@@ -1,6 +1,10 @@
 package de.alpharogroup.bundle.app.combobox.model;
 
-import de.alpharogroup.bundle.app.spring.DataObjectFactory;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.swing.combobox.model.AbstractComboBoxModel;
 
@@ -18,7 +22,10 @@ public class LanguageLocalesComboBoxModel extends AbstractComboBoxModel<Language
 	 * init block
 	 **/
 	{
-		setComboList(DataObjectFactory.newLanguageLocales());
+		List<LanguageLocales> languageLocales = 
+			SpringApplicationContext.getInstance().getLanguageLocalesService().findAll();
+		Collections.sort(languageLocales, Comparator.comparing(LanguageLocales::getLocale));
+		setComboList(languageLocales);
 	}
 
 	private LanguageLocalesComboBoxModel()

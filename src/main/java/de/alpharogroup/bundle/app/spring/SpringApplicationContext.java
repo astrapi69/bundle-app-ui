@@ -39,6 +39,7 @@ import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.resource.bundles.entities.Languages;
 import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
 import de.alpharogroup.db.resource.bundles.service.api.BundleNamesService;
+import de.alpharogroup.db.resource.bundles.service.api.CountriesService;
 import de.alpharogroup.db.resource.bundles.service.api.LanguageLocalesService;
 import de.alpharogroup.db.resource.bundles.service.api.LanguagesService;
 import de.alpharogroup.db.resource.bundles.service.api.PropertiesKeysService;
@@ -74,6 +75,10 @@ public class SpringApplicationContext
 	private PropertiesKeysService propertiesKeysService;
 
 	private LanguageLocalesService languageLocalesService;
+	
+	private CountriesService countriesService;
+	
+	private LanguagesService languagesService;
 
 	/** The application context. */
 	private final ApplicationContext applicationContext;
@@ -119,6 +124,26 @@ public class SpringApplicationContext
 				applicationContext, "bundleApplicationsService", BundleApplicationsService.class);
 		}
 		return bundleApplicationsService;
+	}
+
+	public CountriesService getCountriesService()
+	{
+		if (countriesService == null)
+		{
+			countriesService = SpringApplicationContextExtensions.getBean(
+				applicationContext, "countriesService", CountriesService.class);
+		}
+		return countriesService;
+	}
+
+	public LanguagesService getLanguagesService()
+	{
+		if (languagesService == null)
+		{
+			languagesService = SpringApplicationContextExtensions.getBean(
+				applicationContext, "languagesService", LanguagesService.class);
+		}
+		return languagesService;
 	}
 
 	public BundleNamesService getBundleNamesService()
