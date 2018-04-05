@@ -5,12 +5,11 @@ import static de.alpharogroup.model.typesafe.TypeSafeModel.model;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
-import java.util.Locale;
 
 import de.alpharogroup.bundle.app.MainFrame;
 import de.alpharogroup.bundle.app.actions.ReturnToDashboardAction;
-import de.alpharogroup.bundle.app.combobox.model.LocalesComboBoxModel;
-import de.alpharogroup.bundle.app.combobox.renderer.LocalesComboBoxRenderer;
+import de.alpharogroup.bundle.app.combobox.model.LanguageLocalesComboBoxModel;
+import de.alpharogroup.bundle.app.combobox.renderer.LanguageLocalesComboBoxRenderer;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
@@ -26,10 +25,9 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 {
 
 	private static final long serialVersionUID = 1L;
-
 	private javax.swing.JButton btnSave;
 	private javax.swing.JButton btnToDashboard;
-	private javax.swing.JComboBox<Locale> cmbDefaultLocale;
+	private javax.swing.JComboBox<LanguageLocales> cmbDefaultLocale;
 	private javax.swing.JLabel lbDefaultlLocale;
 	private javax.swing.JLabel lblBundleName;
 	private javax.swing.JLabel lblHeaderNewBundleApp;
@@ -45,28 +43,23 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 		super(model);
 	}
 
-	protected javax.swing.JComboBox<Locale> newCmbDefaultLocale(
+	protected javax.swing.JComboBox<LanguageLocales> newCmbDefaultLocale(
 		final Model<ApplicationDashboardBean> model)
 	{
 		ApplicationDashboardBean bean = model.getObject();
 		BundleApplications bundleApplication = bean.getBundleApplication();
-		LocalesComboBoxModel cmbModel = LocalesComboBoxModel.get();
-		Locale dl = Locale.getDefault();
+		LanguageLocalesComboBoxModel cmbModel = LanguageLocalesComboBoxModel.get();
 		if (bundleApplication != null)
 		{
 			LanguageLocales defaultLocale = bundleApplication.getDefaultLocale();
-			if (defaultLocale != null)
-			{
-				dl = SpringApplicationContext.getInstance().getLanguageLocalesService()
-					.resolveLocale(defaultLocale);
-			}
+			cmbModel.setSelectedItem(defaultLocale);
 		}
-		cmbModel.setSelectedItem(dl);
-		final javax.swing.JComboBox<Locale> cmbDefaultLocale = new javax.swing.JComboBox<>(
+		
+		final javax.swing.JComboBox<LanguageLocales> cmbDefaultLocale = new javax.swing.JComboBox<>(
 				cmbModel);
 		cmbDefaultLocale.addItemListener(e -> onChangeDefaultLocale(e));
-		final Model<Locale> defaultLocaleModel = model(from(getModel()).getDefaultLocale());
-		cmbDefaultLocale.setRenderer(new LocalesComboBoxRenderer(defaultLocaleModel));
+		final Model<LanguageLocales> defaultLocaleModel = model(from(getModel()).getDefaultLocale());
+		cmbDefaultLocale.setRenderer(new LanguageLocalesComboBoxRenderer(defaultLocaleModel));
 		return cmbDefaultLocale;
 	}
 
@@ -185,9 +178,7 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 		{
 			currentBundleApplication = getModelObject().getBundleApplication();
 			currentBundleApplication.setName(name);
-			Locale dl = getModelObject().getDefaultLocale();
-			LanguageLocales defaultLocale = SpringApplicationContext.getInstance()
-				.getLanguageLocalesService().getOrCreateNewLanguageLocales(dl);
+			LanguageLocales defaultLocale = getModelObject().getDefaultLocale();
 			if (currentBundleApplication.getDefaultLocale() != null)
 			{
 				if (!currentBundleApplication.getDefaultLocale().equals(defaultLocale))
@@ -208,9 +199,7 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 			BundleApplications newBundleApplication = bundleApplicationsService.find(name);
 			if (newBundleApplication == null)
 			{
-				Locale dl = getModelObject().getDefaultLocale();
-				LanguageLocales defaultLocale = SpringApplicationContext.getInstance()
-					.getLanguageLocalesService().find(dl);
+				LanguageLocales defaultLocale = getModelObject().getDefaultLocale();
 
 				newBundleApplication = BundleApplications.builder().name(name)
 					.defaultLocale(defaultLocale).build();

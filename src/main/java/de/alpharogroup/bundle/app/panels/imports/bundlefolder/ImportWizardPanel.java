@@ -17,6 +17,7 @@ import de.alpharogroup.collections.pairs.KeyValuePair;
 import de.alpharogroup.collections.pairs.Triple;
 import de.alpharogroup.collections.properties.PropertiesExtensions;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
+import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import de.alpharogroup.design.pattern.observer.event.EventListener;
@@ -166,8 +167,9 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 	private void startResolving() throws IOException
 	{
 		final File rootDir = getModelObject().getRootDir();
-		final Locale defaultLocale = getModelObject().getDefaultLocale();
-		final PropertiesListResolver resolver1 = new PropertiesListResolver(rootDir, defaultLocale);
+		final LanguageLocales defaultLocale = getModelObject().getDefaultLocale();
+		Locale locale = SpringApplicationContext.getInstance().getLanguageLocalesService().resolveLocale(defaultLocale);
+		final PropertiesListResolver resolver1 = new PropertiesListResolver(rootDir, locale);
 		resolver1.resolve();
 		final List<KeyValuePair<File, Locale>> propertiesList = resolver1.getPropertiesList();
 		getModelObject().setFoundProperties(ConvertExtensions.convertAndSort(propertiesList));

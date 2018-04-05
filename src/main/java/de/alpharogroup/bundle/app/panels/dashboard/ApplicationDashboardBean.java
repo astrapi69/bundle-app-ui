@@ -11,6 +11,7 @@ import de.alpharogroup.collections.pairs.KeyValuePair;
 import de.alpharogroup.collections.pairs.Triple;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
+import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -35,7 +36,7 @@ public class ApplicationDashboardBean
 
 	BundleApplications bundleApplication;
 
-	Locale defaultLocale;
+	LanguageLocales defaultLocale;
 
 	BundleNames selectedBundleName;
 

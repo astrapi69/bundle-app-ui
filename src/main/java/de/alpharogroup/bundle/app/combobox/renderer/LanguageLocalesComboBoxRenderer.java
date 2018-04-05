@@ -58,7 +58,8 @@ public class LanguageLocalesComboBoxRenderer extends JLabel
 			locale = value.getLocale();
 			final Locale localeObj = LocaleResolver.resolveLocale(locale);
 			final String englishName = localeObj.getDisplayName(Locale.ENGLISH);
-			locale = englishName;
+			String englishNameAndLocaleCode = englishName +"["+ locale +"]";
+			locale = englishNameAndLocaleCode;
 		}
 		setText(locale);
 
