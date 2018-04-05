@@ -1,6 +1,8 @@
 package de.alpharogroup.bundle.app.spring;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +19,11 @@ import lombok.experimental.UtilityClass;
 public class DataObjectFactory
 {
 
+	/**
+	 * Factory method for create an initial {@link List} of {@link Countries} objects.
+	 *
+	 * @return the created {@link List} with the {@link Countries} objects.
+	 */
 	public static List<Countries> newAvailableCountries() {
 		final Map<String, String> countriesMap = new LinkedHashMap<>();
 		countriesMap.put("AE", "United Arab Emirates");
@@ -140,13 +147,14 @@ public class DataObjectFactory
 				Countries.builder().name(entry.getValue())
 				.iso3166a2name(entry.getKey()).build());
 		}
+		Collections.sort(countries, Comparator.comparing(Countries::getName));
 		return countries;
 	}
 	
 	/**
-	 * Factory method for create initial list of {@link Languages} objects.
+	 * Factory method for create an initial {@link List} of {@link Languages} objects.
 	 *
-	 * @return the created list with the {@link Languages} objects.
+	 * @return the created {@link List} with the {@link Languages} objects.
 	 */
 	public static List<Languages> newLanguages()
 	{
@@ -343,13 +351,14 @@ public class DataObjectFactory
 			languages.add(
 				Languages.builder().name(entry.getValue()).iso639Dash1(entry.getKey()).build());
 		}
+		Collections.sort(languages, Comparator.comparing(Languages::getName));
 		return languages;
 	}
 
 	/**
-	 * Factory method for create initial list of {@link LanguageLocales} objects.
+	 * Factory method for create an initial {@link List} of {@link LanguageLocales} objects.
 	 *
-	 * @return the created list with the {@link LanguageLocales} objects.
+	 * @return the created {@link List} with the {@link LanguageLocales} objects.
 	 */
 	public static List<LanguageLocales> newLanguageLocales()
 	{
@@ -509,6 +518,7 @@ public class DataObjectFactory
 		languageLocales.add(LanguageLocales.builder().locale("zh_HK").build());
 		languageLocales.add(LanguageLocales.builder().locale("zh_SG").build());
 		languageLocales.add(LanguageLocales.builder().locale("zh_TW").build());
+		Collections.sort(languageLocales, Comparator.comparing(LanguageLocales::getLocale));
 		return languageLocales;
 	}
 }
