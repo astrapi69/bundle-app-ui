@@ -3,13 +3,13 @@ package de.alpharogroup.bundle.app.table.model;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.swing.table.model.TableColumnsModel;
-import de.alpharogroup.swing.table.model.triple.TripleTableModel;
+import de.alpharogroup.swing.table.model.quattro.QuattroTableModel;
 
 /**
  * The class {@link StringBundleNamesTableModel} that lists key value pairs which the key is the
  * name of the bundle application and the value is the {@link BundleApplications} it self.
  */
-public class StringBundleNamesTableModel extends TripleTableModel<String, String, BundleNames>
+public class StringBundleNamesTableModel extends QuattroTableModel<String, String, BundleNames, BundleNames>
 {
 
 	/** The Constant serialVersionUID. */
@@ -21,9 +21,9 @@ public class StringBundleNamesTableModel extends TripleTableModel<String, String
 	public StringBundleNamesTableModel()
 	{
 		this(TableColumnsModel.builder()
-			.columnNames(new String[] { "Base name", "Locale", "Action" })
-			.canEdit(new boolean[] { false, false, true })
-			.columnClasses(new Class<?>[] { String.class, String.class, BundleNames.class })
+			.columnNames(new String[] { "Base name", "Locale", "Choose", "Delete" })
+			.canEdit(new boolean[] { false, false, true, true })
+			.columnClasses(new Class<?>[] { String.class, String.class, BundleNames.class, BundleNames.class })
 			.build());
 	}
 
