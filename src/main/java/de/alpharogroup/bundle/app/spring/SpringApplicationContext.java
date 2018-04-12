@@ -26,7 +26,10 @@ package de.alpharogroup.bundle.app.spring;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
 import javax.xml.parsers.FactoryConfigurationError;
 
 import org.apache.log4j.xml.DOMConfigurator;
@@ -34,7 +37,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.Resource;
 
+import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardContentPanel;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
+import de.alpharogroup.db.resource.bundles.entities.Countries;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.resource.bundles.entities.Languages;
 import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
@@ -44,6 +49,7 @@ import de.alpharogroup.db.resource.bundles.service.api.LanguageLocalesService;
 import de.alpharogroup.db.resource.bundles.service.api.LanguagesService;
 import de.alpharogroup.db.resource.bundles.service.api.PropertiesKeysService;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -65,6 +71,10 @@ public class SpringApplicationContext
 	{
 		return instance;
 	}
+	
+	@PersistenceUnit
+	@Getter
+	private EntityManagerFactory entityManagerFactory;
 
 	private BundleNamesService bundleNamesService;
 
@@ -184,14 +194,11 @@ public class SpringApplicationContext
 				"resourcebundlesService", ResourcebundlesService.class);
 		}
 		return resourcebundlesService;
-	}
+	}	
 
-	protected void initDb(final ApplicationContext ac)
+	protected void initLanguages()
 	{
-		final LanguagesService languagesService = (LanguagesService)ac.getBean("languagesService");
-		final LanguageLocalesService languageLocalesService = (LanguageLocalesService)ac
-			.getBean("languageLocalesService");
-		final BundleApplicationsService bundleApplicationsService = getBundleApplicationsService();
+		final LanguagesService languagesService = getLanguagesService();
 
 		final List<Languages> languages = DataObjectFactory.newLanguages();
 		for (final Languages language : languages)
@@ -203,25 +210,27 @@ public class SpringApplicationContext
 				languagesService.merge(language);
 			}
 		}
-		final List<LanguageLocales> languageLocales = DataObjectFactory.newLanguageLocales();
+	}
 
-		for (final LanguageLocales languageLocale : languageLocales)
+	public void initDb()
+	{
+		initCountries();
+		initLanguages();
+	}
+	
+	protected void initCountries() {
+		CountriesService countriesService = getCountriesService();
+		List<Countries> availableCountries = DataObjectFactory.newCountries();
+		for (Countries countries : availableCountries)
 		{
-			final LanguageLocales found = languageLocalesService.find(languageLocale.getLocale());
-			if (found == null)
+			Countries foundCountry = countriesService.find(countries.getIso3166A2name());
+			if (foundCountry == null)
 			{
-				languageLocalesService.merge(languageLocale);
+				countriesService.merge(countries);
 			}
 		}
-
-		BundleApplications baseBundleApplication = bundleApplicationsService
-			.find(BundleApplications.BASE_BUNDLE_APPLICATION);
-		if (baseBundleApplication == null)
-		{
-			baseBundleApplication = BundleApplications.builder()
-				.name(BundleApplications.BASE_BUNDLE_APPLICATION).build();
-			baseBundleApplication = bundleApplicationsService.merge(baseBundleApplication);
-		}
 	}
+	
+	
 
 }

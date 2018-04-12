@@ -27,6 +27,7 @@ package de.alpharogroup.bundle.app;
 import java.awt.Component;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
 
 import javax.imageio.ImageIO;
 import javax.swing.JDesktopPane;
@@ -165,6 +166,9 @@ public class MainFrame extends BaseFrame<MainDashboardBean>
 
 		final ApplicationContext applicationContext = SpringApplicationContext.getInstance()
 			.getApplicationContext();
+		
+
+		SpringApplicationContext.getInstance().initDb();
 
 		final BundleApplicationsService bundleApplicationsService = (BundleApplicationsService)applicationContext
 			.getBean("bundleApplicationsService");
