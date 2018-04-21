@@ -5,11 +5,15 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
+import de.alpharogroup.collections.list.ListExtensions;
 import de.alpharogroup.db.resource.bundles.entities.Countries;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.resource.bundles.entities.Languages;
+import de.alpharogroup.resourcebundle.locale.LocaleExtensions;
+import de.alpharogroup.resourcebundle.locale.LocaleResolver;
 import lombok.experimental.UtilityClass;
 
 /**
@@ -17,7 +21,7 @@ import lombok.experimental.UtilityClass;
  */
 @UtilityClass
 public class DataObjectFactory
-{	
+{
 
 	/**
 	 * Factory method for create an initial {@link List} of {@link Countries} objects.
@@ -287,13 +291,14 @@ public class DataObjectFactory
 		Collections.sort(countries, Comparator.comparing(Countries::getName));
 		return countries;
 	}
-	
+
 	/**
 	 * Factory method for create an initial {@link List} of {@link Countries} objects.
 	 *
 	 * @return the created {@link List} with the {@link Countries} objects.
 	 */
-	public static List<Countries> newAvailableCountries() {
+	public static List<Countries> newAvailableCountries()
+	{
 		final Map<String, String> countriesMap = new LinkedHashMap<>();
 		countriesMap.put("AE", "United Arab Emirates");
 		countriesMap.put("JO", "Jordan");
@@ -413,13 +418,12 @@ public class DataObjectFactory
 		for (final Map.Entry<String, String> entry : countriesMap.entrySet())
 		{
 			countries.add(
-				Countries.builder().name(entry.getValue())
-				.iso3166a2name(entry.getKey()).build());
+				Countries.builder().name(entry.getValue()).iso3166a2name(entry.getKey()).build());
 		}
 		Collections.sort(countries, Comparator.comparing(Countries::getName));
 		return countries;
 	}
-	
+
 	/**
 	 * Factory method for create an initial {@link List} of {@link Languages} objects.
 	 *
@@ -787,6 +791,29 @@ public class DataObjectFactory
 		languageLocales.add(LanguageLocales.builder().locale("zh_HK").build());
 		languageLocales.add(LanguageLocales.builder().locale("zh_SG").build());
 		languageLocales.add(LanguageLocales.builder().locale("zh_TW").build());
+
+		Collections.sort(languageLocales, Comparator.comparing(LanguageLocales::getLocale));
+		return languageLocales;
+	}
+
+	/**
+	 * Factory method for create an initial {@link List} of the available {@link LanguageLocales}
+	 * objects of the current system.
+	 *
+	 * @return the created {@link List} with the available {@link LanguageLocales} objects of the
+	 *         current system.
+	 */
+	public static List<LanguageLocales> newAvailableLanguageLocales()
+	{
+		final List<LanguageLocales> languageLocales = ListExtensions.newArrayList();
+		List<Locale> availableLocales = LocaleResolver.getAvailableLocales();
+		for (Locale locale : availableLocales)
+		{
+			String localeFilenameSuffix = LocaleExtensions.getLocaleFilenameSuffix(locale);
+			if(localeFilenameSuffix!= null && !localeFilenameSuffix.isEmpty()) {
+				languageLocales.add(LanguageLocales.builder().locale(localeFilenameSuffix).build());
+			}
+		}
 		Collections.sort(languageLocales, Comparator.comparing(LanguageLocales::getLocale));
 		return languageLocales;
 	}
