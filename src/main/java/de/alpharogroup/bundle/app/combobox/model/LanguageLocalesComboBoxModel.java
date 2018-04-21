@@ -11,12 +11,6 @@ import de.alpharogroup.swing.combobox.model.AbstractComboBoxModel;
 public class LanguageLocalesComboBoxModel extends AbstractComboBoxModel<LanguageLocales>
 {
 	private static final long serialVersionUID = 1L;
-	private static final LanguageLocalesComboBoxModel COMBO_BOX_MODEL = new LanguageLocalesComboBoxModel();
-
-	public static final LanguageLocalesComboBoxModel get()
-	{
-		return COMBO_BOX_MODEL;
-	}
 
 	/**
 	 * init block
@@ -28,7 +22,7 @@ public class LanguageLocalesComboBoxModel extends AbstractComboBoxModel<Language
 		setComboList(languageLocales);
 	}
 
-	private LanguageLocalesComboBoxModel()
+	public LanguageLocalesComboBoxModel()
 	{
 	}
 

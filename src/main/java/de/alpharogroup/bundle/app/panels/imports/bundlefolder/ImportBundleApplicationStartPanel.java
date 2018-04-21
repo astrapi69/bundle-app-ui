@@ -115,7 +115,7 @@ public class ImportBundleApplicationStartPanel extends BaseWizardContentPanel<Im
 		lblChooseRootDir = new javax.swing.JLabel();
 		lblDefaultLocale = new javax.swing.JLabel();
 
-		cmbDefaultLocale = new javax.swing.JComboBox<>(LanguageLocalesComboBoxModel.get());
+		cmbDefaultLocale = new javax.swing.JComboBox<>(new LanguageLocalesComboBoxModel());
 		cmbDefaultLocale.addItemListener(e -> onChangeDefaultLocale(e));
 		final Model<LanguageLocales> defaultLocaleModel = model(
 			from(getModelObject().getModelObject()).getDefaultLocale());
