@@ -26,7 +26,6 @@ package de.alpharogroup.bundle.app.spring;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
@@ -37,8 +36,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.Resource;
 
-import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardContentPanel;
-import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.Countries;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.resource.bundles.entities.Languages;
@@ -196,41 +193,51 @@ public class SpringApplicationContext
 		return resourcebundlesService;
 	}	
 
-	protected void initLanguages()
-	{
-		final LanguagesService languagesService = getLanguagesService();
-
-		final List<Languages> languages = DataObjectFactory.newLanguages();
-		for (final Languages language : languages)
-		{
-			final Languages found = languagesService.find(language.getName(),
-				language.getIso639Dash1());
-			if (found == null)
-			{
-				languagesService.merge(language);
-			}
-		}
-	}
-
 	public void initDb()
 	{
 		initCountries();
 		initLanguages();
+		initLanguageLocales();
 	}
 	
 	protected void initCountries() {
-		CountriesService countriesService = getCountriesService();
 		List<Countries> availableCountries = DataObjectFactory.newCountries();
 		for (Countries countries : availableCountries)
 		{
-			Countries foundCountry = countriesService.find(countries.getIso3166A2name());
+			Countries foundCountry = getCountriesService().find(countries.getIso3166A2name());
 			if (foundCountry == null)
 			{
 				countriesService.merge(countries);
 			}
 		}
 	}
-	
-	
 
+	protected void initLanguages()
+	{
+		final List<Languages> languages = DataObjectFactory.newLanguages();
+		for (final Languages language : languages)
+		{
+			final Languages found = getLanguagesService().find(language.getName(),
+				language.getIso639Dash1());
+			if (found == null)
+			{
+				languagesService.merge(language);
+			}
+		}
+	}	
+	
+	protected void initLanguageLocales() {
+		List<LanguageLocales> availableLanguageLocales = DataObjectFactory.newAvailableLanguageLocales();
+		for (LanguageLocales languageLocales : availableLanguageLocales)
+		{
+			LanguageLocales found = getLanguageLocalesService().find(languageLocales.getLocale());
+			if (found == null)
+			{
+				if(languageLocales != null && !languageLocales.getLocale().isEmpty()) {
+					languageLocalesService.merge(languageLocales);					
+				}
+			}
+		}
+	}
+	
 }
