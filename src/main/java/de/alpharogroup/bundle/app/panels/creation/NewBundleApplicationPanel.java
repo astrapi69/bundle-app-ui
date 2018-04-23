@@ -5,14 +5,9 @@ import static de.alpharogroup.model.typesafe.TypeSafeModel.model;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import de.alpharogroup.bundle.app.MainFrame;
 import de.alpharogroup.bundle.app.actions.ReturnToDashboardAction;
@@ -104,14 +99,6 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 		return cmbSupportedLocaleToAdd;
 	}
 
-	protected void onChangeSupportedLocaleToAdd(final ItemEvent e)
-	{
-	}
-
-	protected void onChangeDefaultLocale(final ItemEvent e)
-	{
-	}
-
 	@Override
 	protected void onInitializeComponents()
 	{
@@ -166,14 +153,30 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 
 	protected void onAddSupportedLocale(ActionEvent e)
 	{
-		// TODO Auto-generated method stub
+		LanguageLocales selectedItem = (LanguageLocales)cmbSupportedLocaleToAdd.getSelectedItem();
+		System.out.println(selectedItem);
 		ApplicationDashboardBean bean = getModelObject();
-		BundleApplications bundleApplication = bean.getBundleApplication();
-		if (bundleApplication != null)
-		{
-			Object selectedItem = cmbSupportedLocaleToAdd.getSelectedItem();
-			System.out.println(selectedItem);
+		Set<LanguageLocales> supportedLocales = bean.getSupportedLocales();
+		if(supportedLocales==null) {
+			supportedLocales = new HashSet<>();
+			bean.setSupportedLocales(supportedLocales);
 		}
+		supportedLocales.add(selectedItem);
+		tblSupportedLocales.getGenericTableModel().add(KeyValuePair.<String, LanguageLocales> builder()
+					.key(selectedItem.getLocale()).value(selectedItem).build());
+
+		this.revalidate();
+		this.repaint();
+	}
+
+	protected void onChangeSupportedLocaleToAdd(final ItemEvent e)
+	{
+		// TODO implement...
+	}
+
+	protected void onChangeDefaultLocale(final ItemEvent e)
+	{
+		// TODO implement...
 	}
 
 	private List<KeyValuePair<String, LanguageLocales>> getSupportedLanguageLocales()
@@ -184,6 +187,7 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 		if (bundleApplication != null)
 		{
 			Set<LanguageLocales> supportedLocales = bundleApplication.getSupportedLocales();
+			modelObject.setSupportedLocales(supportedLocales);
 			for (LanguageLocales supportedLocale : supportedLocales)
 			{
 				list.add(KeyValuePair.<String, LanguageLocales> builder()
@@ -298,13 +302,13 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 
 	protected void onSave(final ActionEvent e)
 	{
-		final BundleApplicationsService bundleApplicationsService = (BundleApplicationsService)SpringApplicationContext
-			.getInstance().getApplicationContext().getBean("bundleApplicationsService");
+		final BundleApplicationsService bundleApplicationsService = SpringApplicationContext
+			.getInstance().getBundleApplicationsService();
 		final String name = getTxtBundleName().getText();
 		BundleApplications currentBundleApplication;
-		if (getModelObject().getBundleApplication() != null)
+		currentBundleApplication = getModelObject().getBundleApplication();
+		if (currentBundleApplication != null)
 		{
-			currentBundleApplication = getModelObject().getBundleApplication();
 			currentBundleApplication.setName(name);
 			LanguageLocales defaultLocale = getModelObject().getDefaultLocale();
 			if (currentBundleApplication.getDefaultLocale() != null)
@@ -318,7 +322,7 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 			{
 				currentBundleApplication.setDefaultLocale(defaultLocale);
 			}
-
+			currentBundleApplication.getSupportedLocales().addAll(getModelObject().getSupportedLocales());
 			currentBundleApplication = bundleApplicationsService.merge(currentBundleApplication);
 			getModelObject().setBundleApplication(currentBundleApplication);
 		}
@@ -329,8 +333,11 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 			{
 				LanguageLocales defaultLocale = getModelObject().getDefaultLocale();
 
-				newBundleApplication = BundleApplications.builder().name(name)
-					.defaultLocale(defaultLocale).build();
+				newBundleApplication = BundleApplications.builder()
+					.name(name)
+					.defaultLocale(defaultLocale)
+					.supportedLocales(getModelObject().getSupportedLocales())
+					.build();
 				newBundleApplication = bundleApplicationsService.merge(newBundleApplication);
 			}
 			if (!MainFrame.getInstance().getModelObject().getBundleApplications()

@@ -49,6 +49,8 @@ public class ApplicationDashboardBean
 	List<KeyValuePair<String, String>> importedKeyValuePairs;
 
 	Set<BundleNames> bundleNames;
+	
+	Set<LanguageLocales> supportedLocales;
 
 	@Builder.Default
 	List<Triple<File, Locale, KeyValuePair<Boolean, File>>> foundProperties = new ArrayList<>();
