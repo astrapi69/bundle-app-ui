@@ -27,7 +27,6 @@ package de.alpharogroup.bundle.app;
 import java.awt.Component;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.concurrent.CompletableFuture;
 
 import javax.imageio.ImageIO;
 import javax.swing.JDesktopPane;

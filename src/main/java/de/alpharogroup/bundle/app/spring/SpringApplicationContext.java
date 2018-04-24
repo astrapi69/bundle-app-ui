@@ -26,6 +26,8 @@ package de.alpharogroup.bundle.app.spring;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Properties;
+import java.util.prefs.Preferences;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
@@ -86,6 +88,14 @@ public class SpringApplicationContext
 	private CountriesService countriesService;
 	
 	private LanguagesService languagesService;
+	
+	boolean countriesInitialized;
+	boolean languagesInitialized;
+	boolean languageLocalesInitialized;
+	
+	Properties databaseProperties;
+	
+	Preferences preferences;
 
 	/** The application context. */
 	private final ApplicationContext applicationContext;
@@ -101,6 +111,12 @@ public class SpringApplicationContext
 	private SpringApplicationContext()
 	{
 		final String applicationContextPath = "application-context.xml";
+		preferences =
+			  Preferences.userNodeForPackage( SpringApplicationContext.class );
+
+		this.countriesInitialized = preferences.getBoolean("countries.initialized", false);
+		this.languagesInitialized = preferences.getBoolean("languages.initialized", false);
+		this.languageLocalesInitialized = preferences.getBoolean("languageLocales.initialized", false);
 
 		final ApplicationContext ac =
 			new ClassPathXmlApplicationContext(applicationContextPath);
@@ -201,42 +217,51 @@ public class SpringApplicationContext
 	}
 	
 	protected void initCountries() {
-		List<Countries> availableCountries = DataObjectFactory.newCountries();
-		for (Countries countries : availableCountries)
-		{
-			Countries foundCountry = getCountriesService().find(countries.getIso3166A2name());
-			if (foundCountry == null)
+		if(!countriesInitialized) {
+			List<Countries> availableCountries = DataObjectFactory.newCountries();
+			for (Countries countries : availableCountries)
 			{
-				countriesService.merge(countries);
+				Countries foundCountry = getCountriesService().find(countries.getIso3166A2name());
+				if (foundCountry == null)
+				{
+					countriesService.merge(countries);
+				}
 			}
+			preferences.putBoolean("countries.initialized", true);
 		}
 	}
 
 	protected void initLanguages()
 	{
-		final List<Languages> languages = DataObjectFactory.newLanguages();
-		for (final Languages language : languages)
-		{
-			final Languages found = getLanguagesService().find(language.getName(),
-				language.getIso639Dash1());
-			if (found == null)
+		if(!languagesInitialized) {
+			final List<Languages> languages = DataObjectFactory.newLanguages();
+			for (final Languages language : languages)
 			{
-				languagesService.merge(language);
+				final Languages found = getLanguagesService().find(language.getName(),
+					language.getIso639Dash1());
+				if (found == null)
+				{
+					languagesService.merge(language);
+				}
 			}
+			preferences.putBoolean("languages.initialized", true);			
 		}
 	}	
 	
 	protected void initLanguageLocales() {
-		List<LanguageLocales> availableLanguageLocales = DataObjectFactory.newAvailableLanguageLocales();
-		for (LanguageLocales languageLocales : availableLanguageLocales)
-		{
-			LanguageLocales found = getLanguageLocalesService().find(languageLocales.getLocale());
-			if (found == null)
+		if(!languageLocalesInitialized) {	
+			List<LanguageLocales> availableLanguageLocales = DataObjectFactory.newAvailableLanguageLocales();
+			for (LanguageLocales languageLocales : availableLanguageLocales)
 			{
-				if(languageLocales != null && !languageLocales.getLocale().isEmpty()) {
-					languageLocalesService.merge(languageLocales);					
+				LanguageLocales found = getLanguageLocalesService().find(languageLocales.getLocale());
+				if (found == null)
+				{
+					if(languageLocales != null && !languageLocales.getLocale().isEmpty()) {
+						languageLocalesService.merge(languageLocales);					
+					}
 				}
-			}
+			}	
+			preferences.putBoolean("languageLocales.initialized", true);	
 		}
 	}
 	

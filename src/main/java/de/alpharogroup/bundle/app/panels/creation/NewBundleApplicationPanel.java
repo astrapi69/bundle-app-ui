@@ -157,13 +157,15 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 		System.out.println(selectedItem);
 		ApplicationDashboardBean bean = getModelObject();
 		Set<LanguageLocales> supportedLocales = bean.getSupportedLocales();
-		if(supportedLocales==null) {
+		if (supportedLocales == null)
+		{
 			supportedLocales = new HashSet<>();
 			bean.setSupportedLocales(supportedLocales);
 		}
 		supportedLocales.add(selectedItem);
-		tblSupportedLocales.getGenericTableModel().add(KeyValuePair.<String, LanguageLocales> builder()
-					.key(selectedItem.getLocale()).value(selectedItem).build());
+		tblSupportedLocales.getGenericTableModel()
+			.add(KeyValuePair.<String, LanguageLocales> builder().key(selectedItem.getLocale())
+				.value(selectedItem).build());
 
 		this.revalidate();
 		this.repaint();
@@ -322,7 +324,8 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 			{
 				currentBundleApplication.setDefaultLocale(defaultLocale);
 			}
-			currentBundleApplication.getSupportedLocales().addAll(getModelObject().getSupportedLocales());
+			currentBundleApplication.getSupportedLocales()
+				.addAll(getModelObject().getSupportedLocales());
 			currentBundleApplication = bundleApplicationsService.merge(currentBundleApplication);
 			getModelObject().setBundleApplication(currentBundleApplication);
 		}
@@ -333,12 +336,8 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 			{
 				LanguageLocales defaultLocale = getModelObject().getDefaultLocale();
 
-				newBundleApplication = BundleApplications.builder()
-					.name(name)
-					.defaultLocale(defaultLocale)
-					.supportedLocales(getModelObject().getSupportedLocales())
-					.build();
-				newBundleApplication = bundleApplicationsService.merge(newBundleApplication);
+				newBundleApplication = bundleApplicationsService.getOrCreateNewBundleApplications(
+					name, defaultLocale, getModelObject().getSupportedLocales());
 			}
 			if (!MainFrame.getInstance().getModelObject().getBundleApplications()
 				.contains(newBundleApplication))
