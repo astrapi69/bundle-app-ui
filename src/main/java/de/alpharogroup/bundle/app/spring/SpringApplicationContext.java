@@ -217,6 +217,11 @@ public class SpringApplicationContext
 	}
 	
 	protected void initCountries() {
+		if(getCountriesService().findAll().size() == 0) {
+			countriesInitialized = false;
+			languagesInitialized = false;
+			languageLocalesInitialized = false;
+		}
 		if(!countriesInitialized) {
 			List<Countries> availableCountries = DataObjectFactory.newCountries();
 			for (Countries countries : availableCountries)
