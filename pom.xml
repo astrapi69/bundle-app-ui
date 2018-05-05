@@ -5,16 +5,16 @@
 	<parent>
 		<groupId>de.alpharogroup</groupId>
 		<artifactId>mvn-ui-parent</artifactId>
-		<version>1.19.0-SNAPSHOT</version>
+		<version>1.18.0</version>
 		<relativePath></relativePath>
 	</parent>
 
 	<artifactId>bundle-app-ui</artifactId>
-	<version>1.2.0-SNAPSHOT</version>
+	<version>1.2.0</version>
 
 	<properties>
 		<!-- UI properties -->
-		<swing-components.version>4.26.0-SNAPSHOT</swing-components.version>
+		<swing-components.version>4.26.0</swing-components.version>
 		<silly-collections.version>4.27.0</silly-collections.version>
 		<!-- MIGLAYOUT-SWING version -->
 		<miglayout-swing.version>5.0</miglayout-swing.version>
@@ -25,7 +25,7 @@
 		<observer.version>${design-patterns.version}</observer.version>
 		<state.version>${design-patterns.version}</state.version>
 		<!-- RESOURCEBUNDLE-CORE versions -->
-		<resourcebundle-core.version>2.20.0-SNAPSHOT</resourcebundle-core.version>
+		<resourcebundle-core.version>2.20.0</resourcebundle-core.version>
 		<resourcebundle-inspector.version>${resourcebundle-core.version}</resourcebundle-inspector.version>
 		<!-- MODEL-DATA version -->
 		<model-data.version>1.5.0</model-data.version>
@@ -45,7 +45,7 @@
 		<tomcat-dbcp.version>${tomcat.version}</tomcat-dbcp.version>
 		<tomcat-jdbc.version>${tomcat.version}</tomcat-jdbc.version>
 		<!-- RESOURCE-BUNDLES-DATA versions -->
-		<resource-bundles-data.version>5.3.0-SNAPSHOT</resource-bundles-data.version>
+		<resource-bundles-data.version>5.3.0</resource-bundles-data.version>
 		<resource-bundles-business.version>${resource-bundles-data.version}</resource-bundles-business.version>
 		<resource-bundles-entities.version>${resource-bundles-data.version}</resource-bundles-entities.version>
 		<resource-bundles-domain.version>${resource-bundles-data.version}</resource-bundles-domain.version>
