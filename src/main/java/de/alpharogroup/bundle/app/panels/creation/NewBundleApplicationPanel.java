@@ -4,11 +4,15 @@ import static de.alpharogroup.model.typesafe.TypeSafeModel.from;
 import static de.alpharogroup.model.typesafe.TypeSafeModel.model;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
+
+import de.alpharogroup.behaviors.EnableButtonBehavior;
 import de.alpharogroup.bundle.app.MainFrame;
 import de.alpharogroup.bundle.app.actions.ReturnToDashboardAction;
 import de.alpharogroup.bundle.app.combobox.model.LanguageLocalesComboBoxModel;
@@ -45,6 +49,8 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 	private javax.swing.JScrollPane srcSupportedLocales;
 	private GenericJXTable<KeyValuePair<String, LanguageLocales>> tblSupportedLocales;
 	private javax.swing.JTextField txtBundleName;
+	
+	private DefaultLocaleVerifier verifier;
 
 	public NewBundleApplicationPanel()
 	{
@@ -103,6 +109,7 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 	protected void onInitializeComponents()
 	{
 		super.onInitializeComponents();
+		verifier = new DefaultLocaleVerifier();
 		lblHeaderNewBundleApp = new javax.swing.JLabel();
 		lblBundleName = new javax.swing.JLabel();
 		txtBundleName = new javax.swing.JTextField();
@@ -115,6 +122,7 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 		lblSupportedLocaleToAdd = new javax.swing.JLabel();
 
 		cmbDefaultLocale = newCmbDefaultLocale(getModel());
+		cmbDefaultLocale.addActionListener(verifier);
 		cmbSupportedLocaleToAdd = newCmbSupportedLocaleToAdd(getModel());
 
 		StringLanguageLocalesTableModel tableModel = new StringLanguageLocalesTableModel();
@@ -148,6 +156,40 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 		srcSupportedLocales.setViewportView(tblSupportedLocales);
 
 		lblSupportedLocaleToAdd.setText("Select supported Locale to add");
+		btnSave.setEnabled(false);
+		new EnableButtonBehavior(btnSave.getModel(), txtBundleName.getDocument(), false)
+		{
+			protected void onChange()
+			{
+				boolean defaultLocale;
+				defaultLocale = cmbDefaultLocale.getSelectedItem() != null;	
+				boolean enabled = false;
+				if (getDocument().getLength() > 0)
+				{
+					enabled = true;
+				}
+				getButtonModel().setEnabled(defaultLocale && enabled);
+			};
+		};
+
+	}
+	
+	class DefaultLocaleVerifier implements ActionListener
+	{
+		boolean defaultLocale;
+
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			verify();
+		}
+
+		private boolean verify()
+		{
+			defaultLocale = cmbDefaultLocale.getSelectedItem() != null;
+			btnSave.setEnabled(defaultLocale);
+			return defaultLocale;
+		}
 
 	}
 
@@ -307,46 +349,48 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 		final BundleApplicationsService bundleApplicationsService = SpringApplicationContext
 			.getInstance().getBundleApplicationsService();
 		final String name = getTxtBundleName().getText();
-		BundleApplications currentBundleApplication;
-		currentBundleApplication = getModelObject().getBundleApplication();
-		if (currentBundleApplication != null)
-		{
-			currentBundleApplication.setName(name);
-			LanguageLocales defaultLocale = getModelObject().getDefaultLocale();
-			if (currentBundleApplication.getDefaultLocale() != null)
+		if(StringUtils.isNotEmpty(name)) {
+			BundleApplications currentBundleApplication;
+			currentBundleApplication = getModelObject().getBundleApplication();
+			if (currentBundleApplication != null)
 			{
-				if (!currentBundleApplication.getDefaultLocale().equals(defaultLocale))
+				currentBundleApplication.setName(name);
+				LanguageLocales defaultLocale = getModelObject().getDefaultLocale();
+				if (currentBundleApplication.getDefaultLocale() != null)
+				{
+					if (!currentBundleApplication.getDefaultLocale().equals(defaultLocale))
+					{
+						currentBundleApplication.setDefaultLocale(defaultLocale);
+					}
+				}
+				else
 				{
 					currentBundleApplication.setDefaultLocale(defaultLocale);
 				}
+				currentBundleApplication.getSupportedLocales()
+					.addAll(getModelObject().getSupportedLocales());
+				currentBundleApplication = bundleApplicationsService.merge(currentBundleApplication);
+				getModelObject().setBundleApplication(currentBundleApplication);
 			}
 			else
 			{
-				currentBundleApplication.setDefaultLocale(defaultLocale);
-			}
-			currentBundleApplication.getSupportedLocales()
-				.addAll(getModelObject().getSupportedLocales());
-			currentBundleApplication = bundleApplicationsService.merge(currentBundleApplication);
-			getModelObject().setBundleApplication(currentBundleApplication);
-		}
-		else
-		{
-			BundleApplications newBundleApplication = bundleApplicationsService.find(name);
-			if (newBundleApplication == null)
-			{
-				LanguageLocales defaultLocale = getModelObject().getDefaultLocale();
+				BundleApplications newBundleApplication = bundleApplicationsService.find(name);
+				if (newBundleApplication == null)
+				{
+					LanguageLocales defaultLocale = getModelObject().getDefaultLocale();
 
-				newBundleApplication = bundleApplicationsService.getOrCreateNewBundleApplications(
-					name, defaultLocale, getModelObject().getSupportedLocales());
+					newBundleApplication = bundleApplicationsService.getOrCreateNewBundleApplications(
+						name, defaultLocale, getModelObject().getSupportedLocales());
+				}
+				if (!MainFrame.getInstance().getModelObject().getBundleApplications()
+					.contains(newBundleApplication))
+				{
+					MainFrame.getInstance().getModelObject().getBundleApplications()
+						.add(newBundleApplication);
+				}
+				getModelObject().setBundleApplication(newBundleApplication);
 			}
-			if (!MainFrame.getInstance().getModelObject().getBundleApplications()
-				.contains(newBundleApplication))
-			{
-				MainFrame.getInstance().getModelObject().getBundleApplications()
-					.add(newBundleApplication);
-			}
-			getModelObject().setBundleApplication(newBundleApplication);
-		}
+		}		
 
 	}
 
