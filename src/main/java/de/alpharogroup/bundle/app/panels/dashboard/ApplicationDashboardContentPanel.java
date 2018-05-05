@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 
 import javax.swing.JFileChooser;
 
@@ -152,7 +153,9 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 			protected void onImportResourceBundlesFromDir(final ActionEvent e)
 			{
 				fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-				ApplicationDashboardContentPanel.this.onImportResourceBundleFromDir(e);
+					CompletableFuture.runAsync(() -> {
+					ApplicationDashboardContentPanel.this.onImportResourceBundleFromDir(e);
+				});				
 			}
 
 			@Override
@@ -212,6 +215,11 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 		return new NewResourceBundleEntryPanel(model);
 	}
 
+	/**
+	 * Callback method which import resourcebundles from a folder of file.
+	 *
+	 * @param dir the dir
+	 */
 	protected void onChooseImportResourceBundle(final boolean dir)
 	{
 		final int returnVal = fileChooser.showOpenDialog(ApplicationDashboardContentPanel.this);

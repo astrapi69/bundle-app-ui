@@ -9,6 +9,11 @@ import java.util.Locale;
 import de.alpharogroup.comparators.LocaleComparator;
 import de.alpharogroup.swing.combobox.model.AbstractComboBoxModel;
 
+/**
+ * The class {@link LocalesComboBoxModel}.
+ * 
+ * @deprecated use instead {@code LanguageLocalesComboBoxModel}
+ */
 public class LocalesComboBoxModel extends AbstractComboBoxModel<Locale>
 {
 

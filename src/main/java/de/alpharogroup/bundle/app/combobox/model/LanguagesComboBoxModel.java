@@ -1,6 +1,8 @@
 package de.alpharogroup.bundle.app.combobox.model;
 
-import de.alpharogroup.bundle.app.spring.DataObjectFactory;
+import java.util.List;
+
+import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
 import de.alpharogroup.db.resource.bundles.entities.Languages;
 import de.alpharogroup.swing.combobox.model.AbstractComboBoxModel;
 
@@ -18,7 +20,8 @@ public class LanguagesComboBoxModel extends AbstractComboBoxModel<Languages>
 	 * init block
 	 **/
 	{
-		setComboList(DataObjectFactory.newLanguages());
+		List<Languages> languages = SpringApplicationContext.getInstance().getLanguagesService().findAll();		
+		setComboList(languages);
 	}
 
 	public LanguagesComboBoxModel()

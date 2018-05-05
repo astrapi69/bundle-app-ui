@@ -165,6 +165,9 @@ public class MainFrame extends BaseFrame<MainDashboardBean>
 
 		final ApplicationContext applicationContext = SpringApplicationContext.getInstance()
 			.getApplicationContext();
+		
+
+		SpringApplicationContext.getInstance().initDb();
 
 		final BundleApplicationsService bundleApplicationsService = (BundleApplicationsService)applicationContext
 			.getBean("bundleApplicationsService");

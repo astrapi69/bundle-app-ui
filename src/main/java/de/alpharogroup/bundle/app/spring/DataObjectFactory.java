@@ -1,13 +1,19 @@
 package de.alpharogroup.bundle.app.spring;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
+import de.alpharogroup.collections.list.ListExtensions;
 import de.alpharogroup.db.resource.bundles.entities.Countries;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.resource.bundles.entities.Languages;
+import de.alpharogroup.resourcebundle.locale.LocaleExtensions;
+import de.alpharogroup.resourcebundle.locale.LocaleResolver;
 import lombok.experimental.UtilityClass;
 
 /**
@@ -17,7 +23,282 @@ import lombok.experimental.UtilityClass;
 public class DataObjectFactory
 {
 
-	public static List<Countries> newAvailableCountries() {
+	/**
+	 * Factory method for create an initial {@link List} of {@link Countries} objects.
+	 *
+	 * @return the created {@link List} with the {@link Countries} objects.
+	 */
+	public static List<Countries> newCountries()
+	{
+		final Map<String, String> countriesMap = new LinkedHashMap<>();
+		countriesMap.put("United Arab Emirates", "AE");
+		countriesMap.put("Antigua and Barbuda", "AG");
+		countriesMap.put("Anguilla", "AI");
+		countriesMap.put("Albania", "AL");
+		countriesMap.put("Armenia", "AM");
+		countriesMap.put("Angola", "AO");
+		countriesMap.put("Antarctica", "AQ");
+		countriesMap.put("AntarcticaAmerican Samoa", "AS");
+		countriesMap.put("AntarcticaAmerican Austria", "AT");
+		countriesMap.put("Australia", "AU");
+		countriesMap.put("AustraliaAruba", "AW");
+		countriesMap.put("AustraliaArubaAzerbaijan", "AZ");
+		countriesMap.put("Bosnia and Herzegovina", "BA");
+		countriesMap.put("Bosnia Barbados", "BB");
+		countriesMap.put("Bosnia Bangladesh", "BD");
+		countriesMap.put("Burkina Faso", "BF");
+		countriesMap.put("Burkina Bulgaria", "BG");
+		countriesMap.put("Bahrain", "BH");
+		countriesMap.put("Burundi", "BI");
+		countriesMap.put("Benin", "BJ");
+		countriesMap.put("Bermuda", "BM");
+		countriesMap.put("Brunei Darussalam", "BN");
+		countriesMap.put("Bolivia", "BO");
+		countriesMap.put("Brazil", "BR");
+		countriesMap.put("Bahamas", "BS");
+		countriesMap.put("Bhutan", "BT");
+		countriesMap.put("Bouvet Island", "BV");
+		countriesMap.put("Belarus", "BY");
+		countriesMap.put("Belize", "BZ");
+		countriesMap.put("Canada", "CA");
+		countriesMap.put("Cocos (Keeling) Islands", "CC");
+		countriesMap.put("Central African Republic,", "CF");
+		countriesMap.put("Congo", "CG");
+		countriesMap.put("Switzerland", "CH");
+		countriesMap.put("Cook Islands", "CK");
+		countriesMap.put("Chile", "CL");
+		countriesMap.put("Cameroon", "CM");
+		countriesMap.put("China", "CN");
+		countriesMap.put("Colombia", "CO");
+		countriesMap.put("Costa Rica", "CR");
+		countriesMap.put("Cuba", "CU");
+		countriesMap.put("Christmas Island", "CX");
+		countriesMap.put("Cyprus", "CY");
+		countriesMap.put("Czechia", "CZ");
+		countriesMap.put("Germany", "DE");
+		countriesMap.put("Djibouti", "DJ");
+		countriesMap.put("Denmark", "DK");
+		countriesMap.put("Dominica", "DM");
+		countriesMap.put("Algeria", "DZ");
+		countriesMap.put("Ecuador", "EC");
+		countriesMap.put("Estonia", "EE");
+		countriesMap.put("Egypt", "EG");
+		countriesMap.put("Western Sahara", "EH");
+		countriesMap.put("Eritrea", "ER");
+		countriesMap.put("Spain", "ES");
+		countriesMap.put("Ethiopia", "ET");
+		countriesMap.put("Finland", "FI");
+		countriesMap.put("Falkland Islands (Malvinas)", "FK");
+		countriesMap.put("Faroe Islands", "FO");
+		countriesMap.put("France", "FR");
+		countriesMap.put("Gabon", "GA");
+		countriesMap.put("United Kingdom", "GB");
+		countriesMap.put("Grenada", "GD");
+		countriesMap.put("Georgia", "GE");
+		countriesMap.put("French Guiana", "GF");
+		countriesMap.put("Ghana", "GH");
+		countriesMap.put("Gibraltar", "GI");
+		countriesMap.put("Greenland", "GL");
+		countriesMap.put("Gambia", "GM");
+		countriesMap.put("Guinea", "GN");
+		countriesMap.put("Equatorial Guinea", "GQ");
+		countriesMap.put("Greece", "GR");
+		countriesMap.put("Guatemala", "GT");
+		countriesMap.put("Guam", "GU");
+		countriesMap.put("Guyana", "GY");
+		countriesMap.put("Hong Kong", "HK");
+		countriesMap.put("Honduras", "HN");
+		countriesMap.put("Croatia", "HR");
+		countriesMap.put("Haiti", "HT");
+		countriesMap.put("Hungary", "HU");
+		countriesMap.put("Indonesia", "ID");
+		countriesMap.put("Ireland", "IE");
+		countriesMap.put("Israel", "IL");
+		countriesMap.put("Isle of Man", "IM");
+		countriesMap.put("India", "IN");
+		countriesMap.put("Iraq", "IQ");
+		countriesMap.put("Iran", "IR");
+		countriesMap.put("Iceland", "IS");
+		countriesMap.put("Italy", "IT");
+		countriesMap.put("Jersey", "JE");
+		countriesMap.put("Jamaica", "JM");
+		countriesMap.put("Jordan", "JO");
+		countriesMap.put("Japan", "JP");
+		countriesMap.put("Kenya", "KE");
+		countriesMap.put("Kyrgyzstan", "KG");
+		countriesMap.put("Cambodia", "KH");
+		countriesMap.put("Kiribati", "KI");
+		countriesMap.put("Saint Kitts and Nevis", "KN");
+		countriesMap.put("Korea (the Republic of)", "KR");
+		countriesMap.put("Kuwait", "KW");
+		countriesMap.put("Cayman Islands", "KY");
+		countriesMap.put("Kazakhstan", "KZ");
+		countriesMap.put("Lebanon", "LB");
+		countriesMap.put("Saint Lucia", "LC");
+		countriesMap.put("Liechtenstein", "LI");
+		countriesMap.put("Sri Lanka", "LK");
+		countriesMap.put("TJK", "TJ");
+		countriesMap.put("YUG", "YU");
+		countriesMap.put("Andorra", "AD");
+		countriesMap.put("Afghanistan", "AF");
+		countriesMap.put("Argentina", "AR");
+		countriesMap.put("Åland Islands", "AX");
+		countriesMap.put("Belgium", "BE");
+		countriesMap.put("Saint Barthélemy", "BL");
+		countriesMap.put("Bonaire, Sint Eustatius and Saba", "BQ");
+		countriesMap.put("Botswana", "BW");
+		countriesMap.put("Congo, the Democratic Republic of the", "CD");
+		countriesMap.put("Côte d''Ivoire", "CI");
+		countriesMap.put("Cabo Verde", "CV");
+		countriesMap.put("Curaçao", "CW");
+		countriesMap.put("Dominican Republic", "DO");
+		countriesMap.put("Fiji", "FJ");
+		countriesMap.put("Micronesia, Federated  of", "FM");
+		countriesMap.put("Guernsey", "GG");
+		countriesMap.put("Guadeloupe", "GP");
+		countriesMap.put("South Georgia and the South Sandwich Islands", "GS");
+		countriesMap.put("Guinea-Bissau", "GW");
+		countriesMap.put("Heard Island and McDonald Islands", "HM");
+		countriesMap.put("British Indian Ocean Territory", "IO");
+		countriesMap.put("Comoros", "KM");
+		countriesMap.put("Korea (the Democratic People''s Republic of)", "KP");
+		countriesMap.put("Lao People''s Democratic Republic", "LA");
+		countriesMap.put("Liberia", "LR");
+		countriesMap.put("Lesotho", "LS");
+		countriesMap.put("Lithuania", "LT");
+		countriesMap.put("Luxembourg", "LU");
+		countriesMap.put("Latvia", "LV");
+		countriesMap.put("Libya", "LY");
+		countriesMap.put("Morocco", "MA");
+		countriesMap.put("Monaco", "MC");
+		countriesMap.put("Moldova", "MD");
+		countriesMap.put("Montenegro", "ME");
+		countriesMap.put("Saint Martin (French part)", "MF");
+		countriesMap.put("Madagascar", "MG");
+		countriesMap.put("Marshall Islands", "MH");
+		countriesMap.put("Macedonia, the former Yugoslav Republic of", "MK");
+		countriesMap.put("Mali", "ML");
+		countriesMap.put("Myanmar", "MM");
+		countriesMap.put("Mongolia", "MN");
+		countriesMap.put("Macao", "MO");
+		countriesMap.put("Northern Mariana Islands", "MP");
+		countriesMap.put("Martinique", "MQ");
+		countriesMap.put("Mauritania", "MR");
+		countriesMap.put("Montserrat", "MS");
+		countriesMap.put("Malta", "MT");
+		countriesMap.put("Mauritius", "MU");
+		countriesMap.put("Maldives", "MV");
+		countriesMap.put("Malawi", "MW");
+		countriesMap.put("Mexico", "MX");
+		countriesMap.put("Malaysia", "MY");
+		countriesMap.put("Mozambique", "MZ");
+		countriesMap.put("Namibia", "NA");
+		countriesMap.put("New Caledonia", "NC");
+		countriesMap.put("Niger", "NE");
+		countriesMap.put("Norfolk Island", "NF");
+		countriesMap.put("Nigeria", "NG");
+		countriesMap.put("Nicaragua", "NI");
+		countriesMap.put("Netherlands", "NL");
+		countriesMap.put("Norway", "NO");
+		countriesMap.put("Nepal", "NP");
+		countriesMap.put("Nauru", "NR");
+		countriesMap.put("Niue", "NU");
+		countriesMap.put("New Zealand", "NZ");
+		countriesMap.put("Oman", "OM");
+		countriesMap.put("Panama", "PA");
+		countriesMap.put("Peru", "PE");
+		countriesMap.put("French Polynesia", "PF");
+		countriesMap.put("Papua New Guinea", "PG");
+		countriesMap.put("Philippines", "PH");
+		countriesMap.put("Pakistan", "PK");
+		countriesMap.put("Poland", "PL");
+		countriesMap.put("Saint Pierre and Miquelon", "PM");
+		countriesMap.put("Pitcairn", "PN");
+		countriesMap.put("Puerto Rico", "PR");
+		countriesMap.put("Palestine, State of", "PS");
+		countriesMap.put("Portugal", "PT");
+		countriesMap.put("Palau", "PW");
+		countriesMap.put("Paraguay", "PY");
+		countriesMap.put("Qatar", "QA");
+		countriesMap.put("Réunion", "RE");
+		countriesMap.put("Romania", "RO");
+		countriesMap.put("Serbia", "RS");
+		countriesMap.put("Russian Federation", "RU");
+		countriesMap.put("Rwanda", "RW");
+		countriesMap.put("Saudi Arabia", "SA");
+		countriesMap.put("Solomon Islands", "SB");
+		countriesMap.put("Seychelles", "SC");
+		countriesMap.put("Sudan", "SD");
+		countriesMap.put("Sweden", "SE");
+		countriesMap.put("Singapore", "SG");
+		countriesMap.put("Saint Helena, Ascension and Tristan da Cunha", "SH");
+		countriesMap.put("Slovenia", "SI");
+		countriesMap.put("Svalbard and Jan Mayen", "SJ");
+		countriesMap.put("Slovakia", "SK");
+		countriesMap.put("Sierra Leone", "SL");
+		countriesMap.put("San Marino", "SM");
+		countriesMap.put("Senegal", "SN");
+		countriesMap.put("Somalia", "SO");
+		countriesMap.put("Suriname", "SR");
+		countriesMap.put("South Sudan", "SS");
+		countriesMap.put("Sao Tome and Principe", "ST");
+		countriesMap.put("El Salvador", "SV");
+		countriesMap.put("Sint Maarten (Dutch part)", "SX");
+		countriesMap.put("Syrian Arab Republic", "SY");
+		countriesMap.put("Swaziland", "SZ");
+		countriesMap.put("Turks and Caicos Islands", "TC");
+		countriesMap.put("Chad", "TD");
+		countriesMap.put("French Southern Territories", "TF");
+		countriesMap.put("Togo", "TG");
+		countriesMap.put("Thailand", "TH");
+		countriesMap.put("Tokelau", "TK");
+		countriesMap.put("Timor-Leste", "TL");
+		countriesMap.put("Turkmenistan", "TM");
+		countriesMap.put("Tunisia", "TN");
+		countriesMap.put("Tonga", "TO");
+		countriesMap.put("Turkey", "TR");
+		countriesMap.put("Trinidad and Tobago", "TT");
+		countriesMap.put("Tuvalu", "TV");
+		countriesMap.put("Taiwan", "TW");
+		countriesMap.put("Tanzania, United Republic of", "TZ");
+		countriesMap.put("Ukraine", "UA");
+		countriesMap.put("Uganda", "UG");
+		countriesMap.put("United  Minor Outlying Islands", "UM");
+		countriesMap.put("United", "US");
+		countriesMap.put("Uruguay", "UY");
+		countriesMap.put("Uzbekistan", "UZ");
+		countriesMap.put("Holy See (Vatican City State)", "VA");
+		countriesMap.put("Saint Vincent and the Grenadines", "VC");
+		countriesMap.put("Venezuela, Bolivarian Republic of", "VE");
+		countriesMap.put("Virgin Islands, British", "VG");
+		countriesMap.put("Virgin Islands, U.S.", "VI");
+		countriesMap.put("Viet Nam", "VN");
+		countriesMap.put("Vanuatu", "VU");
+		countriesMap.put("Wallis and Futuna", "WF");
+		countriesMap.put("Samoa", "WS");
+		countriesMap.put("Yemen", "YE");
+		countriesMap.put("Mayotte", "YT");
+		countriesMap.put("South Africa", "ZA");
+		countriesMap.put("Zambia", "ZM");
+		countriesMap.put("Zimbabwe", "ZW");
+
+		final List<Countries> countries = new ArrayList<>();
+		for (final Map.Entry<String, String> entry : countriesMap.entrySet())
+		{
+			countries.add(
+				Countries.builder().name(entry.getKey()).iso3166a2name(entry.getValue()).build());
+		}
+		Collections.sort(countries, Comparator.comparing(Countries::getName));
+		return countries;
+	}
+
+	/**
+	 * Factory method for create an initial {@link List} of {@link Countries} objects.
+	 *
+	 * @return the created {@link List} with the {@link Countries} objects.
+	 */
+	public static List<Countries> newAvailableCountries()
+	{
 		final Map<String, String> countriesMap = new LinkedHashMap<>();
 		countriesMap.put("AE", "United Arab Emirates");
 		countriesMap.put("JO", "Jordan");
@@ -137,16 +418,16 @@ public class DataObjectFactory
 		for (final Map.Entry<String, String> entry : countriesMap.entrySet())
 		{
 			countries.add(
-				Countries.builder().name(entry.getValue())
-				.iso3166a2name(entry.getKey()).build());
+				Countries.builder().name(entry.getValue()).iso3166a2name(entry.getKey()).build());
 		}
+		Collections.sort(countries, Comparator.comparing(Countries::getName));
 		return countries;
 	}
-	
+
 	/**
-	 * Factory method for create initial list of {@link Languages} objects.
+	 * Factory method for create an initial {@link List} of {@link Languages} objects.
 	 *
-	 * @return the created list with the {@link Languages} objects.
+	 * @return the created {@link List} with the {@link Languages} objects.
 	 */
 	public static List<Languages> newLanguages()
 	{
@@ -343,13 +624,14 @@ public class DataObjectFactory
 			languages.add(
 				Languages.builder().name(entry.getValue()).iso639Dash1(entry.getKey()).build());
 		}
+		Collections.sort(languages, Comparator.comparing(Languages::getName));
 		return languages;
 	}
 
 	/**
-	 * Factory method for create initial list of {@link LanguageLocales} objects.
+	 * Factory method for create an initial {@link List} of {@link LanguageLocales} objects.
 	 *
-	 * @return the created list with the {@link LanguageLocales} objects.
+	 * @return the created {@link List} with the {@link LanguageLocales} objects.
 	 */
 	public static List<LanguageLocales> newLanguageLocales()
 	{
@@ -509,6 +791,30 @@ public class DataObjectFactory
 		languageLocales.add(LanguageLocales.builder().locale("zh_HK").build());
 		languageLocales.add(LanguageLocales.builder().locale("zh_SG").build());
 		languageLocales.add(LanguageLocales.builder().locale("zh_TW").build());
+
+		Collections.sort(languageLocales, Comparator.comparing(LanguageLocales::getLocale));
+		return languageLocales;
+	}
+
+	/**
+	 * Factory method for create an initial {@link List} of the available {@link LanguageLocales}
+	 * objects of the current system.
+	 *
+	 * @return the created {@link List} with the available {@link LanguageLocales} objects of the
+	 *         current system.
+	 */
+	public static List<LanguageLocales> newAvailableLanguageLocales()
+	{
+		final List<LanguageLocales> languageLocales = ListExtensions.newArrayList();
+		List<Locale> availableLocales = LocaleResolver.getAvailableLocales();
+		for (Locale locale : availableLocales)
+		{
+			String localeFilenameSuffix = LocaleExtensions.getLocaleFilenameSuffix(locale);
+			if(localeFilenameSuffix!= null && !localeFilenameSuffix.isEmpty()) {
+				languageLocales.add(LanguageLocales.builder().locale(localeFilenameSuffix).build());
+			}
+		}
+		Collections.sort(languageLocales, Comparator.comparing(LanguageLocales::getLocale));
 		return languageLocales;
 	}
 }

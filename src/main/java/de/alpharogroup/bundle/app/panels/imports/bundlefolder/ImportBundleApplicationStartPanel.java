@@ -21,15 +21,15 @@ import static de.alpharogroup.model.typesafe.TypeSafeModel.model;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.io.File;
-import java.util.Locale;
 
 import javax.swing.JFileChooser;
 
 import org.apache.commons.lang3.StringUtils;
 
 import de.alpharogroup.bundle.app.MainApplication;
-import de.alpharogroup.bundle.app.combobox.model.LocalesComboBoxModel;
-import de.alpharogroup.bundle.app.combobox.renderer.LocalesComboBoxRenderer;
+import de.alpharogroup.bundle.app.combobox.model.LanguageLocalesComboBoxModel;
+import de.alpharogroup.bundle.app.combobox.renderer.LanguageLocalesComboBoxRenderer;
+import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.design.pattern.observer.event.EventObject;
 import de.alpharogroup.design.pattern.observer.event.EventSource;
 import de.alpharogroup.design.pattern.state.wizard.model.WizardModelStateMachine;
@@ -47,7 +47,7 @@ public class ImportBundleApplicationStartPanel extends BaseWizardContentPanel<Im
 	private static final long serialVersionUID = 1L;
 
 	private javax.swing.JButton btnChooseRootDir;
-	private javax.swing.JComboBox<Locale> cmbDefaultLocale;
+	private javax.swing.JComboBox<LanguageLocales> cmbDefaultLocale;
 	private javax.swing.JLabel lblBundleAppName;
 	private javax.swing.JLabel lblChooseRootDir;
 	private javax.swing.JLabel lblDefaultLocale;
@@ -115,11 +115,11 @@ public class ImportBundleApplicationStartPanel extends BaseWizardContentPanel<Im
 		lblChooseRootDir = new javax.swing.JLabel();
 		lblDefaultLocale = new javax.swing.JLabel();
 
-		cmbDefaultLocale = new javax.swing.JComboBox<>(LocalesComboBoxModel.get());
+		cmbDefaultLocale = new javax.swing.JComboBox<>(new LanguageLocalesComboBoxModel());
 		cmbDefaultLocale.addItemListener(e -> onChangeDefaultLocale(e));
-		final Model<Locale> defaultLocaleModel = model(
+		final Model<LanguageLocales> defaultLocaleModel = model(
 			from(getModelObject().getModelObject()).getDefaultLocale());
-		cmbDefaultLocale.setRenderer(new LocalesComboBoxRenderer(defaultLocaleModel));
+		cmbDefaultLocale.setRenderer(new LanguageLocalesComboBoxRenderer(defaultLocaleModel));
 
 		lblSelectedRootDir = new javax.swing.JLabel();
 		txtSelectedRootDir = new javax.swing.JTextField();
@@ -235,7 +235,7 @@ public class ImportBundleApplicationStartPanel extends BaseWizardContentPanel<Im
 		{
 			bundleAppName.trim();
 		}
-		final Locale defaultLocale = modelObject.getDefaultLocale();
+		final LanguageLocales defaultLocale = modelObject.getDefaultLocale();
 		final File rootDir = modelObject.getRootDir();
 		if (StringUtils.isNotEmpty(bundleAppName) && defaultLocale != null && rootDir != null)
 		{

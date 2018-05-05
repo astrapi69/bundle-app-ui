@@ -49,7 +49,7 @@ public class CountriesComboBoxRenderer extends JLabel implements ListCellRendere
 		model.setObject(value);
 		if (value != null)
 		{
-			country = LocaleExtensions.getCountryName(value.getIso3166A2name(), Locale.ENGLISH);
+			country = LocaleExtensions.getCountryName(value.getIso3166A2name(), Locale.ENGLISH, value.getName());
 		}
 		setText(country);
 

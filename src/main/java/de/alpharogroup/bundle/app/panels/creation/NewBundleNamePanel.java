@@ -53,7 +53,7 @@ public class NewBundleNamePanel extends BasePanel<ApplicationDashboardBean>
 	{
 		super.onInitializeComponents();
 		lblLocale = new javax.swing.JLabel();
-		cmbLocale = new javax.swing.JComboBox<>(LanguageLocalesComboBoxModel.get());
+		cmbLocale = new javax.swing.JComboBox<>(new LanguageLocalesComboBoxModel());
 		cmbLocale.setEditable(true);
 		cmbLocale.setRenderer(new LanguageLocalesComboBoxRenderer());
 		lblBasename = new javax.swing.JLabel();

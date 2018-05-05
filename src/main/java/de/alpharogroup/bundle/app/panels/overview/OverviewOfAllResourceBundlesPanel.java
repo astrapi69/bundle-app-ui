@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 
@@ -17,7 +18,7 @@ import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
 import de.alpharogroup.bundle.app.table.model.StringBundleNamesTableModel;
 import de.alpharogroup.collections.CollectionExtensions;
-import de.alpharogroup.collections.pairs.Triple;
+import de.alpharogroup.collections.pairs.Quattro;
 import de.alpharogroup.comparators.NullCheckComparator;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
@@ -36,10 +37,10 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 	private javax.swing.JLabel lblBundleName;
 	private javax.swing.JLabel lblHeaderOverview;
 	private javax.swing.JScrollPane srcBundles;
-	private GenericJXTable<Triple<String, String, BundleNames>> tblBundles;
+	private GenericJXTable<Quattro<String, String, BundleNames, BundleNames>> tblBundles;
 	private StringBundleNamesTableModel tableModel;
 
-	private List<Triple<String, String, BundleNames>> tableModelList;
+	private List<Quattro<String, String, BundleNames, BundleNames>> tableModelList;
 
 	public OverviewOfAllResourceBundlesPanel()
 	{
@@ -51,28 +52,11 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 		super(model);
 	}
 
-	private List<Triple<String, String, BundleNames>> getTableModelList()
+	private List<Quattro<String, String, BundleNames, BundleNames>> getTableModelList()
 	{
 		if (tableModelList == null)
 		{
-			tableModelList = new ArrayList<>();
-
-			BundleApplications bundleApplication = getModelObject().getBundleApplication();
-			getModelObject().setBundleNames(SpringApplicationContext.getInstance()
-				.getBundleApplicationsService().find(bundleApplication));
-			final Set<BundleNames> set = getModelObject().getBundleNames();
-			if (CollectionExtensions.isNotEmpty(set))
-			{
-				for (final BundleNames bundleNames : set)
-				{
-					tableModelList.add(Triple.<String, String, BundleNames> builder()
-						.left(bundleNames.getBaseName().getName())
-						.middle(bundleNames.getLocale().getLocale()).right(bundleNames).build());
-				}
-			}
-			Collections.sort(tableModelList,
-				NullCheckComparator.<Triple<String, String, BundleNames>> of(
-					(o1, o2) -> o1.getLeft().compareTo(o2.getLeft())));
+			reloadTableModelList();
 		}
 		return tableModelList;
 	}
@@ -101,9 +85,10 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 		tableModel.addList(getTableModelList());
 
 		tblBundles = new GenericJXTable<>(tableModel);
-		final TableColumn valueColumn = tblBundles.getColumn("Action");
 
-		valueColumn.setCellRenderer(new TableCellButtonRenderer(null, null)
+		final TableColumn chooseColumn = tblBundles.getColumn(StringBundleNamesTableModel.CHOOSE_COLUMN_NAME);
+
+		chooseColumn.setCellRenderer(new TableCellButtonRenderer(null, null)
 		{
 			private static final long serialVersionUID = 1L;
 
@@ -121,12 +106,12 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 					setForeground(newForeground(table));
 					setBackground(newBackround(table));
 				}
-				final String text = "Choose";
+				final String text = StringBundleNamesTableModel.CHOOSE_COLUMN_NAME;
 				setText(text);
 				return this;
 			}
 		});
-		valueColumn.setCellEditor(new TableCellButtonEditor(new JCheckBox())
+		chooseColumn.setCellEditor(new TableCellButtonEditor(new JCheckBox())
 		{
 			private static final long serialVersionUID = 1L;
 
@@ -148,7 +133,7 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 						+ " with locale " + selectedBundleName.getLocale().getLocale() + "",
 					component);
 
-				final String text = "Choose";
+				final String text = StringBundleNamesTableModel.CHOOSE_COLUMN_NAME;
 				return text;
 
 			}
@@ -170,13 +155,74 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 					getButton().setForeground(table.getForeground());
 					getButton().setBackground(table.getBackground());
 				}
-				final String text = "Choose";
+				final String text = StringBundleNamesTableModel.CHOOSE_COLUMN_NAME;
 				getButton().setText(text);
 				setClicked(true);
 				return getButton();
 			}
 		});
 
+		final TableColumn deleteColumn = tblBundles.getColumn(StringBundleNamesTableModel.DELETE_COLUMN_NAME);
+
+		deleteColumn.setCellRenderer(new TableCellButtonRenderer(null, null)
+		{
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public Component getTableCellRendererComponent(final JTable table, final Object value,
+				final boolean isSelected, final boolean hasFocus, final int row, final int column)
+			{
+				if (isSelected)
+				{
+					setForeground(newSelectionForeground(table));
+					setBackground(newSelectionBackround(table));
+				}
+				else
+				{
+					setForeground(newForeground(table));
+					setBackground(newBackround(table));
+				}
+				final String text = StringBundleNamesTableModel.DELETE_COLUMN_NAME;
+				setText(text);
+				return this;
+			}
+		});
+		deleteColumn.setCellEditor(new TableCellButtonEditor(new JCheckBox())
+		{
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public Object getCellEditorValue()
+			{
+				final BundleNames selectedBundleName = (BundleNames)this.getValue();
+				onDelete(selectedBundleName);
+				final String text = StringBundleNamesTableModel.DELETE_COLUMN_NAME;
+				return text;
+			}
+
+			@Override
+			public Component getTableCellEditorComponent(final JTable table, final Object value,
+				final boolean isSelected, final int row, final int column)
+			{
+				setRow(row);
+				setColumn(column);
+				setValue(value);
+				if (isSelected)
+				{
+					getButton().setForeground(table.getSelectionForeground());
+					getButton().setBackground(table.getSelectionBackground());
+				}
+				else
+				{
+					getButton().setForeground(table.getForeground());
+					getButton().setBackground(table.getBackground());
+				}
+				final String text = StringBundleNamesTableModel.DELETE_COLUMN_NAME;
+				getButton().setText(text);
+				setClicked(true);
+				return getButton();
+			}
+		});
 
 		lblHeaderOverview.setText("Overview of all resource bundles");
 
@@ -184,6 +230,60 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 
 		srcBundles.setViewportView(tblBundles);
 		btnCreateBundle.setText("Create new resource bundle");
+	}
+
+
+	protected void onDelete(final BundleNames selectedBundleName)
+	{
+		int dialogResult = JOptionPane.showConfirmDialog(null,
+			"This will delete this bundle name and is not recoverable?(cannot be undone)",
+			"Warning", JOptionPane.YES_NO_OPTION);
+		if (dialogResult == JOptionPane.YES_OPTION)
+		{
+			SpringApplicationContext.getInstance().getResourcebundlesService()
+				.delete(selectedBundleName);
+			MainFrame.getInstance().getModelObject().getSelectedBundleApplication().getBundleNames()
+				.remove(selectedBundleName);
+			MainFrame.getInstance().getModelObject().getSelectedBundleApplication()
+				.setSelectedBundleName(null);
+
+			MainFrame.getInstance().replaceInternalFrame(
+				"Dashboard of "
+					+ getModelObject().getBundleApplication().getName() + " bundle app",
+				new OverviewOfAllResourceBundlesPanel(getModel()));
+		}
+	}
+
+
+	protected void reloadTableModel()
+	{
+		tableModel.getData().clear();
+		reloadTableModelList();
+		tableModel.addList(getTableModelList());
+	}
+
+	protected void reloadTableModelList()
+	{
+		tableModelList = new ArrayList<>();
+
+		BundleApplications bundleApplication = getModelObject().getBundleApplication();
+		getModelObject().setBundleNames(SpringApplicationContext.getInstance()
+			.getBundleApplicationsService().find(bundleApplication));
+		final Set<BundleNames> set = getModelObject().getBundleNames();
+		if (CollectionExtensions.isNotEmpty(set))
+		{
+			for (final BundleNames bundleNames : set)
+			{
+				tableModelList.add(Quattro.<String, String, BundleNames, BundleNames> builder()
+					.topLeft(bundleNames.getBaseName().getName())
+					.topRight(bundleNames.getLocale().getLocale()).bottomLeft(bundleNames)
+					.bottomRight(bundleNames).build());
+			}
+		}
+		Collections.sort(tableModelList,
+			NullCheckComparator.<Quattro<String, String, BundleNames, BundleNames>> of(
+				(o1, o2) -> o1.getTopLeft().compareTo(o2.getTopLeft())));
+
 	}
 
 	@Override

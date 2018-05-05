@@ -26,7 +26,7 @@
                   <Component id="btnCreateRb" alignment="0" max="32767" attributes="0"/>
                   <Component id="btnEditBundleAppName" alignment="0" pref="751" max="32767" attributes="0"/>
                   <Component id="btnExportBundleApplication" alignment="0" max="32767" attributes="0"/>
-                  <Component id="btnCreateCustomLocale1" alignment="0" pref="751" max="32767" attributes="0"/>
+                  <Component id="btnCreateCustomLocale" alignment="0" pref="751" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="27" max="32767" attributes="0"/>
           </Group>
@@ -48,7 +48,7 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnCreateRb" min="-2" pref="80" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="btnCreateCustomLocale1" min="-2" pref="80" max="-2" attributes="0"/>
+              <Component id="btnCreateCustomLocale" min="-2" pref="80" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnExportBundleApplication" min="-2" pref="80" max="-2" attributes="0"/>
               <EmptySpace pref="40" max="32767" attributes="0"/>
@@ -92,7 +92,7 @@
         <Property name="text" type="java.lang.String" value="Return to overview of bundle applications"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnCreateCustomLocale1">
+    <Component class="javax.swing.JButton" name="btnCreateCustomLocale">
       <Properties>
         <Property name="text" type="java.lang.String" value="Create new custom locale"/>
       </Properties>

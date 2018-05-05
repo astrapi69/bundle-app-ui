@@ -2,11 +2,12 @@ package de.alpharogroup.bundle.app.panels.imports.file;
 
 import java.awt.event.ActionEvent;
 import java.util.Locale;
+import java.util.concurrent.CompletableFuture;
 
 import com.google.common.eventbus.Subscribe;
 
 import de.alpharogroup.bundle.app.MainApplication;
-import de.alpharogroup.bundle.app.actions.OverviewBundleAppsAction;
+import de.alpharogroup.bundle.app.actions.ReturnToDashboardAction;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
@@ -33,6 +34,7 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 	private javax.swing.JButton btnToDashboard;
 
 	private StringKeyValueTableModel tableModel;
+	private ReturnToDashboardAction returnToDashboardAction;
 
 	ImportResourceBundlePanel()
 	{
@@ -58,21 +60,26 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 
 	protected void onImport(final ActionEvent e)
 	{
-		// <dimport the properties to the db...
-
-		final String baseName = LocaleResolver
-			.resolveBundlename(getModelObject().getResourceBundleToImport());
-		final Locale locale = LocaleResolver
-			.resolveLocale(getModelObject().getResourceBundleToImport());
-		BundleApplications bundleApplication = getModelObject().getBundleApplication();
-		SpringApplicationContext.getInstance().getResourcebundlesService().updateProperties(
-			bundleApplication, getModelObject().getImportedProperties(), baseName, locale);
+		// import the properties to the db...
+		CompletableFuture.runAsync(() -> {
+			final String baseName = LocaleResolver
+				.resolveBundlename(getModelObject().getResourceBundleToImport());
+			final Locale locale = LocaleResolver
+				.resolveLocale(getModelObject().getResourceBundleToImport());
+			BundleApplications bundleApplication = getModelObject().getBundleApplication();
+			SpringApplicationContext.getInstance().getResourcebundlesService().updateProperties(
+				bundleApplication, getModelObject().getImportedProperties(), baseName, locale);
+		});
+		returnToDashboardAction.now();
 	}
 
 	@Override
 	protected void onInitializeComponents()
 	{
 		super.onInitializeComponents();
+		
+		returnToDashboardAction = ReturnToDashboardAction.of();
+		
 
 		lblHeaderOverview = new javax.swing.JLabel();
 		srcBundles = new javax.swing.JScrollPane();
@@ -84,7 +91,7 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 		btnToDashboard = new javax.swing.JButton();
 
 		btnToDashboard.setText("Return to Dashboard");
-		btnToDashboard.addActionListener(OverviewBundleAppsAction.of());
+		btnToDashboard.addActionListener(returnToDashboardAction);
 
 		lblHeaderOverview.setText("Overview of resource bundle to import");
 
@@ -93,13 +100,13 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 		srcBundles.setViewportView(tblBundles);
 
 		btnCancelUp.setText("Cancel");
-		btnCancelUp.addActionListener(OverviewBundleAppsAction.of());
+		btnCancelUp.addActionListener(returnToDashboardAction);
 
 		btnImportUp.setText("Import");
 		btnImportUp.addActionListener(e -> onImport(e));
 
 		btnCancel.setText("Cancel");
-		btnCancel.addActionListener(OverviewBundleAppsAction.of());
+		btnCancel.addActionListener(returnToDashboardAction);
 
 		btnImport.setText("Import");
 		btnImport.addActionListener(e -> onImport(e));

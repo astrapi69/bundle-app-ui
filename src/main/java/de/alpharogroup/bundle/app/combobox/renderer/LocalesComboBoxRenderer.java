@@ -10,6 +10,11 @@ import javax.swing.ListCellRenderer;
 import de.alpharogroup.check.Check;
 import de.alpharogroup.model.api.Model;
 
+/**
+ * The Class LocalesComboBoxRenderer.
+ * @deprecated use instead {@code LanguageLocalesComboBoxRenderer}
+ */
+@Deprecated
 public class LocalesComboBoxRenderer extends JLabel implements ListCellRenderer<Locale>
 {
 
