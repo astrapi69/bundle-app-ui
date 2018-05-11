@@ -24,19 +24,17 @@
  */
 package de.alpharogroup.bundle.app.spring;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
 import java.util.prefs.Preferences;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
-import javax.xml.parsers.FactoryConfigurationError;
 
-import org.apache.log4j.xml.DOMConfigurator;
+import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.core.io.Resource;
 
 import de.alpharogroup.db.resource.bundles.entities.Countries;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
@@ -49,18 +47,16 @@ import de.alpharogroup.db.resource.bundles.service.api.LanguagesService;
 import de.alpharogroup.db.resource.bundles.service.api.PropertiesKeysService;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * The class {@link SpringApplicationContext}.
  */
-@Slf4j
-public class SpringApplicationContext
+public class SpringApplicationContext implements ApplicationContextAware
 {
 
 	/** The only single one instance. */
 	private static SpringApplicationContext instance = new SpringApplicationContext();
-
+	
 	/**
 	 * Gets the single instance of SpringApplicationContext.
 	 *
@@ -70,7 +66,7 @@ public class SpringApplicationContext
 	{
 		return instance;
 	}
-	
+
 	@PersistenceUnit
 	@Getter
 	private EntityManagerFactory entityManagerFactory;
@@ -84,24 +80,29 @@ public class SpringApplicationContext
 	private PropertiesKeysService propertiesKeysService;
 
 	private LanguageLocalesService languageLocalesService;
-	
+
 	private CountriesService countriesService;
-	
+
 	private LanguagesService languagesService;
-	
+
 	boolean countriesInitialized;
 	boolean languagesInitialized;
 	boolean languageLocalesInitialized;
-	
+
 	Properties databaseProperties;
-	
+
 	Preferences preferences;
 
 	/** The application context. */
-	private final ApplicationContext applicationContext;
+	private ApplicationContext applicationContext;
 
 	public ApplicationContext getApplicationContext()
 	{
+		if (applicationContext == null)
+		{
+			final String applicationContextPath = "META-INF/application-context.xml";			
+			applicationContext = new ClassPathXmlApplicationContext(applicationContextPath);
+		}
 		return applicationContext;
 	}
 
@@ -110,33 +111,13 @@ public class SpringApplicationContext
 	 */
 	private SpringApplicationContext()
 	{
-		final String applicationContextPath = "application-context.xml";
-		preferences =
-			  Preferences.userNodeForPackage( SpringApplicationContext.class );
+		preferences = Preferences.userNodeForPackage(SpringApplicationContext.class);
 
 		this.countriesInitialized = preferences.getBoolean("countries.initialized", false);
 		this.languagesInitialized = preferences.getBoolean("languages.initialized", false);
-		this.languageLocalesInitialized = preferences.getBoolean("languageLocales.initialized", false);
+		this.languageLocalesInitialized = preferences.getBoolean("languageLocales.initialized",
+			false);
 
-		final ApplicationContext ac =
-			new ClassPathXmlApplicationContext(applicationContextPath);
-
-		final Resource resource = ac.getResource("classpath:conf/log4j/log4jconfig.xml");
-
-		try
-		{
-			DOMConfigurator.configure(resource.getURL());
-		}
-		catch (final FactoryConfigurationError e)
-		{
-			log.error("FactoryConfigurationError:", e);
-		}
-		catch (final IOException e)
-		{
-			log.error("IOException:", e);
-		}
-
-		applicationContext = ac;
 	}
 
 	public BundleApplicationsService getBundleApplicationsService()
@@ -144,7 +125,7 @@ public class SpringApplicationContext
 		if (bundleApplicationsService == null)
 		{
 			bundleApplicationsService = SpringApplicationContextExtensions.getBean(
-				applicationContext, "bundleApplicationsService", BundleApplicationsService.class);
+				getApplicationContext(), "bundleApplicationsService", BundleApplicationsService.class);
 		}
 		return bundleApplicationsService;
 	}
@@ -153,8 +134,8 @@ public class SpringApplicationContext
 	{
 		if (countriesService == null)
 		{
-			countriesService = SpringApplicationContextExtensions.getBean(
-				applicationContext, "countriesService", CountriesService.class);
+			countriesService = SpringApplicationContextExtensions.getBean(getApplicationContext(),
+				"countriesService", CountriesService.class);
 		}
 		return countriesService;
 	}
@@ -163,8 +144,8 @@ public class SpringApplicationContext
 	{
 		if (languagesService == null)
 		{
-			languagesService = SpringApplicationContextExtensions.getBean(
-				applicationContext, "languagesService", LanguagesService.class);
+			languagesService = SpringApplicationContextExtensions.getBean(getApplicationContext(),
+				"languagesService", LanguagesService.class);
 		}
 		return languagesService;
 	}
@@ -173,7 +154,7 @@ public class SpringApplicationContext
 	{
 		if (bundleNamesService == null)
 		{
-			bundleNamesService = SpringApplicationContextExtensions.getBean(applicationContext,
+			bundleNamesService = SpringApplicationContextExtensions.getBean(getApplicationContext(),
 				"bundleNamesService", BundleNamesService.class);
 		}
 		return bundleNamesService;
@@ -183,7 +164,7 @@ public class SpringApplicationContext
 	{
 		if (languageLocalesService == null)
 		{
-			languageLocalesService = SpringApplicationContextExtensions.getBean(applicationContext,
+			languageLocalesService = SpringApplicationContextExtensions.getBean(getApplicationContext(),
 				"languageLocalesService", LanguageLocalesService.class);
 		}
 		return languageLocalesService;
@@ -193,7 +174,7 @@ public class SpringApplicationContext
 	{
 		if (propertiesKeysService == null)
 		{
-			propertiesKeysService = SpringApplicationContextExtensions.getBean(applicationContext,
+			propertiesKeysService = SpringApplicationContextExtensions.getBean(getApplicationContext(),
 				"propertiesKeysService", PropertiesKeysService.class);
 		}
 		return propertiesKeysService;
@@ -203,11 +184,11 @@ public class SpringApplicationContext
 	{
 		if (resourcebundlesService == null)
 		{
-			resourcebundlesService = SpringApplicationContextExtensions.getBean(applicationContext,
+			resourcebundlesService = SpringApplicationContextExtensions.getBean(getApplicationContext(),
 				"resourcebundlesService", ResourcebundlesService.class);
 		}
 		return resourcebundlesService;
-	}	
+	}
 
 	public void initDb()
 	{
@@ -215,14 +196,17 @@ public class SpringApplicationContext
 		initLanguages();
 		initLanguageLocales();
 	}
-	
-	protected void initCountries() {
-		if(getCountriesService().findAll().size() == 0) {
+
+	protected void initCountries()
+	{
+		if (getCountriesService().findAll().size() == 0)
+		{
 			countriesInitialized = false;
 			languagesInitialized = false;
 			languageLocalesInitialized = false;
 		}
-		if(!countriesInitialized) {
+		if (!countriesInitialized)
+		{
 			List<Countries> availableCountries = DataObjectFactory.newCountries();
 			for (Countries countries : availableCountries)
 			{
@@ -238,7 +222,8 @@ public class SpringApplicationContext
 
 	protected void initLanguages()
 	{
-		if(!languagesInitialized) {
+		if (!languagesInitialized)
+		{
 			final List<Languages> languages = DataObjectFactory.newLanguages();
 			for (final Languages language : languages)
 			{
@@ -249,25 +234,36 @@ public class SpringApplicationContext
 					languagesService.merge(language);
 				}
 			}
-			preferences.putBoolean("languages.initialized", true);			
-		}
-	}	
-	
-	protected void initLanguageLocales() {
-		if(!languageLocalesInitialized) {	
-			List<LanguageLocales> availableLanguageLocales = DataObjectFactory.newAvailableLanguageLocales();
-			for (LanguageLocales languageLocales : availableLanguageLocales)
-			{
-				LanguageLocales found = getLanguageLocalesService().find(languageLocales.getLocale());
-				if (found == null)
-				{
-					if(languageLocales != null && !languageLocales.getLocale().isEmpty()) {
-						languageLocalesService.merge(languageLocales);					
-					}
-				}
-			}	
-			preferences.putBoolean("languageLocales.initialized", true);	
+			preferences.putBoolean("languages.initialized", true);
 		}
 	}
-	
+
+	protected void initLanguageLocales()
+	{
+		if (!languageLocalesInitialized)
+		{
+			List<LanguageLocales> availableLanguageLocales = DataObjectFactory
+				.newAvailableLanguageLocales();
+			for (LanguageLocales languageLocales : availableLanguageLocales)
+			{
+				LanguageLocales found = getLanguageLocalesService()
+					.find(languageLocales.getLocale());
+				if (found == null)
+				{
+					if (languageLocales != null && !languageLocales.getLocale().isEmpty())
+					{
+						languageLocalesService.merge(languageLocales);
+					}
+				}
+			}
+			preferences.putBoolean("languageLocales.initialized", true);
+		}
+	}
+
+	@Override
+	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException
+	{
+		this.applicationContext = applicationContext;
+	}
+
 }

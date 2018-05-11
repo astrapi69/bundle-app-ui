@@ -163,6 +163,11 @@ public class MainFrame extends BaseFrame<MainDashboardBean>
 			log.error("Icon file could not be readed.", e);
 		}
 
+		initDb();
+	}
+
+	private void initDb()
+	{
 		final ApplicationContext applicationContext = SpringApplicationContext.getInstance()
 			.getApplicationContext();
 		

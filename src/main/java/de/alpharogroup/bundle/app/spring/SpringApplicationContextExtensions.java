@@ -26,7 +26,7 @@ public class SpringApplicationContextExtensions
 	 */
 	public static <T> T getBean(ApplicationContext context, String name, Class<T> clazz)
 		throws BeansException
-	{
+	{		
 		return context.getBean(name, clazz);
 	}
 }
