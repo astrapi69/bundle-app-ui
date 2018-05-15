@@ -45,6 +45,7 @@ import de.alpharogroup.db.resource.bundles.service.api.CountriesService;
 import de.alpharogroup.db.resource.bundles.service.api.LanguageLocalesService;
 import de.alpharogroup.db.resource.bundles.service.api.LanguagesService;
 import de.alpharogroup.db.resource.bundles.service.api.PropertiesKeysService;
+import de.alpharogroup.db.resource.bundles.service.api.PropertiesValuesService;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import lombok.Getter;
 
@@ -78,6 +79,8 @@ public class SpringApplicationContext implements ApplicationContextAware
 	private ResourcebundlesService resourcebundlesService;
 
 	private PropertiesKeysService propertiesKeysService;
+	
+	private PropertiesValuesService propertiesValuesService;
 
 	private LanguageLocalesService languageLocalesService;
 
@@ -178,6 +181,18 @@ public class SpringApplicationContext implements ApplicationContextAware
 				"propertiesKeysService", PropertiesKeysService.class);
 		}
 		return propertiesKeysService;
+	}
+
+
+	public PropertiesValuesService getPropertiesValuesService()
+	{
+		if (propertiesValuesService == null)
+		{
+			propertiesValuesService = SpringApplicationContextExtensions.getBean(getApplicationContext(),
+				"propertiesValuesService", PropertiesValuesService.class);
+			
+		}
+		return propertiesValuesService;
 	}
 
 	public ResourcebundlesService getResourcebundlesService()

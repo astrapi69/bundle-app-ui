@@ -28,9 +28,10 @@ import de.alpharogroup.collections.properties.PropertiesExtensions;
 import de.alpharogroup.comparators.NullCheckComparator;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.PropertiesKeys;
+import de.alpharogroup.db.resource.bundles.entities.PropertiesValues;
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
-import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObjectFactory;
 import de.alpharogroup.db.resource.bundles.service.api.PropertiesKeysService;
+import de.alpharogroup.db.resource.bundles.service.api.PropertiesValuesService;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
@@ -91,28 +92,30 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 			.resolveLocale(getModelObject().getSelectedBundleName().getLocale().getLocale());
 		final PropertiesKeysService propertiesKeysService = SpringApplicationContext.getInstance()
 			.getPropertiesKeysService();
+		PropertiesValuesService propertiesValuesService = SpringApplicationContext.getInstance()
+		.getPropertiesValuesService();
 		final ResourcebundlesService resourcebundlesService = SpringApplicationContext.getInstance()
 			.getResourcebundlesService();
 		final boolean update = true;
 
 		Resourcebundles resourcebundle = resourcebundlesService.getResourcebundle(bundleApplication,
 			baseName, locale, key);
+		PropertiesValues pValue = propertiesValuesService.getOrCreateNewNameEntity(value);
 		if (resourcebundle != null)
 		{
 			if (update)
 			{
-				resourcebundle.setValue(value);
+				
+				resourcebundle.setValue(pValue);
 			}
 		}
 		else
 		{
-			final PropertiesKeys pkey = propertiesKeysService.getOrCreateNewPropertiesKeys(key);
+			final PropertiesKeys pkey = propertiesKeysService.getOrCreateNewNameEntity(key);
 
 			resourcebundle = Resourcebundles.builder()
-				.bundleName(getModelObject().getSelectedBundleName()).key(pkey).value(value)
+				.bundleName(getModelObject().getSelectedBundleName()).key(pkey).value(pValue)
 				.build();
-			ResourceBundlesDomainObjectFactory.getInstance()
-				.newResourcebundles(getModelObject().getSelectedBundleName(), pkey, value);
 		}
 		resourcebundle = resourcebundlesService.merge(resourcebundle);
 
@@ -181,7 +184,7 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 					.setSelectedResourcebundle(selected);
 
 				txtKey.setText(selected.getKey().getName());
-				txtValue.setText(selected.getValue());
+				txtValue.setText(selected.getValue().getName());
 
 				final String text = "Edit";
 				return text;
@@ -437,7 +440,7 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 		for (final Resourcebundles resourcebundle : list)
 		{
 			tableModelList.add(Quattro.<String, String, Resourcebundles, Resourcebundles> builder()
-				.topLeft(resourcebundle.getKey().getName()).topRight(resourcebundle.getValue())
+				.topLeft(resourcebundle.getKey().getName()).topRight(resourcebundle.getValue().getName())
 				.bottomLeft(resourcebundle).bottomRight(resourcebundle).build());
 		}
 		Collections.sort(tableModelList,
