@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import de.alpharogroup.collections.list.ListExtensions;
+import de.alpharogroup.collections.list.ListFactory;
 import de.alpharogroup.db.resource.bundles.entities.Countries;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.resource.bundles.entities.Languages;
@@ -805,7 +805,7 @@ public class DataObjectFactory
 	 */
 	public static List<LanguageLocales> newAvailableLanguageLocales()
 	{
-		final List<LanguageLocales> languageLocales = ListExtensions.newArrayList();
+		final List<LanguageLocales> languageLocales = ListFactory.newArrayList();
 		List<Locale> availableLocales = LocaleResolver.getAvailableLocales();
 		for (Locale locale : availableLocales)
 		{

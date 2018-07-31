@@ -20,7 +20,7 @@ import de.alpharogroup.bundle.app.combobox.renderer.LanguageLocalesComboBoxRende
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
 import de.alpharogroup.bundle.app.table.model.StringLanguageLocalesTableModel;
-import de.alpharogroup.collections.list.ListExtensions;
+import de.alpharogroup.collections.list.ListFactory;
 import de.alpharogroup.collections.pairs.KeyValuePair;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
@@ -225,7 +225,7 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 
 	private List<KeyValuePair<String, LanguageLocales>> getSupportedLanguageLocales()
 	{
-		List<KeyValuePair<String, LanguageLocales>> list = ListExtensions.newArrayList();
+		List<KeyValuePair<String, LanguageLocales>> list = ListFactory.newArrayList();
 		ApplicationDashboardBean modelObject = getModelObject();
 		BundleApplications bundleApplication = modelObject.getBundleApplication();
 		if (bundleApplication != null)

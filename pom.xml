@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>de.alpharogroup</groupId>
 		<artifactId>mvn-ui-parent</artifactId>
-		<version>1.19-SNAPSHOT</version>
+		<version>1.19</version>
 		<relativePath></relativePath>
 	</parent>
 
@@ -14,8 +14,7 @@
 
 	<properties>
 		<!-- UI properties -->
-		<swing-components.version>4.27</swing-components.version>
-		<silly-collections.version>4.28.0</silly-collections.version>
+		<silly-collections.version>4.33</silly-collections.version>		
 		<!-- MIGLAYOUT-SWING version -->
 		<miglayout-swing.version>5.0</miglayout-swing.version>
 		<!-- GUAVA version -->
@@ -25,7 +24,7 @@
 		<observer.version>${design-patterns.version}</observer.version>
 		<state.version>${design-patterns.version}</state.version>
 		<!-- RESOURCEBUNDLE-CORE versions -->
-		<resourcebundle-core.version>2.21</resourcebundle-core.version>
+		<resourcebundle-core.version>3</resourcebundle-core.version>
 		<resourcebundle-inspector.version>${resourcebundle-core.version}</resourcebundle-inspector.version>
 		<!-- MODEL-DATA version -->
 		<model-data.version>1.5.0</model-data.version>
@@ -52,7 +51,7 @@
 		<resource-bundles-domain-model.version>${resource-bundles-data.version}</resource-bundles-domain-model.version>
 		<resource-bundles-rest-api.version>${resource-bundles-data.version}</resource-bundles-rest-api.version>
 		<!-- PERSISTENCE-API versions -->
-		<persistence-api.version>6.3.0-SNAPSHOT</persistence-api.version>
+		<persistence-api.version>6.3</persistence-api.version>
 		<data-initialization.version>${persistence-api.version}</data-initialization.version>
 		<!-- PROJECT RELATED PROPERTIES -->
 		<full-app-name>bundle-app-ui</full-app-name>

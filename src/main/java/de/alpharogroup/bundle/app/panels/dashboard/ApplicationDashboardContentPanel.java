@@ -28,7 +28,7 @@ import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
 import de.alpharogroup.collections.pairs.KeyValuePair;
 import de.alpharogroup.collections.pairs.Triple;
 import de.alpharogroup.collections.properties.PropertiesExtensions;
-import de.alpharogroup.collections.set.SetExtensions;
+import de.alpharogroup.collections.set.SetFactory;
 import de.alpharogroup.comparators.NullCheckComparator;
 import de.alpharogroup.comparators.pairs.KeyValuePairKeyComparator;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
@@ -256,7 +256,7 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 					final List<Triple<File, Locale, KeyValuePair<Boolean, File>>> foundProperties = getModelObject()
 						.getFoundProperties();
 					// 3. save properties files the to the bundleapp
-					final Set<BundleNames> set = SetExtensions.newHashSet();
+					final Set<BundleNames> set = SetFactory.newHashSet();
 					for (final Triple<File, Locale, KeyValuePair<Boolean, File>> entry : foundProperties)
 					{
 						if (BooleanUtils.toBoolean(entry.getRight().getKey()))
