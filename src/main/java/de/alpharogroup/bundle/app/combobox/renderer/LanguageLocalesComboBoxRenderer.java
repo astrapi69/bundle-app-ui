@@ -8,6 +8,7 @@ import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
 import de.alpharogroup.check.Check;
+import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
@@ -15,18 +16,18 @@ import de.alpharogroup.resourcebundle.locale.LocaleResolver;
 
 public class LanguageLocalesComboBoxRenderer extends JLabel
 	implements
-		ListCellRenderer<LanguageLocales>
+		ListCellRenderer<LanguageLocale>
 {
 
 	private static final long serialVersionUID = 1L;
-	private final Model<LanguageLocales> model;
+	private final Model<LanguageLocale> model;
 
 	public LanguageLocalesComboBoxRenderer()
 	{
-		this(BaseModel.<LanguageLocales> of());
+		this(BaseModel.<LanguageLocale> of());
 	}
 
-	public LanguageLocalesComboBoxRenderer(final Model<LanguageLocales> model)
+	public LanguageLocalesComboBoxRenderer(final Model<LanguageLocale> model)
 	{
 		Check.get().notNull(model, "model");
 		this.model = model;
@@ -36,8 +37,8 @@ public class LanguageLocalesComboBoxRenderer extends JLabel
 	}
 
 	@Override
-	public Component getListCellRendererComponent(final JList<? extends LanguageLocales> list,
-		final LanguageLocales value, final int index, final boolean isSelected,
+	public Component getListCellRendererComponent(final JList<? extends LanguageLocale> list,
+		final LanguageLocale value, final int index, final boolean isSelected,
 		final boolean cellHasFocus)
 	{
 

@@ -27,6 +27,7 @@ package de.alpharogroup.bundle.app;
 import java.awt.Component;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.JDesktopPane;
@@ -36,10 +37,15 @@ import javax.swing.JToolBar;
 
 import org.springframework.context.ApplicationContext;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
+
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.bundle.app.panels.dashboard.mainapp.MainDashboardBean;
 import de.alpharogroup.bundle.app.panels.dashboard.mainapp.MainDashboardPanel;
+import de.alpharogroup.bundle.app.spring.RestService;
 import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
+import de.alpharogroup.collections.list.ListFactory;
+import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
 import de.alpharogroup.lang.ClassExtensions;
@@ -168,17 +174,18 @@ public class MainFrame extends BaseFrame<MainDashboardBean>
 
 	private void initDb()
 	{
-		final ApplicationContext applicationContext = SpringApplicationContext.getInstance()
-			.getApplicationContext();
-		
-
-		SpringApplicationContext.getInstance().initDb();
-
-		final BundleApplicationsService bundleApplicationsService = (BundleApplicationsService)applicationContext
-			.getBean("bundleApplicationsService");
-
+		List<BundleApplication> allBundleApplications = ListFactory.newArrayList();
+		try
+		{
+			allBundleApplications = RestService.findAllBundleApplications();
+		}
+		catch (UnirestException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		final Model<MainDashboardBean> model = BaseModel.<MainDashboardBean> of(MainDashboardBean
-			.builder().bundleApplications(bundleApplicationsService.findAll()).build());
+			.builder().bundleApplications(allBundleApplications).build());
 		setModel(model);
 		final MainDashboardPanel mainDashboardPanel = new MainDashboardPanel(
 			PropertyModel.<MainDashboardBean> of(this, "model.object"));
@@ -208,12 +215,11 @@ public class MainFrame extends BaseFrame<MainDashboardBean>
 		setCurrentVisibleInternalFrame(internalFrame);
 	}
 
-	public void setSelectedBundleApplication(final BundleApplications bundleApplication)
+	public void setSelectedBundleApplication(final BundleApplication bundleApplication)
 	{
 		initApllicationDashboardBean();
-		final BundleApplications bundleApplications = SpringApplicationContext.getInstance()
-			.getBundleApplicationsService().get(bundleApplication.getId());
-		getModelObject().getSelectedBundleApplication().setBundleApplication(bundleApplications);
+
+		getModelObject().getSelectedBundleApplication().setBundleApplication(bundleApplication);
 	}
 
 }

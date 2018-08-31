@@ -6,7 +6,7 @@ import de.alpharogroup.bundle.app.actions.ReturnToDashboardAction;
 import de.alpharogroup.bundle.app.combobox.model.BundleNamesComboBoxModel;
 import de.alpharogroup.bundle.app.combobox.renderer.BundleNamesComboBoxRenderer;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
-import de.alpharogroup.db.resource.bundles.entities.BundleNames;
+import de.alpharogroup.db.resource.bundles.domain.BundleName;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BasePanel;
@@ -19,7 +19,7 @@ public class NewResourceBundleEntryPanel extends BasePanel<ApplicationDashboardB
 	private javax.swing.JButton btnCreate;
 	private javax.swing.JButton btnSave;
 	private javax.swing.JButton btnToDashboard;
-	private javax.swing.JComboBox<BundleNames> cmbBundle;
+	private javax.swing.JComboBox<BundleName> cmbBundle;
 	private javax.swing.JLabel lblBundle;
 	private javax.swing.JLabel lblHeaderNewBundleEntry;
 	private javax.swing.JLabel lblKey;

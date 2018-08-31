@@ -22,8 +22,9 @@ import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
 import de.alpharogroup.bundle.app.table.model.StringLanguageLocalesTableModel;
 import de.alpharogroup.collections.list.ListFactory;
 import de.alpharogroup.collections.pairs.KeyValuePair;
-import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
-import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
+import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
+import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
+
 import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
@@ -39,15 +40,15 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 	private javax.swing.JButton btnAddSupportedLocale;
 	private javax.swing.JButton btnSave;
 	private javax.swing.JButton btnToDashboard;
-	private javax.swing.JComboBox<LanguageLocales> cmbDefaultLocale;
-	private javax.swing.JComboBox<LanguageLocales> cmbSupportedLocaleToAdd;
+	private javax.swing.JComboBox<LanguageLocale> cmbDefaultLocale;
+	private javax.swing.JComboBox<LanguageLocale> cmbSupportedLocaleToAdd;
 	private javax.swing.JLabel lbDefaultlLocale;
 	private javax.swing.JLabel lblBundleName;
 	private javax.swing.JLabel lblHeaderNewBundleApp;
 	private javax.swing.JLabel lblSupportedLocaleToAdd;
 	private javax.swing.JLabel lblSupportedLocales;
 	private javax.swing.JScrollPane srcSupportedLocales;
-	private GenericJXTable<KeyValuePair<String, LanguageLocales>> tblSupportedLocales;
+	private GenericJXTable<KeyValuePair<String, LanguageLocale>> tblSupportedLocales;
 	private javax.swing.JTextField txtBundleName;
 	
 	private DefaultLocaleVerifier verifier;
@@ -62,43 +63,43 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 		super(model);
 	}
 
-	protected javax.swing.JComboBox<LanguageLocales> newCmbDefaultLocale(
+	protected javax.swing.JComboBox<LanguageLocale> newCmbDefaultLocale(
 		final Model<ApplicationDashboardBean> model)
 	{
 		ApplicationDashboardBean bean = model.getObject();
-		BundleApplications bundleApplication = bean.getBundleApplication();
+		BundleApplication bundleApplication = bean.getBundleApplication();
 		LanguageLocalesComboBoxModel cmbModel = new LanguageLocalesComboBoxModel();
 		if (bundleApplication != null)
 		{
-			LanguageLocales defaultLocale = bundleApplication.getDefaultLocale();
+			LanguageLocale defaultLocale = bundleApplication.getDefaultLocale();
 			cmbModel.setSelectedItem(defaultLocale);
 		}
 
-		final javax.swing.JComboBox<LanguageLocales> cmbDefaultLocale = new javax.swing.JComboBox<>(
+		final javax.swing.JComboBox<LanguageLocale> cmbDefaultLocale = new javax.swing.JComboBox<>(
 			cmbModel);
 		cmbDefaultLocale.addItemListener(e -> onChangeDefaultLocale(e));
-		final Model<LanguageLocales> defaultLocaleModel = model(
+		final Model<LanguageLocale> defaultLocaleModel = model(
 			from(getModel()).getDefaultLocale());
 		cmbDefaultLocale.setRenderer(new LanguageLocalesComboBoxRenderer(defaultLocaleModel));
 		return cmbDefaultLocale;
 	}
 
-	protected javax.swing.JComboBox<LanguageLocales> newCmbSupportedLocaleToAdd(
+	protected javax.swing.JComboBox<LanguageLocale> newCmbSupportedLocaleToAdd(
 		final Model<ApplicationDashboardBean> model)
 	{
 		ApplicationDashboardBean bean = model.getObject();
-		BundleApplications bundleApplication = bean.getBundleApplication();
+		BundleApplication bundleApplication = bean.getBundleApplication();
 		LanguageLocalesComboBoxModel cmbModel = new LanguageLocalesComboBoxModel();
 		if (bundleApplication != null)
 		{
-			Set<LanguageLocales> supportedLocales = bundleApplication.getSupportedLocales();
+			Set<LanguageLocale> supportedLocales = bundleApplication.getSupportedLocales();
 			cmbModel.getComboList().removeAll(supportedLocales);
 
-			LanguageLocales defaultLocale = bundleApplication.getDefaultLocale();
+			LanguageLocale defaultLocale = bundleApplication.getDefaultLocale();
 			cmbModel.getComboList().remove(defaultLocale);
 		}
 
-		final javax.swing.JComboBox<LanguageLocales> cmbSupportedLocaleToAdd = new javax.swing.JComboBox<>(
+		final javax.swing.JComboBox<LanguageLocale> cmbSupportedLocaleToAdd = new javax.swing.JComboBox<>(
 			cmbModel);
 		cmbSupportedLocaleToAdd.addItemListener(e -> onChangeSupportedLocaleToAdd(e));
 		cmbSupportedLocaleToAdd.setRenderer(new LanguageLocalesComboBoxRenderer());
@@ -195,10 +196,10 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 
 	protected void onAddSupportedLocale(ActionEvent e)
 	{
-		LanguageLocales selectedItem = (LanguageLocales)cmbSupportedLocaleToAdd.getSelectedItem();
+		LanguageLocale selectedItem = (LanguageLocale)cmbSupportedLocaleToAdd.getSelectedItem();
 		System.out.println(selectedItem);
 		ApplicationDashboardBean bean = getModelObject();
-		Set<LanguageLocales> supportedLocales = bean.getSupportedLocales();
+		Set<LanguageLocale> supportedLocales = bean.getSupportedLocales();
 		if (supportedLocales == null)
 		{
 			supportedLocales = new HashSet<>();
@@ -206,7 +207,7 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 		}
 		supportedLocales.add(selectedItem);
 		tblSupportedLocales.getGenericTableModel()
-			.add(KeyValuePair.<String, LanguageLocales> builder().key(selectedItem.getLocale())
+			.add(KeyValuePair.<String, LanguageLocale> builder().key(selectedItem.getLocale())
 				.value(selectedItem).build());
 
 		this.revalidate();
@@ -223,18 +224,18 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 		// TODO implement...
 	}
 
-	private List<KeyValuePair<String, LanguageLocales>> getSupportedLanguageLocales()
+	private List<KeyValuePair<String, LanguageLocale>> getSupportedLanguageLocales()
 	{
-		List<KeyValuePair<String, LanguageLocales>> list = ListFactory.newArrayList();
+		List<KeyValuePair<String, LanguageLocale>> list = ListFactory.newArrayList();
 		ApplicationDashboardBean modelObject = getModelObject();
-		BundleApplications bundleApplication = modelObject.getBundleApplication();
+		BundleApplication bundleApplication = modelObject.getBundleApplication();
 		if (bundleApplication != null)
 		{
-			Set<LanguageLocales> supportedLocales = bundleApplication.getSupportedLocales();
+			Set<LanguageLocale> supportedLocales = bundleApplication.getSupportedLocales();
 			modelObject.setSupportedLocales(supportedLocales);
-			for (LanguageLocales supportedLocale : supportedLocales)
+			for (LanguageLocale supportedLocale : supportedLocales)
 			{
-				list.add(KeyValuePair.<String, LanguageLocales> builder()
+				list.add(KeyValuePair.<String, LanguageLocale> builder()
 					.key(supportedLocale.getLocale()).value(supportedLocale).build());
 			}
 		}
@@ -346,16 +347,16 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 
 	protected void onSave(final ActionEvent e)
 	{
-		final BundleApplicationsService bundleApplicationsService = SpringApplicationContext
-			.getInstance().getBundleApplicationsService();
+//		final BundleApplicationsService bundleApplicationsService = SpringApplicationContext
+//			.getInstance().getBundleApplicationsService();
 		final String name = getTxtBundleName().getText();
 		if(StringUtils.isNotEmpty(name)) {
-			BundleApplications currentBundleApplication;
+			BundleApplication currentBundleApplication;
 			currentBundleApplication = getModelObject().getBundleApplication();
 			if (currentBundleApplication != null)
 			{
 				currentBundleApplication.setName(name);
-				LanguageLocales defaultLocale = getModelObject().getDefaultLocale();
+				LanguageLocale defaultLocale = getModelObject().getDefaultLocale();
 				if (currentBundleApplication.getDefaultLocale() != null)
 				{
 					if (!currentBundleApplication.getDefaultLocale().equals(defaultLocale))
@@ -374,10 +375,10 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 			}
 			else
 			{
-				BundleApplications newBundleApplication = bundleApplicationsService.find(name);
+				BundleApplication newBundleApplication = bundleApplicationsService.find(name);
 				if (newBundleApplication == null)
 				{
-					LanguageLocales defaultLocale = getModelObject().getDefaultLocale();
+					LanguageLocale defaultLocale = getModelObject().getDefaultLocale();
 
 					newBundleApplication = bundleApplicationsService.getOrCreateNewBundleApplications(
 						name, defaultLocale, getModelObject().getSupportedLocales());

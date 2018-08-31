@@ -1,10 +1,10 @@
 package de.alpharogroup.bundle.app.panels.dashboard.mainapp;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
-import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
+import de.alpharogroup.collections.list.ListFactory;
+import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -23,7 +23,7 @@ import lombok.ToString;
 public class MainDashboardBean
 {
 	@Builder.Default
-	private List<BundleApplications> bundleApplications = new ArrayList<>();
+	private List<BundleApplication> bundleApplications = ListFactory.newArrayList();
 
 	private ApplicationDashboardBean selectedBundleApplication;
 

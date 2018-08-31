@@ -4,11 +4,14 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
-import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
+import com.mashape.unirest.http.exceptions.UnirestException;
+
+import de.alpharogroup.bundle.app.spring.RestService;
+import de.alpharogroup.collections.list.ListFactory;
+import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
 import de.alpharogroup.swing.combobox.model.AbstractComboBoxModel;
 
-public class LanguageLocalesComboBoxModel extends AbstractComboBoxModel<LanguageLocales>
+public class LanguageLocalesComboBoxModel extends AbstractComboBoxModel<LanguageLocale>
 {
 	private static final long serialVersionUID = 1L;
 
@@ -16,15 +19,22 @@ public class LanguageLocalesComboBoxModel extends AbstractComboBoxModel<Language
 	 * init block
 	 **/
 	{
-		List<LanguageLocales> languageLocales = 
-			SpringApplicationContext.getInstance().getLanguageLocalesService().findAll();
-		Collections.sort(languageLocales, Comparator.comparing(LanguageLocales::getLocale));
+		List<LanguageLocale> languageLocales = ListFactory.newArrayList();
+		try
+		{
+			languageLocales = RestService.findAllLanguageLocales();
+			Collections.sort(languageLocales, Comparator.comparing(LanguageLocale::getLocale));
+		}
+		catch (UnirestException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		setComboList(languageLocales);
 	}
 
 	public LanguageLocalesComboBoxModel()
 	{
 	}
-
 
 }

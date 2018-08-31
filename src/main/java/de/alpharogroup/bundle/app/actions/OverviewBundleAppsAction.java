@@ -5,10 +5,15 @@ import java.util.List;
 
 import javax.swing.AbstractAction;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
+
 import de.alpharogroup.bundle.app.MainFrame;
 import de.alpharogroup.bundle.app.panels.dashboard.mainapp.MainDashboardBean;
 import de.alpharogroup.bundle.app.panels.dashboard.mainapp.MainDashboardPanel;
+import de.alpharogroup.bundle.app.spring.RestService;
 import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
+import de.alpharogroup.collections.list.ListFactory;
+import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.model.PropertyModel;
 
@@ -47,8 +52,16 @@ public class OverviewBundleAppsAction extends AbstractAction
 	@Override
 	public void actionPerformed(final ActionEvent e)
 	{
-		final List<BundleApplications> bundleApplications = SpringApplicationContext.getInstance()
-			.getBundleApplicationsService().findAll();
+		List<BundleApplication> bundleApplications = ListFactory.newArrayList();
+		try
+		{
+			bundleApplications = RestService.findAllBundleApplications();
+		}
+		catch (UnirestException e1)
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		MainFrame.getInstance().getModelObject().setBundleApplications(bundleApplications);
 		MainFrame.getInstance().replaceInternalFrame("Overview bundle apps", new MainDashboardPanel(
 			PropertyModel.<MainDashboardBean> of(MainFrame.getInstance(), "model.object")));

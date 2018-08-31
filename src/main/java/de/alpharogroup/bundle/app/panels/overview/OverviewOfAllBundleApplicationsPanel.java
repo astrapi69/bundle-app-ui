@@ -18,6 +18,7 @@ import de.alpharogroup.bundle.app.panels.dashboard.mainapp.MainDashboardPanel;
 import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
 import de.alpharogroup.bundle.app.table.model.StringBundleApplicationsBundleApplicationsTableModel;
 import de.alpharogroup.collections.pairs.Triple;
+import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.PropertyModel;
@@ -44,9 +45,9 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 
 	private StringBundleApplicationsBundleApplicationsTableModel tableModel;
 
-	private GenericJXTable<Triple<String, BundleApplications, BundleApplications>> tblBundleApps;
+	private GenericJXTable<Triple<String, BundleApplication, BundleApplication>> tblBundleApps;
 
-	private List<Triple<String, BundleApplications, BundleApplications>> tableModelList;
+	private List<Triple<String, BundleApplication, BundleApplication>> tableModelList;
 
 	public OverviewOfAllBundleApplicationsPanel()
 	{
@@ -58,15 +59,15 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 		super(model);
 	}
 
-	private List<Triple<String, BundleApplications, BundleApplications>> getTableModelList()
+	private List<Triple<String, BundleApplication, BundleApplication>> getTableModelList()
 	{
 		if (tableModelList == null)
 		{
 			tableModelList = new ArrayList<>();
-			for (final BundleApplications bundleApplication : getModelObject()
+			for (final BundleApplication bundleApplication : getModelObject()
 				.getBundleApplications())
 			{
-				tableModelList.add(Triple.<String, BundleApplications, BundleApplications> builder()
+				tableModelList.add(Triple.<String, BundleApplication, BundleApplication> builder()
 					.left(bundleApplication.getName()).middle(bundleApplication).right(bundleApplication).build());
 			}
 		}
@@ -122,7 +123,7 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 			@Override
 			public Object getCellEditorValue()
 			{
-				final BundleApplications selectedBundleApplication = (BundleApplications)this
+				final BundleApplication selectedBundleApplication = (BundleApplication)this
 					.getValue();
 				MainFrame.getInstance().setSelectedBundleApplication(selectedBundleApplication);
 				final Model<ApplicationDashboardBean> baModel = MainFrame.getInstance()
@@ -258,7 +259,7 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 	{
 		tableModel.getData().clear();
 
-		final List<BundleApplications> bundleApplications = SpringApplicationContext.getInstance()
+		final List<BundleApplication> bundleApplications = SpringApplicationContext.getInstance()
 			.getBundleApplicationsService().findAll();
 		getModelObject().setBundleApplications(bundleApplications);
 		
@@ -323,7 +324,7 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 			SpringApplicationContext
 			.getInstance().getBundleApplicationsService().delete(selectedBundleApplication);				
 
-			final List<BundleApplications> bundleApplications = SpringApplicationContext.getInstance()
+			final List<BundleApplication> bundleApplications = SpringApplicationContext.getInstance()
 				.getBundleApplicationsService().findAll();
 			MainFrame.getInstance().getModelObject().setBundleApplications(bundleApplications);
 			MainFrame.getInstance().replaceInternalFrame("Overview bundle apps", new MainDashboardPanel(

@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
@@ -14,7 +15,7 @@
 
 	<properties>
 		<!-- UI properties -->
-		<silly-collections.version>4.33</silly-collections.version>		
+		<silly-collections.version>4.33</silly-collections.version>
 		<!-- MIGLAYOUT-SWING version -->
 		<miglayout-swing.version>5.0</miglayout-swing.version>
 		<!-- GUAVA version -->
@@ -61,12 +62,45 @@
 		<main-full-app-name>${main-app-package-name}.MainApplication</main-full-app-name>
 		<file-name-with-dependencies>${full-app-name}-jar-with-dependencies.jar</file-name-with-dependencies>
 		<file-name-with-dependencies-path>${project.build.directory}/${file-name-with-dependencies}</file-name-with-dependencies-path>
+		<!-- UNIREST version -->
+		<unirest.version>1.4.9</unirest.version>
+		<httpclient.version>4.3.6</httpclient.version>
+		<httpasyncclient.version>4.0.2</httpasyncclient.version>
+		<httpmime.version>4.3.6</httpmime.version>
+		<json.version>20140107</json.version>
 	</properties>
 
 	<dependencyManagement>
 
 		<dependencies>
-			<!-- MIGLAYOUT-SWING DEPENDENCIES -->
+
+			<dependency>
+				<groupId>com.mashape.unirest</groupId>
+				<artifactId>unirest-java</artifactId>
+				<version>${unirest.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpclient</artifactId>
+				<version>${httpclient.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpasyncclient</artifactId>
+				<version>${httpasyncclient.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpmime</artifactId>
+				<version>${httpmime.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.json</groupId>
+				<artifactId>json</artifactId>
+				<version>${json.version}</version>
+			</dependency>
+
+			<!-- MIGLAYOUT-SWING DEPENDENCY -->
 			<dependency>
 				<groupId>com.miglayout</groupId>
 				<artifactId>miglayout-swing</artifactId>
@@ -228,7 +262,28 @@
 	</dependencyManagement>
 
 	<dependencies>
-		<!-- MIGLAYOUT-SWING DEPENDENCIES -->
+
+		<dependency>
+			<groupId>com.mashape.unirest</groupId>
+			<artifactId>unirest-java</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpasyncclient</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpmime</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+		</dependency>
+		<!-- MIGLAYOUT-SWING DEPENDENCY -->
 		<dependency>
 			<groupId>com.miglayout</groupId>
 			<artifactId>miglayout-swing</artifactId>
@@ -258,25 +313,30 @@
 			<artifactId>guava</artifactId>
 		</dependency>
 		<!-- RESOURCE-BUNDLES-DATA DEPENDENCIES -->
-		<dependency>
-			<groupId>de.alpharogroup</groupId>
-			<artifactId>resource-bundles-business</artifactId>
-		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>de.alpharogroup</groupId> -->
+		<!-- <artifactId>resource-bundles-business</artifactId> -->
+		<!-- </dependency> -->
+
+		<!-- <dependency> -->
+		<!-- <groupId>de.alpharogroup</groupId> -->
+		<!-- <artifactId>resource-bundles-entities</artifactId> -->
+		<!-- </dependency> -->
+
+		<!-- <dependency> -->
+		<!-- <groupId>de.alpharogroup</groupId> -->
+		<!-- <artifactId>resource-bundles-domain</artifactId> -->
+		<!-- </dependency> -->
 
 		<dependency>
 			<groupId>de.alpharogroup</groupId>
-			<artifactId>resource-bundles-entities</artifactId>
+			<artifactId>resource-bundles-domain-model</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>de.alpharogroup</groupId>
-			<artifactId>resource-bundles-domain</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>de.alpharogroup</groupId>
-			<artifactId>resource-bundles-rest-api</artifactId>
-		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>de.alpharogroup</groupId> -->
+		<!-- <artifactId>resource-bundles-rest-api</artifactId> -->
+		<!-- </dependency> -->
 		<!-- SPRING DEPENDENCIES -->
 		<dependency>
 			<groupId>org.springframework</groupId>

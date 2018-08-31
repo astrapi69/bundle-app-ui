@@ -10,6 +10,7 @@ import de.alpharogroup.bundle.app.MainApplication;
 import de.alpharogroup.bundle.app.actions.ReturnToDashboardAction;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
+import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
@@ -66,7 +67,7 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 				.resolveBundlename(getModelObject().getResourceBundleToImport());
 			final Locale locale = LocaleResolver
 				.resolveLocale(getModelObject().getResourceBundleToImport());
-			BundleApplications bundleApplication = getModelObject().getBundleApplication();
+			BundleApplication bundleApplication = getModelObject().getBundleApplication();
 			SpringApplicationContext.getInstance().getResourcebundlesService().updateProperties(
 				bundleApplication, getModelObject().getImportedProperties(), baseName, locale);
 		});

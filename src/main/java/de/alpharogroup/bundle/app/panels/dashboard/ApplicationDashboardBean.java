@@ -9,10 +9,10 @@ import java.util.Set;
 
 import de.alpharogroup.collections.pairs.KeyValuePair;
 import de.alpharogroup.collections.pairs.Triple;
-import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
-import de.alpharogroup.db.resource.bundles.entities.BundleNames;
-import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
-import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
+import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
+import de.alpharogroup.db.resource.bundles.domain.BundleName;
+import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
+import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,13 +34,13 @@ import lombok.experimental.FieldDefaults;
 public class ApplicationDashboardBean
 {
 
-	BundleApplications bundleApplication;
+	BundleApplication bundleApplication;
 
-	LanguageLocales defaultLocale;
+	LanguageLocale defaultLocale;
 
-	BundleNames selectedBundleName;
+	BundleName selectedBundleName;
 
-	Resourcebundles selectedResourcebundle;
+	Resourcebundle selectedResourcebundle;
 
 	File resourceBundleToImport;
 
@@ -48,9 +48,9 @@ public class ApplicationDashboardBean
 
 	List<KeyValuePair<String, String>> importedKeyValuePairs;
 
-	Set<BundleNames> bundleNames;
+	Set<BundleName> bundleNames;
 	
-	Set<LanguageLocales> supportedLocales;
+	Set<LanguageLocale> supportedLocales;
 
 	@Builder.Default
 	List<Triple<File, Locale, KeyValuePair<Boolean, File>>> foundProperties = new ArrayList<>();

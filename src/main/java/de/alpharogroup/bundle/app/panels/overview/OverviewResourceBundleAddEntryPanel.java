@@ -26,6 +26,8 @@ import de.alpharogroup.bundle.app.table.model.StringResourcebundlesTableModel;
 import de.alpharogroup.collections.pairs.Quattro;
 import de.alpharogroup.collections.properties.PropertiesExtensions;
 import de.alpharogroup.comparators.NullCheckComparator;
+import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
+import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.PropertiesKeys;
 import de.alpharogroup.db.resource.bundles.entities.PropertiesValues;
@@ -56,12 +58,12 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 	private javax.swing.JLabel lblKey;
 	private javax.swing.JLabel lblValue;
 	private javax.swing.JScrollPane srcBundles;
-	private GenericJXTable<Quattro<String, String, Resourcebundles, Resourcebundles>> tblBundles;
+	private GenericJXTable<Quattro<String, String, Resourcebundle, Resourcebundle>> tblBundles;
 	private StringResourcebundlesTableModel tableModel;
 	private javax.swing.JTextField txtKey;
 	private javax.swing.JTextField txtValue;
 
-	private List<Quattro<String, String, Resourcebundles, Resourcebundles>> tableModelList;
+	private List<Quattro<String, String, Resourcebundle, Resourcebundle>> tableModelList;
 
 	public OverviewResourceBundleAddEntryPanel()
 	{
@@ -73,7 +75,7 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 		super(model);
 	}
 
-	private List<Quattro<String, String, Resourcebundles, Resourcebundles>> getTableModelList()
+	private List<Quattro<String, String, Resourcebundle, Resourcebundle>> getTableModelList()
 	{
 		if (tableModelList == null)
 		{
@@ -86,7 +88,7 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 	{
 		final String key = txtKey.getText();
 		final String value = txtValue.getText();
-		BundleApplications bundleApplication = getModelObject().getBundleApplication();
+		BundleApplication bundleApplication = getModelObject().getBundleApplication();
 		final String baseName = getModelObject().getSelectedBundleName().getBaseName().getName();
 		final Locale locale = LocaleResolver
 			.resolveLocale(getModelObject().getSelectedBundleName().getLocale().getLocale());
@@ -98,7 +100,7 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 			.getResourcebundlesService();
 		final boolean update = true;
 
-		Resourcebundles resourcebundle = resourcebundlesService.getResourcebundle(bundleApplication,
+		Resourcebundle resourcebundle = resourcebundlesService.getResourcebundle(bundleApplication,
 			baseName, locale, key);
 		PropertiesValues pValue = propertiesValuesService.getOrCreateNewNameEntity(value);
 		if (resourcebundle != null)
@@ -113,7 +115,7 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 		{
 			final PropertiesKeys pkey = propertiesKeysService.getOrCreateNewNameEntity(key);
 
-			resourcebundle = Resourcebundles.builder()
+			resourcebundle = Resourcebundle.builder()
 				.bundleName(getModelObject().getSelectedBundleName()).key(pkey).value(pValue)
 				.build();
 		}
@@ -178,7 +180,7 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 			@Override
 			public Object getCellEditorValue()
 			{
-				final Resourcebundles selected = (Resourcebundles)this.getValue();
+				final Resourcebundle selected = (Resourcebundle)this.getValue();
 
 				MainFrame.getInstance().getModelObject().getSelectedBundleApplication()
 					.setSelectedResourcebundle(selected);
@@ -248,7 +250,7 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 			@Override
 			public Object getCellEditorValue()
 			{
-				final Resourcebundles selected = (Resourcebundles)this.getValue();
+				final Resourcebundle selected = (Resourcebundle)this.getValue();
 				final ResourcebundlesService resourcebundlesService = SpringApplicationContext
 					.getInstance().getResourcebundlesService();
 				resourcebundlesService.delete(selected);
@@ -435,16 +437,16 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 		final String baseName = getModelObject().getSelectedBundleName().getBaseName().getName();
 		final Locale locale = LocaleResolver
 			.resolveLocale(getModelObject().getSelectedBundleName().getLocale().getLocale());
-		final List<Resourcebundles> list = resourcebundlesService
+		final List<Resourcebundle> list = resourcebundlesService
 			.findResourceBundles(bundleApplication, baseName, locale);
-		for (final Resourcebundles resourcebundle : list)
+		for (final Resourcebundle resourcebundle : list)
 		{
-			tableModelList.add(Quattro.<String, String, Resourcebundles, Resourcebundles> builder()
+			tableModelList.add(Quattro.<String, String, Resourcebundle, Resourcebundle> builder()
 				.topLeft(resourcebundle.getKey().getName()).topRight(resourcebundle.getValue().getName())
 				.bottomLeft(resourcebundle).bottomRight(resourcebundle).build());
 		}
 		Collections.sort(tableModelList,
-			NullCheckComparator.<Quattro<String, String, Resourcebundles, Resourcebundles>> of(
+			NullCheckComparator.<Quattro<String, String, Resourcebundle, Resourcebundle>> of(
 				(o1, o2) -> o1.getTopLeft().compareTo(o2.getTopLeft())));
 	}
 

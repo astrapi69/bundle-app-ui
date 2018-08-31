@@ -7,16 +7,16 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
-import de.alpharogroup.db.resource.bundles.entities.Countries;
+import de.alpharogroup.db.resource.bundles.domain.Country;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.resourcebundle.locale.LocaleExtensions;
 
-public class CountriesComboBoxRenderer extends JLabel implements ListCellRenderer<Countries>
+public class CountriesComboBoxRenderer extends JLabel implements ListCellRenderer<Country>
 {
 
 	private static final long serialVersionUID = 1L;
-	private Model<Countries> model;
+	private Model<Country> model;
 
 	public CountriesComboBoxRenderer()
 	{
@@ -27,8 +27,8 @@ public class CountriesComboBoxRenderer extends JLabel implements ListCellRendere
 	}
 
 	@Override
-	public Component getListCellRendererComponent(final JList<? extends Countries> list,
-		final Countries value, final int index, final boolean isSelected,
+	public Component getListCellRendererComponent(final JList<? extends Country> list,
+		final Country value, final int index, final boolean isSelected,
 		final boolean cellHasFocus)
 	{
 

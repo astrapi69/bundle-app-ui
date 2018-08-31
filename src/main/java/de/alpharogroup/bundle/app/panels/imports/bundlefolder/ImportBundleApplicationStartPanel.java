@@ -29,6 +29,7 @@ import org.apache.commons.lang3.StringUtils;
 import de.alpharogroup.bundle.app.MainApplication;
 import de.alpharogroup.bundle.app.combobox.model.LanguageLocalesComboBoxModel;
 import de.alpharogroup.bundle.app.combobox.renderer.LanguageLocalesComboBoxRenderer;
+import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.design.pattern.observer.event.EventObject;
 import de.alpharogroup.design.pattern.observer.event.EventSource;
@@ -47,7 +48,7 @@ public class ImportBundleApplicationStartPanel extends BaseWizardContentPanel<Im
 	private static final long serialVersionUID = 1L;
 
 	private javax.swing.JButton btnChooseRootDir;
-	private javax.swing.JComboBox<LanguageLocales> cmbDefaultLocale;
+	private javax.swing.JComboBox<LanguageLocale> cmbDefaultLocale;
 	private javax.swing.JLabel lblBundleAppName;
 	private javax.swing.JLabel lblChooseRootDir;
 	private javax.swing.JLabel lblDefaultLocale;
@@ -117,7 +118,7 @@ public class ImportBundleApplicationStartPanel extends BaseWizardContentPanel<Im
 
 		cmbDefaultLocale = new javax.swing.JComboBox<>(new LanguageLocalesComboBoxModel());
 		cmbDefaultLocale.addItemListener(e -> onChangeDefaultLocale(e));
-		final Model<LanguageLocales> defaultLocaleModel = model(
+		final Model<LanguageLocale> defaultLocaleModel = model(
 			from(getModelObject().getModelObject()).getDefaultLocale());
 		cmbDefaultLocale.setRenderer(new LanguageLocalesComboBoxRenderer(defaultLocaleModel));
 

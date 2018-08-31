@@ -1,5 +1,6 @@
 package de.alpharogroup.bundle.app.table.model;
 
+import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.swing.table.model.TableColumnsModel;
 import de.alpharogroup.swing.table.model.triple.TripleTableModel;
@@ -10,7 +11,7 @@ import de.alpharogroup.swing.table.model.triple.TripleTableModel;
  */
 public class StringBundleApplicationsBundleApplicationsTableModel
 	extends
-	TripleTableModel<String, BundleApplications, BundleApplications>
+	TripleTableModel<String, BundleApplication, BundleApplication>
 {
 
 	public static final String DELETE_COLUMN_NAME = "Delete";
@@ -26,7 +27,7 @@ public class StringBundleApplicationsBundleApplicationsTableModel
 	{
 		this(TableColumnsModel.builder().columnNames(new String[] { "Name", CHOOSE_COLUMN_NAME, DELETE_COLUMN_NAME })
 			.canEdit(new boolean[] { false, true, true })
-			.columnClasses(new Class<?>[] { String.class, BundleApplications.class, BundleApplications.class }).build());
+			.columnClasses(new Class<?>[] { String.class, BundleApplication.class, BundleApplication.class }).build());
 	}
 
 	/**

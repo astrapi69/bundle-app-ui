@@ -2,11 +2,14 @@ package de.alpharogroup.bundle.app.combobox.model;
 
 import java.util.List;
 
-import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
-import de.alpharogroup.db.resource.bundles.entities.Countries;
+import com.mashape.unirest.http.exceptions.UnirestException;
+
+import de.alpharogroup.bundle.app.spring.RestService;
+import de.alpharogroup.collections.list.ListFactory;
+import de.alpharogroup.db.resource.bundles.domain.Country;
 import de.alpharogroup.swing.combobox.model.AbstractComboBoxModel;
 
-public class CountriesComboBoxModel extends AbstractComboBoxModel<Countries>
+public class CountriesComboBoxModel extends AbstractComboBoxModel<Country>
 {
 	private static final long serialVersionUID = 1L;
 	private static final CountriesComboBoxModel COMBO_BOX_MODEL = new CountriesComboBoxModel();
@@ -20,8 +23,15 @@ public class CountriesComboBoxModel extends AbstractComboBoxModel<Countries>
 	 * init block
 	 **/
 	{
-		List<Countries> availableCountries = 
-			SpringApplicationContext.getInstance().getCountriesService().findAll();		
+		List<Country> availableCountries = ListFactory.newArrayList();
+		try
+		{
+			availableCountries = RestService.findAllCountries();
+		}
+		catch (UnirestException e)
+		{
+			e.printStackTrace();
+		}
 		setComboList(availableCountries);
 	}
 

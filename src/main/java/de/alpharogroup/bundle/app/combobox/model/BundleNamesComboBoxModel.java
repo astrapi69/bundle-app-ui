@@ -3,10 +3,10 @@ package de.alpharogroup.bundle.app.combobox.model;
 import java.util.Set;
 
 import de.alpharogroup.bundle.app.MainFrame;
-import de.alpharogroup.db.resource.bundles.entities.BundleNames;
+import de.alpharogroup.db.resource.bundles.domain.BundleName;
 import de.alpharogroup.swing.combobox.model.AbstractComboBoxModel;
 
-public class BundleNamesComboBoxModel extends AbstractComboBoxModel<BundleNames>
+public class BundleNamesComboBoxModel extends AbstractComboBoxModel<BundleName>
 {
 
 	private static final long serialVersionUID = 1L;
@@ -22,7 +22,7 @@ public class BundleNamesComboBoxModel extends AbstractComboBoxModel<BundleNames>
 	 * init block
 	 **/
 	{
-		final Set<BundleNames> bundleNames = MainFrame.getInstance().getModelObject()
+		final Set<BundleName> bundleNames = MainFrame.getInstance().getModelObject()
 			.getSelectedBundleApplication().getBundleNames();
 
 		setComboSet(bundleNames);

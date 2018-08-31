@@ -11,12 +11,13 @@ import de.alpharogroup.bundle.app.combobox.renderer.LanguageLocalesComboBoxRende
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
-import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.resource.bundles.service.api.BundleNamesService;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.resourcebundle.locale.LocaleResolver;
 import de.alpharogroup.swing.base.BasePanel;
+import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
+import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
 
 public class NewBundleNamePanel extends BasePanel<ApplicationDashboardBean>
 {
@@ -26,7 +27,7 @@ public class NewBundleNamePanel extends BasePanel<ApplicationDashboardBean>
 	private javax.swing.JButton btnCreateNewLocale;
 	private javax.swing.JButton btnSave;
 	private javax.swing.JButton btnToDashboard;
-	private JComboBox<LanguageLocales> cmbLocale;
+	private JComboBox<LanguageLocale> cmbLocale;
 	private javax.swing.JLabel lblBasename;
 	private javax.swing.JLabel lblHeaderNewBundleName;
 	private javax.swing.JLabel lblLocale;
@@ -142,11 +143,11 @@ public class NewBundleNamePanel extends BasePanel<ApplicationDashboardBean>
 
 	protected void onSave(final ActionEvent e)
 	{
-		BundleApplications bundleApplication = getModelObject().getBundleApplication();
+		BundleApplication bundleApplication = getModelObject().getBundleApplication();
 		final BundleNamesService bundleNamesService = SpringApplicationContext.getInstance()
 			.getBundleNamesService();
 		final String baseName = txtBasename.getText();
-		final LanguageLocales selectedItem = (LanguageLocales)cmbLocale.getSelectedItem();
+		final LanguageLocale selectedItem = (LanguageLocale)cmbLocale.getSelectedItem();
 		if (selectedItem != null)
 		{
 			final Locale locale = LocaleResolver.resolveLocale(selectedItem.getLocale());
@@ -154,9 +155,9 @@ public class NewBundleNamePanel extends BasePanel<ApplicationDashboardBean>
 		}
 		else
 		{
-			final LanguageLocales languageLocales = getModelObject().getBundleApplication()
+			final LanguageLocale languageLocales = getModelObject().getBundleApplication()
 				.getDefaultLocale();
-			final Locale locale = SpringApplicationContext.getInstance().getLanguageLocalesService()
+			final Locale locale = SpringApplicationContext.getInstance().getLanguageLocaleService()
 				.resolveLocale(languageLocales);
 			bundleNamesService.getOrCreateNewBundleNames(bundleApplication, baseName, locale);
 		}

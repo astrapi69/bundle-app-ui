@@ -20,6 +20,8 @@ import de.alpharogroup.bundle.app.table.model.StringBundleNamesTableModel;
 import de.alpharogroup.collections.CollectionExtensions;
 import de.alpharogroup.collections.pairs.Quattro;
 import de.alpharogroup.comparators.NullCheckComparator;
+import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
+import de.alpharogroup.db.resource.bundles.domain.BundleName;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.model.BaseModel;
@@ -37,10 +39,10 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 	private javax.swing.JLabel lblBundleName;
 	private javax.swing.JLabel lblHeaderOverview;
 	private javax.swing.JScrollPane srcBundles;
-	private GenericJXTable<Quattro<String, String, BundleNames, BundleNames>> tblBundles;
+	private GenericJXTable<Quattro<String, String, BundleName, BundleName>> tblBundles;
 	private StringBundleNamesTableModel tableModel;
 
-	private List<Quattro<String, String, BundleNames, BundleNames>> tableModelList;
+	private List<Quattro<String, String, BundleName, BundleName>> tableModelList;
 
 	public OverviewOfAllResourceBundlesPanel()
 	{
@@ -52,7 +54,7 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 		super(model);
 	}
 
-	private List<Quattro<String, String, BundleNames, BundleNames>> getTableModelList()
+	private List<Quattro<String, String, BundleName, BundleName>> getTableModelList()
 	{
 		if (tableModelList == null)
 		{
@@ -118,7 +120,7 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 			@Override
 			public Object getCellEditorValue()
 			{
-				final BundleNames selectedBundleName = (BundleNames)this.getValue();
+				final BundleName selectedBundleName = (BundleName)this.getValue();
 
 				final Model<ApplicationDashboardBean> baModel = MainFrame.getInstance()
 					.getSelectedBundleApplicationPropertyModel();
@@ -266,22 +268,22 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 	{
 		tableModelList = new ArrayList<>();
 
-		BundleApplications bundleApplication = getModelObject().getBundleApplication();
+		BundleApplication bundleApplication = getModelObject().getBundleApplication();
 		getModelObject().setBundleNames(SpringApplicationContext.getInstance()
 			.getBundleApplicationsService().find(bundleApplication));
-		final Set<BundleNames> set = getModelObject().getBundleNames();
+		final Set<BundleName> set = getModelObject().getBundleNames();
 		if (CollectionExtensions.isNotEmpty(set))
 		{
-			for (final BundleNames bundleNames : set)
+			for (final BundleName bundleNames : set)
 			{
-				tableModelList.add(Quattro.<String, String, BundleNames, BundleNames> builder()
+				tableModelList.add(Quattro.<String, String, BundleName, BundleName> builder()
 					.topLeft(bundleNames.getBaseName().getName())
 					.topRight(bundleNames.getLocale().getLocale()).bottomLeft(bundleNames)
 					.bottomRight(bundleNames).build());
 			}
 		}
 		Collections.sort(tableModelList,
-			NullCheckComparator.<Quattro<String, String, BundleNames, BundleNames>> of(
+			NullCheckComparator.<Quattro<String, String, BundleName, BundleName>> of(
 				(o1, o2) -> o1.getTopLeft().compareTo(o2.getTopLeft())));
 
 	}

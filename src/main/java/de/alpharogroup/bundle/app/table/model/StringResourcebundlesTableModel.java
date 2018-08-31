@@ -1,5 +1,6 @@
 package de.alpharogroup.bundle.app.table.model;
 
+import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 import de.alpharogroup.swing.table.model.TableColumnsModel;
 import de.alpharogroup.swing.table.model.quattro.QuattroTableModel;
@@ -10,7 +11,7 @@ import de.alpharogroup.swing.table.model.quattro.QuattroTableModel;
  */
 public class StringResourcebundlesTableModel
 	extends
-		QuattroTableModel<String, String, Resourcebundles, Resourcebundles>
+		QuattroTableModel<String, String, Resourcebundle, Resourcebundle>
 {
 
 	/** The Constant serialVersionUID. */
@@ -24,7 +25,7 @@ public class StringResourcebundlesTableModel
 		this(TableColumnsModel.builder()
 			.columnNames(new String[] { "Key", "Value", "Edit", "Delete" })
 			.canEdit(new boolean[] { false, false, true, true }).columnClasses(new Class<?>[] {
-					String.class, String.class, Resourcebundles.class, Resourcebundles.class })
+					String.class, String.class, Resourcebundle.class, Resourcebundle.class })
 			.build());
 	}
 

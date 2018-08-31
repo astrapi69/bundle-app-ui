@@ -14,7 +14,8 @@ import de.alpharogroup.bundle.app.combobox.renderer.CountriesComboBoxRenderer;
 import de.alpharogroup.bundle.app.combobox.renderer.LanguagesComboBoxRenderer;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
-import de.alpharogroup.db.resource.bundles.entities.Countries;
+import de.alpharogroup.db.resource.bundles.domain.Country;
+import de.alpharogroup.db.resource.bundles.domain.Language;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.resource.bundles.entities.Languages;
 import de.alpharogroup.model.BaseModel;
@@ -29,8 +30,8 @@ public class NewCustomLocalePanel extends BasePanel<ApplicationDashboardBean>
 	private javax.swing.JButton btnCancel;
 	private javax.swing.JButton btnSave;
 	private javax.swing.JButton btnToDashboard;
-	private javax.swing.JComboBox<Countries> cmbCountry;
-	private javax.swing.JComboBox<Languages> cmbLanguage;
+	private javax.swing.JComboBox<Country> cmbCountry;
+	private javax.swing.JComboBox<Language> cmbLanguage;
 	private javax.swing.JLabel lblCountry;
 	private javax.swing.JLabel lblHeaderNewLocale;
 	private javax.swing.JLabel lblLanguage;
@@ -49,12 +50,12 @@ public class NewCustomLocalePanel extends BasePanel<ApplicationDashboardBean>
 	}
 
 
-	protected javax.swing.JComboBox<Languages> newCmbLanguage(
+	protected javax.swing.JComboBox<Language> newCmbLanguage(
 		final Model<ApplicationDashboardBean> model)
 	{
 		LanguagesComboBoxModel cmbModel = LanguagesComboBoxModel.get();
 
-		final javax.swing.JComboBox<Languages> comboBox = new javax.swing.JComboBox<>(cmbModel);
+		final javax.swing.JComboBox<Language> comboBox = new javax.swing.JComboBox<>(cmbModel);
 		comboBox.addItemListener(e -> onChangeLanguage(e));
 		comboBox.setRenderer(new LanguagesComboBoxRenderer());
 		comboBox.setMaximumRowCount(10);
@@ -65,12 +66,12 @@ public class NewCustomLocalePanel extends BasePanel<ApplicationDashboardBean>
 	{
 	}
 
-	protected javax.swing.JComboBox<Countries> newCmbCountry(
+	protected javax.swing.JComboBox<Country> newCmbCountry(
 		final Model<ApplicationDashboardBean> model)
 	{
 		CountriesComboBoxModel cmbModel = CountriesComboBoxModel.get();
 
-		final javax.swing.JComboBox<Countries> comboBox = new javax.swing.JComboBox<>(cmbModel);
+		final javax.swing.JComboBox<Country> comboBox = new javax.swing.JComboBox<>(cmbModel);
 		comboBox.addItemListener(e -> onChangeCountry(e));
 		comboBox.setRenderer(new CountriesComboBoxRenderer());
 		return comboBox;
@@ -215,7 +216,7 @@ public class NewCustomLocalePanel extends BasePanel<ApplicationDashboardBean>
 		System.out
 			.println("de.alpharogroup.bundle.app.panels.creation.NewCustomLocalePanel.onSave()");
 		Languages selectedLanguage = (Languages)cmbLanguage.getSelectedItem();
-		Countries selectedCountry = (Countries)cmbCountry.getSelectedItem();
+		Country selectedCountry = (Country)cmbCountry.getSelectedItem();
 		String variant = txtVariant.getText();
 		String localeCode = selectedLanguage.getIso639Dash1() + "_"
 			+ selectedCountry.getIso3166A2name() + "_" + variant;

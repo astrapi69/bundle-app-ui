@@ -1,5 +1,6 @@
 package de.alpharogroup.bundle.app.table.model;
 
+import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.swing.table.model.TableColumnsModel;
 import de.alpharogroup.swing.table.model.properties.KeyValueTableModel;
@@ -10,7 +11,7 @@ import de.alpharogroup.swing.table.model.properties.KeyValueTableModel;
  */
 public class StringLanguageLocalesTableModel
 	extends
-		KeyValueTableModel<String, LanguageLocales>
+		KeyValueTableModel<String, LanguageLocale>
 {
 
 	/** The Constant serialVersionUID. */
@@ -23,7 +24,7 @@ public class StringLanguageLocalesTableModel
 	{
 		this(TableColumnsModel.builder().columnNames(new String[] { "Supported Locale", "Action" })
 			.canEdit(new boolean[] { false, true })
-			.columnClasses(new Class<?>[] { String.class, LanguageLocales.class }).build());
+			.columnClasses(new Class<?>[] { String.class, LanguageLocale.class }).build());
 	}
 
 	/**
