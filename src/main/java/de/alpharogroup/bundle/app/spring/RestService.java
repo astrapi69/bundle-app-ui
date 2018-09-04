@@ -16,6 +16,8 @@ import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
+
+
 public class RestService
 {
 	{
@@ -39,6 +41,14 @@ public class RestService
 		        }
 		    }
 		});
+	}
+	
+	public static BundleApplication findBundleApplication(String name)
+	{
+		// TODO Auto-generated method stub
+		http://localhost:8080/bundle/applications/find/by/name/
+			
+		return null;
 	}
 	
 	public static BundleApplication getBundleApplication(String name) throws UnirestException {
@@ -75,6 +85,20 @@ public class RestService
 		HttpResponse<List<LanguageLocale>> response = Unirest.get(url).asObject(List.class);
 		List<LanguageLocale> body = response.getBody();
 		return body;
+	}
+	
+	public static BundleApplication create(BundleApplication bundleApplication) throws UnirestException {
+		String url = "http://localhost:8080/bundle/applications/";
+		HttpResponse<BundleApplication> response = Unirest.post(url).body(bundleApplication).asObject(BundleApplication.class);
+		BundleApplication body = response.getBody();
+		return body;	
+	}
+	
+	public static BundleApplication update(BundleApplication bundleApplication) throws UnirestException {
+		String url = "http://localhost:8080/bundle/applications/";
+		HttpResponse<BundleApplication> response = Unirest.put(url).body(bundleApplication).asObject(BundleApplication.class);
+		BundleApplication body = response.getBody();
+		return body;	
 	}
 	
 }

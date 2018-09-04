@@ -12,20 +12,20 @@ import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
+
 import de.alpharogroup.behaviors.EnableButtonBehavior;
 import de.alpharogroup.bundle.app.MainFrame;
 import de.alpharogroup.bundle.app.actions.ReturnToDashboardAction;
 import de.alpharogroup.bundle.app.combobox.model.LanguageLocalesComboBoxModel;
 import de.alpharogroup.bundle.app.combobox.renderer.LanguageLocalesComboBoxRenderer;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
-import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
+import de.alpharogroup.bundle.app.spring.RestService;
 import de.alpharogroup.bundle.app.table.model.StringLanguageLocalesTableModel;
 import de.alpharogroup.collections.list.ListFactory;
 import de.alpharogroup.collections.pairs.KeyValuePair;
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
-
-import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BasePanel;
@@ -50,7 +50,7 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 	private javax.swing.JScrollPane srcSupportedLocales;
 	private GenericJXTable<KeyValuePair<String, LanguageLocale>> tblSupportedLocales;
 	private javax.swing.JTextField txtBundleName;
-	
+
 	private DefaultLocaleVerifier verifier;
 
 	public NewBundleApplicationPanel()
@@ -78,8 +78,7 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 		final javax.swing.JComboBox<LanguageLocale> cmbDefaultLocale = new javax.swing.JComboBox<>(
 			cmbModel);
 		cmbDefaultLocale.addItemListener(e -> onChangeDefaultLocale(e));
-		final Model<LanguageLocale> defaultLocaleModel = model(
-			from(getModel()).getDefaultLocale());
+		final Model<LanguageLocale> defaultLocaleModel = model(from(getModel()).getDefaultLocale());
 		cmbDefaultLocale.setRenderer(new LanguageLocalesComboBoxRenderer(defaultLocaleModel));
 		return cmbDefaultLocale;
 	}
@@ -130,7 +129,17 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 		tableModel.addList(getSupportedLanguageLocales());
 		tblSupportedLocales = new GenericJXTable<>(tableModel);
 
-		btnSave.addActionListener(e -> onSave(e));
+		btnSave.addActionListener(e -> {
+			try
+			{
+				onSave(e);
+			}
+			catch (UnirestException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
 
 		btnToDashboard.setText("Return to Dashboard");
 		btnToDashboard.addActionListener(ReturnToDashboardAction.of());
@@ -163,7 +172,7 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 			protected void onChange()
 			{
 				boolean defaultLocale;
-				defaultLocale = cmbDefaultLocale.getSelectedItem() != null;	
+				defaultLocale = cmbDefaultLocale.getSelectedItem() != null;
 				boolean enabled = false;
 				if (getDocument().getLength() > 0)
 				{
@@ -174,7 +183,7 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 		};
 
 	}
-	
+
 	class DefaultLocaleVerifier implements ActionListener
 	{
 		boolean defaultLocale;
@@ -249,67 +258,54 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
 		this.setLayout(layout);
-		layout.setHorizontalGroup(
-			layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(layout
-				.createSequentialGroup().addGap(34, 34, 34).addGroup(layout
-					.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-					.addComponent(btnSave,
-						javax.swing.GroupLayout.PREFERRED_SIZE, 222,
-						javax.swing.GroupLayout.PREFERRED_SIZE)
-					.addGroup(
-						layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-							.addGroup(layout.createSequentialGroup()
-								.addComponent(lblSupportedLocaleToAdd,
-									javax.swing.GroupLayout.PREFERRED_SIZE, 200,
-									javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-									javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(cmbSupportedLocaleToAdd,
-									javax.swing.GroupLayout.PREFERRED_SIZE, 286,
-									javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-								.addComponent(
-									btnAddSupportedLocale, javax.swing.GroupLayout.PREFERRED_SIZE,
-									174, javax.swing.GroupLayout.PREFERRED_SIZE))
-							.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout
-								.createSequentialGroup()
-								.addComponent(lblHeaderNewBundleApp,
-									javax.swing.GroupLayout.PREFERRED_SIZE, 265,
-									javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-									javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(
-									btnToDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 217,
-									javax.swing.GroupLayout.PREFERRED_SIZE))
-							.addGroup(layout.createSequentialGroup()
-								.addComponent(lbDefaultlLocale,
-									javax.swing.GroupLayout.PREFERRED_SIZE, 200,
-									javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-								.addComponent(cmbDefaultLocale, 0,
-									javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-					.addGroup(
-						layout.createSequentialGroup()
-							.addGroup(layout
-								.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-								.addComponent(lblBundleName, javax.swing.GroupLayout.PREFERRED_SIZE,
-									200, javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addComponent(
-									lblSupportedLocales,
-									javax.swing.GroupLayout.PREFERRED_SIZE, 200,
-									javax.swing.GroupLayout.PREFERRED_SIZE))
-							.addGroup(layout
-								.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-								.addGroup(layout.createSequentialGroup()
-									.addPreferredGap(
-										javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-									.addComponent(
-										txtBundleName, javax.swing.GroupLayout.PREFERRED_SIZE, 460,
-										javax.swing.GroupLayout.PREFERRED_SIZE))
-								.addGroup(
-									layout.createSequentialGroup().addGap(6, 6, 6).addComponent(
-										srcSupportedLocales, javax.swing.GroupLayout.PREFERRED_SIZE,
-										466, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+		layout.setHorizontalGroup(layout
+			.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+			.addGroup(layout.createSequentialGroup().addGap(34, 34, 34).addGroup(layout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+				.addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 222,
+					javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addGroup(layout
+					.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+					.addGroup(layout.createSequentialGroup()
+						.addComponent(lblSupportedLocaleToAdd,
+							javax.swing.GroupLayout.PREFERRED_SIZE, 200,
+							javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+							javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(cmbSupportedLocaleToAdd,
+							javax.swing.GroupLayout.PREFERRED_SIZE, 286,
+							javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addComponent(btnAddSupportedLocale, javax.swing.GroupLayout.PREFERRED_SIZE,
+							174, javax.swing.GroupLayout.PREFERRED_SIZE))
+					.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout
+						.createSequentialGroup()
+						.addComponent(lblHeaderNewBundleApp, javax.swing.GroupLayout.PREFERRED_SIZE,
+							265, javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+							javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(btnToDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 217,
+							javax.swing.GroupLayout.PREFERRED_SIZE))
+					.addGroup(layout.createSequentialGroup()
+						.addComponent(lbDefaultlLocale, javax.swing.GroupLayout.PREFERRED_SIZE, 200,
+							javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addComponent(cmbDefaultLocale, 0, javax.swing.GroupLayout.DEFAULT_SIZE,
+							Short.MAX_VALUE)))
+				.addGroup(layout.createSequentialGroup()
+					.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+						.addComponent(lblBundleName, javax.swing.GroupLayout.PREFERRED_SIZE, 200,
+							javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblSupportedLocales, javax.swing.GroupLayout.PREFERRED_SIZE,
+							200, javax.swing.GroupLayout.PREFERRED_SIZE))
+					.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addGroup(layout.createSequentialGroup()
+							.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+							.addComponent(txtBundleName, javax.swing.GroupLayout.PREFERRED_SIZE,
+								460, javax.swing.GroupLayout.PREFERRED_SIZE))
+						.addGroup(layout.createSequentialGroup().addGap(6, 6, 6).addComponent(
+							srcSupportedLocales, javax.swing.GroupLayout.PREFERRED_SIZE, 466,
+							javax.swing.GroupLayout.PREFERRED_SIZE)))))
 				.addContainerGap(46, Short.MAX_VALUE)));
 		layout.setVerticalGroup(layout
 			.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -345,12 +341,13 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 				.addGap(18, 18, 18).addComponent(btnSave).addContainerGap(58, Short.MAX_VALUE)));
 	}
 
-	protected void onSave(final ActionEvent e)
+	protected void onSave(final ActionEvent e) throws UnirestException
 	{
-//		final BundleApplicationsService bundleApplicationsService = SpringApplicationContext
-//			.getInstance().getBundleApplicationsService();
+		// final BundleApplicationsService bundleApplicationsService = SpringApplicationContext
+		// .getInstance().getBundleApplicationsService();
 		final String name = getTxtBundleName().getText();
-		if(StringUtils.isNotEmpty(name)) {
+		if (StringUtils.isNotEmpty(name))
+		{
 			BundleApplication currentBundleApplication;
 			currentBundleApplication = getModelObject().getBundleApplication();
 			if (currentBundleApplication != null)
@@ -370,18 +367,21 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 				}
 				currentBundleApplication.getSupportedLocales()
 					.addAll(getModelObject().getSupportedLocales());
-				currentBundleApplication = bundleApplicationsService.merge(currentBundleApplication);
+
+				currentBundleApplication = RestService.update(currentBundleApplication);
+
 				getModelObject().setBundleApplication(currentBundleApplication);
 			}
 			else
 			{
-				BundleApplication newBundleApplication = bundleApplicationsService.find(name);
+				BundleApplication newBundleApplication = RestService.getBundleApplication(name);
 				if (newBundleApplication == null)
 				{
 					LanguageLocale defaultLocale = getModelObject().getDefaultLocale();
 
-					newBundleApplication = bundleApplicationsService.getOrCreateNewBundleApplications(
-						name, defaultLocale, getModelObject().getSupportedLocales());
+					newBundleApplication = RestService
+						.create(BundleApplication.builder().name(name).defaultLocale(defaultLocale)
+							.supportedLocales(getModelObject().getSupportedLocales()).build());
 				}
 				if (!MainFrame.getInstance().getModelObject().getBundleApplications()
 					.contains(newBundleApplication))
@@ -391,7 +391,7 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 				}
 				getModelObject().setBundleApplication(newBundleApplication);
 			}
-		}		
+		}
 
 	}
 
