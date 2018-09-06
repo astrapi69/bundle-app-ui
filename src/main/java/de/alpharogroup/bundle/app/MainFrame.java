@@ -35,6 +35,10 @@ import javax.swing.JInternalFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JToolBar;
 
+import org.json.JSONException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
@@ -175,6 +179,22 @@ public class MainFrame extends BaseFrame<MainDashboardBean>
 			allBundleApplications = UniRestService.findAllBundleApplications();
 		}
 		catch (UnirestException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+		catch (JsonParseException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+		catch (JsonMappingException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+		catch (JSONException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+		catch (IOException e)
 		{
 			log.error(e.getLocalizedMessage(), e);
 		}

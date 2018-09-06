@@ -2,6 +2,7 @@ package de.alpharogroup.bundle.app.panels.overview;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 
+import org.json.JSONException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 import de.alpharogroup.bundle.app.MainFrame;
@@ -263,10 +268,26 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 		List<BundleApplication> bundleApplications;
 		try
 		{
-			bundleApplications = (List<BundleApplication>)UniRestService.findAllBundleApplications();
+			bundleApplications = UniRestService.findAllBundleApplications();
 			getModelObject().setBundleApplications(bundleApplications);
 		}
 		catch (UnirestException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+		catch (JsonParseException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+		catch (JsonMappingException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+		catch (JSONException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+		catch (IOException e)
 		{
 			log.error(e.getLocalizedMessage(), e);
 		}
@@ -337,6 +358,22 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 					PropertyModel.<MainDashboardBean> of(MainFrame.getInstance(), "model.object")));
 			}
 			catch (UnirestException e)
+			{
+				log.error(e.getLocalizedMessage(), e);
+			}
+			catch (JsonParseException e)
+			{
+				log.error(e.getLocalizedMessage(), e);
+			}
+			catch (JsonMappingException e)
+			{
+				log.error(e.getLocalizedMessage(), e);
+			}
+			catch (JSONException e)
+			{
+				log.error(e.getLocalizedMessage(), e);
+			}
+			catch (IOException e)
 			{
 				log.error(e.getLocalizedMessage(), e);
 			}

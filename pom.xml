@@ -68,12 +68,21 @@
 		<httpasyncclient.version>4.0.2</httpasyncclient.version>
 		<httpmime.version>4.3.6</httpmime.version>
 		<json.version>20140107</json.version>
+		<!-- XML-EXTENSIONS version -->
+		<xml-extensions.version>4.20</xml-extensions.version>
 	</properties>
 
 	<dependencyManagement>
 
 		<dependencies>
 
+            <!-- XML-EXTENSIONS DEPENDENCY -->
+			<dependency>
+				<groupId>de.alpharogroup</groupId>
+				<artifactId>xml-extensions</artifactId>
+				<version>${xml-extensions.version}</version>
+			</dependency>
+			
 			<dependency>
 				<groupId>com.mashape.unirest</groupId>
 				<artifactId>unirest-java</artifactId>
@@ -155,6 +164,11 @@
 
 	<dependencies>
 
+            <!-- XML-EXTENSIONS DEPENDENCY -->
+			<dependency>
+				<groupId>de.alpharogroup</groupId>
+				<artifactId>xml-extensions</artifactId>
+			</dependency>
 		<dependency>
 			<groupId>com.mashape.unirest</groupId>
 			<artifactId>unirest-java</artifactId>

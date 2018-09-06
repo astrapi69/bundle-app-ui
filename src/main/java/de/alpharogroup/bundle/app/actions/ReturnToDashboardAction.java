@@ -1,10 +1,15 @@
 package de.alpharogroup.bundle.app.actions;
 
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.util.List;
 
 import javax.swing.AbstractAction;
 
+import org.json.JSONException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 import de.alpharogroup.bundle.app.MainFrame;
@@ -17,7 +22,9 @@ import de.alpharogroup.collections.list.ListFactory;
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import de.alpharogroup.model.PropertyModel;
 import de.alpharogroup.model.api.Model;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class ReturnToDashboardAction extends AbstractAction
 {
 
@@ -60,6 +67,22 @@ public class ReturnToDashboardAction extends AbstractAction
 			{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
+			}
+			catch (JsonParseException e)
+			{
+				log.error(e.getLocalizedMessage(), e);
+			}
+			catch (JsonMappingException e)
+			{
+				log.error(e.getLocalizedMessage(), e);
+			}
+			catch (JSONException e)
+			{
+				log.error(e.getLocalizedMessage(), e);
+			}
+			catch (IOException e)
+			{
+				log.error(e.getLocalizedMessage(), e);
 			}
 			MainFrame.getInstance().getModelObject().setBundleApplications(bundleApplications);
 			MainFrame.getInstance().replaceInternalFrame("Overview bundle apps",

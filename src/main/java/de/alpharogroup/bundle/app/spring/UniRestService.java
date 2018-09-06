@@ -5,8 +5,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.ObjectMapper;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -19,6 +25,7 @@ import de.alpharogroup.db.resource.bundles.domain.Country;
 import de.alpharogroup.db.resource.bundles.domain.Language;
 import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
+import de.alpharogroup.xml.json.JsonToObjectExtensions;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
@@ -74,61 +81,62 @@ public class UniRestService
 		return body;
 	}
 
-	public static List<BundleApplication> findAllBundleApplications() throws UnirestException
+	public static List<BundleApplication> findAllBundleApplications() throws UnirestException,
+		JsonParseException, JsonMappingException, JSONException, IOException
 	{
-//		String url = "http://localhost:8080/resourcebundle/get/r/all/apps";
-//		HttpResponse<List<BundleApplication>> response = Unirest.get(url).asObject(List.class);
-//		List<BundleApplication> body = response.getBody();
-//		return body; TODO FIXME...
-		return ListFactory.newArrayList();
+		String url = "http://localhost:8080/resourcebundle/get/r/all/apps";
+		HttpResponse<JsonNode> response = Unirest.get(url).asJson();
+		JsonNode body = response.getBody();
+		List<BundleApplication> list = JsonToObjectExtensions.toObjectList(body.toString(), BundleApplication.class);
+		return list;
 	}
 
 	public static List<Country> findAllCountries() throws UnirestException
 	{
-//		String url = "http://localhost:8080/country/find/all";
-//		HttpResponse<List<Country>> response = Unirest.get(url).asObject(List.class);
-//		List<Country> body = response.getBody();
-//		return body;TODO FIXME...
+		// String url = "http://localhost:8080/country/find/all";
+		// HttpResponse<List<Country>> response = Unirest.get(url).asObject(List.class);
+		// List<Country> body = response.getBody();
+		// return body;TODO FIXME...
 		return ListFactory.newArrayList();
 	}
 
 	public static List<Language> findAllLanguages() throws UnirestException
 	{
-//		String url = "http://localhost:8080/language/find/all";
-//		HttpResponse<List<Language>> response = Unirest.get(url).asObject(List.class);
-//		List<Language> body = response.getBody();
-//		return body;TODO FIXME...
+		// String url = "http://localhost:8080/language/find/all";
+		// HttpResponse<List<Language>> response = Unirest.get(url).asObject(List.class);
+		// List<Language> body = response.getBody();
+		// return body;TODO FIXME...
 		return ListFactory.newArrayList();
 	}
 
 	public static List<LanguageLocale> findAllLanguageLocales() throws UnirestException
 	{
-//		String url = "http://localhost:8080/language/locale/find/all";
-//		HttpResponse<List<LanguageLocale>> response = Unirest.get(url).asObject(List.class);
-//		List<LanguageLocale> body = response.getBody();
-//		return body;		TODO FIXME...
+		// String url = "http://localhost:8080/language/locale/find/all";
+		// HttpResponse<List<LanguageLocale>> response = Unirest.get(url).asObject(List.class);
+		// List<LanguageLocale> body = response.getBody();
+		// return body; TODO FIXME...
 		return ListFactory.newArrayList();
 	}
 
 	public static List<BundleName> findBundleNames(BundleApplication bundleApplication)
 		throws UnirestException
 	{
-//		String url = "http://localhost:8080/bundle/applications/find/all/bundlenames/"
-//			+ bundleApplication.getName();
-//		HttpResponse<List<BundleName>> response = Unirest.get(url).asObject(List.class);
-//		List<BundleName> body = response.getBody();
-//		return body;TODO FIXME...
+		// String url = "http://localhost:8080/bundle/applications/find/all/bundlenames/"
+		// + bundleApplication.getName();
+		// HttpResponse<List<BundleName>> response = Unirest.get(url).asObject(List.class);
+		// List<BundleName> body = response.getBody();
+		// return body;TODO FIXME...
 		return ListFactory.newArrayList();
 	}
 
 	public static List<Resourcebundle> findResourceBundles(BundleApplication bundleApplication,
 		String baseName, String localeCode) throws UnirestException
 	{
-//		String url = "http://localhost:8080/resourcebundle/find/resourcebundles/"
-//			+ bundleApplication.getName() + "/" + baseName + "/" + localeCode;
-//		HttpResponse<List<Resourcebundle>> response = Unirest.get(url).asObject(List.class);
-//		List<Resourcebundle> body = response.getBody();
-//		return body;TODO FIXME...
+		// String url = "http://localhost:8080/resourcebundle/find/resourcebundles/"
+		// + bundleApplication.getName() + "/" + baseName + "/" + localeCode;
+		// HttpResponse<List<Resourcebundle>> response = Unirest.get(url).asObject(List.class);
+		// List<Resourcebundle> body = response.getBody();
+		// return body;TODO FIXME...
 		return ListFactory.newArrayList();
 	}
 
