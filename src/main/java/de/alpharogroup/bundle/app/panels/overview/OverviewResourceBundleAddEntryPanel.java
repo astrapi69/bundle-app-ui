@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 import java.util.Properties;
 
 import javax.swing.JCheckBox;
@@ -17,27 +16,21 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
+
 import de.alpharogroup.bundle.app.MainFrame;
 import de.alpharogroup.bundle.app.actions.ReturnToDashboardAction;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardContentPanel;
-import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
+import de.alpharogroup.bundle.app.spring.UniRestService;
 import de.alpharogroup.bundle.app.table.model.StringResourcebundlesTableModel;
 import de.alpharogroup.collections.pairs.Quattro;
 import de.alpharogroup.collections.properties.PropertiesExtensions;
 import de.alpharogroup.comparators.NullCheckComparator;
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
-import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
-import de.alpharogroup.db.resource.bundles.entities.PropertiesKeys;
-import de.alpharogroup.db.resource.bundles.entities.PropertiesValues;
-import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
-import de.alpharogroup.db.resource.bundles.service.api.PropertiesKeysService;
-import de.alpharogroup.db.resource.bundles.service.api.PropertiesValuesService;
-import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
-import de.alpharogroup.resourcebundle.locale.LocaleResolver;
 import de.alpharogroup.swing.base.BasePanel;
 import de.alpharogroup.swing.renderer.TableCellButtonRenderer;
 import de.alpharogroup.swing.table.editor.TableCellButtonEditor;
@@ -90,37 +83,16 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 		final String value = txtValue.getText();
 		BundleApplication bundleApplication = getModelObject().getBundleApplication();
 		final String baseName = getModelObject().getSelectedBundleName().getBaseName().getName();
-		final Locale locale = LocaleResolver
-			.resolveLocale(getModelObject().getSelectedBundleName().getLocale().getLocale());
-		final PropertiesKeysService propertiesKeysService = SpringApplicationContext.getInstance()
-			.getPropertiesKeysService();
-		PropertiesValuesService propertiesValuesService = SpringApplicationContext.getInstance()
-		.getPropertiesValuesService();
-		final ResourcebundlesService resourcebundlesService = SpringApplicationContext.getInstance()
-			.getResourcebundlesService();
-		final boolean update = true;
-
-		Resourcebundle resourcebundle = resourcebundlesService.getResourcebundle(bundleApplication,
-			baseName, locale, key);
-		PropertiesValues pValue = propertiesValuesService.getOrCreateNewNameEntity(value);
-		if (resourcebundle != null)
+		
+		try
 		{
-			if (update)
-			{
-				
-				resourcebundle.setValue(pValue);
-			}
+			UniRestService.saveOrUpdateEntry(bundleApplication.getName(), baseName, getModelObject().getSelectedBundleName().getLocale().getLocale(), key, value);
 		}
-		else
+		catch (UnirestException e1)
 		{
-			final PropertiesKeys pkey = propertiesKeysService.getOrCreateNewNameEntity(key);
-
-			resourcebundle = Resourcebundle.builder()
-				.bundleName(getModelObject().getSelectedBundleName()).key(pkey).value(pValue)
-				.build();
+			log.error(e1.getLocalizedMessage(), e1);
 		}
-		resourcebundle = resourcebundlesService.merge(resourcebundle);
-
+		
 		reloadTableModel();
 
 		MainFrame.getInstance().getModelObject().getSelectedBundleApplication()
@@ -251,9 +223,15 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 			public Object getCellEditorValue()
 			{
 				final Resourcebundle selected = (Resourcebundle)this.getValue();
-				final ResourcebundlesService resourcebundlesService = SpringApplicationContext
-					.getInstance().getResourcebundlesService();
-				resourcebundlesService.delete(selected);
+				try
+				{
+					UniRestService.deleteResourcebundle(selected);
+				}
+				catch (UnirestException e)
+				{
+					log.error(e.getLocalizedMessage(), e);
+				}
+
 				if (selected.equals(MainFrame.getInstance().getModelObject()
 					.getSelectedBundleApplication().getSelectedResourcebundle()))
 				{
@@ -332,16 +310,24 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 			"Warning", JOptionPane.YES_NO_OPTION);
 		if (dialogResult == JOptionPane.YES_OPTION)
 		{
-			SpringApplicationContext.getInstance().getResourcebundlesService()
-				.delete(getModelObject().getSelectedBundleName());
-			final Model<ApplicationDashboardBean> baModel = MainFrame.getInstance()
-				.getSelectedBundleApplicationPropertyModel();
-			final ApplicationDashboardContentPanel component = new ApplicationDashboardContentPanel(
-				baModel);
-			MainFrame.getInstance()
-				.replaceInternalFrame("Dashboard of "
-					+ baModel.getObject().getBundleApplication().getName() + " bundle app",
-					component);
+			try
+			{
+				UniRestService.deleteBundleName(getModelObject().getSelectedBundleName());
+
+				final Model<ApplicationDashboardBean> baModel = MainFrame.getInstance()
+					.getSelectedBundleApplicationPropertyModel();
+				final ApplicationDashboardContentPanel component = new ApplicationDashboardContentPanel(
+					baModel);
+				MainFrame.getInstance()
+					.replaceInternalFrame("Dashboard of "
+						+ baModel.getObject().getBundleApplication().getName() + " bundle app",
+						component);
+			}
+			catch (UnirestException e1)
+			{
+				log.error(e1.getLocalizedMessage(), e1);
+			}
+			
 		}
 	}
 
@@ -431,23 +417,29 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 	private void reloadTableModelList()
 	{
 		tableModelList = new ArrayList<>();
-		final ResourcebundlesService resourcebundlesService = SpringApplicationContext.getInstance()
-			.getResourcebundlesService();
-		BundleApplications bundleApplication = getModelObject().getBundleApplication();
+		BundleApplication bundleApplication = getModelObject().getBundleApplication();
 		final String baseName = getModelObject().getSelectedBundleName().getBaseName().getName();
-		final Locale locale = LocaleResolver
-			.resolveLocale(getModelObject().getSelectedBundleName().getLocale().getLocale());
-		final List<Resourcebundle> list = resourcebundlesService
-			.findResourceBundles(bundleApplication, baseName, locale);
-		for (final Resourcebundle resourcebundle : list)
+		final String localeCode = getModelObject().getSelectedBundleName().getLocale().getLocale();
+		List<Resourcebundle> list;
+		try
 		{
-			tableModelList.add(Quattro.<String, String, Resourcebundle, Resourcebundle> builder()
-				.topLeft(resourcebundle.getKey().getName()).topRight(resourcebundle.getValue().getName())
-				.bottomLeft(resourcebundle).bottomRight(resourcebundle).build());
+			list = UniRestService.findResourceBundles(bundleApplication, baseName, localeCode);
+
+			for (final Resourcebundle resourcebundle : list)
+			{
+				tableModelList.add(Quattro.<String, String, Resourcebundle, Resourcebundle> builder()
+					.topLeft(resourcebundle.getKey().getName()).topRight(resourcebundle.getValue().getName())
+					.bottomLeft(resourcebundle).bottomRight(resourcebundle).build());
+			}
+			Collections.sort(tableModelList,
+				NullCheckComparator.<Quattro<String, String, Resourcebundle, Resourcebundle>> of(
+					(o1, o2) -> o1.getTopLeft().compareTo(o2.getTopLeft())));
 		}
-		Collections.sort(tableModelList,
-			NullCheckComparator.<Quattro<String, String, Resourcebundle, Resourcebundle>> of(
-				(o1, o2) -> o1.getTopLeft().compareTo(o2.getTopLeft())));
+		catch (UnirestException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+			
 	}
 
 

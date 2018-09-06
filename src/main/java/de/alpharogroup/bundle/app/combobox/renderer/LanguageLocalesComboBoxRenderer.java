@@ -9,7 +9,6 @@ import javax.swing.ListCellRenderer;
 
 import de.alpharogroup.check.Check;
 import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
-import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.resourcebundle.locale.LocaleResolver;

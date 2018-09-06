@@ -10,16 +10,17 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
+
 import de.alpharogroup.bundle.app.MainFrame;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardContentPanel;
 import de.alpharogroup.bundle.app.panels.dashboard.mainapp.MainDashboardBean;
 import de.alpharogroup.bundle.app.panels.dashboard.mainapp.MainDashboardPanel;
-import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
+import de.alpharogroup.bundle.app.spring.UniRestService;
 import de.alpharogroup.bundle.app.table.model.StringBundleApplicationsBundleApplicationsTableModel;
 import de.alpharogroup.collections.pairs.Triple;
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
-import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.PropertyModel;
 import de.alpharogroup.model.api.Model;
@@ -208,7 +209,7 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 			@Override
 			public Object getCellEditorValue()
 			{
-				final BundleApplications selectedBundleApplication = (BundleApplications)this
+				final BundleApplication selectedBundleApplication = (BundleApplication)this
 					.getValue();
 				onDelete(selectedBundleApplication);
 
@@ -259,9 +260,16 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 	{
 		tableModel.getData().clear();
 
-		final List<BundleApplication> bundleApplications = SpringApplicationContext.getInstance()
-			.getBundleApplicationsService().findAll();
-		getModelObject().setBundleApplications(bundleApplications);
+		List<BundleApplication> bundleApplications;
+		try
+		{
+			bundleApplications = (List<BundleApplication>)UniRestService.findAllBundleApplications();
+			getModelObject().setBundleApplications(bundleApplications);
+		}
+		catch (UnirestException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
 		
 		tableModelList = null;
 		tableModel.addList(getTableModelList());
@@ -313,22 +321,25 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 	}
 	
 
-	protected void onDelete(final BundleApplications selectedBundleApplication)
+	protected void onDelete(final BundleApplication selectedBundleApplication)
 	{
 		int dialogResult = JOptionPane.showConfirmDialog(null,
 			"This will delete this bundle application and is not recoverable?(cannot be undone)",
 			"Warning", JOptionPane.YES_NO_OPTION);
 		if (dialogResult == JOptionPane.YES_OPTION)
 		{
-
-			SpringApplicationContext
-			.getInstance().getBundleApplicationsService().delete(selectedBundleApplication);				
-
-			final List<BundleApplication> bundleApplications = SpringApplicationContext.getInstance()
-				.getBundleApplicationsService().findAll();
-			MainFrame.getInstance().getModelObject().setBundleApplications(bundleApplications);
-			MainFrame.getInstance().replaceInternalFrame("Overview bundle apps", new MainDashboardPanel(
-				PropertyModel.<MainDashboardBean> of(MainFrame.getInstance(), "model.object")));
+			try
+			{
+				UniRestService.deleteBundleApplication(selectedBundleApplication);
+				final List<BundleApplication> bundleApplications = UniRestService.findAllBundleApplications();
+				MainFrame.getInstance().getModelObject().setBundleApplications(bundleApplications);
+				MainFrame.getInstance().replaceInternalFrame("Overview bundle apps", new MainDashboardPanel(
+					PropertyModel.<MainDashboardBean> of(MainFrame.getInstance(), "model.object")));
+			}
+			catch (UnirestException e)
+			{
+				log.error(e.getLocalizedMessage(), e);
+			}
 
 		}
 	}

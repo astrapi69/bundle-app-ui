@@ -30,7 +30,6 @@ import de.alpharogroup.bundle.app.MainApplication;
 import de.alpharogroup.bundle.app.combobox.model.LanguageLocalesComboBoxModel;
 import de.alpharogroup.bundle.app.combobox.renderer.LanguageLocalesComboBoxRenderer;
 import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
-import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.design.pattern.observer.event.EventObject;
 import de.alpharogroup.design.pattern.observer.event.EventSource;
 import de.alpharogroup.design.pattern.state.wizard.model.WizardModelStateMachine;
@@ -236,7 +235,7 @@ public class ImportBundleApplicationStartPanel extends BaseWizardContentPanel<Im
 		{
 			bundleAppName.trim();
 		}
-		final LanguageLocales defaultLocale = modelObject.getDefaultLocale();
+		final LanguageLocale defaultLocale = modelObject.getDefaultLocale();
 		final File rootDir = modelObject.getRootDir();
 		if (StringUtils.isNotEmpty(bundleAppName) && defaultLocale != null && rootDir != null)
 		{

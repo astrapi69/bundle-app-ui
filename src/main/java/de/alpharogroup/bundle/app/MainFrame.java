@@ -35,19 +35,14 @@ import javax.swing.JInternalFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JToolBar;
 
-import org.springframework.context.ApplicationContext;
-
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.bundle.app.panels.dashboard.mainapp.MainDashboardBean;
 import de.alpharogroup.bundle.app.panels.dashboard.mainapp.MainDashboardPanel;
-import de.alpharogroup.bundle.app.spring.RestService;
-import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
+import de.alpharogroup.bundle.app.spring.UniRestService;
 import de.alpharogroup.collections.list.ListFactory;
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
-import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
-import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
 import de.alpharogroup.lang.ClassExtensions;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.PropertyModel;
@@ -177,12 +172,11 @@ public class MainFrame extends BaseFrame<MainDashboardBean>
 		List<BundleApplication> allBundleApplications = ListFactory.newArrayList();
 		try
 		{
-			allBundleApplications = RestService.findAllBundleApplications();
+			allBundleApplications = UniRestService.findAllBundleApplications();
 		}
 		catch (UnirestException e)
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error(e.getLocalizedMessage(), e);
 		}
 		final Model<MainDashboardBean> model = BaseModel.<MainDashboardBean> of(MainDashboardBean
 			.builder().bundleApplications(allBundleApplications).build());

@@ -1,13 +1,12 @@
 package de.alpharogroup.bundle.app.table.model;
 
 import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
-import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.swing.table.model.TableColumnsModel;
 import de.alpharogroup.swing.table.model.properties.KeyValueTableModel;
 
 /**
  * The class {@link StringLanguageLocalesTableModel} that lists key value pairs which the key is
- * the name of the locale and the value is the {@link LanguageLocales} it self.
+ * the name of the locale and the value is the {@link LanguageLocale} it self.
  */
 public class StringLanguageLocalesTableModel
 	extends

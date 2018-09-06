@@ -9,17 +9,17 @@ import java.util.Properties;
 
 import org.apache.commons.lang3.BooleanUtils;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
+
 import de.alpharogroup.bundle.app.MainApplication;
 import de.alpharogroup.bundle.app.MainFrame;
 import de.alpharogroup.bundle.app.panels.imports.ext.ConvertExtensions;
-import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
+import de.alpharogroup.bundle.app.spring.UniRestService;
 import de.alpharogroup.collections.pairs.KeyValuePair;
+import de.alpharogroup.collections.pairs.Quattro;
 import de.alpharogroup.collections.pairs.Triple;
 import de.alpharogroup.collections.properties.PropertiesExtensions;
-import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
-import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
-import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
-import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
+import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
 import de.alpharogroup.design.pattern.observer.event.EventListener;
 import de.alpharogroup.design.pattern.observer.event.EventObject;
 import de.alpharogroup.design.pattern.observer.event.EventSource;
@@ -128,17 +128,10 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 
 	private void startDbImport()
 	{
-		// 1. create bundleapp
-		final BundleApplicationsService bundleApplicationsService = SpringApplicationContext
-			.getInstance().getBundleApplicationsService();
-		final ResourcebundlesService resourcebundlesService = SpringApplicationContext.getInstance()
-			.getResourcebundlesService();
-		BundleApplications bundleApplication = bundleApplicationsService
-			.find(getModelObject().getBundleAppName());
-		// 2. get properties files
+		// 1. get properties files
 		final List<Triple<File, Locale, KeyValuePair<Boolean, File>>> foundProperties = getModelObject()
 			.getFoundProperties();
-		// 3. save properties files the to the bundleapp
+		// 2. save properties files the to the bundleapp
 		for (final Triple<File, Locale, KeyValuePair<Boolean, File>> entry : foundProperties)
 		{
 			if (BooleanUtils.toBoolean(entry.getRight().getKey()))
@@ -150,6 +143,14 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 				try
 				{
 					properties = PropertiesExtensions.loadProperties(propertiesFile);
+					Quattro<Properties, String, String, Locale> quattro =  Quattro.<Properties, String, String, Locale>builder()
+						.topLeft(properties)
+						.topRight(getModelObject().getBundleAppName())
+						.bottomLeft(bundlename)
+						.bottomRight(locale)
+						.build();
+					
+					UniRestService.updateProperties(quattro);
 				}
 				catch (final IOException e)
 				{
@@ -157,8 +158,10 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 						"Loading Properties file " + propertiesFile.getAbsolutePath() + " failed.",
 						e);
 				}
-				resourcebundlesService.updateProperties(bundleApplication, properties, bundlename,
-					locale);
+				catch (UnirestException e)
+				{
+					log.error(e.getLocalizedMessage(), e);
+				}	
 			}
 		}
 
@@ -167,8 +170,8 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 	private void startResolving() throws IOException
 	{
 		final File rootDir = getModelObject().getRootDir();
-		final LanguageLocales defaultLocale = getModelObject().getDefaultLocale();
-		Locale locale = SpringApplicationContext.getInstance().getLanguageLocalesService().resolveLocale(defaultLocale);
+		final LanguageLocale defaultLocale = getModelObject().getDefaultLocale();
+		Locale locale = LocaleResolver.resolveLocale(defaultLocale.getLocale(), false);			
 		final PropertiesListResolver resolver1 = new PropertiesListResolver(rootDir, locale);
 		resolver1.resolve();
 		final List<KeyValuePair<File, Locale>> propertiesList = resolver1.getPropertiesList();

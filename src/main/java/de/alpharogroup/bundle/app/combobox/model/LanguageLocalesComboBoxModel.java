@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
 
-import de.alpharogroup.bundle.app.spring.RestService;
+import de.alpharogroup.bundle.app.spring.UniRestService;
 import de.alpharogroup.collections.list.ListFactory;
 import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
 import de.alpharogroup.swing.combobox.model.AbstractComboBoxModel;
@@ -22,7 +22,7 @@ public class LanguageLocalesComboBoxModel extends AbstractComboBoxModel<Language
 		List<LanguageLocale> languageLocales = ListFactory.newArrayList();
 		try
 		{
-			languageLocales = RestService.findAllLanguageLocales();
+			languageLocales = UniRestService.findAllLanguageLocales();
 			Collections.sort(languageLocales, Comparator.comparing(LanguageLocale::getLocale));
 		}
 		catch (UnirestException e)

@@ -1,23 +1,21 @@
 package de.alpharogroup.bundle.app.panels.creation;
 
 import java.awt.event.ActionEvent;
-import java.util.Locale;
 
 import javax.swing.JComboBox;
+
+import com.mashape.unirest.http.exceptions.UnirestException;
 
 import de.alpharogroup.bundle.app.actions.ReturnToDashboardAction;
 import de.alpharogroup.bundle.app.combobox.model.LanguageLocalesComboBoxModel;
 import de.alpharogroup.bundle.app.combobox.renderer.LanguageLocalesComboBoxRenderer;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
-import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
-import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
-import de.alpharogroup.db.resource.bundles.service.api.BundleNamesService;
-import de.alpharogroup.model.BaseModel;
-import de.alpharogroup.model.api.Model;
-import de.alpharogroup.resourcebundle.locale.LocaleResolver;
-import de.alpharogroup.swing.base.BasePanel;
+import de.alpharogroup.bundle.app.spring.UniRestService;
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
+import de.alpharogroup.model.BaseModel;
+import de.alpharogroup.model.api.Model;
+import de.alpharogroup.swing.base.BasePanel;
 
 public class NewBundleNamePanel extends BasePanel<ApplicationDashboardBean>
 {
@@ -144,22 +142,28 @@ public class NewBundleNamePanel extends BasePanel<ApplicationDashboardBean>
 	protected void onSave(final ActionEvent e)
 	{
 		BundleApplication bundleApplication = getModelObject().getBundleApplication();
-		final BundleNamesService bundleNamesService = SpringApplicationContext.getInstance()
-			.getBundleNamesService();
+
 		final String baseName = txtBasename.getText();
 		final LanguageLocale selectedItem = (LanguageLocale)cmbLocale.getSelectedItem();
+		String locale;
 		if (selectedItem != null)
 		{
-			final Locale locale = LocaleResolver.resolveLocale(selectedItem.getLocale());
-			bundleNamesService.getOrCreateNewBundleNames(bundleApplication, baseName, locale);
+			locale = selectedItem.getLocale();
 		}
 		else
 		{
 			final LanguageLocale languageLocales = getModelObject().getBundleApplication()
 				.getDefaultLocale();
-			final Locale locale = SpringApplicationContext.getInstance().getLanguageLocaleService()
-				.resolveLocale(languageLocales);
-			bundleNamesService.getOrCreateNewBundleNames(bundleApplication, baseName, locale);
+			locale = languageLocales.getLocale();
+		}
+		try
+		{
+			UniRestService.getOrCreateBundleName(bundleApplication.getName(), baseName, locale);
+		}
+		catch (UnirestException e1)
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 	}
 

@@ -12,11 +12,9 @@ import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardContentPanel;
 import de.alpharogroup.bundle.app.panels.dashboard.mainapp.MainDashboardBean;
 import de.alpharogroup.bundle.app.panels.dashboard.mainapp.MainDashboardPanel;
-import de.alpharogroup.bundle.app.spring.RestService;
-import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
+import de.alpharogroup.bundle.app.spring.UniRestService;
 import de.alpharogroup.collections.list.ListFactory;
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
-import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.model.PropertyModel;
 import de.alpharogroup.model.api.Model;
 
@@ -56,7 +54,7 @@ public class ReturnToDashboardAction extends AbstractAction
 			List<BundleApplication> bundleApplications = ListFactory.newArrayList();
 			try
 			{
-				bundleApplications = RestService.findAllBundleApplications();
+				bundleApplications = (List<BundleApplication>)UniRestService.findAllBundleApplications();
 			}
 			catch (UnirestException e1)
 			{

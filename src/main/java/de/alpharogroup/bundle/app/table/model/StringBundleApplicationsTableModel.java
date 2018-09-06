@@ -1,16 +1,16 @@
 package de.alpharogroup.bundle.app.table.model;
 
-import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
+import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import de.alpharogroup.swing.table.model.TableColumnsModel;
 import de.alpharogroup.swing.table.model.properties.KeyValueTableModel;
 
 /**
  * The class {@link StringBundleApplicationsTableModel} that lists key value pairs which the key is
- * the name of the bundle application and the value is the {@link BundleApplications} it self.
+ * the name of the bundle application and the value is the {@link BundleApplication} it self.
  */
 public class StringBundleApplicationsTableModel
 	extends
-		KeyValueTableModel<String, BundleApplications>
+		KeyValueTableModel<String, BundleApplication>
 {
 
 	/** The Constant serialVersionUID. */
@@ -23,7 +23,7 @@ public class StringBundleApplicationsTableModel
 	{
 		this(TableColumnsModel.builder().columnNames(new String[] { "Name", "Action" })
 			.canEdit(new boolean[] { false, true })
-			.columnClasses(new Class<?>[] { String.class, BundleApplications.class }).build());
+			.columnClasses(new Class<?>[] { String.class, BundleApplication.class }).build());
 	}
 
 	/**

@@ -1,13 +1,12 @@
 package de.alpharogroup.bundle.app.table.model;
 
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
-import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 import de.alpharogroup.swing.table.model.TableColumnsModel;
 import de.alpharogroup.swing.table.model.quattro.QuattroTableModel;
 
 /**
  * The class {@link StringResourcebundlesTableModel} that lists key value pairs which the key is the
- * key of the resource bundle and the value of the {@link Resourcebundles}.
+ * key of the resource bundle and the value of the {@link Resourcebundle}.
  */
 public class StringResourcebundlesTableModel
 	extends

@@ -12,25 +12,28 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
+
 import de.alpharogroup.bundle.app.MainFrame;
 import de.alpharogroup.bundle.app.actions.ReturnToDashboardAction;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
-import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
+import de.alpharogroup.bundle.app.spring.UniRestService;
 import de.alpharogroup.bundle.app.table.model.StringBundleNamesTableModel;
 import de.alpharogroup.collections.CollectionExtensions;
 import de.alpharogroup.collections.pairs.Quattro;
+import de.alpharogroup.collections.set.SetFactory;
 import de.alpharogroup.comparators.NullCheckComparator;
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import de.alpharogroup.db.resource.bundles.domain.BundleName;
-import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
-import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BasePanel;
 import de.alpharogroup.swing.renderer.TableCellButtonRenderer;
 import de.alpharogroup.swing.table.editor.TableCellButtonEditor;
 import de.alpharogroup.swing.x.GenericJXTable;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDashboardBean>
 {
 	private static final long serialVersionUID = 1L;
@@ -196,7 +199,7 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 			@Override
 			public Object getCellEditorValue()
 			{
-				final BundleNames selectedBundleName = (BundleNames)this.getValue();
+				final BundleName selectedBundleName = (BundleName)this.getValue();
 				onDelete(selectedBundleName);
 				final String text = StringBundleNamesTableModel.DELETE_COLUMN_NAME;
 				return text;
@@ -235,15 +238,22 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 	}
 
 
-	protected void onDelete(final BundleNames selectedBundleName)
+	protected void onDelete(final BundleName selectedBundleName)
 	{
 		int dialogResult = JOptionPane.showConfirmDialog(null,
 			"This will delete this bundle name and is not recoverable?(cannot be undone)",
 			"Warning", JOptionPane.YES_NO_OPTION);
 		if (dialogResult == JOptionPane.YES_OPTION)
 		{
-			SpringApplicationContext.getInstance().getResourcebundlesService()
-				.delete(selectedBundleName);
+			try
+			{
+				UniRestService.deleteBundleName(selectedBundleName);
+			}
+			catch (UnirestException e)
+			{
+				log.error(e.getLocalizedMessage(), e);
+			}
+
 			MainFrame.getInstance().getModelObject().getSelectedBundleApplication().getBundleNames()
 				.remove(selectedBundleName);
 			MainFrame.getInstance().getModelObject().getSelectedBundleApplication()
@@ -269,23 +279,30 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 		tableModelList = new ArrayList<>();
 
 		BundleApplication bundleApplication = getModelObject().getBundleApplication();
-		getModelObject().setBundleNames(SpringApplicationContext.getInstance()
-			.getBundleApplicationsService().find(bundleApplication));
-		final Set<BundleName> set = getModelObject().getBundleNames();
-		if (CollectionExtensions.isNotEmpty(set))
+		List<BundleName> findBundleNames;
+		try
 		{
-			for (final BundleName bundleNames : set)
+			findBundleNames = UniRestService.findBundleNames(bundleApplication);
+			getModelObject().setBundleNames(SetFactory.newHashSet(findBundleNames));
+			final Set<BundleName> set = getModelObject().getBundleNames();
+			if (CollectionExtensions.isNotEmpty(set))
 			{
-				tableModelList.add(Quattro.<String, String, BundleName, BundleName> builder()
-					.topLeft(bundleNames.getBaseName().getName())
-					.topRight(bundleNames.getLocale().getLocale()).bottomLeft(bundleNames)
-					.bottomRight(bundleNames).build());
+				for (final BundleName bundleNames : set)
+				{
+					tableModelList.add(Quattro.<String, String, BundleName, BundleName> builder()
+						.topLeft(bundleNames.getBaseName().getName())
+						.topRight(bundleNames.getLocale().getLocale()).bottomLeft(bundleNames)
+						.bottomRight(bundleNames).build());
+				}
 			}
+			Collections.sort(tableModelList,
+				NullCheckComparator.<Quattro<String, String, BundleName, BundleName>> of(
+					(o1, o2) -> o1.getTopLeft().compareTo(o2.getTopLeft())));
 		}
-		Collections.sort(tableModelList,
-			NullCheckComparator.<Quattro<String, String, BundleName, BundleName>> of(
-				(o1, o2) -> o1.getTopLeft().compareTo(o2.getTopLeft())));
-
+		catch (UnirestException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
 	}
 
 	@Override

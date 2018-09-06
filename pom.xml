@@ -136,127 +136,19 @@
 				<version>${guava.version}</version>
 			</dependency>
 			<!-- RESOURCE-BUNDLES-DATA DEPENDENCIES -->
-			<dependency>
-				<groupId>de.alpharogroup</groupId>
-				<artifactId>resource-bundles-business</artifactId>
-				<version>${resource-bundles-business.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>de.alpharogroup</groupId>
-				<artifactId>resource-bundles-entities</artifactId>
-				<version>${resource-bundles-entities.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>de.alpharogroup</groupId>
-				<artifactId>resource-bundles-domain</artifactId>
-				<version>${resource-bundles-domain.version}</version>
-			</dependency>
-
+			
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>resource-bundles-domain-model</artifactId>
 				<version>${resource-bundles-domain-model.version}</version>
 			</dependency>
-
-			<dependency>
-				<groupId>de.alpharogroup</groupId>
-				<artifactId>resource-bundles-rest-api</artifactId>
-				<version>${resource-bundles-rest-api.version}</version>
-			</dependency>
-			<!-- SPRING DEPENDENCIES -->
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-orm</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-web</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-context</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-context-support</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-
-			<!-- PERSISTENCE-API DEPENDENCIES -->
-			<dependency>
-				<groupId>de.alpharogroup</groupId>
-				<artifactId>data-initialization</artifactId>
-				<version>${data-initialization.version}</version>
-			</dependency>
-			<!-- MODEL-DATA DEPENDENCIES -->
+		<!-- MODEL-DATA DEPENDENCIES -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>model-type-safe</artifactId>
 				<version>${model-type-safe.version}</version>
 			</dependency>
-			<!-- HIBERNATE DEPENDENCIES -->
-			<dependency>
-				<groupId>org.hibernate</groupId>
-				<artifactId>hibernate-core</artifactId>
-				<version>${hibernate.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.hibernate</groupId>
-				<artifactId>hibernate-entitymanager</artifactId>
-				<version>${hibernate.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.hibernate</groupId>
-				<artifactId>hibernate-ehcache</artifactId>
-				<version>${hibernate.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.hibernate.validator</groupId>
-				<artifactId>hibernate-validator</artifactId>
-				<version>${hibernate-validator.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>javax.validation</groupId>
-				<artifactId>validation-api</artifactId>
-				<version>${validation-api.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>cglib</groupId>
-				<artifactId>cglib</artifactId>
-				<version>${cglib.version}</version>
-			</dependency>
-			<!-- H2 DEPENDENCIES -->
-			<dependency>
-				<groupId>com.h2database</groupId>
-				<artifactId>h2</artifactId>
-				<version>${h2.version}</version>
-			</dependency>
-			<!-- CONNECTION-POOL DEPENDENCIES -->
-			<dependency>
-				<groupId>org.apache.tomcat</groupId>
-				<artifactId>tomcat-dbcp</artifactId>
-				<version>${tomcat-dbcp.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.apache.tomcat</groupId>
-				<artifactId>tomcat-jdbc</artifactId>
-				<version>${tomcat-jdbc.version}</version>
-			</dependency>
-
+			
 		</dependencies>
 
 	</dependencyManagement>
@@ -313,105 +205,17 @@
 			<artifactId>guava</artifactId>
 		</dependency>
 		<!-- RESOURCE-BUNDLES-DATA DEPENDENCIES -->
-		<!-- <dependency> -->
-		<!-- <groupId>de.alpharogroup</groupId> -->
-		<!-- <artifactId>resource-bundles-business</artifactId> -->
-		<!-- </dependency> -->
-
-		<!-- <dependency> -->
-		<!-- <groupId>de.alpharogroup</groupId> -->
-		<!-- <artifactId>resource-bundles-entities</artifactId> -->
-		<!-- </dependency> -->
-
-		<!-- <dependency> -->
-		<!-- <groupId>de.alpharogroup</groupId> -->
-		<!-- <artifactId>resource-bundles-domain</artifactId> -->
-		<!-- </dependency> -->
-
+		
 		<dependency>
 			<groupId>de.alpharogroup</groupId>
 			<artifactId>resource-bundles-domain-model</artifactId>
 		</dependency>
-
-		<!-- <dependency> -->
-		<!-- <groupId>de.alpharogroup</groupId> -->
-		<!-- <artifactId>resource-bundles-rest-api</artifactId> -->
-		<!-- </dependency> -->
-		<!-- SPRING DEPENDENCIES -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-orm</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-web</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context-support</artifactId>
-		</dependency>
-		<!-- PERSISTENCE-API DEPENDENCIES -->
-		<dependency>
-			<groupId>de.alpharogroup</groupId>
-			<artifactId>data-initialization</artifactId>
-		</dependency>
-		<!-- MODEL-DATA DEPENDENCIES -->
+			<!-- MODEL-DATA DEPENDENCIES -->
 		<dependency>
 			<groupId>de.alpharogroup</groupId>
 			<artifactId>model-type-safe</artifactId>
 		</dependency>
-		<!-- HIBERNATE DEPENDENCIES -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-ehcache</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>javax.validation</groupId>
-			<artifactId>validation-api</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.hibernate.validator</groupId>
-			<artifactId>hibernate-validator</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>cglib</groupId>
-			<artifactId>cglib</artifactId>
-		</dependency>
-		<!-- H2 DEPENDENCIES -->
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-		</dependency>
-		<!-- CONNECTION-POOL DEPENDENCIES -->
-		<dependency>
-			<groupId>org.apache.tomcat</groupId>
-			<artifactId>tomcat-dbcp</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.tomcat</groupId>
-			<artifactId>tomcat-jdbc</artifactId>
-		</dependency>
-
+		
 	</dependencies>
 
 	<build>

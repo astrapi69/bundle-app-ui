@@ -6,6 +6,8 @@ import java.awt.event.ItemEvent;
 
 import javax.swing.JOptionPane;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
+
 import de.alpharogroup.behaviors.EnableButtonBehavior;
 import de.alpharogroup.bundle.app.actions.ReturnToDashboardAction;
 import de.alpharogroup.bundle.app.combobox.model.CountriesComboBoxModel;
@@ -13,11 +15,10 @@ import de.alpharogroup.bundle.app.combobox.model.LanguagesComboBoxModel;
 import de.alpharogroup.bundle.app.combobox.renderer.CountriesComboBoxRenderer;
 import de.alpharogroup.bundle.app.combobox.renderer.LanguagesComboBoxRenderer;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
-import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
+import de.alpharogroup.bundle.app.spring.UniRestService;
 import de.alpharogroup.db.resource.bundles.domain.Country;
 import de.alpharogroup.db.resource.bundles.domain.Language;
-import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
-import de.alpharogroup.db.resource.bundles.entities.Languages;
+import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BasePanel;
@@ -92,7 +93,17 @@ public class NewCustomLocalePanel extends BasePanel<ApplicationDashboardBean>
 		lblVariant = new javax.swing.JLabel();
 		txtVariant = new javax.swing.JTextField();
 		btnSave = new javax.swing.JButton();
-		btnSave.addActionListener(e -> onSave(e));
+		btnSave.addActionListener(e -> {
+			try
+			{
+				onSave(e);
+			}
+			catch (UnirestException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
 		btnToDashboard = new javax.swing.JButton();
 		btnToDashboard.addActionListener(ReturnToDashboardAction.of());
 		btnCancel = new javax.swing.JButton();
@@ -211,21 +222,17 @@ public class NewCustomLocalePanel extends BasePanel<ApplicationDashboardBean>
 	}
 
 
-	private void onSave(final ActionEvent e)
+	private void onSave(final ActionEvent e) throws UnirestException
 	{
-		System.out
-			.println("de.alpharogroup.bundle.app.panels.creation.NewCustomLocalePanel.onSave()");
-		Languages selectedLanguage = (Languages)cmbLanguage.getSelectedItem();
+		Language selectedLanguage = (Language)cmbLanguage.getSelectedItem();
 		Country selectedCountry = (Country)cmbCountry.getSelectedItem();
 		String variant = txtVariant.getText();
 		String localeCode = selectedLanguage.getIso639Dash1() + "_"
 			+ selectedCountry.getIso3166A2name() + "_" + variant;
-		LanguageLocales languageLocales = SpringApplicationContext.getInstance()
-			.getLanguageLocalesService().find(localeCode);
+		LanguageLocale languageLocales = UniRestService.find(localeCode);
 		if (languageLocales == null)
 		{
-			SpringApplicationContext.getInstance().getLanguageLocalesService()
-				.merge(LanguageLocales.builder().locale(localeCode).build());
+			UniRestService.newLanguageLocale(localeCode);
 			cmbCountry.setModel(new CountriesComboBoxModel());
 			cmbLanguage.setModel(new LanguagesComboBoxModel());
 			txtVariant.setText("");

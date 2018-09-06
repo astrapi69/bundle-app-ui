@@ -1,14 +1,13 @@
 package de.alpharogroup.bundle.app.table.model;
 
+import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import de.alpharogroup.db.resource.bundles.domain.BundleName;
-import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
-import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.swing.table.model.TableColumnsModel;
 import de.alpharogroup.swing.table.model.quattro.QuattroTableModel;
 
 /**
  * The class {@link StringBundleNamesTableModel} that lists key value pairs which the key is the
- * name of the bundle application and the value is the {@link BundleApplications} it self.
+ * name of the bundle application and the value is the {@link BundleApplication} it self.
  */
 public class StringBundleNamesTableModel extends QuattroTableModel<String, String, BundleName, BundleName>
 {

@@ -2,24 +2,28 @@ package de.alpharogroup.bundle.app.panels.imports.file;
 
 import java.awt.event.ActionEvent;
 import java.util.Locale;
+import java.util.Properties;
 import java.util.concurrent.CompletableFuture;
 
 import com.google.common.eventbus.Subscribe;
+import com.mashape.unirest.http.exceptions.UnirestException;
 
 import de.alpharogroup.bundle.app.MainApplication;
 import de.alpharogroup.bundle.app.actions.ReturnToDashboardAction;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
-import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
+import de.alpharogroup.bundle.app.spring.UniRestService;
+import de.alpharogroup.collections.pairs.Quattro;
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
-import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.resourcebundle.locale.LocaleResolver;
 import de.alpharogroup.swing.base.BasePanel;
 import de.alpharogroup.swing.table.model.properties.StringKeyValueTableModel;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 @Getter
+@Slf4j
 public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBean>
 {
 
@@ -68,8 +72,21 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 			final Locale locale = LocaleResolver
 				.resolveLocale(getModelObject().getResourceBundleToImport());
 			BundleApplication bundleApplication = getModelObject().getBundleApplication();
-			SpringApplicationContext.getInstance().getResourcebundlesService().updateProperties(
-				bundleApplication, getModelObject().getImportedProperties(), baseName, locale);
+			Quattro<Properties, String, String, Locale> quattro =  Quattro.<Properties, String, String, Locale>builder()
+				.topLeft(getModelObject().getImportedProperties())
+				.topRight(bundleApplication.getName())
+				.bottomLeft(baseName)
+				.bottomRight(locale)
+				.build();
+			
+			try
+			{
+				UniRestService.updateProperties(quattro);
+			}
+			catch (UnirestException e1)
+			{
+				log.error(e1.getLocalizedMessage(), e1);
+			}
 		});
 		returnToDashboardAction.now();
 	}

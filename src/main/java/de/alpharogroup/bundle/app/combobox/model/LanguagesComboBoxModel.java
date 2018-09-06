@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
 
-import de.alpharogroup.bundle.app.spring.RestService;
+import de.alpharogroup.bundle.app.spring.UniRestService;
 import de.alpharogroup.collections.list.ListFactory;
 import de.alpharogroup.db.resource.bundles.domain.Language;
 import de.alpharogroup.swing.combobox.model.AbstractComboBoxModel;
@@ -27,7 +27,7 @@ public class LanguagesComboBoxModel extends AbstractComboBoxModel<Language>
 		
 		try
 		{
-			languages = RestService.findAllLanguages();
+			languages = UniRestService.findAllLanguages();
 		}
 		catch (UnirestException e)
 		{

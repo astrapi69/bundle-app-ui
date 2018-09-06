@@ -24,30 +24,13 @@
  */
 package de.alpharogroup.bundle.app.spring;
 
-import java.util.List;
 import java.util.Properties;
 import java.util.prefs.Preferences;
-
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import de.alpharogroup.db.resource.bundles.entities.Countries;
-import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
-import de.alpharogroup.db.resource.bundles.entities.Languages;
-import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
-import de.alpharogroup.db.resource.bundles.service.api.BundleNamesService;
-import de.alpharogroup.db.resource.bundles.service.api.CountriesService;
-import de.alpharogroup.db.resource.bundles.service.api.LanguageLocalesService;
-import de.alpharogroup.db.resource.bundles.service.api.LanguagesService;
-import de.alpharogroup.db.resource.bundles.service.api.PropertiesKeysService;
-import de.alpharogroup.db.resource.bundles.service.api.PropertiesValuesService;
-import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
-import lombok.Getter;
 
 /**
  * The class {@link SpringApplicationContext}.
@@ -67,26 +50,6 @@ public class SpringApplicationContext implements ApplicationContextAware
 	{
 		return instance;
 	}
-
-	@PersistenceUnit
-	@Getter
-	private EntityManagerFactory entityManagerFactory;
-
-	private BundleNamesService bundleNamesService;
-
-	private BundleApplicationsService bundleApplicationsService;
-
-	private ResourcebundlesService resourcebundlesService;
-
-	private PropertiesKeysService propertiesKeysService;
-	
-	private PropertiesValuesService propertiesValuesService;
-
-	private LanguageLocalesService languageLocalesService;
-
-	private CountriesService countriesService;
-
-	private LanguagesService languagesService;
 
 	boolean countriesInitialized;
 	boolean languagesInitialized;

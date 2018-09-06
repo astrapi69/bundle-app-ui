@@ -20,7 +20,7 @@ import de.alpharogroup.bundle.app.actions.ReturnToDashboardAction;
 import de.alpharogroup.bundle.app.combobox.model.LanguageLocalesComboBoxModel;
 import de.alpharogroup.bundle.app.combobox.renderer.LanguageLocalesComboBoxRenderer;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
-import de.alpharogroup.bundle.app.spring.RestService;
+import de.alpharogroup.bundle.app.spring.UniRestService;
 import de.alpharogroup.bundle.app.table.model.StringLanguageLocalesTableModel;
 import de.alpharogroup.collections.list.ListFactory;
 import de.alpharogroup.collections.pairs.KeyValuePair;
@@ -368,19 +368,19 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 				currentBundleApplication.getSupportedLocales()
 					.addAll(getModelObject().getSupportedLocales());
 
-				currentBundleApplication = RestService.update(currentBundleApplication);
+				currentBundleApplication = UniRestService.update(currentBundleApplication);
 
 				getModelObject().setBundleApplication(currentBundleApplication);
 			}
 			else
 			{
-				BundleApplication newBundleApplication = RestService.getBundleApplication(name);
+				BundleApplication newBundleApplication = UniRestService.getBundleApplication(name);
 				if (newBundleApplication == null)
 				{
 					LanguageLocale defaultLocale = getModelObject().getDefaultLocale();
 
-					newBundleApplication = RestService
-						.create(BundleApplication.builder().name(name).defaultLocale(defaultLocale)
+					newBundleApplication = UniRestService
+						.newBundleApplication(BundleApplication.builder().name(name).defaultLocale(defaultLocale)
 							.supportedLocales(getModelObject().getSupportedLocales()).build());
 				}
 				if (!MainFrame.getInstance().getModelObject().getBundleApplications()

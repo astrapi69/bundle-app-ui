@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
 
-import de.alpharogroup.bundle.app.spring.RestService;
+import de.alpharogroup.bundle.app.spring.UniRestService;
 import de.alpharogroup.collections.list.ListFactory;
 import de.alpharogroup.db.resource.bundles.domain.Country;
 import de.alpharogroup.swing.combobox.model.AbstractComboBoxModel;
@@ -26,7 +26,7 @@ public class CountriesComboBoxModel extends AbstractComboBoxModel<Country>
 		List<Country> availableCountries = ListFactory.newArrayList();
 		try
 		{
-			availableCountries = RestService.findAllCountries();
+			availableCountries = UniRestService.findAllCountries();
 		}
 		catch (UnirestException e)
 		{
