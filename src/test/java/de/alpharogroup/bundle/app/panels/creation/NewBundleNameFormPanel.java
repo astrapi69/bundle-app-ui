@@ -108,39 +108,41 @@ public class NewBundleNameFormPanel extends javax.swing.JPanel
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
 		this.setLayout(layout);
-		layout.setHorizontalGroup(layout
-			.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-			.addGroup(layout.createSequentialGroup().addGap(40, 40, 40).addGroup(layout
-				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-				.addGroup(layout.createSequentialGroup()
-					.addComponent(lblBasename, javax.swing.GroupLayout.PREFERRED_SIZE,
-						140, javax.swing.GroupLayout.PREFERRED_SIZE)
-					.addGap(18, 18, 18).addComponent(txtBasename,
-						javax.swing.GroupLayout.PREFERRED_SIZE, 562,
-						javax.swing.GroupLayout.PREFERRED_SIZE))
-				.addGroup(layout.createSequentialGroup()
-					.addComponent(lblLocale, javax.swing.GroupLayout.PREFERRED_SIZE, 140,
-						javax.swing.GroupLayout.PREFERRED_SIZE)
-					.addGap(18, 18, 18)
-					.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-						.addGroup(layout.createSequentialGroup().addGap(387, 387, 387).addComponent(
-							btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 175,
+		layout.setHorizontalGroup(
+			layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(layout
+				.createSequentialGroup().addGap(40, 40, 40).addGroup(layout
+					.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+					.addGroup(layout.createSequentialGroup()
+						.addComponent(lblBasename, javax.swing.GroupLayout.PREFERRED_SIZE, 140,
+							javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addGap(18, 18, 18).addComponent(txtBasename,
+							javax.swing.GroupLayout.PREFERRED_SIZE, 562,
 							javax.swing.GroupLayout.PREFERRED_SIZE))
-						.addGroup(layout.createSequentialGroup()
-							.addComponent(cmbLocale, javax.swing.GroupLayout.PREFERRED_SIZE, 300,
-								javax.swing.GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(btnCreateNewLocale,
-								javax.swing.GroupLayout.PREFERRED_SIZE, 220,
-								javax.swing.GroupLayout.PREFERRED_SIZE))))
-				.addGroup(layout.createSequentialGroup()
-					.addComponent(lblHeaderNewBundleName, javax.swing.GroupLayout.PREFERRED_SIZE,
-						300, javax.swing.GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-						javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addComponent(btnToDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 220,
-						javax.swing.GroupLayout.PREFERRED_SIZE)))
+					.addGroup(layout.createSequentialGroup()
+						.addComponent(lblLocale, javax.swing.GroupLayout.PREFERRED_SIZE, 140,
+							javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addGap(18, 18, 18)
+						.addGroup(layout
+							.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+							.addGroup(layout.createSequentialGroup().addGap(387, 387, 387)
+								.addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 175,
+									javax.swing.GroupLayout.PREFERRED_SIZE))
+							.addGroup(layout.createSequentialGroup()
+								.addComponent(cmbLocale, javax.swing.GroupLayout.PREFERRED_SIZE,
+									300, javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+									javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(
+									btnCreateNewLocale, javax.swing.GroupLayout.PREFERRED_SIZE, 220,
+									javax.swing.GroupLayout.PREFERRED_SIZE))))
+					.addGroup(layout.createSequentialGroup()
+						.addComponent(lblHeaderNewBundleName,
+							javax.swing.GroupLayout.PREFERRED_SIZE, 300,
+							javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+							javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(btnToDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 220,
+							javax.swing.GroupLayout.PREFERRED_SIZE)))
 				.addContainerGap(40, Short.MAX_VALUE)));
 		layout.setVerticalGroup(layout
 			.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

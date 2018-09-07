@@ -159,9 +159,9 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 			protected void onImportResourceBundlesFromDir(final ActionEvent e)
 			{
 				fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-					CompletableFuture.runAsync(() -> {
+				CompletableFuture.runAsync(() -> {
 					ApplicationDashboardContentPanel.this.onImportResourceBundleFromDir(e);
-				});				
+				});
 			}
 
 			@Override
@@ -224,7 +224,8 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 	/**
 	 * Callback method which import resourcebundles from a folder of file.
 	 *
-	 * @param dir the dir
+	 * @param dir
+	 *            the dir
 	 */
 	protected void onChooseImportResourceBundle(final boolean dir)
 	{
@@ -238,14 +239,15 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 				if (dir)
 				{
 					ApplicationDashboardBean mo = getModelObject();
-//					BundleApplication bundleApplications = 
-//						SpringApplicationContext.getInstance()
-//						.getBundleApplicationsService().get(mo.getBundleApplication().getId());
-					final Locale defaultLocale = LocaleResolver.resolveLocale(mo.getBundleApplication().getDefaultLocale().getLocale(), false);
-						
-//						SpringApplicationContext.getInstance()
-//						.getLanguageLocalesService()
-//						.resolveLocale(bundleApplications.getDefaultLocale());
+					// BundleApplication bundleApplications =
+					// SpringApplicationContext.getInstance()
+					// .getBundleApplicationsService().get(mo.getBundleApplication().getId());
+					final Locale defaultLocale = LocaleResolver.resolveLocale(
+						mo.getBundleApplication().getDefaultLocale().getLocale(), false);
+
+					// SpringApplicationContext.getInstance()
+					// .getLanguageLocalesService()
+					// .resolveLocale(bundleApplications.getDefaultLocale());
 					final PropertiesListResolver resolver1 = new PropertiesListResolver(
 						resourceBundleToImport, defaultLocale);
 					resolver1.resolve();
@@ -256,10 +258,12 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 						.setFoundProperties(ConvertExtensions.convertAndSort(propertiesList));
 
 					// 1. create bundleapp
-//					final BundleApplicationsService bundleApplicationsService = SpringApplicationContext
-//						.getInstance().getBundleApplicationsService();
-//					final ResourcebundlesService resourcebundlesService = SpringApplicationContext
-//						.getInstance().getResourcebundlesService();
+					// final BundleApplicationsService bundleApplicationsService =
+					// SpringApplicationContext
+					// .getInstance().getBundleApplicationsService();
+					// final ResourcebundlesService resourcebundlesService =
+					// SpringApplicationContext
+					// .getInstance().getResourcebundlesService();
 					BundleApplication bundleApplication = getModelObject().getBundleApplication();
 					// 2. get properties files
 					final List<Triple<File, Locale, KeyValuePair<Boolean, File>>> foundProperties = getModelObject()
@@ -277,13 +281,11 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 							try
 							{
 								properties = PropertiesExtensions.loadProperties(propertiesFile);
-								Quattro<Properties, String, String, Locale> quattro =  Quattro.<Properties, String, String, Locale>builder()
-									.topLeft(properties)
-									.topRight(bundleApplication.getName())
-									.bottomLeft(bundlename)
-									.bottomRight(locale)
-									.build();
-								
+								Quattro<Properties, String, String, Locale> quattro = Quattro
+									.<Properties, String, String, Locale> builder()
+									.topLeft(properties).topRight(bundleApplication.getName())
+									.bottomLeft(bundlename).bottomRight(locale).build();
+
 								UniRestService.updateProperties(quattro);
 							}
 							catch (final IOException e)
@@ -293,7 +295,7 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 							catch (UnirestException e)
 							{
 								log.error(e.getLocalizedMessage(), e);
-							}							
+							}
 						}
 					}
 				}

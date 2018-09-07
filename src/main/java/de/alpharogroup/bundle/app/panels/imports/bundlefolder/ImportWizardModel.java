@@ -35,12 +35,12 @@ public class ImportWizardModel extends AbstractWizardModel
 
 	private boolean dbImport;
 
-	private File rootDir;
-
 	private LanguageLocale defaultLocale;
 
 	@Builder.Default
 	private List<Triple<File, Locale, KeyValuePair<Boolean, File>>> foundProperties = new ArrayList<>();
+
+	private File rootDir;
 
 
 }

@@ -36,23 +36,23 @@ public class ApplicationDashboardBean
 
 	BundleApplication bundleApplication;
 
+	Set<BundleName> bundleNames;
+
 	LanguageLocale defaultLocale;
+
+	@Builder.Default
+	List<Triple<File, Locale, KeyValuePair<Boolean, File>>> foundProperties = new ArrayList<>();
+
+	List<KeyValuePair<String, String>> importedKeyValuePairs;
+
+	Properties importedProperties;
+
+	File resourceBundleToImport;
 
 	BundleName selectedBundleName;
 
 	Resourcebundle selectedResourcebundle;
 
-	File resourceBundleToImport;
-
-	Properties importedProperties;
-
-	List<KeyValuePair<String, String>> importedKeyValuePairs;
-
-	Set<BundleName> bundleNames;
-	
 	Set<LanguageLocale> supportedLocales;
-
-	@Builder.Default
-	List<Triple<File, Locale, KeyValuePair<Boolean, File>>> foundProperties = new ArrayList<>();
 
 }

@@ -52,10 +52,10 @@ import lombok.extern.slf4j.Slf4j;
 public class MainApplication
 {
 
+	private static final Map<String, EventSource<?>> eventSources = new HashMap<>();
+
 	/** The instance. */
 	private static MainApplication instance = new MainApplication();
-
-	private static final Map<String, EventSource<?>> eventSources = new HashMap<>();
 
 	public static MainApplication get()
 	{

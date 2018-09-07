@@ -47,11 +47,11 @@ import lombok.extern.slf4j.Slf4j;
 public class ShowLicenseFrameAction extends AbstractAction
 {
 
-	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 1L;
-
 	/** The Constant LICENCE_TITLE. */
 	private static final String LICENCE_TITLE = "Licence";
+
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Instantiates a new show license frame action.

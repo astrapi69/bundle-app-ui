@@ -101,85 +101,74 @@ public class NewBundleAppFormPanel extends javax.swing.JPanel
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
 		this.setLayout(layout);
-		layout.setHorizontalGroup(
-			layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
-					layout
-						.createSequentialGroup().addGap(40, 40, 40)
-						.addGroup(layout.createParallelGroup(
-							javax.swing.GroupLayout.Alignment.TRAILING)
-							.addComponent(lblHeaderSetAppName, javax.swing.GroupLayout.DEFAULT_SIZE,
-								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(lblHeaderNewUser,
-								javax.swing.GroupLayout.Alignment.LEADING,
-								javax.swing.GroupLayout.DEFAULT_SIZE,
-								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addGroup(layout.createSequentialGroup()
-								.addComponent(lblBundleAppName,
-									javax.swing.GroupLayout.PREFERRED_SIZE, 200,
-									javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-									javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(txtBundleAppName,
-									javax.swing.GroupLayout.PREFERRED_SIZE, 300,
-									javax.swing.GroupLayout.PREFERRED_SIZE))
-							.addGroup(layout.createSequentialGroup()
-								.addGroup(layout
-									.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING,
-										false)
-									.addComponent(lblPw, javax.swing.GroupLayout.Alignment.LEADING,
-										javax.swing.GroupLayout.DEFAULT_SIZE,
-										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(lblUsername,
-										javax.swing.GroupLayout.Alignment.LEADING,
-										javax.swing.GroupLayout.DEFAULT_SIZE,
-										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(lblRepeatPw, javax.swing.GroupLayout.DEFAULT_SIZE,
-										200, Short.MAX_VALUE))
-								.addGap(18, 40, Short.MAX_VALUE)
-								.addGroup(layout
-									.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING,
-										false)
-									.addComponent(txtUsername,
-										javax.swing.GroupLayout.Alignment.TRAILING,
-										javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-									.addComponent(txtPw, javax.swing.GroupLayout.Alignment.TRAILING)
-									.addComponent(txtRepeatPw))))
-						.addGap(40, 40, 40)));
-		layout
-			.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(layout.createSequentialGroup().addGap(40, 40, 40)
-					.addComponent(lblHeaderSetAppName, javax.swing.GroupLayout.PREFERRED_SIZE, 34,
-						javax.swing.GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-					.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-						.addComponent(lblBundleAppName).addComponent(txtBundleAppName,
-							javax.swing.GroupLayout.PREFERRED_SIZE,
-							javax.swing.GroupLayout.DEFAULT_SIZE,
-							javax.swing.GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+		layout.setHorizontalGroup(layout
+			.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+			.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+				.addGap(40, 40, 40)
+				.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+					.addComponent(lblHeaderSetAppName, javax.swing.GroupLayout.DEFAULT_SIZE,
 						javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addComponent(lblHeaderNewUser, javax.swing.GroupLayout.PREFERRED_SIZE, 34,
-						javax.swing.GroupLayout.PREFERRED_SIZE)
-					.addGap(18, 18, 18)
-					.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-						.addComponent(lblUsername).addComponent(txtUsername,
-							javax.swing.GroupLayout.PREFERRED_SIZE,
-							javax.swing.GroupLayout.DEFAULT_SIZE,
+					.addComponent(lblHeaderNewUser, javax.swing.GroupLayout.Alignment.LEADING,
+						javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+						Short.MAX_VALUE)
+					.addGroup(layout.createSequentialGroup()
+						.addComponent(lblBundleAppName, javax.swing.GroupLayout.PREFERRED_SIZE, 200,
+							javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+							javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(txtBundleAppName, javax.swing.GroupLayout.PREFERRED_SIZE, 300,
 							javax.swing.GroupLayout.PREFERRED_SIZE))
-					.addGap(18, 18, 18)
-					.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-						.addComponent(lblPw).addComponent(txtPw,
-							javax.swing.GroupLayout.PREFERRED_SIZE,
+					.addGroup(layout.createSequentialGroup().addGroup(layout
+						.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+						.addComponent(lblPw, javax.swing.GroupLayout.Alignment.LEADING,
 							javax.swing.GroupLayout.DEFAULT_SIZE,
-							javax.swing.GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-					.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-						.addComponent(lblRepeatPw).addComponent(txtRepeatPw,
-							javax.swing.GroupLayout.PREFERRED_SIZE,
+							javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(lblUsername, javax.swing.GroupLayout.Alignment.LEADING,
 							javax.swing.GroupLayout.DEFAULT_SIZE,
-							javax.swing.GroupLayout.PREFERRED_SIZE))
-					.addGap(40, 40, 40)));
+							javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(lblRepeatPw, javax.swing.GroupLayout.DEFAULT_SIZE, 200,
+							Short.MAX_VALUE))
+						.addGap(18, 40, Short.MAX_VALUE)
+						.addGroup(layout
+							.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+							.addComponent(txtUsername, javax.swing.GroupLayout.Alignment.TRAILING,
+								javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+							.addComponent(txtPw, javax.swing.GroupLayout.Alignment.TRAILING)
+							.addComponent(txtRepeatPw))))
+				.addGap(40, 40, 40)));
+		layout.setVerticalGroup(layout
+			.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+			.addGroup(layout.createSequentialGroup().addGap(40, 40, 40)
+				.addComponent(lblHeaderSetAppName, javax.swing.GroupLayout.PREFERRED_SIZE, 34,
+					javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+				.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+					.addComponent(lblBundleAppName).addComponent(txtBundleAppName,
+						javax.swing.GroupLayout.PREFERRED_SIZE,
+						javax.swing.GroupLayout.DEFAULT_SIZE,
+						javax.swing.GroupLayout.PREFERRED_SIZE))
+				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+					javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+				.addComponent(lblHeaderNewUser, javax.swing.GroupLayout.PREFERRED_SIZE, 34,
+					javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addGap(18, 18, 18)
+				.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+					.addComponent(lblUsername).addComponent(txtUsername,
+						javax.swing.GroupLayout.PREFERRED_SIZE,
+						javax.swing.GroupLayout.DEFAULT_SIZE,
+						javax.swing.GroupLayout.PREFERRED_SIZE))
+				.addGap(18, 18, 18)
+				.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+					.addComponent(lblPw).addComponent(txtPw, javax.swing.GroupLayout.PREFERRED_SIZE,
+						javax.swing.GroupLayout.DEFAULT_SIZE,
+						javax.swing.GroupLayout.PREFERRED_SIZE))
+				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+				.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+					.addComponent(lblRepeatPw).addComponent(txtRepeatPw,
+						javax.swing.GroupLayout.PREFERRED_SIZE,
+						javax.swing.GroupLayout.DEFAULT_SIZE,
+						javax.swing.GroupLayout.PREFERRED_SIZE))
+				.addGap(40, 40, 40)));
 	}// </editor-fold>//GEN-END:initComponents
 
 	private void txtPwActionPerformed(java.awt.event.ActionEvent evt)

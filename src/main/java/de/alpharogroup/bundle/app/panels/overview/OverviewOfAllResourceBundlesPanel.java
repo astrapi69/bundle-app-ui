@@ -45,10 +45,10 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 	private javax.swing.JLabel lblBundleName;
 	private javax.swing.JLabel lblHeaderOverview;
 	private javax.swing.JScrollPane srcBundles;
-	private GenericJXTable<Quattro<String, String, BundleName, BundleName>> tblBundles;
 	private StringBundleNamesTableModel tableModel;
-
 	private List<Quattro<String, String, BundleName, BundleName>> tableModelList;
+
+	private GenericJXTable<Quattro<String, String, BundleName, BundleName>> tblBundles;
 
 	public OverviewOfAllResourceBundlesPanel()
 	{
@@ -73,6 +73,34 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 	{
 	}
 
+	protected void onDelete(final BundleName selectedBundleName)
+	{
+		int dialogResult = JOptionPane.showConfirmDialog(null,
+			"This will delete this bundle name and is not recoverable?(cannot be undone)",
+			"Warning", JOptionPane.YES_NO_OPTION);
+		if (dialogResult == JOptionPane.YES_OPTION)
+		{
+			try
+			{
+				UniRestService.deleteBundleName(selectedBundleName);
+			}
+			catch (UnirestException e)
+			{
+				log.error(e.getLocalizedMessage(), e);
+			}
+
+			MainFrame.getInstance().getModelObject().getSelectedBundleApplication().getBundleNames()
+				.remove(selectedBundleName);
+			MainFrame.getInstance().getModelObject().getSelectedBundleApplication()
+				.setSelectedBundleName(null);
+
+			MainFrame.getInstance().replaceInternalFrame(
+				"Dashboard of " + getModelObject().getBundleApplication().getName() + " bundle app",
+				new OverviewOfAllResourceBundlesPanel(getModel()));
+		}
+	}
+
+
 	@Override
 	protected void onInitializeComponents()
 	{
@@ -94,7 +122,8 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 
 		tblBundles = new GenericJXTable<>(tableModel);
 
-		final TableColumn chooseColumn = tblBundles.getColumn(StringBundleNamesTableModel.CHOOSE_COLUMN_NAME);
+		final TableColumn chooseColumn = tblBundles
+			.getColumn(StringBundleNamesTableModel.CHOOSE_COLUMN_NAME);
 
 		chooseColumn.setCellRenderer(new TableCellButtonRenderer(null, null)
 		{
@@ -170,7 +199,8 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 			}
 		});
 
-		final TableColumn deleteColumn = tblBundles.getColumn(StringBundleNamesTableModel.DELETE_COLUMN_NAME);
+		final TableColumn deleteColumn = tblBundles
+			.getColumn(StringBundleNamesTableModel.DELETE_COLUMN_NAME);
 
 		deleteColumn.setCellRenderer(new TableCellButtonRenderer(null, null)
 		{
@@ -241,34 +271,54 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 	}
 
 
-	protected void onDelete(final BundleName selectedBundleName)
+	@Override
+	protected void onInitializeLayout()
 	{
-		int dialogResult = JOptionPane.showConfirmDialog(null,
-			"This will delete this bundle name and is not recoverable?(cannot be undone)",
-			"Warning", JOptionPane.YES_NO_OPTION);
-		if (dialogResult == JOptionPane.YES_OPTION)
-		{
-			try
-			{
-				UniRestService.deleteBundleName(selectedBundleName);
-			}
-			catch (UnirestException e)
-			{
-				log.error(e.getLocalizedMessage(), e);
-			}
+		super.onInitializeLayout();
 
-			MainFrame.getInstance().getModelObject().getSelectedBundleApplication().getBundleNames()
-				.remove(selectedBundleName);
-			MainFrame.getInstance().getModelObject().getSelectedBundleApplication()
-				.setSelectedBundleName(null);
+		final javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+		this.setLayout(layout);
+		layout
+			.setHorizontalGroup(
+				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+					.addGroup(layout.createSequentialGroup().addGap(40, 40, 40).addGroup(layout
+						.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+						.addGroup(layout.createSequentialGroup()
+							.addComponent(lblHeaderOverview, javax.swing.GroupLayout.PREFERRED_SIZE,
+								540, javax.swing.GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(btnToDashboard, javax.swing.GroupLayout.PREFERRED_SIZE,
+								220, javax.swing.GroupLayout.PREFERRED_SIZE))
+						.addGroup(layout.createSequentialGroup()
+							.addComponent(lblBundleName, javax.swing.GroupLayout.PREFERRED_SIZE,
+								540, javax.swing.GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(btnCreateBundle, javax.swing.GroupLayout.PREFERRED_SIZE,
+								280, javax.swing.GroupLayout.PREFERRED_SIZE))
+						.addComponent(srcBundles, javax.swing.GroupLayout.PREFERRED_SIZE, 1000,
+							javax.swing.GroupLayout.PREFERRED_SIZE))
+						.addContainerGap(40, Short.MAX_VALUE)));
+		layout
+			.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(layout.createSequentialGroup().addGap(40, 40, 40)
+					.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+						.addComponent(lblHeaderOverview, javax.swing.GroupLayout.PREFERRED_SIZE, 33,
+							javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnToDashboard))
+					.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+					.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addComponent(lblBundleName, javax.swing.GroupLayout.PREFERRED_SIZE, 34,
+							javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnCreateBundle))
+					.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+					.addComponent(srcBundles, javax.swing.GroupLayout.PREFERRED_SIZE, 480,
+						javax.swing.GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(54, Short.MAX_VALUE)));
 
-			MainFrame.getInstance().replaceInternalFrame(
-				"Dashboard of "
-					+ getModelObject().getBundleApplication().getName() + " bundle app",
-				new OverviewOfAllResourceBundlesPanel(getModel()));
-		}
+
 	}
-
 
 	protected void reloadTableModel()
 	{
@@ -318,55 +368,6 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 		{
 			log.error(e.getLocalizedMessage(), e);
 		}
-	}
-
-	@Override
-	protected void onInitializeLayout()
-	{
-		super.onInitializeLayout();
-
-		final javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-		this.setLayout(layout);
-		layout
-			.setHorizontalGroup(
-				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-					.addGroup(layout.createSequentialGroup().addGap(40, 40, 40).addGroup(layout
-						.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-						.addGroup(layout.createSequentialGroup()
-							.addComponent(lblHeaderOverview, javax.swing.GroupLayout.PREFERRED_SIZE,
-								540, javax.swing.GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(btnToDashboard, javax.swing.GroupLayout.PREFERRED_SIZE,
-								220, javax.swing.GroupLayout.PREFERRED_SIZE))
-						.addGroup(layout.createSequentialGroup()
-							.addComponent(lblBundleName, javax.swing.GroupLayout.PREFERRED_SIZE,
-								540, javax.swing.GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(btnCreateBundle, javax.swing.GroupLayout.PREFERRED_SIZE,
-								280, javax.swing.GroupLayout.PREFERRED_SIZE))
-						.addComponent(srcBundles, javax.swing.GroupLayout.PREFERRED_SIZE, 1000,
-							javax.swing.GroupLayout.PREFERRED_SIZE))
-						.addContainerGap(40, Short.MAX_VALUE)));
-		layout
-			.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(layout.createSequentialGroup().addGap(40, 40, 40)
-					.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-						.addComponent(lblHeaderOverview, javax.swing.GroupLayout.PREFERRED_SIZE, 33,
-							javax.swing.GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnToDashboard))
-					.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-					.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-						.addComponent(lblBundleName, javax.swing.GroupLayout.PREFERRED_SIZE, 34,
-							javax.swing.GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnCreateBundle))
-					.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-					.addComponent(srcBundles, javax.swing.GroupLayout.PREFERRED_SIZE, 480,
-						javax.swing.GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(54, Short.MAX_VALUE)));
-
-
 	}
 
 }

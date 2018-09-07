@@ -84,10 +84,10 @@ public class ImportResourceBundleFormPanel extends javax.swing.JPanel
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
 		this.setLayout(layout);
-		layout.setHorizontalGroup(
-			layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(layout.createSequentialGroup().addGap(40, 40, 40)
-					.addGroup(layout
+		layout
+			.setHorizontalGroup(
+				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+					.addGroup(layout.createSequentialGroup().addGap(40, 40, 40).addGroup(layout
 						.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
 						.addGroup(layout.createSequentialGroup()
 							.addComponent(lblHeaderOverview, javax.swing.GroupLayout.PREFERRED_SIZE,
@@ -96,7 +96,8 @@ public class ImportResourceBundleFormPanel extends javax.swing.JPanel
 								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 							.addComponent(btnToDashboard, javax.swing.GroupLayout.PREFERRED_SIZE,
 								220, javax.swing.GroupLayout.PREFERRED_SIZE))
-						.addComponent(srcBundles, javax.swing.GroupLayout.PREFERRED_SIZE, 1000,
+						.addComponent(
+							srcBundles, javax.swing.GroupLayout.PREFERRED_SIZE, 1000,
 							javax.swing.GroupLayout.PREFERRED_SIZE)
 						.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout
 							.createSequentialGroup()
@@ -105,16 +106,16 @@ public class ImportResourceBundleFormPanel extends javax.swing.JPanel
 							.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
 							.addComponent(btnImportUp, javax.swing.GroupLayout.PREFERRED_SIZE, 280,
 								javax.swing.GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(44, Short.MAX_VALUE))
-				.addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
-					layout.createSequentialGroup()
-						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 280,
-							javax.swing.GroupLayout.PREFERRED_SIZE)
-						.addGap(18, 18, 18)
-						.addComponent(btnImport, javax.swing.GroupLayout.PREFERRED_SIZE, 280,
-							javax.swing.GroupLayout.PREFERRED_SIZE)
-						.addGap(43, 43, 43)));
+						.addContainerGap(44, Short.MAX_VALUE))
+					.addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+						layout.createSequentialGroup()
+							.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 280,
+								javax.swing.GroupLayout.PREFERRED_SIZE)
+							.addGap(18, 18, 18)
+							.addComponent(btnImport, javax.swing.GroupLayout.PREFERRED_SIZE, 280,
+								javax.swing.GroupLayout.PREFERRED_SIZE)
+							.addGap(43, 43, 43)));
 		layout
 			.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addGroup(layout.createSequentialGroup().addGap(40, 40, 40)

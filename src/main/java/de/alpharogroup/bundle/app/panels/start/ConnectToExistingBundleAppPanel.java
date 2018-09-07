@@ -68,40 +68,36 @@ public class ConnectToExistingBundleAppPanel extends BasePanel<WizardModelStateM
 	{
 		final GroupLayout layout = new GroupLayout(this);
 		this.setLayout(layout);
-		layout.setHorizontalGroup(
-			layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(layout
-				.createSequentialGroup().addGap(40, 40,
-					40)
-				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-					.addComponent(lblPw, GroupLayout.PREFERRED_SIZE, 200,
-						GroupLayout.PREFERRED_SIZE)
-					.addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
-						.addGroup(layout.createSequentialGroup()
-							.addComponent(lblUsername, GroupLayout.PREFERRED_SIZE, 200,
+		layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+			.addGroup(layout.createSequentialGroup().addGap(40, 40, 40).addGroup(layout
+				.createParallelGroup(GroupLayout.Alignment.LEADING)
+				.addComponent(lblPw, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
+				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
+					.addGroup(layout.createSequentialGroup()
+						.addComponent(lblUsername, GroupLayout.PREFERRED_SIZE, 200,
+							GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED,
+							GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(txtUsername, GroupLayout.PREFERRED_SIZE, 320,
+							GroupLayout.PREFERRED_SIZE))
+					.addComponent(lblHeaderConnect, GroupLayout.Alignment.LEADING,
+						GroupLayout.PREFERRED_SIZE, 560, GroupLayout.PREFERRED_SIZE)
+					.addGroup(layout.createSequentialGroup()
+						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+							.addComponent(lblDbUrl, GroupLayout.PREFERRED_SIZE, 200,
 								GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED,
-								GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(txtUsername, GroupLayout.PREFERRED_SIZE, 320,
+							.addComponent(lblDriver, GroupLayout.PREFERRED_SIZE, 200,
 								GroupLayout.PREFERRED_SIZE))
-						.addComponent(lblHeaderConnect, GroupLayout.Alignment.LEADING,
-							GroupLayout.PREFERRED_SIZE, 560, GroupLayout.PREFERRED_SIZE)
-						.addGroup(layout.createSequentialGroup()
-							.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-								.addComponent(lblDbUrl, GroupLayout.PREFERRED_SIZE, 200,
-									GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblDriver, GroupLayout.PREFERRED_SIZE, 200,
-									GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED,
-								GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addGroup(
-								layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-									.addComponent(txtDbUrl).addComponent(txtPw)
-									.addComponent(cmbDriver, 0, 320, Short.MAX_VALUE)))))
+						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED,
+							GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+							.addComponent(txtDbUrl).addComponent(txtPw)
+							.addComponent(cmbDriver, 0, 320, Short.MAX_VALUE)))))
 				.addContainerGap(40, Short.MAX_VALUE)));
 		layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 			.addGroup(layout.createSequentialGroup().addGap(40, 40, 40)
-				.addComponent(lblHeaderConnect, GroupLayout.PREFERRED_SIZE, 27,
-					GroupLayout.PREFERRED_SIZE)
+				.addComponent(
+					lblHeaderConnect, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
 				.addGap(18, 18, 18)
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 					.addComponent(lblDbUrl).addComponent(txtDbUrl, GroupLayout.PREFERRED_SIZE,

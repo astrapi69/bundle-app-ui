@@ -26,8 +26,35 @@ import de.alpharogroup.swing.base.BasePanel;
 public class NewCustomLocalePanel extends BasePanel<ApplicationDashboardBean>
 {
 
-	private static final long serialVersionUID = 1L;
+	class CustomLocaleVerifier implements ActionListener
+	{
+		boolean country;
+		boolean language;
+		boolean variant;
 
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			verify();
+		}
+
+		private boolean verify()
+		{
+
+			boolean country;
+			boolean language;
+			boolean variant;
+			country = cmbCountry.getSelectedItem() != null;
+			language = cmbLanguage.getSelectedItem() != null;
+			variant = 0 < txtVariant.getText().length();
+			boolean result = country && language && variant;
+			btnSave.setEnabled(result);
+			return result;
+		}
+
+	}
+
+	private static final long serialVersionUID = 1L;
 	private javax.swing.JButton btnCancel;
 	private javax.swing.JButton btnSave;
 	private javax.swing.JButton btnToDashboard;
@@ -38,6 +65,7 @@ public class NewCustomLocalePanel extends BasePanel<ApplicationDashboardBean>
 	private javax.swing.JLabel lblLanguage;
 	private javax.swing.JLabel lblVariant;
 	private javax.swing.JTextField txtVariant;
+
 	CustomLocaleVerifier verifier;
 
 	public NewCustomLocalePanel()
@@ -45,26 +73,10 @@ public class NewCustomLocalePanel extends BasePanel<ApplicationDashboardBean>
 		this(BaseModel.<ApplicationDashboardBean> of(ApplicationDashboardBean.builder().build()));
 	}
 
+
 	public NewCustomLocalePanel(final Model<ApplicationDashboardBean> model)
 	{
 		super(model);
-	}
-
-
-	protected javax.swing.JComboBox<Language> newCmbLanguage(
-		final Model<ApplicationDashboardBean> model)
-	{
-		LanguagesComboBoxModel cmbModel = LanguagesComboBoxModel.get();
-
-		final javax.swing.JComboBox<Language> comboBox = new javax.swing.JComboBox<>(cmbModel);
-		comboBox.addItemListener(e -> onChangeLanguage(e));
-		comboBox.setRenderer(new LanguagesComboBoxRenderer());
-		comboBox.setMaximumRowCount(10);
-		return comboBox;
-	}
-
-	protected void onChangeLanguage(ItemEvent e)
-	{
 	}
 
 	protected javax.swing.JComboBox<Country> newCmbCountry(
@@ -78,7 +90,23 @@ public class NewCustomLocalePanel extends BasePanel<ApplicationDashboardBean>
 		return comboBox;
 	}
 
+	protected javax.swing.JComboBox<Language> newCmbLanguage(
+		final Model<ApplicationDashboardBean> model)
+	{
+		LanguagesComboBoxModel cmbModel = LanguagesComboBoxModel.get();
+
+		final javax.swing.JComboBox<Language> comboBox = new javax.swing.JComboBox<>(cmbModel);
+		comboBox.addItemListener(e -> onChangeLanguage(e));
+		comboBox.setRenderer(new LanguagesComboBoxRenderer());
+		comboBox.setMaximumRowCount(10);
+		return comboBox;
+	}
+
 	protected void onChangeCountry(ItemEvent e)
+	{
+	}
+
+	protected void onChangeLanguage(ItemEvent e)
 	{
 	}
 
@@ -143,6 +171,7 @@ public class NewCustomLocalePanel extends BasePanel<ApplicationDashboardBean>
 
 		btnCancel.setText("Cancel");
 	}
+
 
 	@Override
 	protected void onInitializeLayout()
@@ -221,7 +250,6 @@ public class NewCustomLocalePanel extends BasePanel<ApplicationDashboardBean>
 
 	}
 
-
 	private void onSave(final ActionEvent e) throws UnirestException
 	{
 		Language selectedLanguage = (Language)cmbLanguage.getSelectedItem();
@@ -246,34 +274,6 @@ public class NewCustomLocalePanel extends BasePanel<ApplicationDashboardBean>
 				"Invalid Value", // title
 				JOptionPane.WARNING_MESSAGE);
 		}
-	}
-
-	class CustomLocaleVerifier implements ActionListener
-	{
-		boolean country;
-		boolean language;
-		boolean variant;
-
-		@Override
-		public void actionPerformed(ActionEvent e)
-		{
-			verify();
-		}
-
-		private boolean verify()
-		{
-
-			boolean country;
-			boolean language;
-			boolean variant;
-			country = cmbCountry.getSelectedItem() != null;
-			language = cmbLanguage.getSelectedItem() != null;
-			variant = 0 < txtVariant.getText().length();
-			boolean result = country && language && variant;
-			btnSave.setEnabled(result);
-			return result;
-		}
-
 	}
 
 }

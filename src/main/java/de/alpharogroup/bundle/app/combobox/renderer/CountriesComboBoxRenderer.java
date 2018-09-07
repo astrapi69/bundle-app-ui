@@ -28,8 +28,7 @@ public class CountriesComboBoxRenderer extends JLabel implements ListCellRendere
 
 	@Override
 	public Component getListCellRendererComponent(final JList<? extends Country> list,
-		final Country value, final int index, final boolean isSelected,
-		final boolean cellHasFocus)
+		final Country value, final int index, final boolean isSelected, final boolean cellHasFocus)
 	{
 
 		if (isSelected)
@@ -49,7 +48,8 @@ public class CountriesComboBoxRenderer extends JLabel implements ListCellRendere
 		model.setObject(value);
 		if (value != null)
 		{
-			country = LocaleExtensions.getCountryName(value.getIso3166A2name(), Locale.ENGLISH, value.getName());
+			country = LocaleExtensions.getCountryName(value.getIso3166A2name(), Locale.ENGLISH,
+				value.getName());
 		}
 		setText(country);
 

@@ -60,7 +60,8 @@ public class OverviewBundleAppsAction extends AbstractAction
 		List<BundleApplication> bundleApplications = ListFactory.newArrayList();
 		try
 		{
-			bundleApplications = (List<BundleApplication>)UniRestService.findAllBundleApplications();
+			bundleApplications = (List<BundleApplication>)UniRestService
+				.findAllBundleApplications();
 		}
 		catch (UnirestException e1)
 		{

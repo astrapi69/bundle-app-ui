@@ -621,8 +621,8 @@ public class DataObjectFactory
 		final List<Language> languages = new ArrayList<>();
 		for (final Map.Entry<String, String> entry : languagesMap.entrySet())
 		{
-			languages.add(
-				Language.builder().name(entry.getValue()).iso639Dash1(entry.getKey()).build());
+			languages
+				.add(Language.builder().name(entry.getValue()).iso639Dash1(entry.getKey()).build());
 		}
 		Collections.sort(languages, Comparator.comparing(Language::getName));
 		return languages;
@@ -810,7 +810,8 @@ public class DataObjectFactory
 		for (Locale locale : availableLocales)
 		{
 			String localeFilenameSuffix = LocaleExtensions.getLocaleFilenameSuffix(locale);
-			if(localeFilenameSuffix!= null && !localeFilenameSuffix.isEmpty()) {
+			if (localeFilenameSuffix != null && !localeFilenameSuffix.isEmpty())
+			{
 				languageLocales.add(LanguageLocale.builder().locale(localeFilenameSuffix).build());
 			}
 		}

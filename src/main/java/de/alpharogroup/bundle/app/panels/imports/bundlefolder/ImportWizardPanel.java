@@ -143,13 +143,11 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 				try
 				{
 					properties = PropertiesExtensions.loadProperties(propertiesFile);
-					Quattro<Properties, String, String, Locale> quattro =  Quattro.<Properties, String, String, Locale>builder()
-						.topLeft(properties)
-						.topRight(getModelObject().getBundleAppName())
-						.bottomLeft(bundlename)
-						.bottomRight(locale)
-						.build();
-					
+					Quattro<Properties, String, String, Locale> quattro = Quattro
+						.<Properties, String, String, Locale> builder().topLeft(properties)
+						.topRight(getModelObject().getBundleAppName()).bottomLeft(bundlename)
+						.bottomRight(locale).build();
+
 					UniRestService.updateProperties(quattro);
 				}
 				catch (final IOException e)
@@ -161,7 +159,7 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 				catch (UnirestException e)
 				{
 					log.error(e.getLocalizedMessage(), e);
-				}	
+				}
 			}
 		}
 
@@ -171,7 +169,7 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 	{
 		final File rootDir = getModelObject().getRootDir();
 		final LanguageLocale defaultLocale = getModelObject().getDefaultLocale();
-		Locale locale = LocaleResolver.resolveLocale(defaultLocale.getLocale(), false);			
+		Locale locale = LocaleResolver.resolveLocale(defaultLocale.getLocale(), false);
 		final PropertiesListResolver resolver1 = new PropertiesListResolver(rootDir, locale);
 		resolver1.resolve();
 		final List<KeyValuePair<File, Locale>> propertiesList = resolver1.getPropertiesList();

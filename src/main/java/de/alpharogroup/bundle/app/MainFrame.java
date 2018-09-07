@@ -67,13 +67,13 @@ import lombok.extern.slf4j.Slf4j;
 public class MainFrame extends BaseFrame<MainDashboardBean>
 {
 
-	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 1L;
+	/** The instance. */
+	private static MainFrame instance = new MainFrame();
 
 	public static final String KEY_DB_APPLICATION_CONTEXT = "db-application-context";
 
-	/** The instance. */
-	private static MainFrame instance = new MainFrame();
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Gets the single instance of MainFrame.
@@ -95,26 +95,26 @@ public class MainFrame extends BaseFrame<MainDashboardBean>
 		return get();
 	}
 
-	/** The desktop pane. */
-	private JDesktopPane desktopPane;
-
-	/** The menubar. */
-	private JMenuBar menubar;
-
-	/** The toolbar. */
-	private JToolBar toolbar;
+	/** The current look and feels. */
+	@Getter
+	@Setter
+	private LookAndFeels currentLookAndFeels;
 
 	/** The current visible internal frame. */
 	@Getter
 	@Setter
 	private JInternalFrame currentVisibleInternalFrame;
 
-	/** The current look and feels. */
-	@Getter
-	@Setter
-	private LookAndFeels currentLookAndFeels;
+	/** The desktop pane. */
+	private JDesktopPane desktopPane;
+
+	/** The menubar. */
+	private JMenuBar menubar;
 
 	private Model<ApplicationDashboardBean> selectedBundleApplicationPropertyModel;
+
+	/** The toolbar. */
+	private JToolBar toolbar;
 
 	/**
 	 * Instantiates a new main frame.
@@ -144,33 +144,6 @@ public class MainFrame extends BaseFrame<MainDashboardBean>
 		}
 	}
 
-	@Override
-	protected void onInitializeComponents()
-	{
-		super.onInitializeComponents();
-
-		toolbar = new JToolBar(); // create the tool bar
-		setJMenuBar(menubar);
-		setToolBar(toolbar);
-		desktopPane = SingletonDesktopPane.getInstance();
-		currentLookAndFeels = LookAndFeels.SYSTEM;
-		getContentPane().add(desktopPane);
-
-		try
-		{
-			final String iconPath = Messages.getString("global.icon.app.path");
-			final BufferedImage appIcon = ImageIO
-				.read(ClassExtensions.getResourceAsStream(iconPath));
-			setIconImage(appIcon);
-		}
-		catch (final IOException e)
-		{
-			log.error("Icon file could not be readed.", e);
-		}
-
-		initDb();
-	}
-
 	private void initDb()
 	{
 		List<BundleApplication> allBundleApplications = ListFactory.newArrayList();
@@ -198,12 +171,39 @@ public class MainFrame extends BaseFrame<MainDashboardBean>
 		{
 			log.error(e.getLocalizedMessage(), e);
 		}
-		final Model<MainDashboardBean> model = BaseModel.<MainDashboardBean> of(MainDashboardBean
-			.builder().bundleApplications(allBundleApplications).build());
+		final Model<MainDashboardBean> model = BaseModel.<MainDashboardBean> of(
+			MainDashboardBean.builder().bundleApplications(allBundleApplications).build());
 		setModel(model);
 		final MainDashboardPanel mainDashboardPanel = new MainDashboardPanel(
 			PropertyModel.<MainDashboardBean> of(this, "model.object"));
 		replaceInternalFrame("Main dashboard", mainDashboardPanel);
+	}
+
+	@Override
+	protected void onInitializeComponents()
+	{
+		super.onInitializeComponents();
+
+		toolbar = new JToolBar(); // create the tool bar
+		setJMenuBar(menubar);
+		setToolBar(toolbar);
+		desktopPane = SingletonDesktopPane.getInstance();
+		currentLookAndFeels = LookAndFeels.SYSTEM;
+		getContentPane().add(desktopPane);
+
+		try
+		{
+			final String iconPath = Messages.getString("global.icon.app.path");
+			final BufferedImage appIcon = ImageIO
+				.read(ClassExtensions.getResourceAsStream(iconPath));
+			setIconImage(appIcon);
+		}
+		catch (final IOException e)
+		{
+			log.error("Icon file could not be readed.", e);
+		}
+
+		initDb();
 	}
 
 	/**

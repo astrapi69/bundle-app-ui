@@ -16,8 +16,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class LanguagesComboBoxModel extends AbstractComboBoxModel<Language>
 {
-	private static final long serialVersionUID = 1L;
 	private static final LanguagesComboBoxModel COMBO_BOX_MODEL = new LanguagesComboBoxModel();
+	private static final long serialVersionUID = 1L;
 
 	public static final LanguagesComboBoxModel get()
 	{
@@ -29,7 +29,7 @@ public class LanguagesComboBoxModel extends AbstractComboBoxModel<Language>
 	 **/
 	{
 		List<Language> languages = ListFactory.newArrayList();
-		
+
 		try
 		{
 			languages = UniRestService.findAllLanguages();
@@ -49,7 +49,7 @@ public class LanguagesComboBoxModel extends AbstractComboBoxModel<Language>
 		catch (IOException e)
 		{
 			log.error(e.getLocalizedMessage(), e);
-		}	
+		}
 		setComboList(languages);
 	}
 

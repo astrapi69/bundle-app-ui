@@ -88,42 +88,37 @@ public class StartFormPanel extends javax.swing.JPanel
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
 		this.setLayout(layout);
-		layout
-			.setHorizontalGroup(
-				layout
-					.createParallelGroup(
-						javax.swing.GroupLayout.Alignment.LEADING)
-					.addGroup(layout.createSequentialGroup().addGap(38, 38, 38).addGroup(layout
-						.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-						.addGroup(layout.createSequentialGroup()
-							.addComponent(lblWelcomeHeader, javax.swing.GroupLayout.PREFERRED_SIZE,
-								380, javax.swing.GroupLayout.PREFERRED_SIZE)
-							.addGap(313, 313, 313))
-						.addGroup(layout
-							.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-							.addComponent(lblWelcomeIntro, javax.swing.GroupLayout.PREFERRED_SIZE,
-								693, javax.swing.GroupLayout.PREFERRED_SIZE)
-							.addGroup(layout.createSequentialGroup()
-								.addGroup(layout
-									.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-									.addComponent(lblImportOption,
-										javax.swing.GroupLayout.PREFERRED_SIZE,
-										300, javax.swing.GroupLayout.PREFERRED_SIZE)
-									.addComponent(btnImport, javax.swing.GroupLayout.PREFERRED_SIZE,
-										140, javax.swing.GroupLayout.PREFERRED_SIZE))
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-									javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addGroup(layout
-									.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-									.addComponent(btnCreate,
-										javax.swing.GroupLayout.Alignment.TRAILING,
-										javax.swing.GroupLayout.PREFERRED_SIZE, 140,
-										javax.swing.GroupLayout.PREFERRED_SIZE)
-									.addComponent(lblNewBundleApp,
-										javax.swing.GroupLayout.Alignment.TRAILING,
-										javax.swing.GroupLayout.PREFERRED_SIZE, 300,
-										javax.swing.GroupLayout.PREFERRED_SIZE)))))
-						.addContainerGap(69, Short.MAX_VALUE)));
+		layout.setHorizontalGroup(
+			layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(layout
+				.createSequentialGroup().addGap(38, 38, 38).addGroup(layout
+					.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING).addGroup(layout
+						.createSequentialGroup()
+						.addComponent(lblWelcomeHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 380,
+							javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addGap(313, 313, 313))
+					.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING,
+						false)
+						.addComponent(
+							lblWelcomeIntro, javax.swing.GroupLayout.PREFERRED_SIZE, 693,
+							javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addGroup(layout.createSequentialGroup().addGroup(layout
+							.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+							.addComponent(lblImportOption, javax.swing.GroupLayout.PREFERRED_SIZE,
+								300, javax.swing.GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnImport, javax.swing.GroupLayout.PREFERRED_SIZE, 140,
+								javax.swing.GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addGroup(layout
+								.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+								.addComponent(btnCreate, javax.swing.GroupLayout.Alignment.TRAILING,
+									javax.swing.GroupLayout.PREFERRED_SIZE, 140,
+									javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblNewBundleApp,
+									javax.swing.GroupLayout.Alignment.TRAILING,
+									javax.swing.GroupLayout.PREFERRED_SIZE, 300,
+									javax.swing.GroupLayout.PREFERRED_SIZE)))))
+				.addContainerGap(69, Short.MAX_VALUE)));
 		layout
 			.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addGroup(layout.createSequentialGroup().addGap(38, 38, 38)

@@ -16,8 +16,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CountriesComboBoxModel extends AbstractComboBoxModel<Country>
 {
-	private static final long serialVersionUID = 1L;
 	private static final CountriesComboBoxModel COMBO_BOX_MODEL = new CountriesComboBoxModel();
+	private static final long serialVersionUID = 1L;
 
 	public static final CountriesComboBoxModel get()
 	{

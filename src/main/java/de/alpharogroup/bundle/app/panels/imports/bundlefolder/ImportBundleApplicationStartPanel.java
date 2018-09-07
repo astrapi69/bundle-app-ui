@@ -48,17 +48,17 @@ public class ImportBundleApplicationStartPanel extends BaseWizardContentPanel<Im
 
 	private javax.swing.JButton btnChooseRootDir;
 	private javax.swing.JComboBox<LanguageLocale> cmbDefaultLocale;
+	private JFileChooser fileChooser;
 	private javax.swing.JLabel lblBundleAppName;
 	private javax.swing.JLabel lblChooseRootDir;
 	private javax.swing.JLabel lblDefaultLocale;
 	private javax.swing.JLabel lblHeaderChooseBundleAppName;
+	private javax.swing.JLabel lblSelectedRootDir;
+
 	private javax.swing.JLabel lblWelcomeImportHeader;
 	private javax.swing.JTextField txtBundleAppName;
 
-	private javax.swing.JLabel lblSelectedRootDir;
 	private javax.swing.JTextField txtSelectedRootDir;
-
-	private JFileChooser fileChooser;
 
 	public ImportBundleApplicationStartPanel(
 		Model<WizardModelStateMachine<ImportWizardModel>> model)

@@ -36,6 +36,24 @@ import lombok.Getter;
 public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBean>
 {
 
+	class DefaultLocaleVerifier implements ActionListener
+	{
+		boolean defaultLocale;
+
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			verify();
+		}
+
+		private boolean verify()
+		{
+			defaultLocale = cmbDefaultLocale.getSelectedItem() != null;
+			btnSave.setEnabled(defaultLocale);
+			return defaultLocale;
+		}
+
+	}
 	private static final long serialVersionUID = 1L;
 	private javax.swing.JButton btnAddSupportedLocale;
 	private javax.swing.JButton btnSave;
@@ -45,10 +63,11 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 	private javax.swing.JLabel lbDefaultlLocale;
 	private javax.swing.JLabel lblBundleName;
 	private javax.swing.JLabel lblHeaderNewBundleApp;
-	private javax.swing.JLabel lblSupportedLocaleToAdd;
 	private javax.swing.JLabel lblSupportedLocales;
+	private javax.swing.JLabel lblSupportedLocaleToAdd;
 	private javax.swing.JScrollPane srcSupportedLocales;
 	private GenericJXTable<KeyValuePair<String, LanguageLocale>> tblSupportedLocales;
+
 	private javax.swing.JTextField txtBundleName;
 
 	private DefaultLocaleVerifier verifier;
@@ -61,6 +80,24 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 	public NewBundleApplicationPanel(final Model<ApplicationDashboardBean> model)
 	{
 		super(model);
+	}
+
+	private List<KeyValuePair<String, LanguageLocale>> getSupportedLanguageLocales()
+	{
+		List<KeyValuePair<String, LanguageLocale>> list = ListFactory.newArrayList();
+		ApplicationDashboardBean modelObject = getModelObject();
+		BundleApplication bundleApplication = modelObject.getBundleApplication();
+		if (bundleApplication != null)
+		{
+			Set<LanguageLocale> supportedLocales = bundleApplication.getSupportedLocales();
+			modelObject.setSupportedLocales(supportedLocales);
+			for (LanguageLocale supportedLocale : supportedLocales)
+			{
+				list.add(KeyValuePair.<String, LanguageLocale> builder()
+					.key(supportedLocale.getLocale()).value(supportedLocale).build());
+			}
+		}
+		return list;
 	}
 
 	protected javax.swing.JComboBox<LanguageLocale> newCmbDefaultLocale(
@@ -103,6 +140,36 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 		cmbSupportedLocaleToAdd.addItemListener(e -> onChangeSupportedLocaleToAdd(e));
 		cmbSupportedLocaleToAdd.setRenderer(new LanguageLocalesComboBoxRenderer());
 		return cmbSupportedLocaleToAdd;
+	}
+
+	protected void onAddSupportedLocale(ActionEvent e)
+	{
+		LanguageLocale selectedItem = (LanguageLocale)cmbSupportedLocaleToAdd.getSelectedItem();
+		System.out.println(selectedItem);
+		ApplicationDashboardBean bean = getModelObject();
+		Set<LanguageLocale> supportedLocales = bean.getSupportedLocales();
+		if (supportedLocales == null)
+		{
+			supportedLocales = new HashSet<>();
+			bean.setSupportedLocales(supportedLocales);
+		}
+		supportedLocales.add(selectedItem);
+		tblSupportedLocales.getGenericTableModel()
+			.add(KeyValuePair.<String, LanguageLocale> builder().key(selectedItem.getLocale())
+				.value(selectedItem).build());
+
+		this.revalidate();
+		this.repaint();
+	}
+
+	protected void onChangeDefaultLocale(final ItemEvent e)
+	{
+		// TODO implement...
+	}
+
+	protected void onChangeSupportedLocaleToAdd(final ItemEvent e)
+	{
+		// TODO implement...
 	}
 
 	@Override
@@ -182,73 +249,6 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 			};
 		};
 
-	}
-
-	class DefaultLocaleVerifier implements ActionListener
-	{
-		boolean defaultLocale;
-
-		@Override
-		public void actionPerformed(ActionEvent e)
-		{
-			verify();
-		}
-
-		private boolean verify()
-		{
-			defaultLocale = cmbDefaultLocale.getSelectedItem() != null;
-			btnSave.setEnabled(defaultLocale);
-			return defaultLocale;
-		}
-
-	}
-
-	protected void onAddSupportedLocale(ActionEvent e)
-	{
-		LanguageLocale selectedItem = (LanguageLocale)cmbSupportedLocaleToAdd.getSelectedItem();
-		System.out.println(selectedItem);
-		ApplicationDashboardBean bean = getModelObject();
-		Set<LanguageLocale> supportedLocales = bean.getSupportedLocales();
-		if (supportedLocales == null)
-		{
-			supportedLocales = new HashSet<>();
-			bean.setSupportedLocales(supportedLocales);
-		}
-		supportedLocales.add(selectedItem);
-		tblSupportedLocales.getGenericTableModel()
-			.add(KeyValuePair.<String, LanguageLocale> builder().key(selectedItem.getLocale())
-				.value(selectedItem).build());
-
-		this.revalidate();
-		this.repaint();
-	}
-
-	protected void onChangeSupportedLocaleToAdd(final ItemEvent e)
-	{
-		// TODO implement...
-	}
-
-	protected void onChangeDefaultLocale(final ItemEvent e)
-	{
-		// TODO implement...
-	}
-
-	private List<KeyValuePair<String, LanguageLocale>> getSupportedLanguageLocales()
-	{
-		List<KeyValuePair<String, LanguageLocale>> list = ListFactory.newArrayList();
-		ApplicationDashboardBean modelObject = getModelObject();
-		BundleApplication bundleApplication = modelObject.getBundleApplication();
-		if (bundleApplication != null)
-		{
-			Set<LanguageLocale> supportedLocales = bundleApplication.getSupportedLocales();
-			modelObject.setSupportedLocales(supportedLocales);
-			for (LanguageLocale supportedLocale : supportedLocales)
-			{
-				list.add(KeyValuePair.<String, LanguageLocale> builder()
-					.key(supportedLocale.getLocale()).value(supportedLocale).build());
-			}
-		}
-		return list;
 	}
 
 	@Override
@@ -379,8 +379,8 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 				{
 					LanguageLocale defaultLocale = getModelObject().getDefaultLocale();
 
-					newBundleApplication = UniRestService
-						.newBundleApplication(BundleApplication.builder().name(name).defaultLocale(defaultLocale)
+					newBundleApplication = UniRestService.newBundleApplication(
+						BundleApplication.builder().name(name).defaultLocale(defaultLocale)
 							.supportedLocales(getModelObject().getSupportedLocales()).build());
 				}
 				if (!MainFrame.getInstance().getModelObject().getBundleApplications()

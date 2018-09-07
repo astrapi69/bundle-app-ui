@@ -79,17 +79,9 @@ public class DesktopMenu
 		return instance;
 	}
 
-	/** The JMenuBar from the DesktopMenu. */
-	@Getter
-	private final JMenuBar menubar;
-
 	/** The file menu. */
 	@Getter
 	private final JMenu fileMenu;
-
-	/** The look and feel menu. */
-	@Getter
-	private final JMenu lookAndFeelMenu;
 
 	/** The help menu. */
 	@Getter
@@ -99,6 +91,14 @@ public class DesktopMenu
 	@Getter
 	@Setter
 	private Window helpWindow;
+
+	/** The look and feel menu. */
+	@Getter
+	private final JMenu lookAndFeelMenu;
+
+	/** The JMenuBar from the DesktopMenu. */
+	@Getter
+	private final JMenuBar menubar;
 
 	/**
 	 * Instantiates a new desktop menu.

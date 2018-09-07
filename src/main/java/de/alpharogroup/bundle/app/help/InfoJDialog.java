@@ -44,24 +44,24 @@ import de.alpharogroup.bundle.app.Messages;
 public class InfoJDialog extends JDialog
 {
 
+	/** The Constant BUTTONLABEL_CLOSE. */
+	private static final String BUTTONLABEL_CLOSE = Messages.getString("info.dialg.label.close"); //$NON-NLS-1$ "Close";
+
 	/** The Constant PLACEHOLDER_LABEL. */
 	private static final String PLACEHOLDER_LABEL = Messages
 		.getString("info.dialg.label.placeholder"); //$NON-NLS-1$ "
 													// ";
-
-	/** The Constant BUTTONLABEL_CLOSE. */
-	private static final String BUTTONLABEL_CLOSE = Messages.getString("info.dialg.label.close"); //$NON-NLS-1$ "Close";
 	/** The generaded serialVersionUID. */
 	private static final long serialVersionUID = 5646178025613269032L;
-
-	/** The panel. */
-	private final InfoJPanel panel;
 
 	/** The button close. */
 	private final JButton buttonClose;
 
 	/** The label placeholder. */
 	private final JLabel labelPlaceholder;
+
+	/** The panel. */
+	private final InfoJPanel panel;
 
 	/**
 	 * Instantiates a new info j dialog.

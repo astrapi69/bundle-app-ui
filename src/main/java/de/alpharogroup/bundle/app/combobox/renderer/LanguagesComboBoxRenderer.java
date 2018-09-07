@@ -21,8 +21,7 @@ public class LanguagesComboBoxRenderer extends JLabel implements ListCellRendere
 
 	@Override
 	public Component getListCellRendererComponent(final JList<? extends Language> list,
-		final Language value, final int index, final boolean isSelected,
-		final boolean cellHasFocus)
+		final Language value, final int index, final boolean isSelected, final boolean cellHasFocus)
 	{
 
 		if (isSelected)
@@ -39,7 +38,7 @@ public class LanguagesComboBoxRenderer extends JLabel implements ListCellRendere
 		if (value != null)
 		{
 			name = value.getName();
-//			name = LocaleExtensions.getLanguageName(value.getIso639Dash1(), Locale.ENGLISH);
+			// name = LocaleExtensions.getLanguageName(value.getIso639Dash1(), Locale.ENGLISH);
 		}
 		setText(name);
 

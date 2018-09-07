@@ -24,21 +24,21 @@ import lombok.ToString;
 public class WizardModel extends AbstractWizardModel
 {
 
-	/** The flag that signals to create a new bundle app. */
-	private boolean create;
-
-	/** The flag that signals to connect to an existing bundle app. */
-	private boolean connect;
-
-	/** The change password model bean. */
-	private ChangePasswordModelBean changePassword;
+	private EnumRadioButtonGroupBean<BundleStart> bundleAppInitialization;
 
 	/** The bundle app name. */
 	private String bundleAppName;
 
+	/** The change password model bean. */
+	private ChangePasswordModelBean changePassword;
+
+	/** The flag that signals to connect to an existing bundle app. */
+	private boolean connect;
+
+	/** The flag that signals to create a new bundle app. */
+	private boolean create;
+
 	/** The selected start type. */
 	private BundleStart selected;
-
-	private EnumRadioButtonGroupBean<BundleStart> bundleAppInitialization;
 
 }

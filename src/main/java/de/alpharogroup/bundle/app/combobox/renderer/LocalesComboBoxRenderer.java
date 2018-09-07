@@ -12,6 +12,7 @@ import de.alpharogroup.model.api.Model;
 
 /**
  * The Class LocalesComboBoxRenderer.
+ * 
  * @deprecated use instead {@code LanguageLocalesComboBoxRenderer}
  */
 @Deprecated
@@ -42,7 +43,8 @@ public class LocalesComboBoxRenderer extends JLabel implements ListCellRenderer<
 		}
 		else
 		{
-			if(list != null) {
+			if (list != null)
+			{
 				setBackground(list.getBackground());
 				setForeground(list.getForeground());
 			}

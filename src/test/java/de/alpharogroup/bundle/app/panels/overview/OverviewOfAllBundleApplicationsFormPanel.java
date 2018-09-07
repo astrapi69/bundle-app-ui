@@ -82,26 +82,25 @@ public class OverviewOfAllBundleApplicationsFormPanel extends javax.swing.JPanel
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
 		this.setLayout(layout);
-		layout.setHorizontalGroup(
-			layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(layout
-				.createSequentialGroup().addGap(40, 40, 40).addGroup(layout
-					.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-					.addComponent(lblHeaderOverview,
-						javax.swing.GroupLayout.PREFERRED_SIZE, 540,
-						javax.swing.GroupLayout.PREFERRED_SIZE)
-					.addGroup(layout
-						.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-						.addGroup(javax.swing.GroupLayout.Alignment.LEADING,
-							layout.createSequentialGroup()
-								.addComponent(lblBundleApp, javax.swing.GroupLayout.PREFERRED_SIZE,
-									540, javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-									javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(btnCreateBundleApp,
-									javax.swing.GroupLayout.PREFERRED_SIZE, 280,
-									javax.swing.GroupLayout.PREFERRED_SIZE))
-						.addComponent(srcBundleApps, javax.swing.GroupLayout.PREFERRED_SIZE, 1000,
-							javax.swing.GroupLayout.PREFERRED_SIZE)))
+		layout.setHorizontalGroup(layout
+			.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+			.addGroup(layout.createSequentialGroup().addGap(40, 40, 40).addGroup(layout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addComponent(lblHeaderOverview, javax.swing.GroupLayout.PREFERRED_SIZE, 540,
+					javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addGroup(layout
+					.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+					.addGroup(javax.swing.GroupLayout.Alignment.LEADING,
+						layout.createSequentialGroup()
+							.addComponent(lblBundleApp, javax.swing.GroupLayout.PREFERRED_SIZE, 540,
+								javax.swing.GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(btnCreateBundleApp,
+								javax.swing.GroupLayout.PREFERRED_SIZE, 280,
+								javax.swing.GroupLayout.PREFERRED_SIZE))
+					.addComponent(srcBundleApps, javax.swing.GroupLayout.PREFERRED_SIZE, 1000,
+						javax.swing.GroupLayout.PREFERRED_SIZE)))
 				.addContainerGap(40, Short.MAX_VALUE)));
 		layout
 			.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

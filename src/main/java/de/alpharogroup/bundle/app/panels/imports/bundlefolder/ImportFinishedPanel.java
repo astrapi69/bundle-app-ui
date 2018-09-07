@@ -69,11 +69,10 @@ public class ImportFinishedPanel extends BaseWizardContentPanel<ImportWizardMode
 			.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 			.addGroup(layout.createSequentialGroup().addContainerGap().addGroup(layout
 				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(
-					layout.createSequentialGroup()
-						.addComponent(lblImportFinishedHeader, javax.swing.GroupLayout.DEFAULT_SIZE,
-							761, Short.MAX_VALUE)
-						.addGap(85, 85, 85))
+				.addGroup(layout.createSequentialGroup()
+					.addComponent(lblImportFinishedHeader, javax.swing.GroupLayout.DEFAULT_SIZE,
+						761, Short.MAX_VALUE)
+					.addGap(85, 85, 85))
 				.addGroup(layout.createSequentialGroup()
 					.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 						.addComponent(lblBundles).addComponent(srcBundles,

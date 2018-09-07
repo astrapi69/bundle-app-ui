@@ -90,24 +90,24 @@ public class UniRestService
 		return list;
 	}
 
-	public static List<Country> findAllCountries() throws UnirestException, JsonParseException, JsonMappingException, IOException
+	public static List<Country> findAllCountries()
+		throws UnirestException, JsonParseException, JsonMappingException, IOException
 	{
-		 String url = "http://localhost:8080/country/find/all";
-			HttpResponse<JsonNode> response = Unirest.get(url).asJson();
-			JsonNode body = response.getBody();
-			List<Country> list = JsonToObjectExtensions.toObjectList(body.toString(),
-				Country.class);
-			return list;
+		String url = "http://localhost:8080/country/find/all";
+		HttpResponse<JsonNode> response = Unirest.get(url).asJson();
+		JsonNode body = response.getBody();
+		List<Country> list = JsonToObjectExtensions.toObjectList(body.toString(), Country.class);
+		return list;
 	}
 
-	public static List<Language> findAllLanguages() throws UnirestException, JsonParseException, JsonMappingException, IOException
+	public static List<Language> findAllLanguages()
+		throws UnirestException, JsonParseException, JsonMappingException, IOException
 	{
-		 String url = "http://localhost:8080/language/find/all";
-			HttpResponse<JsonNode> response = Unirest.get(url).asJson();
-			JsonNode body = response.getBody();
-			List<Language> list = JsonToObjectExtensions.toObjectList(body.toString(),
-				Language.class);
-			return list;
+		String url = "http://localhost:8080/language/find/all";
+		HttpResponse<JsonNode> response = Unirest.get(url).asJson();
+		JsonNode body = response.getBody();
+		List<Language> list = JsonToObjectExtensions.toObjectList(body.toString(), Language.class);
+		return list;
 	}
 
 	public static List<LanguageLocale> findAllLanguageLocales()
@@ -134,15 +134,16 @@ public class UniRestService
 	}
 
 	public static List<Resourcebundle> findResourceBundles(BundleApplication bundleApplication,
-		String baseName, String localeCode) throws UnirestException, JsonParseException, JsonMappingException, IOException
+		String baseName, String localeCode)
+		throws UnirestException, JsonParseException, JsonMappingException, IOException
 	{
-		 String url = "http://localhost:8080/resourcebundle/find/resourcebundles/"
-		 + bundleApplication.getName() + "/" + baseName + "/" + localeCode;
-			HttpResponse<JsonNode> response = Unirest.get(url).asJson();
-			JsonNode body = response.getBody();
-			List<Resourcebundle> list = JsonToObjectExtensions.toObjectList(body.toString(),
-				Resourcebundle.class);
-			return list;
+		String url = "http://localhost:8080/resourcebundle/find/resourcebundles/"
+			+ bundleApplication.getName() + "/" + baseName + "/" + localeCode;
+		HttpResponse<JsonNode> response = Unirest.get(url).asJson();
+		JsonNode body = response.getBody();
+		List<Resourcebundle> list = JsonToObjectExtensions.toObjectList(body.toString(),
+			Resourcebundle.class);
+		return list;
 	}
 
 	public static BundleApplication newBundleApplication(BundleApplication bundleApplication)

@@ -50,6 +50,11 @@ public class OverviewResourceBundleAddEntryFormPanel extends javax.swing.JPanel
 		// TODO add your handling code here:
 	}// GEN-LAST:event_btnAddEntryActionPerformed
 
+	private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt)
+	{// GEN-FIRST:event_btnDeleteActionPerformed
+		// TODO add your handling code here:
+	}// GEN-LAST:event_btnDeleteActionPerformed
+
 	private void btnExportActionPerformed(java.awt.event.ActionEvent evt)
 	{// GEN-FIRST:event_btnExportActionPerformed
 		// TODO add your handling code here:
@@ -129,44 +134,39 @@ public class OverviewResourceBundleAddEntryFormPanel extends javax.swing.JPanel
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
 		this.setLayout(layout);
-		layout.setHorizontalGroup(
-			layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(layout
-				.createSequentialGroup().addGap(40, 40, 40).addGroup(layout
-					.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false).addGroup(
-						layout.createSequentialGroup()
-							.addComponent(lblHeaderOverview, javax.swing.GroupLayout.PREFERRED_SIZE,
-								540, javax.swing.GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(btnToDashboard, javax.swing.GroupLayout.PREFERRED_SIZE,
-								220, javax.swing.GroupLayout.PREFERRED_SIZE))
-					.addComponent(srcBundles, javax.swing.GroupLayout.Alignment.TRAILING,
-						javax.swing.GroupLayout.PREFERRED_SIZE, 1000,
+		layout.setHorizontalGroup(layout
+			.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+			.addGroup(layout.createSequentialGroup().addGap(40, 40, 40).addGroup(layout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+				.addGroup(layout.createSequentialGroup()
+					.addComponent(lblHeaderOverview, javax.swing.GroupLayout.PREFERRED_SIZE, 540,
 						javax.swing.GroupLayout.PREFERRED_SIZE)
-					.addGroup(
-						layout.createSequentialGroup()
-							.addGroup(layout
-								.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-								.addComponent(lblKey, javax.swing.GroupLayout.PREFERRED_SIZE,
-									326, javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblValue, javax.swing.GroupLayout.PREFERRED_SIZE, 324,
-									javax.swing.GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-							.addGroup(layout
-								.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-								.addComponent(txtValue).addComponent(txtKey)
-								.addGroup(layout.createSequentialGroup()
-									.addGap(0, 0, Short.MAX_VALUE).addComponent(btnAddEntry,
-										javax.swing.GroupLayout.PREFERRED_SIZE, 220,
-										javax.swing.GroupLayout.PREFERRED_SIZE))))
-					.addGroup(
-						javax.swing.GroupLayout.Alignment.TRAILING,
-						layout.createSequentialGroup()
-							.addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 220,
-								javax.swing.GroupLayout.PREFERRED_SIZE)
-							.addGap(18, 18, 18).addComponent(btnExport,
-								javax.swing.GroupLayout.PREFERRED_SIZE, 220,
-								javax.swing.GroupLayout.PREFERRED_SIZE)))
+					.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+						javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addComponent(btnToDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 220,
+						javax.swing.GroupLayout.PREFERRED_SIZE))
+				.addComponent(srcBundles, javax.swing.GroupLayout.Alignment.TRAILING,
+					javax.swing.GroupLayout.PREFERRED_SIZE, 1000,
+					javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addGroup(layout.createSequentialGroup()
+					.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+						.addComponent(lblKey, javax.swing.GroupLayout.PREFERRED_SIZE, 326,
+							javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblValue, javax.swing.GroupLayout.PREFERRED_SIZE, 324,
+							javax.swing.GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+					.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addComponent(txtValue).addComponent(txtKey)
+						.addGroup(layout.createSequentialGroup().addGap(0, 0, Short.MAX_VALUE)
+							.addComponent(btnAddEntry, javax.swing.GroupLayout.PREFERRED_SIZE, 220,
+								javax.swing.GroupLayout.PREFERRED_SIZE))))
+				.addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+					layout.createSequentialGroup()
+						.addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 220,
+							javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addGap(18, 18, 18).addComponent(btnExport,
+							javax.swing.GroupLayout.PREFERRED_SIZE, 220,
+							javax.swing.GroupLayout.PREFERRED_SIZE)))
 				.addContainerGap(31, Short.MAX_VALUE)));
 		layout
 			.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,11 +197,6 @@ public class OverviewResourceBundleAddEntryFormPanel extends javax.swing.JPanel
 						.addComponent(btnDelete).addComponent(btnExport))
 					.addContainerGap(19, Short.MAX_VALUE)));
 	}// </editor-fold>//GEN-END:initComponents
-
-	private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt)
-	{// GEN-FIRST:event_btnDeleteActionPerformed
-		// TODO add your handling code here:
-	}// GEN-LAST:event_btnDeleteActionPerformed
 
 	private void txtKeyActionPerformed(java.awt.event.ActionEvent evt)
 	{// GEN-FIRST:event_txtKeyActionPerformed

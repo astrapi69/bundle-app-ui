@@ -48,7 +48,8 @@ public class LanguageLocalesComboBoxRenderer extends JLabel
 		}
 		else
 		{
-			if(list != null) {
+			if (list != null)
+			{
 				setBackground(list.getBackground());
 				setForeground(list.getForeground());
 			}
@@ -60,7 +61,7 @@ public class LanguageLocalesComboBoxRenderer extends JLabel
 			locale = value.getLocale();
 			final Locale localeObj = LocaleResolver.resolveLocale(locale);
 			final String englishName = localeObj.getDisplayName(Locale.ENGLISH);
-			String englishNameAndLocaleCode = englishName +"["+ locale +"]";
+			String englishNameAndLocaleCode = englishName + "[" + locale + "]";
 			locale = englishNameAndLocaleCode;
 		}
 		setText(locale);
