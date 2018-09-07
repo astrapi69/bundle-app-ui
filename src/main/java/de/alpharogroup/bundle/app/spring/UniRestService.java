@@ -25,8 +25,10 @@ import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
 import de.alpharogroup.xml.json.JsonToObjectExtensions;
 import lombok.experimental.UtilityClass;
+import lombok.extern.slf4j.Slf4j;
 
 @UtilityClass
+@Slf4j
 public class UniRestService
 {
 	{
@@ -205,7 +207,19 @@ public class UniRestService
 	public static void deleteBundleName(BundleName bundleName) throws UnirestException
 	{
 		String url = "http://localhost:8080/bundle/names/" + bundleName.getId() + "/";
-		Unirest.delete(url);
+		HttpResponse<JsonNode> response = Unirest.delete(url).asJson();
+		try
+		{
+			JsonNode body = response.getBody();
+			if(body != null) {
+				BundleName object = JsonToObjectExtensions.toObject(body.toString(), BundleName.class);
+				log.debug(object.toString());
+			}
+		}
+		catch (IOException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
 	}
 
 	public static void deleteResourcebundle(Resourcebundle resourcebundle) throws UnirestException
