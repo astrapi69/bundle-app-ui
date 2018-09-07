@@ -63,10 +63,9 @@ public class ReturnToDashboardAction extends AbstractAction
 			{
 				bundleApplications = (List<BundleApplication>)UniRestService.findAllBundleApplications();
 			}
-			catch (UnirestException e1)
+			catch (UnirestException e)
 			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				log.error(e.getLocalizedMessage(), e);
 			}
 			catch (JsonParseException e)
 			{

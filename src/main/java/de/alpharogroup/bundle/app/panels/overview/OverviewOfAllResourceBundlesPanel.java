@@ -2,6 +2,7 @@ package de.alpharogroup.bundle.app.panels.overview;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,6 +13,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 import de.alpharogroup.bundle.app.MainFrame;
@@ -300,6 +303,18 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 					(o1, o2) -> o1.getTopLeft().compareTo(o2.getTopLeft())));
 		}
 		catch (UnirestException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+		catch (JsonParseException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+		catch (JsonMappingException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+		catch (IOException e)
 		{
 			log.error(e.getLocalizedMessage(), e);
 		}

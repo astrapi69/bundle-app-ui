@@ -16,6 +16,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 import de.alpharogroup.bundle.app.MainFrame;
@@ -436,6 +438,18 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 					(o1, o2) -> o1.getTopLeft().compareTo(o2.getTopLeft())));
 		}
 		catch (UnirestException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+		catch (JsonParseException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+		catch (JsonMappingException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+		catch (IOException e)
 		{
 			log.error(e.getLocalizedMessage(), e);
 		}

@@ -69,7 +69,7 @@
 		<httpmime.version>4.3.6</httpmime.version>
 		<json.version>20140107</json.version>
 		<!-- XML-EXTENSIONS version -->
-		<xml-extensions.version>4.20</xml-extensions.version>
+		<xml-extensions.version>4.21</xml-extensions.version>
 	</properties>
 
 	<dependencyManagement>
