@@ -200,19 +200,43 @@ public class UniRestService
 	public static void deleteBundleApplication(BundleApplication bundleApplication)
 		throws UnirestException
 	{
-		String url = "http://localhost:8080/bundle/applications/" + bundleApplication.getId() + "/";
-		Unirest.delete(url);
+		String url = "http://localhost:8080/bundle/applications/"
+			+ bundleApplication.getId()
+			+ "/";
+		try
+		{
+			HttpResponse<JsonNode> response = Unirest.delete(url).asJson();
+			JsonNode body = response.getBody();
+			if (body != null)
+			{
+				BundleApplication object = JsonToObjectExtensions.toObject(body.toString(),
+					BundleApplication.class);
+				log.debug(object.toString());
+			}
+		}
+		catch (JsonProcessingException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+		catch (IOException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
 	}
 
 	public static void deleteBundleName(BundleName bundleName) throws UnirestException
 	{
-		String url = "http://localhost:8080/bundle/names/" + bundleName.getId() + "/";
+		String url = "http://localhost:8080/bundle/names/"
+			+ bundleName.getId()
+			+ "/";
 		HttpResponse<JsonNode> response = Unirest.delete(url).asJson();
 		try
 		{
 			JsonNode body = response.getBody();
-			if(body != null) {
-				BundleName object = JsonToObjectExtensions.toObject(body.toString(), BundleName.class);
+			if (body != null)
+			{
+				BundleName object = JsonToObjectExtensions.toObject(body.toString(),
+					BundleName.class);
 				log.debug(object.toString());
 			}
 		}
@@ -229,13 +253,20 @@ public class UniRestService
 	}
 
 	public static Resourcebundle saveOrUpdateEntry(String bundleappname, String baseName,
-		String locale, String key, String value) throws UnirestException
+		String locale, String key, String value) throws UnirestException, IOException
 	{
 		String url = "http://localhost:8080/resourcebundle/save/or/update/resourcebundle/"
 			+ bundleappname + "/" + baseName + "/" + locale + "/" + key + "/" + value;
-		HttpResponse<Resourcebundle> response = Unirest.get(url).asObject(Resourcebundle.class);
-		Resourcebundle body = response.getBody();
-		return body;
+		HttpResponse<JsonNode> response = Unirest.get(url).asJson();
+		JsonNode body = response.getBody();
+		if (body != null)
+		{
+			Resourcebundle object = JsonToObjectExtensions.toObject(body.toString(),
+				Resourcebundle.class);
+			log.debug(object.toString());
+			return object;
+		}
+		return null;
 	}
 
 }

@@ -95,6 +95,10 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 		{
 			log.error(e1.getLocalizedMessage(), e1);
 		}
+		catch (IOException e1)
+		{
+			log.error(e1.getLocalizedMessage(), e1);
+		}
 
 		reloadTableModel();
 
