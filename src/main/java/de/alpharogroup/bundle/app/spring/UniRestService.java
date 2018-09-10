@@ -84,11 +84,12 @@ public class UniRestService
 	public static List<BundleApplication> findAllBundleApplications() throws UnirestException,
 		JsonParseException, JsonMappingException, JSONException, IOException
 	{
+		List<BundleApplication> list;		
 		String url = "http://localhost:8080/bundle/applications/find/all";
 		HttpResponse<JsonNode> response = Unirest.get(url).asJson();
 		JsonNode body = response.getBody();
-		List<BundleApplication> list = JsonToObjectExtensions.toObjectList(body.toString(),
-			BundleApplication.class);
+		list = JsonToObjectExtensions.toObjectList(body.toString(),
+			BundleApplication.class); 
 		return list;
 	}
 
@@ -249,7 +250,21 @@ public class UniRestService
 	public static void deleteResourcebundle(Resourcebundle resourcebundle) throws UnirestException
 	{
 		String url = "http://localhost:8080/resourcebundle/" + resourcebundle.getId() + "/";
-		Unirest.delete(url);
+		HttpResponse<JsonNode> response = Unirest.delete(url).asJson();
+		try
+		{
+			JsonNode body = response.getBody();
+			if (body != null)
+			{
+				Resourcebundle object = JsonToObjectExtensions.toObject(body.toString(),
+					Resourcebundle.class);
+				log.debug(object.toString());
+			}
+		}
+		catch (IOException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
 	}
 
 	public static Resourcebundle saveOrUpdateEntry(String bundleappname, String baseName,

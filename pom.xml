@@ -32,28 +32,9 @@
 		<model-api.version>${model-data.version}</model-api.version>
 		<model-object.version>${model-data.version}</model-object.version>
 		<model-type-safe.version>${model-data.version}</model-type-safe.version>
-		<!-- DB properties -->
-		<!-- DB DRIVER version -->
-		<h2.version>1.4.197</h2.version>
-		<!-- HIBERNATE versions -->
-		<hibernate.version>5.2.12.Final</hibernate.version>
-		<hibernate-validator.version>6.0.7.Final</hibernate-validator.version>
-		<validation-api.version>2.0.1.Final</validation-api.version>
-		<cglib.version>3.2.6</cglib.version>
-		<!-- CONNECTION POOL versions -->
-		<tomcat.version>7.0.84</tomcat.version>
-		<tomcat-dbcp.version>${tomcat.version}</tomcat-dbcp.version>
-		<tomcat-jdbc.version>${tomcat.version}</tomcat-jdbc.version>
 		<!-- RESOURCE-BUNDLES-DATA versions -->
 		<resource-bundles-data.version>5.4.0-SNAPSHOT</resource-bundles-data.version>
-		<resource-bundles-business.version>${resource-bundles-data.version}</resource-bundles-business.version>
-		<resource-bundles-entities.version>${resource-bundles-data.version}</resource-bundles-entities.version>
-		<resource-bundles-domain.version>${resource-bundles-data.version}</resource-bundles-domain.version>
 		<resource-bundles-domain-model.version>${resource-bundles-data.version}</resource-bundles-domain-model.version>
-		<resource-bundles-rest-api.version>${resource-bundles-data.version}</resource-bundles-rest-api.version>
-		<!-- PERSISTENCE-API versions -->
-		<persistence-api.version>6.3</persistence-api.version>
-		<data-initialization.version>${persistence-api.version}</data-initialization.version>
 		<!-- PROJECT RELATED PROPERTIES -->
 		<full-app-name>bundle-app-ui</full-app-name>
 		<info.appName>bundle-app-ui</info.appName>
@@ -75,14 +56,13 @@
 	<dependencyManagement>
 
 		<dependencies>
-
-            <!-- XML-EXTENSIONS DEPENDENCY -->
+			<!-- XML-EXTENSIONS DEPENDENCY -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>xml-extensions</artifactId>
 				<version>${xml-extensions.version}</version>
 			</dependency>
-			
+			<!-- UNIREST DEPENDENCIES -->
 			<dependency>
 				<groupId>com.mashape.unirest</groupId>
 				<artifactId>unirest-java</artifactId>
@@ -108,7 +88,6 @@
 				<artifactId>json</artifactId>
 				<version>${json.version}</version>
 			</dependency>
-
 			<!-- MIGLAYOUT-SWING DEPENDENCY -->
 			<dependency>
 				<groupId>com.miglayout</groupId>
@@ -145,30 +124,29 @@
 				<version>${guava.version}</version>
 			</dependency>
 			<!-- RESOURCE-BUNDLES-DATA DEPENDENCIES -->
-			
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>resource-bundles-domain-model</artifactId>
 				<version>${resource-bundles-domain-model.version}</version>
 			</dependency>
-		<!-- MODEL-DATA DEPENDENCIES -->
+			<!-- MODEL-DATA DEPENDENCIES -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>model-type-safe</artifactId>
 				<version>${model-type-safe.version}</version>
 			</dependency>
-			
+
 		</dependencies>
 
 	</dependencyManagement>
 
 	<dependencies>
-
-            <!-- XML-EXTENSIONS DEPENDENCY -->
-			<dependency>
-				<groupId>de.alpharogroup</groupId>
-				<artifactId>xml-extensions</artifactId>
-			</dependency>
+		<!-- XML-EXTENSIONS DEPENDENCY -->
+		<dependency>
+			<groupId>de.alpharogroup</groupId>
+			<artifactId>xml-extensions</artifactId>
+		</dependency>
+		<!-- UNIREST DEPENDENCIES -->
 		<dependency>
 			<groupId>com.mashape.unirest</groupId>
 			<artifactId>unirest-java</artifactId>
@@ -219,17 +197,17 @@
 			<artifactId>guava</artifactId>
 		</dependency>
 		<!-- RESOURCE-BUNDLES-DATA DEPENDENCIES -->
-		
+
 		<dependency>
 			<groupId>de.alpharogroup</groupId>
 			<artifactId>resource-bundles-domain-model</artifactId>
 		</dependency>
-			<!-- MODEL-DATA DEPENDENCIES -->
+		<!-- MODEL-DATA DEPENDENCIES -->
 		<dependency>
 			<groupId>de.alpharogroup</groupId>
 			<artifactId>model-type-safe</artifactId>
 		</dependency>
-		
+
 	</dependencies>
 
 	<build>
