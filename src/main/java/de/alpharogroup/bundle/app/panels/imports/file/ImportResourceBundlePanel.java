@@ -1,9 +1,12 @@
 package de.alpharogroup.bundle.app.panels.imports.file;
 
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.concurrent.CompletableFuture;
+
+import org.apache.http.client.ClientProtocolException;
 
 import com.google.common.eventbus.Subscribe;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -11,9 +14,10 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import de.alpharogroup.bundle.app.MainApplication;
 import de.alpharogroup.bundle.app.actions.ReturnToDashboardAction;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
-import de.alpharogroup.bundle.app.spring.UniRestService;
+import de.alpharogroup.bundle.app.spring.HttpClientRestService;
 import de.alpharogroup.collections.pairs.Quattro;
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
+import de.alpharogroup.db.resource.bundles.domain.BundleName;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.resourcebundle.locale.LocaleResolver;
@@ -80,9 +84,18 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 
 			try
 			{
-				UniRestService.updateProperties(quattro);
+				BundleName bundleName = HttpClientRestService.updateProperties(quattro);
+				log.debug(bundleName.getBaseName().getName());
 			}
 			catch (UnirestException e1)
+			{
+				log.error(e1.getLocalizedMessage(), e1);
+			}
+			catch (ClientProtocolException e1)
+			{
+				log.error(e1.getLocalizedMessage(), e1);
+			}
+			catch (IOException e1)
 			{
 				log.error(e1.getLocalizedMessage(), e1);
 			}

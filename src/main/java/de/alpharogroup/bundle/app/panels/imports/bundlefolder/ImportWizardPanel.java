@@ -14,7 +14,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import de.alpharogroup.bundle.app.MainApplication;
 import de.alpharogroup.bundle.app.MainFrame;
 import de.alpharogroup.bundle.app.panels.imports.ext.ConvertExtensions;
-import de.alpharogroup.bundle.app.spring.UniRestService;
+import de.alpharogroup.bundle.app.spring.HttpClientRestService;
 import de.alpharogroup.collections.pairs.KeyValuePair;
 import de.alpharogroup.collections.pairs.Quattro;
 import de.alpharogroup.collections.pairs.Triple;
@@ -148,7 +148,7 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 						.topRight(getModelObject().getBundleAppName()).bottomLeft(bundlename)
 						.bottomRight(locale).build();
 
-					UniRestService.updateProperties(quattro);
+					HttpClientRestService.updateProperties(quattro);
 				}
 				catch (final IOException e)
 				{

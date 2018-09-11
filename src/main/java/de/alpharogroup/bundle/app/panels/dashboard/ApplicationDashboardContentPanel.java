@@ -25,7 +25,7 @@ import de.alpharogroup.bundle.app.panels.imports.ext.ConvertExtensions;
 import de.alpharogroup.bundle.app.panels.imports.file.ImportResourceBundlePanel;
 import de.alpharogroup.bundle.app.panels.overview.OverviewOfAllResourceBundlesPanel;
 import de.alpharogroup.bundle.app.panels.overview.OverviewResourceBundleAddEntryPanel;
-import de.alpharogroup.bundle.app.spring.UniRestService;
+import de.alpharogroup.bundle.app.spring.HttpClientRestService;
 import de.alpharogroup.collections.pairs.KeyValuePair;
 import de.alpharogroup.collections.pairs.Quattro;
 import de.alpharogroup.collections.pairs.Triple;
@@ -89,6 +89,10 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 				catch (UnirestException e1)
 				{
 					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				catch (IOException e1)
+				{
 					e1.printStackTrace();
 				}
 				onSaveBundleApplication(e);
@@ -286,7 +290,7 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 									.topLeft(properties).topRight(bundleApplication.getName())
 									.bottomLeft(bundlename).bottomRight(locale).build();
 
-								UniRestService.updateProperties(quattro);
+								HttpClientRestService.updateProperties(quattro);
 							}
 							catch (final IOException e)
 							{

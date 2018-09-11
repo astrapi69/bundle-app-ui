@@ -6,6 +6,7 @@ import static de.alpharogroup.model.typesafe.TypeSafeModel.model;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -20,6 +21,7 @@ import de.alpharogroup.bundle.app.actions.ReturnToDashboardAction;
 import de.alpharogroup.bundle.app.combobox.model.LanguageLocalesComboBoxModel;
 import de.alpharogroup.bundle.app.combobox.renderer.LanguageLocalesComboBoxRenderer;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
+import de.alpharogroup.bundle.app.spring.HttpClientRestService;
 import de.alpharogroup.bundle.app.spring.UniRestService;
 import de.alpharogroup.bundle.app.table.model.StringLanguageLocalesTableModel;
 import de.alpharogroup.collections.list.ListFactory;
@@ -54,6 +56,7 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 		}
 
 	}
+
 	private static final long serialVersionUID = 1L;
 	private javax.swing.JButton btnAddSupportedLocale;
 	private javax.swing.JButton btnSave;
@@ -206,6 +209,10 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+			catch (IOException e1)
+			{
+				e1.printStackTrace();
+			}
 		});
 
 		btnToDashboard.setText("Return to Dashboard");
@@ -341,7 +348,7 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 				.addGap(18, 18, 18).addComponent(btnSave).addContainerGap(58, Short.MAX_VALUE)));
 	}
 
-	protected void onSave(final ActionEvent e) throws UnirestException
+	protected void onSave(final ActionEvent e) throws UnirestException, IOException
 	{
 		// final BundleApplicationsService bundleApplicationsService = SpringApplicationContext
 		// .getInstance().getBundleApplicationsService();
@@ -368,7 +375,7 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 				currentBundleApplication.getSupportedLocales()
 					.addAll(getModelObject().getSupportedLocales());
 
-				currentBundleApplication = UniRestService.update(currentBundleApplication);
+				HttpClientRestService.update(currentBundleApplication);
 
 				getModelObject().setBundleApplication(currentBundleApplication);
 			}
