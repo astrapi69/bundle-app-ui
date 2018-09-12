@@ -9,8 +9,6 @@ import java.util.Properties;
 
 import org.apache.commons.lang3.BooleanUtils;
 
-import com.mashape.unirest.http.exceptions.UnirestException;
-
 import de.alpharogroup.bundle.app.MainApplication;
 import de.alpharogroup.bundle.app.MainFrame;
 import de.alpharogroup.bundle.app.panels.imports.ext.ConvertExtensions;
@@ -155,10 +153,6 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 					log.error(
 						"Loading Properties file " + propertiesFile.getAbsolutePath() + " failed.",
 						e);
-				}
-				catch (UnirestException e)
-				{
-					log.error(e.getLocalizedMessage(), e);
 				}
 			}
 		}

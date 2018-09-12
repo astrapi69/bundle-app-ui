@@ -3,8 +3,11 @@ package de.alpharogroup.bundle.app.panels.creation;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
+import java.io.IOException;
 
 import javax.swing.JOptionPane;
+
+import org.apache.http.client.ClientProtocolException;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
 
@@ -15,7 +18,7 @@ import de.alpharogroup.bundle.app.combobox.model.LanguagesComboBoxModel;
 import de.alpharogroup.bundle.app.combobox.renderer.CountriesComboBoxRenderer;
 import de.alpharogroup.bundle.app.combobox.renderer.LanguagesComboBoxRenderer;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
-import de.alpharogroup.bundle.app.spring.UniRestService;
+import de.alpharogroup.bundle.app.spring.HttpClientRestService;
 import de.alpharogroup.db.resource.bundles.domain.Country;
 import de.alpharogroup.db.resource.bundles.domain.Language;
 import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
@@ -125,6 +128,16 @@ public class NewCustomLocalePanel extends BasePanel<ApplicationDashboardBean>
 			try
 			{
 				onSave(e);
+			}
+			catch (ClientProtocolException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			catch (IOException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
 			catch (UnirestException e1)
 			{
@@ -250,17 +263,18 @@ public class NewCustomLocalePanel extends BasePanel<ApplicationDashboardBean>
 
 	}
 
-	private void onSave(final ActionEvent e) throws UnirestException
+	private void onSave(final ActionEvent e)
+		throws ClientProtocolException, IOException, UnirestException
 	{
 		Language selectedLanguage = (Language)cmbLanguage.getSelectedItem();
 		Country selectedCountry = (Country)cmbCountry.getSelectedItem();
 		String variant = txtVariant.getText();
 		String localeCode = selectedLanguage.getIso639Dash1() + "_"
 			+ selectedCountry.getIso3166A2name() + "_" + variant;
-		LanguageLocale languageLocales = UniRestService.find(localeCode);
+		LanguageLocale languageLocales = HttpClientRestService.find(localeCode);
 		if (languageLocales == null)
 		{
-			UniRestService.newLanguageLocale(localeCode);
+			HttpClientRestService.newLanguageLocale(localeCode);
 			cmbCountry.setModel(new CountriesComboBoxModel());
 			cmbLanguage.setModel(new LanguagesComboBoxModel());
 			txtVariant.setText("");

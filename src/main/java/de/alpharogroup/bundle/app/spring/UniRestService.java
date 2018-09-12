@@ -179,23 +179,15 @@ public class UniRestService
 		return body;
 	}
 
-	public static LanguageLocale find(String localeCode) throws UnirestException
-	{
-		String url = REST_LANGUAGE_LOCALE_FULL_PATH + "find/by/locale/" + localeCode;
-		HttpResponse<LanguageLocale> response = Unirest.get(url).asObject(LanguageLocale.class);
-		LanguageLocale body = response.getBody();
-		return body;
-	}
-
-	public static LanguageLocale newLanguageLocale(String localeCode) throws UnirestException
-	{
-		String url = REST_LANGUAGE_LOCALE_FULL_PATH;
-		LanguageLocale languageLocale = LanguageLocale.builder().locale(localeCode).build();
-		HttpResponse<LanguageLocale> response = Unirest.post(url).body(languageLocale)
-			.asObject(LanguageLocale.class);
-		LanguageLocale body = response.getBody();
-		return body;
-	}
+	// public static LanguageLocale newLanguageLocale(String localeCode) throws UnirestException
+	// {
+	// String url = REST_LANGUAGE_LOCALE_FULL_PATH;
+	// LanguageLocale languageLocale = LanguageLocale.builder().locale(localeCode).build();
+	// HttpResponse<LanguageLocale> response = Unirest.post(url).body(languageLocale)
+	// .asObject(LanguageLocale.class);
+	// LanguageLocale body = response.getBody();
+	// return body;
+	// }
 
 	public static void deleteBundleApplication(BundleApplication bundleApplication)
 		throws UnirestException

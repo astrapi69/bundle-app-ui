@@ -6,8 +6,8 @@ import de.alpharogroup.swing.table.model.triple.TripleTableModel;
 
 /**
  * The class {@link StringBundleApplicationsBundleApplicationsTableModel} that lists triples which
- * the left is the name of the bundle application and the middle is the {@link BundleApplication}
- * it self to choose and right for deletion of it.
+ * the left is the name of the bundle application and the middle is the {@link BundleApplication} it
+ * self to choose and right for deletion of it.
  */
 public class StringBundleApplicationsBundleApplicationsTableModel
 	extends

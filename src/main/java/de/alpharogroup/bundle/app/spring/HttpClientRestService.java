@@ -7,17 +7,20 @@ import java.util.Locale;
 import java.util.Properties;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 
-import com.mashape.unirest.http.exceptions.UnirestException;
-
 import de.alpharogroup.collections.pairs.Quattro;
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import de.alpharogroup.db.resource.bundles.domain.BundleName;
+import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
 import de.alpharogroup.xml.json.JsonToObjectExtensions;
 import de.alpharogroup.xml.json.ObjectToJsonExtensions;
 
@@ -61,7 +64,7 @@ public class HttpClientRestService
 	}
 
 	public static BundleName updateProperties(Quattro<Properties, String, String, Locale> quattro)
-		throws UnirestException, ClientProtocolException, IOException
+		throws ClientProtocolException, IOException
 	{
 		String url = REST_RESOURCEBUNDLE_FULL_PATH + "update/bundlename";
 
@@ -73,12 +76,61 @@ public class HttpClientRestService
 		input.setContentType("application/json;charset=UTF-8");
 		post.setEntity(input);
 
-		org.apache.http.HttpResponse response = client.execute(post);
+		HttpResponse response = client.execute(post);
 		BufferedReader rd = new BufferedReader(
 			new InputStreamReader(response.getEntity().getContent()));
 		String json = IOUtils.toString(rd);
 		BundleName actual = JsonToObjectExtensions.toObject(json, BundleName.class);
 		return actual;
 	}
+
+	public static LanguageLocale newLanguageLocale(String localeCode)
+		throws ClientProtocolException, IOException
+	{
+		String url = REST_LANGUAGE_LOCALE_FULL_PATH;
+		HttpClient client = HttpClientBuilder.create().build();
+		HttpPost post = new HttpPost(url);
+
+		String jsonString = ObjectToJsonExtensions.toJson(localeCode);
+		StringEntity input = new StringEntity(jsonString, "UTF-8");
+		input.setContentType("application/json;charset=UTF-8");
+		post.setEntity(input);
+
+		HttpResponse response = client.execute(post);
+		BufferedReader rd = new BufferedReader(
+			new InputStreamReader(response.getEntity().getContent()));
+		String json = IOUtils.toString(rd);
+		LanguageLocale actual = JsonToObjectExtensions.toObject(json, LanguageLocale.class);
+		return actual;
+	}
+
+	public static LanguageLocale find(String localeCode) throws ClientProtocolException, IOException
+	{
+		String url = REST_LANGUAGE_LOCALE_FULL_PATH + "find/by/locale/" + localeCode;
+
+		HttpClient client = HttpClientBuilder.create().build();
+		HttpGet get = new HttpGet(url);
+
+
+		HttpResponse response = client.execute(get);
+		HttpEntity entity = response.getEntity();
+		BufferedReader rd = new BufferedReader(
+			new InputStreamReader(entity.getContent()));
+
+		StringBuffer result = new StringBuffer();
+		String line = "";
+		while ((line = rd.readLine()) != null)
+		{
+			result.append(line);
+		}
+		String ll = result.toString();
+		LanguageLocale actual = null;
+		if (StringUtils.isNotEmpty(ll))
+		{
+			actual = JsonToObjectExtensions.toObject(result.toString(), LanguageLocale.class);
+		}
+		return actual;
+	}
+
 
 }

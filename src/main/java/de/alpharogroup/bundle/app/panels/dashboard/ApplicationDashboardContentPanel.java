@@ -296,10 +296,6 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 							{
 								log.error(e.getLocalizedMessage(), e);
 							}
-							catch (UnirestException e)
-							{
-								log.error(e.getLocalizedMessage(), e);
-							}
 						}
 					}
 				}

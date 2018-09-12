@@ -9,7 +9,6 @@ import java.util.concurrent.CompletableFuture;
 import org.apache.http.client.ClientProtocolException;
 
 import com.google.common.eventbus.Subscribe;
-import com.mashape.unirest.http.exceptions.UnirestException;
 
 import de.alpharogroup.bundle.app.MainApplication;
 import de.alpharogroup.bundle.app.actions.ReturnToDashboardAction;
@@ -86,10 +85,6 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 			{
 				BundleName bundleName = HttpClientRestService.updateProperties(quattro);
 				log.debug(bundleName.getBaseName().getName());
-			}
-			catch (UnirestException e1)
-			{
-				log.error(e1.getLocalizedMessage(), e1);
 			}
 			catch (ClientProtocolException e1)
 			{
