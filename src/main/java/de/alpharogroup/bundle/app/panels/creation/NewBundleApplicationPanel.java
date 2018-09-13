@@ -22,7 +22,6 @@ import de.alpharogroup.bundle.app.combobox.model.LanguageLocalesComboBoxModel;
 import de.alpharogroup.bundle.app.combobox.renderer.LanguageLocalesComboBoxRenderer;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.bundle.app.spring.HttpClientRestService;
-import de.alpharogroup.bundle.app.spring.UniRestService;
 import de.alpharogroup.bundle.app.table.model.StringLanguageLocalesTableModel;
 import de.alpharogroup.collections.list.ListFactory;
 import de.alpharogroup.collections.pairs.KeyValuePair;
@@ -381,12 +380,12 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 			}
 			else
 			{
-				BundleApplication newBundleApplication = UniRestService.getBundleApplication(name);
+				BundleApplication newBundleApplication = HttpClientRestService.findBundleApplication(name);
 				if (newBundleApplication == null)
 				{
 					LanguageLocale defaultLocale = getModelObject().getDefaultLocale();
 
-					newBundleApplication = UniRestService.newBundleApplication(
+					newBundleApplication = HttpClientRestService.newBundleApplication(
 						BundleApplication.builder().name(name).defaultLocale(defaultLocale)
 							.supportedLocales(getModelObject().getSupportedLocales()).build());
 				}

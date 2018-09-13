@@ -37,7 +37,6 @@ import org.springframework.core.io.Resource;
 
 import de.alpharogroup.bundle.app.help.HelpJFrame;
 import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
-import de.alpharogroup.io.StreamExtensions;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -85,13 +84,10 @@ public class ShowLicenseFrameAction extends AbstractAction
 		final ApplicationContext ctx = SpringApplicationContext.getInstance()
 			.getApplicationContext();
 		final Resource resource = ctx.getResource("classpath:LICENSE.txt");
-		InputStream is = null;
 		final StringBuffer license = new StringBuffer();
-		try
-		{
+		try(InputStream inputStream = resource.getInputStream();
+			BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));){
 			String thisLine;
-			is = resource.getInputStream();
-			final BufferedReader br = new BufferedReader(new InputStreamReader(is));
 			while ((thisLine = br.readLine()) != null)
 			{
 				license.append(thisLine + "\n");
@@ -100,18 +96,7 @@ public class ShowLicenseFrameAction extends AbstractAction
 		catch (final IOException ex)
 		{
 			log.error(ex.getLocalizedMessage(), ex);
-		}
-		finally
-		{
-			try
-			{
-				StreamExtensions.close(is);
-			}
-			catch (final IOException e)
-			{
-				log.error(e.getLocalizedMessage(), e);
-			}
-		}
+		}		
 		return license.toString();
 	}
 
