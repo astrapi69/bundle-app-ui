@@ -11,7 +11,7 @@
 	</parent>
 
 	<artifactId>bundle-app-ui</artifactId>
-	<version>1.3.0</version>
+	<version>1.3</version>
 
 	<properties>
 		<!-- UI properties -->
