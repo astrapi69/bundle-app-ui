@@ -7,12 +7,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
-import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 import javax.swing.JFileChooser;
 
 import org.apache.commons.lang3.BooleanUtils;
+
+import com.mashape.unirest.http.exceptions.UnirestException;
 
 import de.alpharogroup.bundle.app.MainApplication;
 import de.alpharogroup.bundle.app.MainFrame;
@@ -24,17 +25,14 @@ import de.alpharogroup.bundle.app.panels.imports.ext.ConvertExtensions;
 import de.alpharogroup.bundle.app.panels.imports.file.ImportResourceBundlePanel;
 import de.alpharogroup.bundle.app.panels.overview.OverviewOfAllResourceBundlesPanel;
 import de.alpharogroup.bundle.app.panels.overview.OverviewResourceBundleAddEntryPanel;
-import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
+import de.alpharogroup.bundle.app.spring.HttpClientRestService;
 import de.alpharogroup.collections.pairs.KeyValuePair;
+import de.alpharogroup.collections.pairs.Quattro;
 import de.alpharogroup.collections.pairs.Triple;
 import de.alpharogroup.collections.properties.PropertiesExtensions;
-import de.alpharogroup.collections.set.SetExtensions;
 import de.alpharogroup.comparators.NullCheckComparator;
 import de.alpharogroup.comparators.pairs.KeyValuePairKeyComparator;
-import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
-import de.alpharogroup.db.resource.bundles.entities.BundleNames;
-import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
-import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
+import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.resourcebundle.inspector.search.PropertiesListResolver;
@@ -84,7 +82,19 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 			@Override
 			protected void onSave(final ActionEvent e)
 			{
-				super.onSave(e);
+				try
+				{
+					super.onSave(e);
+				}
+				catch (UnirestException e1)
+				{
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				catch (IOException e1)
+				{
+					e1.printStackTrace();
+				}
 				onSaveBundleApplication(e);
 			}
 		};
@@ -153,9 +163,9 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 			protected void onImportResourceBundlesFromDir(final ActionEvent e)
 			{
 				fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-					CompletableFuture.runAsync(() -> {
+				CompletableFuture.runAsync(() -> {
 					ApplicationDashboardContentPanel.this.onImportResourceBundleFromDir(e);
-				});				
+				});
 			}
 
 			@Override
@@ -218,7 +228,8 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 	/**
 	 * Callback method which import resourcebundles from a folder of file.
 	 *
-	 * @param dir the dir
+	 * @param dir
+	 *            the dir
 	 */
 	protected void onChooseImportResourceBundle(final boolean dir)
 	{
@@ -232,11 +243,15 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 				if (dir)
 				{
 					ApplicationDashboardBean mo = getModelObject();
-					BundleApplications bundleApplications = SpringApplicationContext.getInstance()
-						.getBundleApplicationsService().get(mo.getBundleApplication().getId());
-					final Locale defaultLocale = SpringApplicationContext.getInstance()
-						.getLanguageLocalesService()
-						.resolveLocale(bundleApplications.getDefaultLocale());
+					// BundleApplication bundleApplications =
+					// SpringApplicationContext.getInstance()
+					// .getBundleApplicationsService().get(mo.getBundleApplication().getId());
+					final Locale defaultLocale = LocaleResolver.resolveLocale(
+						mo.getBundleApplication().getDefaultLocale().getLocale(), false);
+
+					// SpringApplicationContext.getInstance()
+					// .getLanguageLocalesService()
+					// .resolveLocale(bundleApplications.getDefaultLocale());
 					final PropertiesListResolver resolver1 = new PropertiesListResolver(
 						resourceBundleToImport, defaultLocale);
 					resolver1.resolve();
@@ -247,16 +262,17 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 						.setFoundProperties(ConvertExtensions.convertAndSort(propertiesList));
 
 					// 1. create bundleapp
-					final BundleApplicationsService bundleApplicationsService = SpringApplicationContext
-						.getInstance().getBundleApplicationsService();
-					final ResourcebundlesService resourcebundlesService = SpringApplicationContext
-						.getInstance().getResourcebundlesService();
-					BundleApplications bundleApplication = getModelObject().getBundleApplication();
+					// final BundleApplicationsService bundleApplicationsService =
+					// SpringApplicationContext
+					// .getInstance().getBundleApplicationsService();
+					// final ResourcebundlesService resourcebundlesService =
+					// SpringApplicationContext
+					// .getInstance().getResourcebundlesService();
+					BundleApplication bundleApplication = getModelObject().getBundleApplication();
 					// 2. get properties files
 					final List<Triple<File, Locale, KeyValuePair<Boolean, File>>> foundProperties = getModelObject()
 						.getFoundProperties();
 					// 3. save properties files the to the bundleapp
-					final Set<BundleNames> set = SetExtensions.newHashSet();
 					for (final Triple<File, Locale, KeyValuePair<Boolean, File>> entry : foundProperties)
 					{
 						if (BooleanUtils.toBoolean(entry.getRight().getKey()))
@@ -269,17 +285,19 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 							try
 							{
 								properties = PropertiesExtensions.loadProperties(propertiesFile);
+								Quattro<Properties, String, String, Locale> quattro = Quattro
+									.<Properties, String, String, Locale> builder()
+									.topLeft(properties).topRight(bundleApplication.getName())
+									.bottomLeft(bundlename).bottomRight(locale).build();
+
+								HttpClientRestService.updateProperties(quattro);
 							}
 							catch (final IOException e)
 							{
 								log.error(e.getLocalizedMessage(), e);
 							}
-							final BundleNames bundleNames = resourcebundlesService.updateProperties(
-								bundleApplication, properties, bundlename, locale);
-							set.add(bundleNames);
 						}
 					}
-					bundleApplication = bundleApplicationsService.merge(bundleApplication);
 				}
 				else
 				{

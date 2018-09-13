@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import de.alpharogroup.collections.list.ListExtensions;
-import de.alpharogroup.db.resource.bundles.entities.Countries;
-import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
-import de.alpharogroup.db.resource.bundles.entities.Languages;
+import de.alpharogroup.collections.list.ListFactory;
+import de.alpharogroup.db.resource.bundles.domain.Country;
+import de.alpharogroup.db.resource.bundles.domain.Language;
+import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
 import de.alpharogroup.resourcebundle.locale.LocaleExtensions;
 import de.alpharogroup.resourcebundle.locale.LocaleResolver;
 import lombok.experimental.UtilityClass;
@@ -24,11 +24,11 @@ public class DataObjectFactory
 {
 
 	/**
-	 * Factory method for create an initial {@link List} of {@link Countries} objects.
+	 * Factory method for create an initial {@link List} of {@link Country} objects.
 	 *
-	 * @return the created {@link List} with the {@link Countries} objects.
+	 * @return the created {@link List} with the {@link Country} objects.
 	 */
-	public static List<Countries> newCountries()
+	public static List<Country> newCountries()
 	{
 		final Map<String, String> countriesMap = new LinkedHashMap<>();
 		countriesMap.put("United Arab Emirates", "AE");
@@ -282,22 +282,22 @@ public class DataObjectFactory
 		countriesMap.put("Zambia", "ZM");
 		countriesMap.put("Zimbabwe", "ZW");
 
-		final List<Countries> countries = new ArrayList<>();
+		final List<Country> countries = new ArrayList<>();
 		for (final Map.Entry<String, String> entry : countriesMap.entrySet())
 		{
 			countries.add(
-				Countries.builder().name(entry.getKey()).iso3166a2name(entry.getValue()).build());
+				Country.builder().name(entry.getKey()).iso3166a2name(entry.getValue()).build());
 		}
-		Collections.sort(countries, Comparator.comparing(Countries::getName));
+		Collections.sort(countries, Comparator.comparing(Country::getName));
 		return countries;
 	}
 
 	/**
-	 * Factory method for create an initial {@link List} of {@link Countries} objects.
+	 * Factory method for create an initial {@link List} of {@link Country} objects.
 	 *
-	 * @return the created {@link List} with the {@link Countries} objects.
+	 * @return the created {@link List} with the {@link Country} objects.
 	 */
-	public static List<Countries> newAvailableCountries()
+	public static List<Country> newAvailableCountries()
 	{
 		final Map<String, String> countriesMap = new LinkedHashMap<>();
 		countriesMap.put("AE", "United Arab Emirates");
@@ -414,22 +414,22 @@ public class DataObjectFactory
 		countriesMap.put("ID", "Indonesia");
 		countriesMap.put("GB", "United Kingdom");
 
-		final List<Countries> countries = new ArrayList<>();
+		final List<Country> countries = new ArrayList<>();
 		for (final Map.Entry<String, String> entry : countriesMap.entrySet())
 		{
 			countries.add(
-				Countries.builder().name(entry.getValue()).iso3166a2name(entry.getKey()).build());
+				Country.builder().name(entry.getValue()).iso3166a2name(entry.getKey()).build());
 		}
-		Collections.sort(countries, Comparator.comparing(Countries::getName));
+		Collections.sort(countries, Comparator.comparing(Country::getName));
 		return countries;
 	}
 
 	/**
-	 * Factory method for create an initial {@link List} of {@link Languages} objects.
+	 * Factory method for create an initial {@link List} of {@link Language} objects.
 	 *
-	 * @return the created {@link List} with the {@link Languages} objects.
+	 * @return the created {@link List} with the {@link Language} objects.
 	 */
-	public static List<Languages> newLanguages()
+	public static List<Language> newLanguages()
 	{
 		final Map<String, String> languagesMap = new LinkedHashMap<>();
 		languagesMap.put("ab", "Abkhaz");
@@ -618,203 +618,204 @@ public class DataObjectFactory
 		languagesMap.put("za", "Zhuang, Chuang");
 		languagesMap.put("zu", "Zulu");
 
-		final List<Languages> languages = new ArrayList<>();
+		final List<Language> languages = new ArrayList<>();
 		for (final Map.Entry<String, String> entry : languagesMap.entrySet())
 		{
-			languages.add(
-				Languages.builder().name(entry.getValue()).iso639Dash1(entry.getKey()).build());
+			languages
+				.add(Language.builder().name(entry.getValue()).iso639Dash1(entry.getKey()).build());
 		}
-		Collections.sort(languages, Comparator.comparing(Languages::getName));
+		Collections.sort(languages, Comparator.comparing(Language::getName));
 		return languages;
 	}
 
 	/**
-	 * Factory method for create an initial {@link List} of {@link LanguageLocales} objects.
+	 * Factory method for create an initial {@link List} of {@link LanguageLocale} objects.
 	 *
-	 * @return the created {@link List} with the {@link LanguageLocales} objects.
+	 * @return the created {@link List} with the {@link LanguageLocale} objects.
 	 */
-	public static List<LanguageLocales> newLanguageLocales()
+	public static List<LanguageLocale> newLanguageLocales()
 	{
-		final List<LanguageLocales> languageLocales = new ArrayList<>();
-		languageLocales.add(LanguageLocales.builder().locale("ar").build());
-		languageLocales.add(LanguageLocales.builder().locale("ar_AE").build());
-		languageLocales.add(LanguageLocales.builder().locale("ar_BH").build());
-		languageLocales.add(LanguageLocales.builder().locale("ar_DZ").build());
-		languageLocales.add(LanguageLocales.builder().locale("ar_EG").build());
-		languageLocales.add(LanguageLocales.builder().locale("ar_IQ").build());
-		languageLocales.add(LanguageLocales.builder().locale("ar_JO").build());
-		languageLocales.add(LanguageLocales.builder().locale("ar_KW").build());
-		languageLocales.add(LanguageLocales.builder().locale("ar_LB").build());
-		languageLocales.add(LanguageLocales.builder().locale("ar_LY").build());
-		languageLocales.add(LanguageLocales.builder().locale("ar_MA").build());
-		languageLocales.add(LanguageLocales.builder().locale("ar_OM").build());
-		languageLocales.add(LanguageLocales.builder().locale("ar_QA").build());
-		languageLocales.add(LanguageLocales.builder().locale("ar_SA").build());
-		languageLocales.add(LanguageLocales.builder().locale("ar_SD").build());
-		languageLocales.add(LanguageLocales.builder().locale("ar_SY").build());
-		languageLocales.add(LanguageLocales.builder().locale("ar_TN").build());
-		languageLocales.add(LanguageLocales.builder().locale("ar_YE").build());
-		languageLocales.add(LanguageLocales.builder().locale("be").build());
-		languageLocales.add(LanguageLocales.builder().locale("be_BY").build());
-		languageLocales.add(LanguageLocales.builder().locale("bg").build());
-		languageLocales.add(LanguageLocales.builder().locale("bg_BG").build());
-		languageLocales.add(LanguageLocales.builder().locale("ca").build());
-		languageLocales.add(LanguageLocales.builder().locale("ca_ES").build());
-		languageLocales.add(LanguageLocales.builder().locale("cs").build());
-		languageLocales.add(LanguageLocales.builder().locale("cs_CZ").build());
-		languageLocales.add(LanguageLocales.builder().locale("da").build());
-		languageLocales.add(LanguageLocales.builder().locale("da_DK").build());
-		languageLocales.add(LanguageLocales.builder().locale("de").build());
-		languageLocales.add(LanguageLocales.builder().locale("de_AT").build());
-		languageLocales.add(LanguageLocales.builder().locale("de_CH").build());
-		languageLocales.add(LanguageLocales.builder().locale("de_DE").build());
-		languageLocales.add(LanguageLocales.builder().locale("de_GR").build());
-		languageLocales.add(LanguageLocales.builder().locale("de_LU").build());
-		languageLocales.add(LanguageLocales.builder().locale("el").build());
-		languageLocales.add(LanguageLocales.builder().locale("el_CY").build());
-		languageLocales.add(LanguageLocales.builder().locale("el_GR").build());
-		languageLocales.add(LanguageLocales.builder().locale("en").build());
-		languageLocales.add(LanguageLocales.builder().locale("en_AU").build());
-		languageLocales.add(LanguageLocales.builder().locale("en_CA").build());
-		languageLocales.add(LanguageLocales.builder().locale("en_GB").build());
-		languageLocales.add(LanguageLocales.builder().locale("en_IE").build());
-		languageLocales.add(LanguageLocales.builder().locale("en_IN").build());
-		languageLocales.add(LanguageLocales.builder().locale("en_MT").build());
-		languageLocales.add(LanguageLocales.builder().locale("en_NZ").build());
-		languageLocales.add(LanguageLocales.builder().locale("en_PH").build());
-		languageLocales.add(LanguageLocales.builder().locale("en_SG").build());
-		languageLocales.add(LanguageLocales.builder().locale("en_US").build());
-		languageLocales.add(LanguageLocales.builder().locale("en_ZA").build());
-		languageLocales.add(LanguageLocales.builder().locale("es").build());
-		languageLocales.add(LanguageLocales.builder().locale("es_AR").build());
-		languageLocales.add(LanguageLocales.builder().locale("es_BO").build());
-		languageLocales.add(LanguageLocales.builder().locale("es_CL").build());
-		languageLocales.add(LanguageLocales.builder().locale("es_CO").build());
-		languageLocales.add(LanguageLocales.builder().locale("es_CR").build());
-		languageLocales.add(LanguageLocales.builder().locale("es_CU").build());
-		languageLocales.add(LanguageLocales.builder().locale("es_DO").build());
-		languageLocales.add(LanguageLocales.builder().locale("es_EC").build());
-		languageLocales.add(LanguageLocales.builder().locale("es_ES").build());
-		languageLocales.add(LanguageLocales.builder().locale("es_GT").build());
-		languageLocales.add(LanguageLocales.builder().locale("es_HN").build());
-		languageLocales.add(LanguageLocales.builder().locale("es_MX").build());
-		languageLocales.add(LanguageLocales.builder().locale("es_NI").build());
-		languageLocales.add(LanguageLocales.builder().locale("es_PA").build());
-		languageLocales.add(LanguageLocales.builder().locale("es_PE").build());
-		languageLocales.add(LanguageLocales.builder().locale("es_PR").build());
-		languageLocales.add(LanguageLocales.builder().locale("es_PY").build());
-		languageLocales.add(LanguageLocales.builder().locale("es_SV").build());
-		languageLocales.add(LanguageLocales.builder().locale("es_US").build());
-		languageLocales.add(LanguageLocales.builder().locale("es_UY").build());
-		languageLocales.add(LanguageLocales.builder().locale("es_VE").build());
-		languageLocales.add(LanguageLocales.builder().locale("et").build());
-		languageLocales.add(LanguageLocales.builder().locale("et_EE").build());
-		languageLocales.add(LanguageLocales.builder().locale("fi").build());
-		languageLocales.add(LanguageLocales.builder().locale("fi_FI").build());
-		languageLocales.add(LanguageLocales.builder().locale("fr").build());
-		languageLocales.add(LanguageLocales.builder().locale("fr_BE").build());
-		languageLocales.add(LanguageLocales.builder().locale("fr_CA").build());
-		languageLocales.add(LanguageLocales.builder().locale("fr_CH").build());
-		languageLocales.add(LanguageLocales.builder().locale("fr_FR").build());
-		languageLocales.add(LanguageLocales.builder().locale("fr_LU").build());
-		languageLocales.add(LanguageLocales.builder().locale("ga").build());
-		languageLocales.add(LanguageLocales.builder().locale("ga_IE").build());
-		languageLocales.add(LanguageLocales.builder().locale("hi").build());
-		languageLocales.add(LanguageLocales.builder().locale("hi_IN").build());
-		languageLocales.add(LanguageLocales.builder().locale("hr").build());
-		languageLocales.add(LanguageLocales.builder().locale("hr_HR").build());
-		languageLocales.add(LanguageLocales.builder().locale("hu").build());
-		languageLocales.add(LanguageLocales.builder().locale("hu_HU").build());
-		languageLocales.add(LanguageLocales.builder().locale("in").build());
-		languageLocales.add(LanguageLocales.builder().locale("in_ID").build());
-		languageLocales.add(LanguageLocales.builder().locale("is").build());
-		languageLocales.add(LanguageLocales.builder().locale("is_IS").build());
-		languageLocales.add(LanguageLocales.builder().locale("it").build());
-		languageLocales.add(LanguageLocales.builder().locale("it_CH").build());
-		languageLocales.add(LanguageLocales.builder().locale("it_IT").build());
-		languageLocales.add(LanguageLocales.builder().locale("iw").build());
-		languageLocales.add(LanguageLocales.builder().locale("iw_IL").build());
-		languageLocales.add(LanguageLocales.builder().locale("ja").build());
-		languageLocales.add(LanguageLocales.builder().locale("ja_JP").build());
-		languageLocales.add(LanguageLocales.builder().locale("ja_JP_JP").build());
-		languageLocales.add(LanguageLocales.builder().locale("ko").build());
-		languageLocales.add(LanguageLocales.builder().locale("ko_KR").build());
-		languageLocales.add(LanguageLocales.builder().locale("lt").build());
-		languageLocales.add(LanguageLocales.builder().locale("lt_LT").build());
-		languageLocales.add(LanguageLocales.builder().locale("lv").build());
-		languageLocales.add(LanguageLocales.builder().locale("lv_LV").build());
-		languageLocales.add(LanguageLocales.builder().locale("mk").build());
-		languageLocales.add(LanguageLocales.builder().locale("mk_MK").build());
-		languageLocales.add(LanguageLocales.builder().locale("ms").build());
-		languageLocales.add(LanguageLocales.builder().locale("ms_MY").build());
-		languageLocales.add(LanguageLocales.builder().locale("mt").build());
-		languageLocales.add(LanguageLocales.builder().locale("mt_MT").build());
-		languageLocales.add(LanguageLocales.builder().locale("nl").build());
-		languageLocales.add(LanguageLocales.builder().locale("nl_BE").build());
-		languageLocales.add(LanguageLocales.builder().locale("nl_NL").build());
-		languageLocales.add(LanguageLocales.builder().locale("no").build());
-		languageLocales.add(LanguageLocales.builder().locale("no_NO").build());
-		languageLocales.add(LanguageLocales.builder().locale("no_NO_NY").build());
-		languageLocales.add(LanguageLocales.builder().locale("pl").build());
-		languageLocales.add(LanguageLocales.builder().locale("pl_PL").build());
-		languageLocales.add(LanguageLocales.builder().locale("pt").build());
-		languageLocales.add(LanguageLocales.builder().locale("pt_BR").build());
-		languageLocales.add(LanguageLocales.builder().locale("pt_PT").build());
-		languageLocales.add(LanguageLocales.builder().locale("ro").build());
-		languageLocales.add(LanguageLocales.builder().locale("ro_RO").build());
-		languageLocales.add(LanguageLocales.builder().locale("ru").build());
-		languageLocales.add(LanguageLocales.builder().locale("ru_RU").build());
-		languageLocales.add(LanguageLocales.builder().locale("sk").build());
-		languageLocales.add(LanguageLocales.builder().locale("sk_SK").build());
-		languageLocales.add(LanguageLocales.builder().locale("sl").build());
-		languageLocales.add(LanguageLocales.builder().locale("sl_SI").build());
-		languageLocales.add(LanguageLocales.builder().locale("sq").build());
-		languageLocales.add(LanguageLocales.builder().locale("sq_AL").build());
-		languageLocales.add(LanguageLocales.builder().locale("sr").build());
-		languageLocales.add(LanguageLocales.builder().locale("sr_BA").build());
-		languageLocales.add(LanguageLocales.builder().locale("sr_CS").build());
-		languageLocales.add(LanguageLocales.builder().locale("sr_ME").build());
-		languageLocales.add(LanguageLocales.builder().locale("sr_RS").build());
-		languageLocales.add(LanguageLocales.builder().locale("sv").build());
-		languageLocales.add(LanguageLocales.builder().locale("sv_SE").build());
-		languageLocales.add(LanguageLocales.builder().locale("th").build());
-		languageLocales.add(LanguageLocales.builder().locale("th_TH").build());
-		languageLocales.add(LanguageLocales.builder().locale("th_TH_TH").build());
-		languageLocales.add(LanguageLocales.builder().locale("tr").build());
-		languageLocales.add(LanguageLocales.builder().locale("tr_TR").build());
-		languageLocales.add(LanguageLocales.builder().locale("uk").build());
-		languageLocales.add(LanguageLocales.builder().locale("uk_UA").build());
-		languageLocales.add(LanguageLocales.builder().locale("vi").build());
-		languageLocales.add(LanguageLocales.builder().locale("vi_VN").build());
-		languageLocales.add(LanguageLocales.builder().locale("zh").build());
-		languageLocales.add(LanguageLocales.builder().locale("zh_CN").build());
-		languageLocales.add(LanguageLocales.builder().locale("zh_HK").build());
-		languageLocales.add(LanguageLocales.builder().locale("zh_SG").build());
-		languageLocales.add(LanguageLocales.builder().locale("zh_TW").build());
+		final List<LanguageLocale> languageLocales = new ArrayList<>();
+		languageLocales.add(LanguageLocale.builder().locale("ar").build());
+		languageLocales.add(LanguageLocale.builder().locale("ar_AE").build());
+		languageLocales.add(LanguageLocale.builder().locale("ar_BH").build());
+		languageLocales.add(LanguageLocale.builder().locale("ar_DZ").build());
+		languageLocales.add(LanguageLocale.builder().locale("ar_EG").build());
+		languageLocales.add(LanguageLocale.builder().locale("ar_IQ").build());
+		languageLocales.add(LanguageLocale.builder().locale("ar_JO").build());
+		languageLocales.add(LanguageLocale.builder().locale("ar_KW").build());
+		languageLocales.add(LanguageLocale.builder().locale("ar_LB").build());
+		languageLocales.add(LanguageLocale.builder().locale("ar_LY").build());
+		languageLocales.add(LanguageLocale.builder().locale("ar_MA").build());
+		languageLocales.add(LanguageLocale.builder().locale("ar_OM").build());
+		languageLocales.add(LanguageLocale.builder().locale("ar_QA").build());
+		languageLocales.add(LanguageLocale.builder().locale("ar_SA").build());
+		languageLocales.add(LanguageLocale.builder().locale("ar_SD").build());
+		languageLocales.add(LanguageLocale.builder().locale("ar_SY").build());
+		languageLocales.add(LanguageLocale.builder().locale("ar_TN").build());
+		languageLocales.add(LanguageLocale.builder().locale("ar_YE").build());
+		languageLocales.add(LanguageLocale.builder().locale("be").build());
+		languageLocales.add(LanguageLocale.builder().locale("be_BY").build());
+		languageLocales.add(LanguageLocale.builder().locale("bg").build());
+		languageLocales.add(LanguageLocale.builder().locale("bg_BG").build());
+		languageLocales.add(LanguageLocale.builder().locale("ca").build());
+		languageLocales.add(LanguageLocale.builder().locale("ca_ES").build());
+		languageLocales.add(LanguageLocale.builder().locale("cs").build());
+		languageLocales.add(LanguageLocale.builder().locale("cs_CZ").build());
+		languageLocales.add(LanguageLocale.builder().locale("da").build());
+		languageLocales.add(LanguageLocale.builder().locale("da_DK").build());
+		languageLocales.add(LanguageLocale.builder().locale("de").build());
+		languageLocales.add(LanguageLocale.builder().locale("de_AT").build());
+		languageLocales.add(LanguageLocale.builder().locale("de_CH").build());
+		languageLocales.add(LanguageLocale.builder().locale("de_DE").build());
+		languageLocales.add(LanguageLocale.builder().locale("de_GR").build());
+		languageLocales.add(LanguageLocale.builder().locale("de_LU").build());
+		languageLocales.add(LanguageLocale.builder().locale("el").build());
+		languageLocales.add(LanguageLocale.builder().locale("el_CY").build());
+		languageLocales.add(LanguageLocale.builder().locale("el_GR").build());
+		languageLocales.add(LanguageLocale.builder().locale("en").build());
+		languageLocales.add(LanguageLocale.builder().locale("en_AU").build());
+		languageLocales.add(LanguageLocale.builder().locale("en_CA").build());
+		languageLocales.add(LanguageLocale.builder().locale("en_GB").build());
+		languageLocales.add(LanguageLocale.builder().locale("en_IE").build());
+		languageLocales.add(LanguageLocale.builder().locale("en_IN").build());
+		languageLocales.add(LanguageLocale.builder().locale("en_MT").build());
+		languageLocales.add(LanguageLocale.builder().locale("en_NZ").build());
+		languageLocales.add(LanguageLocale.builder().locale("en_PH").build());
+		languageLocales.add(LanguageLocale.builder().locale("en_SG").build());
+		languageLocales.add(LanguageLocale.builder().locale("en_US").build());
+		languageLocales.add(LanguageLocale.builder().locale("en_ZA").build());
+		languageLocales.add(LanguageLocale.builder().locale("es").build());
+		languageLocales.add(LanguageLocale.builder().locale("es_AR").build());
+		languageLocales.add(LanguageLocale.builder().locale("es_BO").build());
+		languageLocales.add(LanguageLocale.builder().locale("es_CL").build());
+		languageLocales.add(LanguageLocale.builder().locale("es_CO").build());
+		languageLocales.add(LanguageLocale.builder().locale("es_CR").build());
+		languageLocales.add(LanguageLocale.builder().locale("es_CU").build());
+		languageLocales.add(LanguageLocale.builder().locale("es_DO").build());
+		languageLocales.add(LanguageLocale.builder().locale("es_EC").build());
+		languageLocales.add(LanguageLocale.builder().locale("es_ES").build());
+		languageLocales.add(LanguageLocale.builder().locale("es_GT").build());
+		languageLocales.add(LanguageLocale.builder().locale("es_HN").build());
+		languageLocales.add(LanguageLocale.builder().locale("es_MX").build());
+		languageLocales.add(LanguageLocale.builder().locale("es_NI").build());
+		languageLocales.add(LanguageLocale.builder().locale("es_PA").build());
+		languageLocales.add(LanguageLocale.builder().locale("es_PE").build());
+		languageLocales.add(LanguageLocale.builder().locale("es_PR").build());
+		languageLocales.add(LanguageLocale.builder().locale("es_PY").build());
+		languageLocales.add(LanguageLocale.builder().locale("es_SV").build());
+		languageLocales.add(LanguageLocale.builder().locale("es_US").build());
+		languageLocales.add(LanguageLocale.builder().locale("es_UY").build());
+		languageLocales.add(LanguageLocale.builder().locale("es_VE").build());
+		languageLocales.add(LanguageLocale.builder().locale("et").build());
+		languageLocales.add(LanguageLocale.builder().locale("et_EE").build());
+		languageLocales.add(LanguageLocale.builder().locale("fi").build());
+		languageLocales.add(LanguageLocale.builder().locale("fi_FI").build());
+		languageLocales.add(LanguageLocale.builder().locale("fr").build());
+		languageLocales.add(LanguageLocale.builder().locale("fr_BE").build());
+		languageLocales.add(LanguageLocale.builder().locale("fr_CA").build());
+		languageLocales.add(LanguageLocale.builder().locale("fr_CH").build());
+		languageLocales.add(LanguageLocale.builder().locale("fr_FR").build());
+		languageLocales.add(LanguageLocale.builder().locale("fr_LU").build());
+		languageLocales.add(LanguageLocale.builder().locale("ga").build());
+		languageLocales.add(LanguageLocale.builder().locale("ga_IE").build());
+		languageLocales.add(LanguageLocale.builder().locale("hi").build());
+		languageLocales.add(LanguageLocale.builder().locale("hi_IN").build());
+		languageLocales.add(LanguageLocale.builder().locale("hr").build());
+		languageLocales.add(LanguageLocale.builder().locale("hr_HR").build());
+		languageLocales.add(LanguageLocale.builder().locale("hu").build());
+		languageLocales.add(LanguageLocale.builder().locale("hu_HU").build());
+		languageLocales.add(LanguageLocale.builder().locale("in").build());
+		languageLocales.add(LanguageLocale.builder().locale("in_ID").build());
+		languageLocales.add(LanguageLocale.builder().locale("is").build());
+		languageLocales.add(LanguageLocale.builder().locale("is_IS").build());
+		languageLocales.add(LanguageLocale.builder().locale("it").build());
+		languageLocales.add(LanguageLocale.builder().locale("it_CH").build());
+		languageLocales.add(LanguageLocale.builder().locale("it_IT").build());
+		languageLocales.add(LanguageLocale.builder().locale("iw").build());
+		languageLocales.add(LanguageLocale.builder().locale("iw_IL").build());
+		languageLocales.add(LanguageLocale.builder().locale("ja").build());
+		languageLocales.add(LanguageLocale.builder().locale("ja_JP").build());
+		languageLocales.add(LanguageLocale.builder().locale("ja_JP_JP").build());
+		languageLocales.add(LanguageLocale.builder().locale("ko").build());
+		languageLocales.add(LanguageLocale.builder().locale("ko_KR").build());
+		languageLocales.add(LanguageLocale.builder().locale("lt").build());
+		languageLocales.add(LanguageLocale.builder().locale("lt_LT").build());
+		languageLocales.add(LanguageLocale.builder().locale("lv").build());
+		languageLocales.add(LanguageLocale.builder().locale("lv_LV").build());
+		languageLocales.add(LanguageLocale.builder().locale("mk").build());
+		languageLocales.add(LanguageLocale.builder().locale("mk_MK").build());
+		languageLocales.add(LanguageLocale.builder().locale("ms").build());
+		languageLocales.add(LanguageLocale.builder().locale("ms_MY").build());
+		languageLocales.add(LanguageLocale.builder().locale("mt").build());
+		languageLocales.add(LanguageLocale.builder().locale("mt_MT").build());
+		languageLocales.add(LanguageLocale.builder().locale("nl").build());
+		languageLocales.add(LanguageLocale.builder().locale("nl_BE").build());
+		languageLocales.add(LanguageLocale.builder().locale("nl_NL").build());
+		languageLocales.add(LanguageLocale.builder().locale("no").build());
+		languageLocales.add(LanguageLocale.builder().locale("no_NO").build());
+		languageLocales.add(LanguageLocale.builder().locale("no_NO_NY").build());
+		languageLocales.add(LanguageLocale.builder().locale("pl").build());
+		languageLocales.add(LanguageLocale.builder().locale("pl_PL").build());
+		languageLocales.add(LanguageLocale.builder().locale("pt").build());
+		languageLocales.add(LanguageLocale.builder().locale("pt_BR").build());
+		languageLocales.add(LanguageLocale.builder().locale("pt_PT").build());
+		languageLocales.add(LanguageLocale.builder().locale("ro").build());
+		languageLocales.add(LanguageLocale.builder().locale("ro_RO").build());
+		languageLocales.add(LanguageLocale.builder().locale("ru").build());
+		languageLocales.add(LanguageLocale.builder().locale("ru_RU").build());
+		languageLocales.add(LanguageLocale.builder().locale("sk").build());
+		languageLocales.add(LanguageLocale.builder().locale("sk_SK").build());
+		languageLocales.add(LanguageLocale.builder().locale("sl").build());
+		languageLocales.add(LanguageLocale.builder().locale("sl_SI").build());
+		languageLocales.add(LanguageLocale.builder().locale("sq").build());
+		languageLocales.add(LanguageLocale.builder().locale("sq_AL").build());
+		languageLocales.add(LanguageLocale.builder().locale("sr").build());
+		languageLocales.add(LanguageLocale.builder().locale("sr_BA").build());
+		languageLocales.add(LanguageLocale.builder().locale("sr_CS").build());
+		languageLocales.add(LanguageLocale.builder().locale("sr_ME").build());
+		languageLocales.add(LanguageLocale.builder().locale("sr_RS").build());
+		languageLocales.add(LanguageLocale.builder().locale("sv").build());
+		languageLocales.add(LanguageLocale.builder().locale("sv_SE").build());
+		languageLocales.add(LanguageLocale.builder().locale("th").build());
+		languageLocales.add(LanguageLocale.builder().locale("th_TH").build());
+		languageLocales.add(LanguageLocale.builder().locale("th_TH_TH").build());
+		languageLocales.add(LanguageLocale.builder().locale("tr").build());
+		languageLocales.add(LanguageLocale.builder().locale("tr_TR").build());
+		languageLocales.add(LanguageLocale.builder().locale("uk").build());
+		languageLocales.add(LanguageLocale.builder().locale("uk_UA").build());
+		languageLocales.add(LanguageLocale.builder().locale("vi").build());
+		languageLocales.add(LanguageLocale.builder().locale("vi_VN").build());
+		languageLocales.add(LanguageLocale.builder().locale("zh").build());
+		languageLocales.add(LanguageLocale.builder().locale("zh_CN").build());
+		languageLocales.add(LanguageLocale.builder().locale("zh_HK").build());
+		languageLocales.add(LanguageLocale.builder().locale("zh_SG").build());
+		languageLocales.add(LanguageLocale.builder().locale("zh_TW").build());
 
-		Collections.sort(languageLocales, Comparator.comparing(LanguageLocales::getLocale));
+		Collections.sort(languageLocales, Comparator.comparing(LanguageLocale::getLocale));
 		return languageLocales;
 	}
 
 	/**
-	 * Factory method for create an initial {@link List} of the available {@link LanguageLocales}
+	 * Factory method for create an initial {@link List} of the available {@link LanguageLocale}
 	 * objects of the current system.
 	 *
-	 * @return the created {@link List} with the available {@link LanguageLocales} objects of the
+	 * @return the created {@link List} with the available {@link LanguageLocale} objects of the
 	 *         current system.
 	 */
-	public static List<LanguageLocales> newAvailableLanguageLocales()
+	public static List<LanguageLocale> newAvailableLanguageLocales()
 	{
-		final List<LanguageLocales> languageLocales = ListExtensions.newArrayList();
+		final List<LanguageLocale> languageLocales = ListFactory.newArrayList();
 		List<Locale> availableLocales = LocaleResolver.getAvailableLocales();
 		for (Locale locale : availableLocales)
 		{
 			String localeFilenameSuffix = LocaleExtensions.getLocaleFilenameSuffix(locale);
-			if(localeFilenameSuffix!= null && !localeFilenameSuffix.isEmpty()) {
-				languageLocales.add(LanguageLocales.builder().locale(localeFilenameSuffix).build());
+			if (localeFilenameSuffix != null && !localeFilenameSuffix.isEmpty())
+			{
+				languageLocales.add(LanguageLocale.builder().locale(localeFilenameSuffix).build());
 			}
 		}
-		Collections.sort(languageLocales, Comparator.comparing(LanguageLocales::getLocale));
+		Collections.sort(languageLocales, Comparator.comparing(LanguageLocale::getLocale));
 		return languageLocales;
 	}
 }

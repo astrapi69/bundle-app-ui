@@ -1,21 +1,21 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
 		<groupId>de.alpharogroup</groupId>
 		<artifactId>mvn-ui-parent</artifactId>
-		<version>1.18.0</version>
+		<version>1.19</version>
 		<relativePath></relativePath>
 	</parent>
 
 	<artifactId>bundle-app-ui</artifactId>
-	<version>1.2.0</version>
+	<version>1.3</version>
 
 	<properties>
 		<!-- UI properties -->
-		<swing-components.version>4.26.0</swing-components.version>
-		<silly-collections.version>4.27.0</silly-collections.version>
+		<silly-collections.version>4.33</silly-collections.version>
 		<!-- MIGLAYOUT-SWING version -->
 		<miglayout-swing.version>5.0</miglayout-swing.version>
 		<!-- GUAVA version -->
@@ -25,35 +25,16 @@
 		<observer.version>${design-patterns.version}</observer.version>
 		<state.version>${design-patterns.version}</state.version>
 		<!-- RESOURCEBUNDLE-CORE versions -->
-		<resourcebundle-core.version>2.20.0</resourcebundle-core.version>
+		<resourcebundle-core.version>3</resourcebundle-core.version>
 		<resourcebundle-inspector.version>${resourcebundle-core.version}</resourcebundle-inspector.version>
 		<!-- MODEL-DATA version -->
 		<model-data.version>1.5.0</model-data.version>
 		<model-api.version>${model-data.version}</model-api.version>
 		<model-object.version>${model-data.version}</model-object.version>
 		<model-type-safe.version>${model-data.version}</model-type-safe.version>
-		<!-- DB properties -->
-		<!-- DB DRIVER version -->
-		<h2.version>1.4.197</h2.version>
-		<!-- HIBERNATE versions -->
-		<hibernate.version>5.2.12.Final</hibernate.version>
-		<hibernate-validator.version>6.0.7.Final</hibernate-validator.version>
-		<validation-api.version>2.0.1.Final</validation-api.version>
-		<cglib.version>3.2.6</cglib.version>
-		<!-- CONNECTION POOL versions -->
-		<tomcat.version>7.0.84</tomcat.version>
-		<tomcat-dbcp.version>${tomcat.version}</tomcat-dbcp.version>
-		<tomcat-jdbc.version>${tomcat.version}</tomcat-jdbc.version>
 		<!-- RESOURCE-BUNDLES-DATA versions -->
-		<resource-bundles-data.version>5.3.0</resource-bundles-data.version>
-		<resource-bundles-business.version>${resource-bundles-data.version}</resource-bundles-business.version>
-		<resource-bundles-entities.version>${resource-bundles-data.version}</resource-bundles-entities.version>
-		<resource-bundles-domain.version>${resource-bundles-data.version}</resource-bundles-domain.version>
+		<resource-bundles-data.version>5.4</resource-bundles-data.version>
 		<resource-bundles-domain-model.version>${resource-bundles-data.version}</resource-bundles-domain-model.version>
-		<resource-bundles-rest-api.version>${resource-bundles-data.version}</resource-bundles-rest-api.version>
-		<!-- PERSISTENCE-API versions -->
-		<persistence-api.version>6.2.0</persistence-api.version>
-		<data-initialization.version>${persistence-api.version}</data-initialization.version>
 		<!-- PROJECT RELATED PROPERTIES -->
 		<full-app-name>bundle-app-ui</full-app-name>
 		<info.appName>bundle-app-ui</info.appName>
@@ -62,12 +43,52 @@
 		<main-full-app-name>${main-app-package-name}.MainApplication</main-full-app-name>
 		<file-name-with-dependencies>${full-app-name}-jar-with-dependencies.jar</file-name-with-dependencies>
 		<file-name-with-dependencies-path>${project.build.directory}/${file-name-with-dependencies}</file-name-with-dependencies-path>
+		<!-- UNIREST version -->
+		<unirest.version>1.4.9</unirest.version>
+		<httpclient.version>4.3.6</httpclient.version>
+		<httpasyncclient.version>4.0.2</httpasyncclient.version>
+		<httpmime.version>4.3.6</httpmime.version>
+		<json.version>20140107</json.version>
+		<!-- XML-EXTENSIONS version -->
+		<xml-extensions.version>4.21</xml-extensions.version>
 	</properties>
 
 	<dependencyManagement>
 
 		<dependencies>
-			<!-- MIGLAYOUT-SWING DEPENDENCIES -->
+			<!-- XML-EXTENSIONS DEPENDENCY -->
+			<dependency>
+				<groupId>de.alpharogroup</groupId>
+				<artifactId>xml-extensions</artifactId>
+				<version>${xml-extensions.version}</version>
+			</dependency>
+			<!-- UNIREST DEPENDENCIES -->
+			<dependency>
+				<groupId>com.mashape.unirest</groupId>
+				<artifactId>unirest-java</artifactId>
+				<version>${unirest.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpclient</artifactId>
+				<version>${httpclient.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpasyncclient</artifactId>
+				<version>${httpasyncclient.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpmime</artifactId>
+				<version>${httpmime.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.json</groupId>
+				<artifactId>json</artifactId>
+				<version>${json.version}</version>
+			</dependency>
+			<!-- MIGLAYOUT-SWING DEPENDENCY -->
 			<dependency>
 				<groupId>com.miglayout</groupId>
 				<artifactId>miglayout-swing</artifactId>
@@ -105,63 +126,8 @@
 			<!-- RESOURCE-BUNDLES-DATA DEPENDENCIES -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
-				<artifactId>resource-bundles-business</artifactId>
-				<version>${resource-bundles-business.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>de.alpharogroup</groupId>
-				<artifactId>resource-bundles-entities</artifactId>
-				<version>${resource-bundles-entities.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>de.alpharogroup</groupId>
-				<artifactId>resource-bundles-domain</artifactId>
-				<version>${resource-bundles-domain.version}</version>
-			</dependency>
-			
-			<dependency>
-				<groupId>de.alpharogroup</groupId>
 				<artifactId>resource-bundles-domain-model</artifactId>
 				<version>${resource-bundles-domain-model.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>de.alpharogroup</groupId>
-				<artifactId>resource-bundles-rest-api</artifactId>
-				<version>${resource-bundles-rest-api.version}</version>
-			</dependency>
-			<!-- SPRING DEPENDENCIES -->
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-orm</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-web</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-context</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-context-support</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-
-			<!-- PERSISTENCE-API DEPENDENCIES -->
-			<dependency>
-				<groupId>de.alpharogroup</groupId>
-				<artifactId>data-initialization</artifactId>
-				<version>${data-initialization.version}</version>
 			</dependency>
 			<!-- MODEL-DATA DEPENDENCIES -->
 			<dependency>
@@ -169,67 +135,39 @@
 				<artifactId>model-type-safe</artifactId>
 				<version>${model-type-safe.version}</version>
 			</dependency>
-			<!-- HIBERNATE DEPENDENCIES -->
-			<dependency>
-				<groupId>org.hibernate</groupId>
-				<artifactId>hibernate-core</artifactId>
-				<version>${hibernate.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.hibernate</groupId>
-				<artifactId>hibernate-entitymanager</artifactId>
-				<version>${hibernate.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.hibernate</groupId>
-				<artifactId>hibernate-ehcache</artifactId>
-				<version>${hibernate.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.hibernate.validator</groupId>
-				<artifactId>hibernate-validator</artifactId>
-				<version>${hibernate-validator.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>javax.validation</groupId>
-				<artifactId>validation-api</artifactId>
-				<version>${validation-api.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>cglib</groupId>
-				<artifactId>cglib</artifactId>
-				<version>${cglib.version}</version>
-			</dependency>
-			<!-- H2 DEPENDENCIES -->
-			<dependency>
-				<groupId>com.h2database</groupId>
-				<artifactId>h2</artifactId>
-				<version>${h2.version}</version>
-			</dependency>
-			<!-- CONNECTION-POOL DEPENDENCIES -->
-			<dependency>
-				<groupId>org.apache.tomcat</groupId>
-				<artifactId>tomcat-dbcp</artifactId>
-				<version>${tomcat-dbcp.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.apache.tomcat</groupId>
-				<artifactId>tomcat-jdbc</artifactId>
-				<version>${tomcat-jdbc.version}</version>
-			</dependency>
 
 		</dependencies>
 
 	</dependencyManagement>
 
 	<dependencies>
-		<!-- MIGLAYOUT-SWING DEPENDENCIES -->
+		<!-- XML-EXTENSIONS DEPENDENCY -->
+		<dependency>
+			<groupId>de.alpharogroup</groupId>
+			<artifactId>xml-extensions</artifactId>
+		</dependency>
+		<!-- UNIREST DEPENDENCIES -->
+		<dependency>
+			<groupId>com.mashape.unirest</groupId>
+			<artifactId>unirest-java</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpasyncclient</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpmime</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+		</dependency>
+		<!-- MIGLAYOUT-SWING DEPENDENCY -->
 		<dependency>
 			<groupId>com.miglayout</groupId>
 			<artifactId>miglayout-swing</artifactId>
@@ -259,98 +197,15 @@
 			<artifactId>guava</artifactId>
 		</dependency>
 		<!-- RESOURCE-BUNDLES-DATA DEPENDENCIES -->
-		<dependency>
-			<groupId>de.alpharogroup</groupId>
-			<artifactId>resource-bundles-business</artifactId>
-		</dependency>
 
 		<dependency>
 			<groupId>de.alpharogroup</groupId>
-			<artifactId>resource-bundles-entities</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>de.alpharogroup</groupId>
-			<artifactId>resource-bundles-domain</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>de.alpharogroup</groupId>
-			<artifactId>resource-bundles-rest-api</artifactId>
-		</dependency>
-		<!-- SPRING DEPENDENCIES -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-orm</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-web</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context-support</artifactId>
-		</dependency>
-		<!-- PERSISTENCE-API DEPENDENCIES -->
-		<dependency>
-			<groupId>de.alpharogroup</groupId>
-			<artifactId>data-initialization</artifactId>
+			<artifactId>resource-bundles-domain-model</artifactId>
 		</dependency>
 		<!-- MODEL-DATA DEPENDENCIES -->
 		<dependency>
 			<groupId>de.alpharogroup</groupId>
 			<artifactId>model-type-safe</artifactId>
-		</dependency>
-		<!-- HIBERNATE DEPENDENCIES -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-ehcache</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>javax.validation</groupId>
-			<artifactId>validation-api</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.hibernate.validator</groupId>
-			<artifactId>hibernate-validator</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>cglib</groupId>
-			<artifactId>cglib</artifactId>
-		</dependency>
-		<!-- H2 DEPENDENCIES -->
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-		</dependency>
-		<!-- CONNECTION-POOL DEPENDENCIES -->
-		<dependency>
-			<groupId>org.apache.tomcat</groupId>
-			<artifactId>tomcat-dbcp</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.tomcat</groupId>
-			<artifactId>tomcat-jdbc</artifactId>
 		</dependency>
 
 	</dependencies>
@@ -363,6 +218,13 @@
 
 			<plugin>
 				<artifactId>maven-jar-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
 			</plugin>
 
 		</plugins>

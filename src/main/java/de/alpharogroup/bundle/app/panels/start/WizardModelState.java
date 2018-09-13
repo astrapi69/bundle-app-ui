@@ -10,6 +10,133 @@ import de.alpharogroup.design.pattern.state.wizard.model.WizardModelStateMachine
 public enum WizardModelState implements WizardState<WizardModelStateMachine<WizardModel>>
 {
 
+	/** The cancel {@link WizardModelState} object. */
+	CANCELED {
+
+
+		@Override
+		public void cancel(final WizardModelStateMachine<WizardModel> stateMachine)
+		{
+			if (stateMachine.getModelObject().isValidCancel())
+			{
+				stateMachine.setCurrentState(WizardModelState.CANCELED);
+			}
+		}
+
+		@Override
+		public void finish(final WizardModelStateMachine<WizardModel> stateMachine)
+		{
+			if (stateMachine.getModelObject().isValidFinish())
+			{
+				stateMachine.setCurrentState(WizardModelState.FINISHED);
+			}
+		}
+
+		@Override
+		public String getName()
+		{
+			return name();
+		}
+
+		@Override
+		public void goNext(final WizardModelStateMachine<WizardModel> stateMachine)
+		{
+		}
+
+		@Override
+		public void goPrevious(final WizardModelStateMachine<WizardModel> stateMachine)
+		{
+		}
+
+	},
+
+	CONNECT_TO_EXISTING_BUNDLE_APP {
+
+		@Override
+		public void cancel(final WizardModelStateMachine<WizardModel> stateMachine)
+		{
+			if (stateMachine.getModelObject().isValidCancel())
+			{
+				stateMachine.setCurrentState(WizardModelState.CANCELED);
+			}
+		}
+
+		@Override
+		public void finish(final WizardModelStateMachine<WizardModel> stateMachine)
+		{
+			if (stateMachine.getModelObject().isValidFinish())
+			{
+				stateMachine.setCurrentState(WizardModelState.FINISHED);
+			}
+		}
+
+		@Override
+		public String getName()
+		{
+			return name();
+		}
+
+		@Override
+		public void goNext(final WizardModelStateMachine<WizardModel> stateMachine)
+		{
+			if (stateMachine.getModelObject().isValidNext())
+			{
+				stateMachine.setCurrentState(WizardModelState.SUCCESSFUL_CONNECT_TO_BUNDLE_APP);
+				stateMachine.getModelObject().setAllValid();
+				stateMachine.getModelObject().setValidFinish(true);
+			}
+		}
+
+		@Override
+		public void goPrevious(final WizardModelStateMachine<WizardModel> stateMachine)
+		{
+			if (stateMachine.getModelObject().isValidPrevious())
+			{
+				stateMachine.setCurrentState(WizardModelState.FIRST);
+			}
+		}
+
+	},
+
+	/** The finish {@link WizardModelState} object. */
+	FINISHED {
+
+		@Override
+		public void cancel(final WizardModelStateMachine<WizardModel> stateMachine)
+		{
+			if (stateMachine.getModelObject().isValidCancel())
+			{
+				stateMachine.setCurrentState(WizardModelState.CANCELED);
+			}
+		}
+
+		@Override
+		public void finish(final WizardModelStateMachine<WizardModel> stateMachine)
+		{
+			if (stateMachine.getModelObject().isValidFinish())
+			{
+				stateMachine.setCurrentState(WizardModelState.FINISHED);
+			}
+		}
+
+		@Override
+		public String getName()
+		{
+			return name();
+		}
+
+		@Override
+		public void goNext(final WizardModelStateMachine<WizardModel> stateMachine)
+		{
+		}
+
+		@Override
+		public void goPrevious(final WizardModelStateMachine<WizardModel> stateMachine)
+		{
+		}
+
+	},
+
 	/** The first {@link WizardModelState} object. */
 	FIRST {
 
@@ -131,54 +258,6 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 
 	},
 
-	CONNECT_TO_EXISTING_BUNDLE_APP {
-
-		@Override
-		public void cancel(final WizardModelStateMachine<WizardModel> stateMachine)
-		{
-			if (stateMachine.getModelObject().isValidCancel())
-			{
-				stateMachine.setCurrentState(WizardModelState.CANCELED);
-			}
-		}
-
-		@Override
-		public void finish(final WizardModelStateMachine<WizardModel> stateMachine)
-		{
-			if (stateMachine.getModelObject().isValidFinish())
-			{
-				stateMachine.setCurrentState(WizardModelState.FINISHED);
-			}
-		}
-
-		@Override
-		public String getName()
-		{
-			return name();
-		}
-
-		@Override
-		public void goNext(final WizardModelStateMachine<WizardModel> stateMachine)
-		{
-			if (stateMachine.getModelObject().isValidNext())
-			{
-				stateMachine.setCurrentState(WizardModelState.SUCCESSFUL_CONNECT_TO_BUNDLE_APP);
-				stateMachine.getModelObject().setAllValid();
-				stateMachine.getModelObject().setValidFinish(true);
-			}
-		}
-
-		@Override
-		public void goPrevious(final WizardModelStateMachine<WizardModel> stateMachine)
-		{
-			if (stateMachine.getModelObject().isValidPrevious())
-			{
-				stateMachine.setCurrentState(WizardModelState.FIRST);
-			}
-		}
-
-	},
-
 	SUCCESSFUL_CONNECT_TO_BUNDLE_APP {
 
 		@Override
@@ -250,85 +329,6 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 		public boolean isLast()
 		{
 			return true;
-		}
-
-	},
-
-	/** The cancel {@link WizardModelState} object. */
-	CANCELED {
-
-
-		@Override
-		public void cancel(final WizardModelStateMachine<WizardModel> stateMachine)
-		{
-			if (stateMachine.getModelObject().isValidCancel())
-			{
-				stateMachine.setCurrentState(WizardModelState.CANCELED);
-			}
-		}
-
-		@Override
-		public void finish(final WizardModelStateMachine<WizardModel> stateMachine)
-		{
-			if (stateMachine.getModelObject().isValidFinish())
-			{
-				stateMachine.setCurrentState(WizardModelState.FINISHED);
-			}
-		}
-
-		@Override
-		public String getName()
-		{
-			return name();
-		}
-
-		@Override
-		public void goNext(final WizardModelStateMachine<WizardModel> stateMachine)
-		{
-		}
-
-		@Override
-		public void goPrevious(final WizardModelStateMachine<WizardModel> stateMachine)
-		{
-		}
-
-	},
-
-	/** The finish {@link WizardModelState} object. */
-	FINISHED {
-
-		@Override
-		public void cancel(final WizardModelStateMachine<WizardModel> stateMachine)
-		{
-			if (stateMachine.getModelObject().isValidCancel())
-			{
-				stateMachine.setCurrentState(WizardModelState.CANCELED);
-			}
-		}
-
-		@Override
-		public void finish(final WizardModelStateMachine<WizardModel> stateMachine)
-		{
-			if (stateMachine.getModelObject().isValidFinish())
-			{
-				stateMachine.setCurrentState(WizardModelState.FINISHED);
-			}
-		}
-
-		@Override
-		public String getName()
-		{
-			return name();
-		}
-
-		@Override
-		public void goNext(final WizardModelStateMachine<WizardModel> stateMachine)
-		{
-		}
-
-		@Override
-		public void goPrevious(final WizardModelStateMachine<WizardModel> stateMachine)
-		{
 		}
 
 	};

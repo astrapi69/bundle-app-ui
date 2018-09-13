@@ -37,10 +37,10 @@ import de.alpharogroup.bundle.app.help.InfoJDialog;
 public class ShowInfoDialogAction extends AbstractAction
 {
 
-	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 1L;
 	/** The Constant INFO_TITLE. */
 	private static final String INFO_TITLE = "Info";
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Instantiates a new {@link ShowInfoDialogAction}.

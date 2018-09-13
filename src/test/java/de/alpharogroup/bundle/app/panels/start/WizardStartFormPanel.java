@@ -89,21 +89,20 @@ public class WizardStartFormPanel extends javax.swing.JPanel
 									javax.swing.GroupLayout.PREFERRED_SIZE, 441,
 									javax.swing.GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
-		layout
-			.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(layout.createSequentialGroup().addGap(38, 38, 38)
-					.addComponent(lblWelcomeHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 39,
-						javax.swing.GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-					.addComponent(lblWelcomeIntro, javax.swing.GroupLayout.PREFERRED_SIZE, 39,
-						javax.swing.GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-					.addComponent(rbnImport, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
-						javax.swing.GroupLayout.PREFERRED_SIZE)
-					.addGap(18, 18, 18)
-					.addComponent(rbnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
-						javax.swing.GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(97, Short.MAX_VALUE)));
+		layout.setVerticalGroup(layout
+			.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+			.addGroup(layout.createSequentialGroup().addGap(38, 38, 38)
+				.addComponent(lblWelcomeHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 39,
+					javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+				.addComponent(lblWelcomeIntro, javax.swing.GroupLayout.PREFERRED_SIZE, 39,
+					javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+				.addComponent(rbnImport, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
+					javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addGap(18, 18, 18).addComponent(rbnCreate, javax.swing.GroupLayout.PREFERRED_SIZE,
+					40, javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addContainerGap(97, Short.MAX_VALUE)));
 	}// </editor-fold>//GEN-END:initComponents
 
 	private void rbnCreateActionPerformed(java.awt.event.ActionEvent evt)

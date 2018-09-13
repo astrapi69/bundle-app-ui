@@ -22,10 +22,10 @@ public class StartPanel extends BasePanel<WizardStateMachine>
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	private ButtonGroup creationGroup;
-
 	private JRadioButton btnCreate;
+
 	private JRadioButton btnImport;
+	private ButtonGroup creationGroup;
 	private JLabel lblImportOption;
 	private JLabel lblNewBundleApp;
 	private JLabel lblWelcomeHeader;
@@ -125,8 +125,8 @@ public class StartPanel extends BasePanel<WizardStateMachine>
 				.addComponent(lblWelcomeHeader, GroupLayout.PREFERRED_SIZE, 39,
 					GroupLayout.PREFERRED_SIZE)
 				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-				.addComponent(lblWelcomeIntro, GroupLayout.PREFERRED_SIZE, 39,
-					GroupLayout.PREFERRED_SIZE)
+				.addComponent(
+					lblWelcomeIntro, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
 				.addGap(18, 18, 18)
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
 					.addComponent(lblImportOption, GroupLayout.PREFERRED_SIZE, 140,

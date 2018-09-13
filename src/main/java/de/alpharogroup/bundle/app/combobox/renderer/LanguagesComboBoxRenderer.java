@@ -6,9 +6,9 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
-import de.alpharogroup.db.resource.bundles.entities.Languages;
+import de.alpharogroup.db.resource.bundles.domain.Language;
 
-public class LanguagesComboBoxRenderer extends JLabel implements ListCellRenderer<Languages>
+public class LanguagesComboBoxRenderer extends JLabel implements ListCellRenderer<Language>
 {
 	private static final long serialVersionUID = 1L;
 
@@ -20,9 +20,8 @@ public class LanguagesComboBoxRenderer extends JLabel implements ListCellRendere
 	}
 
 	@Override
-	public Component getListCellRendererComponent(final JList<? extends Languages> list,
-		final Languages value, final int index, final boolean isSelected,
-		final boolean cellHasFocus)
+	public Component getListCellRendererComponent(final JList<? extends Language> list,
+		final Language value, final int index, final boolean isSelected, final boolean cellHasFocus)
 	{
 
 		if (isSelected)
@@ -39,7 +38,7 @@ public class LanguagesComboBoxRenderer extends JLabel implements ListCellRendere
 		if (value != null)
 		{
 			name = value.getName();
-//			name = LocaleExtensions.getLanguageName(value.getIso639Dash1(), Locale.ENGLISH);
+			// name = LocaleExtensions.getLanguageName(value.getIso639Dash1(), Locale.ENGLISH);
 		}
 		setText(name);
 

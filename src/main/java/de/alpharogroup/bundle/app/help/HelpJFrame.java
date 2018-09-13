@@ -54,26 +54,26 @@ public class HelpJFrame extends JFrame
 	/** The generaded serialVersionUID. */
 	private static final long serialVersionUID = 4151069054089210855L;
 
-	/** The jlabel title. */
-	private JLabel jlabelTitle = null;
+	/** The button close. */
+	private JButton buttonClose = null;
+
+	/** The dispose window. */
+	private DisposeWindow disposeWindow = null;
 
 	/** The helptext. */
 	private String helptext = null;
 
-	/** The dispose window. */
-	private DisposeWindow disposeWindow = null;
+	/** The jlabel title. */
+	private JLabel jlabelTitle = null;
+
+	/** The jscroll panejta help. */
+	private JScrollPane jscrollPanejtaHelp = null;
 
 	/** The jta help. */
 	private JTextArea jtaHelp = null;
 
 	/** The jtp help. */
 	private JTextPane jtpHelp;
-
-	/** The jscroll panejta help. */
-	private JScrollPane jscrollPanejtaHelp = null;
-
-	/** The button close. */
-	private JButton buttonClose = null;
 
 	/**
 	 * Instantiates a new help j frame.

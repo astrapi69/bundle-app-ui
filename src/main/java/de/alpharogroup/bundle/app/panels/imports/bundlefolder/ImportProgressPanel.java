@@ -56,9 +56,9 @@ public class ImportProgressPanel extends BaseWizardContentPanel<ImportWizardMode
 	private javax.swing.JLabel lblWelcomeImportHeader;
 	private javax.swing.JProgressBar prbImport;
 	private javax.swing.JScrollPane scrFoundProperties;
-	private GenericJXTable<Triple<File, Locale, KeyValuePair<Boolean, File>>> tblFoundProperties;
 	private FileLocaleBooleanTableModel tableModel;
 	private List<Triple<File, Locale, KeyValuePair<Boolean, File>>> tableModelList;
+	private GenericJXTable<Triple<File, Locale, KeyValuePair<Boolean, File>>> tblFoundProperties;
 
 	public ImportProgressPanel(final Model<WizardModelStateMachine<ImportWizardModel>> model)
 	{

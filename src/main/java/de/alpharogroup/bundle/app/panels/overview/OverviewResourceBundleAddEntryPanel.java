@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 import java.util.Properties;
 
 import javax.swing.JCheckBox;
@@ -17,24 +16,23 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.mashape.unirest.http.exceptions.UnirestException;
+
 import de.alpharogroup.bundle.app.MainFrame;
 import de.alpharogroup.bundle.app.actions.ReturnToDashboardAction;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardContentPanel;
-import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
+import de.alpharogroup.bundle.app.spring.UniRestService;
 import de.alpharogroup.bundle.app.table.model.StringResourcebundlesTableModel;
 import de.alpharogroup.collections.pairs.Quattro;
 import de.alpharogroup.collections.properties.PropertiesExtensions;
 import de.alpharogroup.comparators.NullCheckComparator;
-import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
-import de.alpharogroup.db.resource.bundles.entities.PropertiesKeys;
-import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
-import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObjectFactory;
-import de.alpharogroup.db.resource.bundles.service.api.PropertiesKeysService;
-import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
+import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
+import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
-import de.alpharogroup.resourcebundle.locale.LocaleResolver;
 import de.alpharogroup.swing.base.BasePanel;
 import de.alpharogroup.swing.renderer.TableCellButtonRenderer;
 import de.alpharogroup.swing.table.editor.TableCellButtonEditor;
@@ -55,12 +53,12 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 	private javax.swing.JLabel lblKey;
 	private javax.swing.JLabel lblValue;
 	private javax.swing.JScrollPane srcBundles;
-	private GenericJXTable<Quattro<String, String, Resourcebundles, Resourcebundles>> tblBundles;
 	private StringResourcebundlesTableModel tableModel;
+	private List<Quattro<String, String, Resourcebundle, Resourcebundle>> tableModelList;
+	private GenericJXTable<Quattro<String, String, Resourcebundle, Resourcebundle>> tblBundles;
 	private javax.swing.JTextField txtKey;
-	private javax.swing.JTextField txtValue;
 
-	private List<Quattro<String, String, Resourcebundles, Resourcebundles>> tableModelList;
+	private javax.swing.JTextField txtValue;
 
 	public OverviewResourceBundleAddEntryPanel()
 	{
@@ -72,7 +70,7 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 		super(model);
 	}
 
-	private List<Quattro<String, String, Resourcebundles, Resourcebundles>> getTableModelList()
+	private List<Quattro<String, String, Resourcebundle, Resourcebundle>> getTableModelList()
 	{
 		if (tableModelList == null)
 		{
@@ -85,36 +83,22 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 	{
 		final String key = txtKey.getText();
 		final String value = txtValue.getText();
-		BundleApplications bundleApplication = getModelObject().getBundleApplication();
+		BundleApplication bundleApplication = getModelObject().getBundleApplication();
 		final String baseName = getModelObject().getSelectedBundleName().getBaseName().getName();
-		final Locale locale = LocaleResolver
-			.resolveLocale(getModelObject().getSelectedBundleName().getLocale().getLocale());
-		final PropertiesKeysService propertiesKeysService = SpringApplicationContext.getInstance()
-			.getPropertiesKeysService();
-		final ResourcebundlesService resourcebundlesService = SpringApplicationContext.getInstance()
-			.getResourcebundlesService();
-		final boolean update = true;
 
-		Resourcebundles resourcebundle = resourcebundlesService.getResourcebundle(bundleApplication,
-			baseName, locale, key);
-		if (resourcebundle != null)
+		try
 		{
-			if (update)
-			{
-				resourcebundle.setValue(value);
-			}
+			UniRestService.saveOrUpdateEntry(bundleApplication.getName(), baseName,
+				getModelObject().getSelectedBundleName().getLocale().getLocale(), key, value);
 		}
-		else
+		catch (UnirestException e1)
 		{
-			final PropertiesKeys pkey = propertiesKeysService.getOrCreateNewPropertiesKeys(key);
-
-			resourcebundle = Resourcebundles.builder()
-				.bundleName(getModelObject().getSelectedBundleName()).key(pkey).value(value)
-				.build();
-			ResourceBundlesDomainObjectFactory.getInstance()
-				.newResourcebundles(getModelObject().getSelectedBundleName(), pkey, value);
+			log.error(e1.getLocalizedMessage(), e1);
 		}
-		resourcebundle = resourcebundlesService.merge(resourcebundle);
+		catch (IOException e1)
+		{
+			log.error(e1.getLocalizedMessage(), e1);
+		}
 
 		reloadTableModel();
 
@@ -124,6 +108,62 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 		txtKey.setText("");
 		txtValue.setText("");
 		revalidate();
+	}
+
+	protected void onDelete(ActionEvent e)
+	{
+		int dialogResult = JOptionPane.showConfirmDialog(null,
+			"This will delete this resource bundle and is not recoverable?(cannot be undone)",
+			"Warning", JOptionPane.YES_NO_OPTION);
+		if (dialogResult == JOptionPane.YES_OPTION)
+		{
+			try
+			{
+				UniRestService.deleteBundleName(getModelObject().getSelectedBundleName());
+
+				final Model<ApplicationDashboardBean> baModel = MainFrame.getInstance()
+					.getSelectedBundleApplicationPropertyModel();
+				final ApplicationDashboardContentPanel component = new ApplicationDashboardContentPanel(
+					baModel);
+				MainFrame.getInstance()
+					.replaceInternalFrame("Dashboard of "
+						+ baModel.getObject().getBundleApplication().getName() + " bundle app",
+						component);
+			}
+			catch (UnirestException e1)
+			{
+				log.error(e1.getLocalizedMessage(), e1);
+			}
+
+		}
+	}
+
+
+	protected void onExport(ActionEvent e)
+	{
+		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setDialogTitle("Specify a file to save");
+
+		int userSelection = fileChooser.showSaveDialog(MainFrame.get());
+
+		if (userSelection == JFileChooser.APPROVE_OPTION)
+		{
+			File fileToSave = fileChooser.getSelectedFile();
+
+			Properties properties = new Properties();
+
+			tableModelList.forEach(quattro -> {
+				properties.setProperty(quattro.getTopLeft(), quattro.getTopRight());
+			});
+			try
+			{
+				PropertiesExtensions.export(properties, new FileOutputStream(fileToSave));
+			}
+			catch (IOException ex)
+			{
+				log.error(ex.getLocalizedMessage(), ex);
+			}
+		}
 	}
 
 	@Override
@@ -175,13 +215,13 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 			@Override
 			public Object getCellEditorValue()
 			{
-				final Resourcebundles selected = (Resourcebundles)this.getValue();
+				final Resourcebundle selected = (Resourcebundle)this.getValue();
 
 				MainFrame.getInstance().getModelObject().getSelectedBundleApplication()
 					.setSelectedResourcebundle(selected);
 
 				txtKey.setText(selected.getKey().getName());
-				txtValue.setText(selected.getValue());
+				txtValue.setText(selected.getValue().getName());
 
 				final String text = "Edit";
 				return text;
@@ -245,10 +285,16 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 			@Override
 			public Object getCellEditorValue()
 			{
-				final Resourcebundles selected = (Resourcebundles)this.getValue();
-				final ResourcebundlesService resourcebundlesService = SpringApplicationContext
-					.getInstance().getResourcebundlesService();
-				resourcebundlesService.delete(selected);
+				final Resourcebundle selected = (Resourcebundle)this.getValue();
+				try
+				{
+					UniRestService.deleteResourcebundle(selected);
+				}
+				catch (UnirestException e)
+				{
+					log.error(e.getLocalizedMessage(), e);
+				}
+
 				if (selected.equals(MainFrame.getInstance().getModelObject()
 					.getSelectedBundleApplication().getSelectedResourcebundle()))
 				{
@@ -319,27 +365,6 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 		btnDelete.addActionListener(e -> onDelete(e));
 	}
 
-
-	protected void onDelete(ActionEvent e)
-	{
-		int dialogResult = JOptionPane.showConfirmDialog(null,
-			"This will delete this resource bundle and is not recoverable?(cannot be undone)",
-			"Warning", JOptionPane.YES_NO_OPTION);
-		if (dialogResult == JOptionPane.YES_OPTION)
-		{
-			SpringApplicationContext.getInstance().getResourcebundlesService()
-				.delete(getModelObject().getSelectedBundleName());
-			final Model<ApplicationDashboardBean> baModel = MainFrame.getInstance()
-				.getSelectedBundleApplicationPropertyModel();
-			final ApplicationDashboardContentPanel component = new ApplicationDashboardContentPanel(
-				baModel);
-			MainFrame.getInstance()
-				.replaceInternalFrame("Dashboard of "
-					+ baModel.getObject().getBundleApplication().getName() + " bundle app",
-					component);
-		}
-	}
-
 	@Override
 	protected void onInitializeLayout()
 	{
@@ -347,44 +372,39 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 
 		final javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
 		this.setLayout(layout);
-		layout.setHorizontalGroup(
-			layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(layout
-				.createSequentialGroup().addGap(40, 40, 40).addGroup(layout
-					.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false).addGroup(
-						layout.createSequentialGroup()
-							.addComponent(lblHeaderOverview, javax.swing.GroupLayout.PREFERRED_SIZE,
-								540, javax.swing.GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(btnToDashboard, javax.swing.GroupLayout.PREFERRED_SIZE,
-								220, javax.swing.GroupLayout.PREFERRED_SIZE))
-					.addComponent(srcBundles, javax.swing.GroupLayout.Alignment.TRAILING,
-						javax.swing.GroupLayout.PREFERRED_SIZE, 1000,
+		layout.setHorizontalGroup(layout
+			.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+			.addGroup(layout.createSequentialGroup().addGap(40, 40, 40).addGroup(layout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+				.addGroup(layout.createSequentialGroup()
+					.addComponent(lblHeaderOverview, javax.swing.GroupLayout.PREFERRED_SIZE, 540,
 						javax.swing.GroupLayout.PREFERRED_SIZE)
-					.addGroup(
-						layout.createSequentialGroup()
-							.addGroup(layout
-								.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-								.addComponent(lblKey, javax.swing.GroupLayout.PREFERRED_SIZE,
-									326, javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblValue, javax.swing.GroupLayout.PREFERRED_SIZE, 324,
-									javax.swing.GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-							.addGroup(layout
-								.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-								.addComponent(txtValue).addComponent(txtKey)
-								.addGroup(layout.createSequentialGroup()
-									.addGap(0, 0, Short.MAX_VALUE).addComponent(btnAddEntry,
-										javax.swing.GroupLayout.PREFERRED_SIZE, 220,
-										javax.swing.GroupLayout.PREFERRED_SIZE))))
-					.addGroup(
-						javax.swing.GroupLayout.Alignment.TRAILING,
-						layout.createSequentialGroup()
-							.addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 220,
-								javax.swing.GroupLayout.PREFERRED_SIZE)
-							.addGap(18, 18, 18).addComponent(btnExport,
-								javax.swing.GroupLayout.PREFERRED_SIZE, 220,
-								javax.swing.GroupLayout.PREFERRED_SIZE)))
+					.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+						javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addComponent(btnToDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 220,
+						javax.swing.GroupLayout.PREFERRED_SIZE))
+				.addComponent(srcBundles, javax.swing.GroupLayout.Alignment.TRAILING,
+					javax.swing.GroupLayout.PREFERRED_SIZE, 1000,
+					javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addGroup(layout.createSequentialGroup()
+					.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+						.addComponent(lblKey, javax.swing.GroupLayout.PREFERRED_SIZE, 326,
+							javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblValue, javax.swing.GroupLayout.PREFERRED_SIZE, 324,
+							javax.swing.GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+					.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addComponent(txtValue).addComponent(txtKey)
+						.addGroup(layout.createSequentialGroup().addGap(0, 0, Short.MAX_VALUE)
+							.addComponent(btnAddEntry, javax.swing.GroupLayout.PREFERRED_SIZE, 220,
+								javax.swing.GroupLayout.PREFERRED_SIZE))))
+				.addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+					layout.createSequentialGroup()
+						.addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 220,
+							javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addGap(18, 18, 18).addComponent(btnExport,
+							javax.swing.GroupLayout.PREFERRED_SIZE, 220,
+							javax.swing.GroupLayout.PREFERRED_SIZE)))
 				.addContainerGap(31, Short.MAX_VALUE)));
 		layout
 			.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -423,54 +443,47 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 		tableModel.addList(getTableModelList());
 	}
 
+
 	private void reloadTableModelList()
 	{
 		tableModelList = new ArrayList<>();
-		final ResourcebundlesService resourcebundlesService = SpringApplicationContext.getInstance()
-			.getResourcebundlesService();
-		BundleApplications bundleApplication = getModelObject().getBundleApplication();
+		BundleApplication bundleApplication = getModelObject().getBundleApplication();
 		final String baseName = getModelObject().getSelectedBundleName().getBaseName().getName();
-		final Locale locale = LocaleResolver
-			.resolveLocale(getModelObject().getSelectedBundleName().getLocale().getLocale());
-		final List<Resourcebundles> list = resourcebundlesService
-			.findResourceBundles(bundleApplication, baseName, locale);
-		for (final Resourcebundles resourcebundle : list)
+		final String localeCode = getModelObject().getSelectedBundleName().getLocale().getLocale();
+		List<Resourcebundle> list;
+		try
 		{
-			tableModelList.add(Quattro.<String, String, Resourcebundles, Resourcebundles> builder()
-				.topLeft(resourcebundle.getKey().getName()).topRight(resourcebundle.getValue())
-				.bottomLeft(resourcebundle).bottomRight(resourcebundle).build());
+			list = UniRestService.findResourceBundles(bundleApplication, baseName, localeCode);
+
+			for (final Resourcebundle resourcebundle : list)
+			{
+				tableModelList
+					.add(Quattro.<String, String, Resourcebundle, Resourcebundle> builder()
+						.topLeft(resourcebundle.getKey().getName())
+						.topRight(resourcebundle.getValue().getName()).bottomLeft(resourcebundle)
+						.bottomRight(resourcebundle).build());
+			}
+			Collections.sort(tableModelList,
+				NullCheckComparator.<Quattro<String, String, Resourcebundle, Resourcebundle>> of(
+					(o1, o2) -> o1.getTopLeft().compareTo(o2.getTopLeft())));
 		}
-		Collections.sort(tableModelList,
-			NullCheckComparator.<Quattro<String, String, Resourcebundles, Resourcebundles>> of(
-				(o1, o2) -> o1.getTopLeft().compareTo(o2.getTopLeft())));
-	}
-
-
-	protected void onExport(ActionEvent e)
-	{
-		JFileChooser fileChooser = new JFileChooser();
-		fileChooser.setDialogTitle("Specify a file to save");
-
-		int userSelection = fileChooser.showSaveDialog(MainFrame.get());
-
-		if (userSelection == JFileChooser.APPROVE_OPTION)
+		catch (UnirestException e)
 		{
-			File fileToSave = fileChooser.getSelectedFile();
-
-			Properties properties = new Properties();
-
-			tableModelList.forEach(quattro -> {
-				properties.setProperty(quattro.getTopLeft(), quattro.getTopRight());
-			});
-			try
-			{
-				PropertiesExtensions.export(properties, new FileOutputStream(fileToSave));
-			}
-			catch (IOException ex)
-			{
-				log.error(ex.getLocalizedMessage(), ex);
-			}
+			log.error(e.getLocalizedMessage(), e);
 		}
+		catch (JsonParseException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+		catch (JsonMappingException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+		catch (IOException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+
 	}
 
 }

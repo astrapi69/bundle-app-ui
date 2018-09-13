@@ -2,6 +2,7 @@ package de.alpharogroup.bundle.app.panels.overview;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,15 +11,21 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 
+import org.json.JSONException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.mashape.unirest.http.exceptions.UnirestException;
+
 import de.alpharogroup.bundle.app.MainFrame;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardContentPanel;
 import de.alpharogroup.bundle.app.panels.dashboard.mainapp.MainDashboardBean;
 import de.alpharogroup.bundle.app.panels.dashboard.mainapp.MainDashboardPanel;
-import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
+import de.alpharogroup.bundle.app.spring.UniRestService;
 import de.alpharogroup.bundle.app.table.model.StringBundleApplicationsBundleApplicationsTableModel;
 import de.alpharogroup.collections.pairs.Triple;
-import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
+import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.PropertyModel;
 import de.alpharogroup.model.api.Model;
@@ -44,9 +51,9 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 
 	private StringBundleApplicationsBundleApplicationsTableModel tableModel;
 
-	private GenericJXTable<Triple<String, BundleApplications, BundleApplications>> tblBundleApps;
+	private List<Triple<String, BundleApplication, BundleApplication>> tableModelList;
 
-	private List<Triple<String, BundleApplications, BundleApplications>> tableModelList;
+	private GenericJXTable<Triple<String, BundleApplication, BundleApplication>> tblBundleApps;
 
 	public OverviewOfAllBundleApplicationsPanel()
 	{
@@ -58,16 +65,17 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 		super(model);
 	}
 
-	private List<Triple<String, BundleApplications, BundleApplications>> getTableModelList()
+	private List<Triple<String, BundleApplication, BundleApplication>> getTableModelList()
 	{
 		if (tableModelList == null)
 		{
 			tableModelList = new ArrayList<>();
-			for (final BundleApplications bundleApplication : getModelObject()
+			for (final BundleApplication bundleApplication : getModelObject()
 				.getBundleApplications())
 			{
-				tableModelList.add(Triple.<String, BundleApplications, BundleApplications> builder()
-					.left(bundleApplication.getName()).middle(bundleApplication).right(bundleApplication).build());
+				tableModelList.add(Triple.<String, BundleApplication, BundleApplication> builder()
+					.left(bundleApplication.getName()).middle(bundleApplication)
+					.right(bundleApplication).build());
 			}
 		}
 		return tableModelList;
@@ -75,6 +83,47 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 
 	protected void onCreateBundleApp(final ActionEvent e)
 	{
+	}
+
+	protected void onDelete(final BundleApplication selectedBundleApplication)
+	{
+		int dialogResult = JOptionPane.showConfirmDialog(null,
+			"This will delete this bundle application and is not recoverable?(cannot be undone)",
+			"Warning", JOptionPane.YES_NO_OPTION);
+		if (dialogResult == JOptionPane.YES_OPTION)
+		{
+			try
+			{
+				UniRestService.deleteBundleApplication(selectedBundleApplication);
+				final List<BundleApplication> bundleApplications = UniRestService
+					.findAllBundleApplications();
+				MainFrame.getInstance().getModelObject().setBundleApplications(bundleApplications);
+				MainFrame.getInstance().replaceInternalFrame("Overview bundle apps",
+					new MainDashboardPanel(PropertyModel
+						.<MainDashboardBean> of(MainFrame.getInstance(), "model.object")));
+			}
+			catch (UnirestException e)
+			{
+				log.error(e.getLocalizedMessage(), e);
+			}
+			catch (JsonParseException e)
+			{
+				log.error(e.getLocalizedMessage(), e);
+			}
+			catch (JsonMappingException e)
+			{
+				log.error(e.getLocalizedMessage(), e);
+			}
+			catch (JSONException e)
+			{
+				log.error(e.getLocalizedMessage(), e);
+			}
+			catch (IOException e)
+			{
+				log.error(e.getLocalizedMessage(), e);
+			}
+
+		}
 	}
 
 	@Override
@@ -87,11 +136,12 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 		srcBundleApps = new javax.swing.JScrollPane();
 
 		tableModel = new StringBundleApplicationsBundleApplicationsTableModel();
-		
+
 		tableModel.addList(getTableModelList());
 		tblBundleApps = new GenericJXTable<>(tableModel);
-		
-		final TableColumn chooseColumn = tblBundleApps.getColumn(StringBundleApplicationsBundleApplicationsTableModel.CHOOSE_COLUMN_NAME);
+
+		final TableColumn chooseColumn = tblBundleApps
+			.getColumn(StringBundleApplicationsBundleApplicationsTableModel.CHOOSE_COLUMN_NAME);
 		chooseColumn.setCellRenderer(new TableCellButtonRenderer(null, null)
 		{
 			private static final long serialVersionUID = 1L;
@@ -122,7 +172,7 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 			@Override
 			public Object getCellEditorValue()
 			{
-				final BundleApplications selectedBundleApplication = (BundleApplications)this
+				final BundleApplication selectedBundleApplication = (BundleApplication)this
 					.getValue();
 				MainFrame.getInstance().setSelectedBundleApplication(selectedBundleApplication);
 				final Model<ApplicationDashboardBean> baModel = MainFrame.getInstance()
@@ -161,8 +211,9 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 				return getButton();
 			}
 		});
-		
-		final TableColumn deleteColumn = tblBundleApps.getColumn(StringBundleApplicationsBundleApplicationsTableModel.DELETE_COLUMN_NAME);
+
+		final TableColumn deleteColumn = tblBundleApps
+			.getColumn(StringBundleApplicationsBundleApplicationsTableModel.DELETE_COLUMN_NAME);
 		deleteColumn.setCellRenderer(new TableCellButtonRenderer(null, null)
 		{
 			private static final long serialVersionUID = 1L;
@@ -186,28 +237,15 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 				return this;
 			}
 		});
-		
+
 		deleteColumn.setCellEditor(new TableCellButtonEditor(new JCheckBox())
 		{
 			private static final long serialVersionUID = 1L;
-			
-			@Override
-			protected void onClick()
-			{
-				try
-				{
-					super.onClick();
-				}
-				catch (IndexOutOfBoundsException e)
-				{
-					log.error(e.getLocalizedMessage(), e);
-				}
-			}
-			
+
 			@Override
 			public Object getCellEditorValue()
 			{
-				final BundleApplications selectedBundleApplication = (BundleApplications)this
+				final BundleApplication selectedBundleApplication = (BundleApplication)this
 					.getValue();
 				onDelete(selectedBundleApplication);
 
@@ -238,8 +276,21 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 				setClicked(true);
 				return getButton();
 			}
+
+			@Override
+			protected void onClick()
+			{
+				try
+				{
+					super.onClick();
+				}
+				catch (IndexOutOfBoundsException e)
+				{
+					log.error(e.getLocalizedMessage(), e);
+				}
+			}
 		});
-		
+
 		btnCreateBundleApp = new javax.swing.JButton();
 
 		lblHeaderOverview.setText("Overview of all bundle applications");
@@ -252,18 +303,6 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 		btnCreateBundleApp.addActionListener(e -> onCreateBundleApp(e));
 
 
-	}	
-
-	protected void reloadTableModel()
-	{
-		tableModel.getData().clear();
-
-		final List<BundleApplications> bundleApplications = SpringApplicationContext.getInstance()
-			.getBundleApplicationsService().findAll();
-		getModelObject().setBundleApplications(bundleApplications);
-		
-		tableModelList = null;
-		tableModel.addList(getTableModelList());
 	}
 
 	@Override
@@ -273,26 +312,25 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 
 		final javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
 		this.setLayout(layout);
-		layout.setHorizontalGroup(
-			layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(layout
-				.createSequentialGroup().addGap(40, 40, 40).addGroup(layout
-					.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-					.addComponent(lblHeaderOverview,
-						javax.swing.GroupLayout.PREFERRED_SIZE, 540,
-						javax.swing.GroupLayout.PREFERRED_SIZE)
-					.addGroup(layout
-						.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-						.addGroup(javax.swing.GroupLayout.Alignment.LEADING,
-							layout.createSequentialGroup()
-								.addComponent(lblBundleApp, javax.swing.GroupLayout.PREFERRED_SIZE,
-									540, javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-									javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(btnCreateBundleApp,
-									javax.swing.GroupLayout.PREFERRED_SIZE, 280,
-									javax.swing.GroupLayout.PREFERRED_SIZE))
-						.addComponent(srcBundleApps, javax.swing.GroupLayout.PREFERRED_SIZE, 1000,
-							javax.swing.GroupLayout.PREFERRED_SIZE)))
+		layout.setHorizontalGroup(layout
+			.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+			.addGroup(layout.createSequentialGroup().addGap(40, 40, 40).addGroup(layout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addComponent(lblHeaderOverview, javax.swing.GroupLayout.PREFERRED_SIZE, 540,
+					javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addGroup(layout
+					.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+					.addGroup(javax.swing.GroupLayout.Alignment.LEADING,
+						layout.createSequentialGroup()
+							.addComponent(lblBundleApp, javax.swing.GroupLayout.PREFERRED_SIZE, 540,
+								javax.swing.GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(btnCreateBundleApp,
+								javax.swing.GroupLayout.PREFERRED_SIZE, 280,
+								javax.swing.GroupLayout.PREFERRED_SIZE))
+					.addComponent(srcBundleApps, javax.swing.GroupLayout.PREFERRED_SIZE, 1000,
+						javax.swing.GroupLayout.PREFERRED_SIZE)))
 				.addContainerGap(40, Short.MAX_VALUE)));
 		layout
 			.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -310,26 +348,41 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 						.addComponent(btnCreateBundleApp))
 					.addContainerGap(40, Short.MAX_VALUE)));
 	}
-	
 
-	protected void onDelete(final BundleApplications selectedBundleApplication)
+
+	protected void reloadTableModel()
 	{
-		int dialogResult = JOptionPane.showConfirmDialog(null,
-			"This will delete this bundle application and is not recoverable?(cannot be undone)",
-			"Warning", JOptionPane.YES_NO_OPTION);
-		if (dialogResult == JOptionPane.YES_OPTION)
+		tableModel.getData().clear();
+
+		List<BundleApplication> bundleApplications;
+		try
 		{
-
-			SpringApplicationContext
-			.getInstance().getBundleApplicationsService().delete(selectedBundleApplication);				
-
-			final List<BundleApplications> bundleApplications = SpringApplicationContext.getInstance()
-				.getBundleApplicationsService().findAll();
-			MainFrame.getInstance().getModelObject().setBundleApplications(bundleApplications);
-			MainFrame.getInstance().replaceInternalFrame("Overview bundle apps", new MainDashboardPanel(
-				PropertyModel.<MainDashboardBean> of(MainFrame.getInstance(), "model.object")));
-
+			bundleApplications = UniRestService.findAllBundleApplications();
+			getModelObject().setBundleApplications(bundleApplications);
 		}
+		catch (UnirestException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+		catch (JsonParseException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+		catch (JsonMappingException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+		catch (JSONException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+		catch (IOException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+
+		tableModelList = null;
+		tableModel.addList(getTableModelList());
 	}
 
 }

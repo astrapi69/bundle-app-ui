@@ -1,15 +1,23 @@
 package de.alpharogroup.bundle.app.combobox.model;
 
+import java.io.IOException;
 import java.util.List;
 
-import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
-import de.alpharogroup.db.resource.bundles.entities.Languages;
-import de.alpharogroup.swing.combobox.model.AbstractComboBoxModel;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.mashape.unirest.http.exceptions.UnirestException;
 
-public class LanguagesComboBoxModel extends AbstractComboBoxModel<Languages>
+import de.alpharogroup.bundle.app.spring.UniRestService;
+import de.alpharogroup.collections.list.ListFactory;
+import de.alpharogroup.db.resource.bundles.domain.Language;
+import de.alpharogroup.swing.combobox.model.AbstractComboBoxModel;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+public class LanguagesComboBoxModel extends AbstractComboBoxModel<Language>
 {
-	private static final long serialVersionUID = 1L;
 	private static final LanguagesComboBoxModel COMBO_BOX_MODEL = new LanguagesComboBoxModel();
+	private static final long serialVersionUID = 1L;
 
 	public static final LanguagesComboBoxModel get()
 	{
@@ -20,7 +28,28 @@ public class LanguagesComboBoxModel extends AbstractComboBoxModel<Languages>
 	 * init block
 	 **/
 	{
-		List<Languages> languages = SpringApplicationContext.getInstance().getLanguagesService().findAll();		
+		List<Language> languages = ListFactory.newArrayList();
+
+		try
+		{
+			languages = UniRestService.findAllLanguages();
+		}
+		catch (UnirestException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+		catch (JsonParseException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+		catch (JsonMappingException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+		catch (IOException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
 		setComboList(languages);
 	}
 

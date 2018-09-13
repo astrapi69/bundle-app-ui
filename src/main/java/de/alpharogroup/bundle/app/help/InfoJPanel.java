@@ -40,57 +40,57 @@ import de.alpharogroup.bundle.app.Messages;
 public class InfoJPanel extends JPanel
 {
 
-	/** The Constant LABEL_COPYRIGHTHOLDER. */
-	private static final String LABEL_COPYRIGHTHOLDER = Messages
-		.getString("InfoJPanel.copyright.value"); //$NON-NLS-1$
-
-	/** The Constant LABEL_COPYRIGHT. */
-	private static final String LABEL_COPYRIGHT = Messages.getString("InfoJPanel.copyright.key"); //$NON-NLS-1$
-
-	/** The Constant LABEL_VERSION_NUMBER. */
-	private static final String LABEL_VERSION_NUMBER = Messages
-		.getString("InfoJPanel.version.value"); //$NON-NLS-1$
-
-	/** The Constant LABEL_VERSION. */
-	private static final String LABEL_VERSION = Messages.getString("InfoJPanel.version.key"); //$NON-NLS-1$
+	/** The Constant LABEL_APPLICATION_NAME. */
+	private static final String LABEL_APPLICATION_NAME = Messages
+		.getString("InfoJPanel.application.name.key"); //$NON-NLS-1$
 
 	/** The Constant LABEL_APPLICATION_NAME_VALUE. */
 	private static final String LABEL_APPLICATION_NAME_VALUE = Messages
 		.getString("InfoJPanel.application.name.value"); //$NON-NLS-1$
 
-	/** The Constant LABEL_APPLICATION_NAME. */
-	private static final String LABEL_APPLICATION_NAME = Messages
-		.getString("InfoJPanel.application.name.key"); //$NON-NLS-1$
+	/** The Constant LABEL_COPYRIGHT. */
+	private static final String LABEL_COPYRIGHT = Messages.getString("InfoJPanel.copyright.key"); //$NON-NLS-1$
 
-	/** The Constant WARNING_TEXT. */
-	private static final String WARNING_TEXT = Messages.getString("InfoJPanel.warning"); //$NON-NLS-1$
+	/** The Constant LABEL_COPYRIGHTHOLDER. */
+	private static final String LABEL_COPYRIGHTHOLDER = Messages
+		.getString("InfoJPanel.copyright.value"); //$NON-NLS-1$
+
+	/** The Constant LABEL_VERSION. */
+	private static final String LABEL_VERSION = Messages.getString("InfoJPanel.version.key"); //$NON-NLS-1$
+
+	/** The Constant LABEL_VERSION_NUMBER. */
+	private static final String LABEL_VERSION_NUMBER = Messages
+		.getString("InfoJPanel.version.value"); //$NON-NLS-1$
 
 	/** The generaded serialVersionUID. */
 	private static final long serialVersionUID = -5173953432663432688L;
 
+	/** The Constant WARNING_TEXT. */
+	private static final String WARNING_TEXT = Messages.getString("InfoJPanel.warning"); //$NON-NLS-1$
+
 	/** The application name. */
 	private JLabel applicationName;
-
-	/** The label application name. */
-	private JLabel labelApplicationName;
-
-	/** The version number. */
-	private JLabel versionNumber;
-
-	/** The labelversion number. */
-	private JLabel labelversionNumber;
 
 	/** The copyright. */
 	private JLabel copyright;
 
+	/** The jta warning. */
+	private JTextArea jtaWarning;
+
+	/** The label application name. */
+	private JLabel labelApplicationName;
+
 	/** The label copyright. */
 	private JLabel labelCopyright;
 
+	/** The labelversion number. */
+	private JLabel labelversionNumber;
+
+	/** The version number. */
+	private JLabel versionNumber;
+
 	/** The warning. */
 	private String warning;
-
-	/** The jta warning. */
-	private JTextArea jtaWarning;
 
 	/**
 	 * Instantiates a new {@link InfoJPanel}.

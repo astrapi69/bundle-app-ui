@@ -1,6 +1,9 @@
 package de.alpharogroup.bundle.app.panels.dashboard.mainapp;
 
 import java.awt.event.ActionEvent;
+import java.io.IOException;
+
+import com.mashape.unirest.http.exceptions.UnirestException;
 
 import de.alpharogroup.bundle.app.panels.creation.NewBundleApplicationPanel;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
@@ -42,7 +45,19 @@ public class MainDashboardPanel extends BaseCardLayoutPanel<MainDashboardBean>
 			@Override
 			protected void onSave(final ActionEvent e)
 			{
-				super.onSave(e);
+				try
+				{
+					super.onSave(e);
+				}
+				catch (UnirestException e1)
+				{
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				catch (IOException e1)
+				{
+					e1.printStackTrace();
+				}
 				MainDashboardPanel.this.onSaveBundleApplication(e);
 			}
 		};

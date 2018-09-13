@@ -107,8 +107,8 @@ public class NewBundleAppPanel extends BasePanel<WizardModelStateMachine<WizardM
 						GroupLayout.PREFERRED_SIZE))
 				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE,
 					Short.MAX_VALUE)
-				.addComponent(lblHeaderNewUser, GroupLayout.PREFERRED_SIZE, 34,
-					GroupLayout.PREFERRED_SIZE)
+				.addComponent(
+					lblHeaderNewUser, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
 				.addGap(18, 18, 18)
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 					.addComponent(lblUsername).addComponent(txtUsername, GroupLayout.PREFERRED_SIZE,

@@ -105,39 +105,32 @@ public class NewUserFormPanel extends javax.swing.JPanel
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
 		this.setLayout(layout);
-		layout
-			.setHorizontalGroup(
-				layout.createParallelGroup(
-					javax.swing.GroupLayout.Alignment.LEADING).addGroup(layout
-						.createSequentialGroup().addGap(59, 59, 59)
+		layout.setHorizontalGroup(
+			layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(layout.createSequentialGroup().addGap(59, 59, 59).addGroup(layout
+					.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+					.addComponent(lblHeaderNewUser, javax.swing.GroupLayout.DEFAULT_SIZE,
+						javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGroup(layout.createSequentialGroup()
 						.addGroup(layout
 							.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-							.addComponent(
-								lblHeaderNewUser,
-								javax.swing.GroupLayout.DEFAULT_SIZE,
+							.addComponent(lblRepeatPw, javax.swing.GroupLayout.DEFAULT_SIZE, 140,
+								Short.MAX_VALUE)
+							.addComponent(lblPw, javax.swing.GroupLayout.DEFAULT_SIZE,
 								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addGroup(layout.createSequentialGroup()
-								.addGroup(layout
-									.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING,
-										false)
-									.addComponent(lblRepeatPw, javax.swing.GroupLayout.DEFAULT_SIZE,
-										140, Short.MAX_VALUE)
-									.addComponent(lblPw, javax.swing.GroupLayout.DEFAULT_SIZE,
-										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(lblUsername, javax.swing.GroupLayout.DEFAULT_SIZE,
-										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-								.addGroup(layout
-									.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING,
-										false)
-									.addComponent(txtPw, javax.swing.GroupLayout.Alignment.LEADING,
-										javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
-									.addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE,
-										120, javax.swing.GroupLayout.PREFERRED_SIZE)
-									.addComponent(txtRepeatPw,
-										javax.swing.GroupLayout.Alignment.LEADING)
-									.addComponent(txtUsername))))
-						.addContainerGap(77, Short.MAX_VALUE)));
+							.addComponent(
+								lblUsername, javax.swing.GroupLayout.DEFAULT_SIZE,
+								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addGroup(layout
+							.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+							.addComponent(txtPw, javax.swing.GroupLayout.Alignment.LEADING,
+								javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+							.addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 120,
+								javax.swing.GroupLayout.PREFERRED_SIZE)
+							.addComponent(txtRepeatPw, javax.swing.GroupLayout.Alignment.LEADING)
+							.addComponent(txtUsername))))
+					.addContainerGap(77, Short.MAX_VALUE)));
 		layout
 			.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addGroup(layout.createSequentialGroup().addContainerGap()

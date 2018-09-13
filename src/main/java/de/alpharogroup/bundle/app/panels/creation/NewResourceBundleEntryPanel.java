@@ -6,7 +6,7 @@ import de.alpharogroup.bundle.app.actions.ReturnToDashboardAction;
 import de.alpharogroup.bundle.app.combobox.model.BundleNamesComboBoxModel;
 import de.alpharogroup.bundle.app.combobox.renderer.BundleNamesComboBoxRenderer;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
-import de.alpharogroup.db.resource.bundles.entities.BundleNames;
+import de.alpharogroup.db.resource.bundles.domain.BundleName;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BasePanel;
@@ -19,7 +19,7 @@ public class NewResourceBundleEntryPanel extends BasePanel<ApplicationDashboardB
 	private javax.swing.JButton btnCreate;
 	private javax.swing.JButton btnSave;
 	private javax.swing.JButton btnToDashboard;
-	private javax.swing.JComboBox<BundleNames> cmbBundle;
+	private javax.swing.JComboBox<BundleName> cmbBundle;
 	private javax.swing.JLabel lblBundle;
 	private javax.swing.JLabel lblHeaderNewBundleEntry;
 	private javax.swing.JLabel lblKey;
@@ -85,18 +85,18 @@ public class NewResourceBundleEntryPanel extends BasePanel<ApplicationDashboardB
 		final javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
 		this.setLayout(layout);
 		layout.setHorizontalGroup(
-			layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(layout
-				.createSequentialGroup().addGap(40, 40,
-					40)
-				.addGroup(
-					layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+			layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(layout.createSequentialGroup().addGap(40, 40, 40)
+					.addGroup(layout
+						.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
 						.addGroup(layout.createSequentialGroup().addGroup(layout
 							.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
 							.addComponent(lblValue, javax.swing.GroupLayout.DEFAULT_SIZE,
 								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 							.addComponent(lblBundle, javax.swing.GroupLayout.Alignment.LEADING,
 								javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-							.addComponent(lblKey, javax.swing.GroupLayout.Alignment.LEADING,
+							.addComponent(
+								lblKey, javax.swing.GroupLayout.Alignment.LEADING,
 								javax.swing.GroupLayout.DEFAULT_SIZE,
 								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 							.addGap(18, 18, 18)
@@ -107,12 +107,13 @@ public class NewResourceBundleEntryPanel extends BasePanel<ApplicationDashboardB
 									.addComponent(cmbBundle, javax.swing.GroupLayout.PREFERRED_SIZE,
 										359, javax.swing.GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(
-										javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-										26, Short.MAX_VALUE)
+										javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26,
+										Short.MAX_VALUE)
 									.addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE,
 										177, javax.swing.GroupLayout.PREFERRED_SIZE))
 								.addComponent(txtKey).addComponent(txtValue)))
-						.addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 175,
+						.addComponent(
+							btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 175,
 							javax.swing.GroupLayout.PREFERRED_SIZE)
 						.addGroup(javax.swing.GroupLayout.Alignment.LEADING,
 							layout.createSequentialGroup()
@@ -124,7 +125,7 @@ public class NewResourceBundleEntryPanel extends BasePanel<ApplicationDashboardB
 								.addComponent(btnToDashboard,
 									javax.swing.GroupLayout.PREFERRED_SIZE, 220,
 									javax.swing.GroupLayout.PREFERRED_SIZE)))
-				.addContainerGap(40, Short.MAX_VALUE)));
+					.addContainerGap(40, Short.MAX_VALUE)));
 		layout.setVerticalGroup(layout
 			.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 			.addGroup(layout.createSequentialGroup().addContainerGap()

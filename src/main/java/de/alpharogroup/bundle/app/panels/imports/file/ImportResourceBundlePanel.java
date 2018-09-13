@@ -1,24 +1,32 @@
 package de.alpharogroup.bundle.app.panels.imports.file;
 
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.util.Locale;
+import java.util.Properties;
 import java.util.concurrent.CompletableFuture;
+
+import org.apache.http.client.ClientProtocolException;
 
 import com.google.common.eventbus.Subscribe;
 
 import de.alpharogroup.bundle.app.MainApplication;
 import de.alpharogroup.bundle.app.actions.ReturnToDashboardAction;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
-import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
-import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
+import de.alpharogroup.bundle.app.spring.HttpClientRestService;
+import de.alpharogroup.collections.pairs.Quattro;
+import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
+import de.alpharogroup.db.resource.bundles.domain.BundleName;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.resourcebundle.locale.LocaleResolver;
 import de.alpharogroup.swing.base.BasePanel;
 import de.alpharogroup.swing.table.model.properties.StringKeyValueTableModel;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 @Getter
+@Slf4j
 public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBean>
 {
 
@@ -28,13 +36,13 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 	private javax.swing.JButton btnCancelUp;
 	private javax.swing.JButton btnImport;
 	private javax.swing.JButton btnImportUp;
-	private javax.swing.JLabel lblHeaderOverview;
-	private javax.swing.JScrollPane srcBundles;
-	private javax.swing.JTable tblBundles;
 	private javax.swing.JButton btnToDashboard;
+	private javax.swing.JLabel lblHeaderOverview;
+	private ReturnToDashboardAction returnToDashboardAction;
+	private javax.swing.JScrollPane srcBundles;
 
 	private StringKeyValueTableModel tableModel;
-	private ReturnToDashboardAction returnToDashboardAction;
+	private javax.swing.JTable tblBundles;
 
 	ImportResourceBundlePanel()
 	{
@@ -66,9 +74,26 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 				.resolveBundlename(getModelObject().getResourceBundleToImport());
 			final Locale locale = LocaleResolver
 				.resolveLocale(getModelObject().getResourceBundleToImport());
-			BundleApplications bundleApplication = getModelObject().getBundleApplication();
-			SpringApplicationContext.getInstance().getResourcebundlesService().updateProperties(
-				bundleApplication, getModelObject().getImportedProperties(), baseName, locale);
+			BundleApplication bundleApplication = getModelObject().getBundleApplication();
+			Quattro<Properties, String, String, Locale> quattro = Quattro
+				.<Properties, String, String, Locale> builder()
+				.topLeft(getModelObject().getImportedProperties())
+				.topRight(bundleApplication.getName()).bottomLeft(baseName).bottomRight(locale)
+				.build();
+
+			try
+			{
+				BundleName bundleName = HttpClientRestService.updateProperties(quattro);
+				log.debug(bundleName.getBaseName().getName());
+			}
+			catch (ClientProtocolException e1)
+			{
+				log.error(e1.getLocalizedMessage(), e1);
+			}
+			catch (IOException e1)
+			{
+				log.error(e1.getLocalizedMessage(), e1);
+			}
 		});
 		returnToDashboardAction.now();
 	}
@@ -77,9 +102,9 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 	protected void onInitializeComponents()
 	{
 		super.onInitializeComponents();
-		
+
 		returnToDashboardAction = ReturnToDashboardAction.of();
-		
+
 
 		lblHeaderOverview = new javax.swing.JLabel();
 		srcBundles = new javax.swing.JScrollPane();
@@ -119,10 +144,10 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 
 		final javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
 		this.setLayout(layout);
-		layout.setHorizontalGroup(
-			layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(layout.createSequentialGroup().addGap(40, 40, 40)
-					.addGroup(layout
+		layout
+			.setHorizontalGroup(
+				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+					.addGroup(layout.createSequentialGroup().addGap(40, 40, 40).addGroup(layout
 						.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
 						.addGroup(layout.createSequentialGroup()
 							.addComponent(lblHeaderOverview, javax.swing.GroupLayout.PREFERRED_SIZE,
@@ -131,7 +156,8 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 							.addComponent(btnToDashboard, javax.swing.GroupLayout.PREFERRED_SIZE,
 								220, javax.swing.GroupLayout.PREFERRED_SIZE))
-						.addComponent(srcBundles, javax.swing.GroupLayout.PREFERRED_SIZE, 1000,
+						.addComponent(
+							srcBundles, javax.swing.GroupLayout.PREFERRED_SIZE, 1000,
 							javax.swing.GroupLayout.PREFERRED_SIZE)
 						.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout
 							.createSequentialGroup()
@@ -140,16 +166,16 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 							.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
 							.addComponent(btnImportUp, javax.swing.GroupLayout.PREFERRED_SIZE, 280,
 								javax.swing.GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(44, Short.MAX_VALUE))
-				.addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
-					layout.createSequentialGroup()
-						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 280,
-							javax.swing.GroupLayout.PREFERRED_SIZE)
-						.addGap(18, 18, 18)
-						.addComponent(btnImport, javax.swing.GroupLayout.PREFERRED_SIZE, 280,
-							javax.swing.GroupLayout.PREFERRED_SIZE)
-						.addGap(43, 43, 43)));
+						.addContainerGap(44, Short.MAX_VALUE))
+					.addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+						layout.createSequentialGroup()
+							.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 280,
+								javax.swing.GroupLayout.PREFERRED_SIZE)
+							.addGap(18, 18, 18)
+							.addComponent(btnImport, javax.swing.GroupLayout.PREFERRED_SIZE, 280,
+								javax.swing.GroupLayout.PREFERRED_SIZE)
+							.addGap(43, 43, 43)));
 		layout
 			.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addGroup(layout.createSequentialGroup().addGap(40, 40, 40)

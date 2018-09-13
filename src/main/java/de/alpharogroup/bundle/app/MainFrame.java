@@ -27,6 +27,7 @@ package de.alpharogroup.bundle.app;
 import java.awt.Component;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.JDesktopPane;
@@ -34,14 +35,18 @@ import javax.swing.JInternalFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JToolBar;
 
-import org.springframework.context.ApplicationContext;
+import org.json.JSONException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.mashape.unirest.http.exceptions.UnirestException;
 
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.bundle.app.panels.dashboard.mainapp.MainDashboardBean;
 import de.alpharogroup.bundle.app.panels.dashboard.mainapp.MainDashboardPanel;
-import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
-import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
-import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
+import de.alpharogroup.bundle.app.spring.UniRestService;
+import de.alpharogroup.collections.list.ListFactory;
+import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import de.alpharogroup.lang.ClassExtensions;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.PropertyModel;
@@ -62,13 +67,13 @@ import lombok.extern.slf4j.Slf4j;
 public class MainFrame extends BaseFrame<MainDashboardBean>
 {
 
-	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 1L;
+	/** The instance. */
+	private static MainFrame instance = new MainFrame();
 
 	public static final String KEY_DB_APPLICATION_CONTEXT = "db-application-context";
 
-	/** The instance. */
-	private static MainFrame instance = new MainFrame();
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Gets the single instance of MainFrame.
@@ -90,26 +95,26 @@ public class MainFrame extends BaseFrame<MainDashboardBean>
 		return get();
 	}
 
-	/** The desktop pane. */
-	private JDesktopPane desktopPane;
-
-	/** The menubar. */
-	private JMenuBar menubar;
-
-	/** The toolbar. */
-	private JToolBar toolbar;
+	/** The current look and feels. */
+	@Getter
+	@Setter
+	private LookAndFeels currentLookAndFeels;
 
 	/** The current visible internal frame. */
 	@Getter
 	@Setter
 	private JInternalFrame currentVisibleInternalFrame;
 
-	/** The current look and feels. */
-	@Getter
-	@Setter
-	private LookAndFeels currentLookAndFeels;
+	/** The desktop pane. */
+	private JDesktopPane desktopPane;
+
+	/** The menubar. */
+	private JMenuBar menubar;
 
 	private Model<ApplicationDashboardBean> selectedBundleApplicationPropertyModel;
+
+	/** The toolbar. */
+	private JToolBar toolbar;
 
 	/**
 	 * Instantiates a new main frame.
@@ -139,6 +144,41 @@ public class MainFrame extends BaseFrame<MainDashboardBean>
 		}
 	}
 
+	private void initDb()
+	{
+		List<BundleApplication> allBundleApplications = ListFactory.newArrayList();
+		try
+		{
+			allBundleApplications = UniRestService.findAllBundleApplications();
+		}
+		catch (UnirestException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+		catch (JsonParseException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+		catch (JsonMappingException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+		catch (JSONException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+		catch (IOException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+		final Model<MainDashboardBean> model = BaseModel.<MainDashboardBean> of(
+			MainDashboardBean.builder().bundleApplications(allBundleApplications).build());
+		setModel(model);
+		final MainDashboardPanel mainDashboardPanel = new MainDashboardPanel(
+			PropertyModel.<MainDashboardBean> of(this, "model.object"));
+		replaceInternalFrame("Main dashboard", mainDashboardPanel);
+	}
+
 	@Override
 	protected void onInitializeComponents()
 	{
@@ -163,21 +203,7 @@ public class MainFrame extends BaseFrame<MainDashboardBean>
 			log.error("Icon file could not be readed.", e);
 		}
 
-		final ApplicationContext applicationContext = SpringApplicationContext.getInstance()
-			.getApplicationContext();
-		
-
-		SpringApplicationContext.getInstance().initDb();
-
-		final BundleApplicationsService bundleApplicationsService = (BundleApplicationsService)applicationContext
-			.getBean("bundleApplicationsService");
-
-		final Model<MainDashboardBean> model = BaseModel.<MainDashboardBean> of(MainDashboardBean
-			.builder().bundleApplications(bundleApplicationsService.findAll()).build());
-		setModel(model);
-		final MainDashboardPanel mainDashboardPanel = new MainDashboardPanel(
-			PropertyModel.<MainDashboardBean> of(this, "model.object"));
-		replaceInternalFrame("Main dashboard", mainDashboardPanel);
+		initDb();
 	}
 
 	/**
@@ -203,12 +229,11 @@ public class MainFrame extends BaseFrame<MainDashboardBean>
 		setCurrentVisibleInternalFrame(internalFrame);
 	}
 
-	public void setSelectedBundleApplication(final BundleApplications bundleApplication)
+	public void setSelectedBundleApplication(final BundleApplication bundleApplication)
 	{
 		initApllicationDashboardBean();
-		final BundleApplications bundleApplications = SpringApplicationContext.getInstance()
-			.getBundleApplicationsService().get(bundleApplication.getId());
-		getModelObject().getSelectedBundleApplication().setBundleApplication(bundleApplications);
+
+		getModelObject().getSelectedBundleApplication().setBundleApplication(bundleApplication);
 	}
 
 }

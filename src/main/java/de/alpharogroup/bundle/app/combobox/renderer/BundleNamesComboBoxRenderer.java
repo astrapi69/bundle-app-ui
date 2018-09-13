@@ -6,9 +6,9 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
-import de.alpharogroup.db.resource.bundles.entities.BundleNames;
+import de.alpharogroup.db.resource.bundles.domain.BundleName;
 
-public class BundleNamesComboBoxRenderer extends JLabel implements ListCellRenderer<BundleNames>
+public class BundleNamesComboBoxRenderer extends JLabel implements ListCellRenderer<BundleName>
 {
 	private static final long serialVersionUID = 1L;
 
@@ -20,8 +20,8 @@ public class BundleNamesComboBoxRenderer extends JLabel implements ListCellRende
 	}
 
 	@Override
-	public Component getListCellRendererComponent(final JList<? extends BundleNames> list,
-		final BundleNames value, final int index, final boolean isSelected,
+	public Component getListCellRendererComponent(final JList<? extends BundleName> list,
+		final BundleName value, final int index, final boolean isSelected,
 		final boolean cellHasFocus)
 	{
 

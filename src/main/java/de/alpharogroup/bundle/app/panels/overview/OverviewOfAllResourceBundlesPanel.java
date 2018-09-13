@@ -2,6 +2,7 @@ package de.alpharogroup.bundle.app.panels.overview;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,23 +13,30 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.mashape.unirest.http.exceptions.UnirestException;
+
 import de.alpharogroup.bundle.app.MainFrame;
 import de.alpharogroup.bundle.app.actions.ReturnToDashboardAction;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
-import de.alpharogroup.bundle.app.spring.SpringApplicationContext;
+import de.alpharogroup.bundle.app.spring.UniRestService;
 import de.alpharogroup.bundle.app.table.model.StringBundleNamesTableModel;
 import de.alpharogroup.collections.CollectionExtensions;
 import de.alpharogroup.collections.pairs.Quattro;
+import de.alpharogroup.collections.set.SetFactory;
 import de.alpharogroup.comparators.NullCheckComparator;
-import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
-import de.alpharogroup.db.resource.bundles.entities.BundleNames;
+import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
+import de.alpharogroup.db.resource.bundles.domain.BundleName;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BasePanel;
 import de.alpharogroup.swing.renderer.TableCellButtonRenderer;
 import de.alpharogroup.swing.table.editor.TableCellButtonEditor;
 import de.alpharogroup.swing.x.GenericJXTable;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDashboardBean>
 {
 	private static final long serialVersionUID = 1L;
@@ -37,10 +45,10 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 	private javax.swing.JLabel lblBundleName;
 	private javax.swing.JLabel lblHeaderOverview;
 	private javax.swing.JScrollPane srcBundles;
-	private GenericJXTable<Quattro<String, String, BundleNames, BundleNames>> tblBundles;
 	private StringBundleNamesTableModel tableModel;
+	private List<Quattro<String, String, BundleName, BundleName>> tableModelList;
 
-	private List<Quattro<String, String, BundleNames, BundleNames>> tableModelList;
+	private GenericJXTable<Quattro<String, String, BundleName, BundleName>> tblBundles;
 
 	public OverviewOfAllResourceBundlesPanel()
 	{
@@ -52,7 +60,7 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 		super(model);
 	}
 
-	private List<Quattro<String, String, BundleNames, BundleNames>> getTableModelList()
+	private List<Quattro<String, String, BundleName, BundleName>> getTableModelList()
 	{
 		if (tableModelList == null)
 		{
@@ -64,6 +72,34 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 	protected void onCreateBundle(final ActionEvent e)
 	{
 	}
+
+	protected void onDelete(final BundleName selectedBundleName)
+	{
+		int dialogResult = JOptionPane.showConfirmDialog(null,
+			"This will delete this bundle name and is not recoverable?(cannot be undone)",
+			"Warning", JOptionPane.YES_NO_OPTION);
+		if (dialogResult == JOptionPane.YES_OPTION)
+		{
+			try
+			{
+				UniRestService.deleteBundleName(selectedBundleName);
+			}
+			catch (UnirestException e)
+			{
+				log.error(e.getLocalizedMessage(), e);
+			}
+
+			MainFrame.getInstance().getModelObject().getSelectedBundleApplication().getBundleNames()
+				.remove(selectedBundleName);
+			MainFrame.getInstance().getModelObject().getSelectedBundleApplication()
+				.setSelectedBundleName(null);
+
+			MainFrame.getInstance().replaceInternalFrame(
+				"Dashboard of " + getModelObject().getBundleApplication().getName() + " bundle app",
+				new OverviewOfAllResourceBundlesPanel(getModel()));
+		}
+	}
+
 
 	@Override
 	protected void onInitializeComponents()
@@ -86,7 +122,8 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 
 		tblBundles = new GenericJXTable<>(tableModel);
 
-		final TableColumn chooseColumn = tblBundles.getColumn(StringBundleNamesTableModel.CHOOSE_COLUMN_NAME);
+		final TableColumn chooseColumn = tblBundles
+			.getColumn(StringBundleNamesTableModel.CHOOSE_COLUMN_NAME);
 
 		chooseColumn.setCellRenderer(new TableCellButtonRenderer(null, null)
 		{
@@ -118,7 +155,7 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 			@Override
 			public Object getCellEditorValue()
 			{
-				final BundleNames selectedBundleName = (BundleNames)this.getValue();
+				final BundleName selectedBundleName = (BundleName)this.getValue();
 
 				final Model<ApplicationDashboardBean> baModel = MainFrame.getInstance()
 					.getSelectedBundleApplicationPropertyModel();
@@ -162,7 +199,8 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 			}
 		});
 
-		final TableColumn deleteColumn = tblBundles.getColumn(StringBundleNamesTableModel.DELETE_COLUMN_NAME);
+		final TableColumn deleteColumn = tblBundles
+			.getColumn(StringBundleNamesTableModel.DELETE_COLUMN_NAME);
 
 		deleteColumn.setCellRenderer(new TableCellButtonRenderer(null, null)
 		{
@@ -194,7 +232,7 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 			@Override
 			public Object getCellEditorValue()
 			{
-				final BundleNames selectedBundleName = (BundleNames)this.getValue();
+				final BundleName selectedBundleName = (BundleName)this.getValue();
 				onDelete(selectedBundleName);
 				final String text = StringBundleNamesTableModel.DELETE_COLUMN_NAME;
 				return text;
@@ -232,59 +270,6 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 		btnCreateBundle.setText("Create new resource bundle");
 	}
 
-
-	protected void onDelete(final BundleNames selectedBundleName)
-	{
-		int dialogResult = JOptionPane.showConfirmDialog(null,
-			"This will delete this bundle name and is not recoverable?(cannot be undone)",
-			"Warning", JOptionPane.YES_NO_OPTION);
-		if (dialogResult == JOptionPane.YES_OPTION)
-		{
-			SpringApplicationContext.getInstance().getResourcebundlesService()
-				.delete(selectedBundleName);
-			MainFrame.getInstance().getModelObject().getSelectedBundleApplication().getBundleNames()
-				.remove(selectedBundleName);
-			MainFrame.getInstance().getModelObject().getSelectedBundleApplication()
-				.setSelectedBundleName(null);
-
-			MainFrame.getInstance().replaceInternalFrame(
-				"Dashboard of "
-					+ getModelObject().getBundleApplication().getName() + " bundle app",
-				new OverviewOfAllResourceBundlesPanel(getModel()));
-		}
-	}
-
-
-	protected void reloadTableModel()
-	{
-		tableModel.getData().clear();
-		reloadTableModelList();
-		tableModel.addList(getTableModelList());
-	}
-
-	protected void reloadTableModelList()
-	{
-		tableModelList = new ArrayList<>();
-
-		BundleApplications bundleApplication = getModelObject().getBundleApplication();
-		getModelObject().setBundleNames(SpringApplicationContext.getInstance()
-			.getBundleApplicationsService().find(bundleApplication));
-		final Set<BundleNames> set = getModelObject().getBundleNames();
-		if (CollectionExtensions.isNotEmpty(set))
-		{
-			for (final BundleNames bundleNames : set)
-			{
-				tableModelList.add(Quattro.<String, String, BundleNames, BundleNames> builder()
-					.topLeft(bundleNames.getBaseName().getName())
-					.topRight(bundleNames.getLocale().getLocale()).bottomLeft(bundleNames)
-					.bottomRight(bundleNames).build());
-			}
-		}
-		Collections.sort(tableModelList,
-			NullCheckComparator.<Quattro<String, String, BundleNames, BundleNames>> of(
-				(o1, o2) -> o1.getTopLeft().compareTo(o2.getTopLeft())));
-
-	}
 
 	@Override
 	protected void onInitializeLayout()
@@ -333,6 +318,56 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 					.addContainerGap(54, Short.MAX_VALUE)));
 
 
+	}
+
+	protected void reloadTableModel()
+	{
+		tableModel.getData().clear();
+		reloadTableModelList();
+		tableModel.addList(getTableModelList());
+	}
+
+	protected void reloadTableModelList()
+	{
+		tableModelList = new ArrayList<>();
+
+		BundleApplication bundleApplication = getModelObject().getBundleApplication();
+		List<BundleName> findBundleNames;
+		try
+		{
+			findBundleNames = UniRestService.findBundleNames(bundleApplication);
+			getModelObject().setBundleNames(SetFactory.newHashSet(findBundleNames));
+			final Set<BundleName> set = getModelObject().getBundleNames();
+			if (CollectionExtensions.isNotEmpty(set))
+			{
+				for (final BundleName bundleNames : set)
+				{
+					tableModelList.add(Quattro.<String, String, BundleName, BundleName> builder()
+						.topLeft(bundleNames.getBaseName().getName())
+						.topRight(bundleNames.getLocale().getLocale()).bottomLeft(bundleNames)
+						.bottomRight(bundleNames).build());
+				}
+			}
+			Collections.sort(tableModelList,
+				NullCheckComparator.<Quattro<String, String, BundleName, BundleName>> of(
+					(o1, o2) -> o1.getTopLeft().compareTo(o2.getTopLeft())));
+		}
+		catch (UnirestException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+		catch (JsonParseException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+		catch (JsonMappingException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+		catch (IOException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
 	}
 
 }
