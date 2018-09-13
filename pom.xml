@@ -44,14 +44,14 @@
 		<tomcat-dbcp.version>${tomcat.version}</tomcat-dbcp.version>
 		<tomcat-jdbc.version>${tomcat.version}</tomcat-jdbc.version>
 		<!-- RESOURCE-BUNDLES-DATA versions -->
-		<resource-bundles-data.version>5.4.0-SNAPSHOT</resource-bundles-data.version>
+		<resource-bundles-data.version>5.4</resource-bundles-data.version>
 		<resource-bundles-business.version>${resource-bundles-data.version}</resource-bundles-business.version>
 		<resource-bundles-entities.version>${resource-bundles-data.version}</resource-bundles-entities.version>
 		<resource-bundles-domain.version>${resource-bundles-data.version}</resource-bundles-domain.version>
 		<resource-bundles-domain-model.version>${resource-bundles-data.version}</resource-bundles-domain-model.version>
 		<resource-bundles-rest-api.version>${resource-bundles-data.version}</resource-bundles-rest-api.version>
 		<!-- PERSISTENCE-API versions -->
-		<persistence-api.version>6.3</persistence-api.version>
+		<persistence-api.version>6.5</persistence-api.version>
 		<data-initialization.version>${persistence-api.version}</data-initialization.version>
 		<!-- PROJECT RELATED PROPERTIES -->
 		<full-app-name>bundle-app-ui</full-app-name>
