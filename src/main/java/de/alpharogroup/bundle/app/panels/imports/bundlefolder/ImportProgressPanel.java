@@ -26,7 +26,7 @@ import javax.swing.table.TableColumn;
 
 import de.alpharogroup.bundle.app.MainApplication;
 import de.alpharogroup.bundle.app.panels.imports.ext.ConvertExtensions;
-import de.alpharogroup.bundle.app.radio.TableCellCheckboxEditor;
+import de.alpharogroup.swing.table.editor.TableCellCheckboxEditor;
 import de.alpharogroup.bundle.app.table.model.FileLocaleBooleanTableModel;
 import de.alpharogroup.collections.pairs.KeyValuePair;
 import de.alpharogroup.collections.pairs.Triple;
