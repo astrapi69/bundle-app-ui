@@ -83,25 +83,6 @@ public class UniRestService
 		});
 	}
 
-	public static BundleName getOrCreateBundleName(String bundleappname, String baseName,
-		String locale) throws UnirestException
-	{
-		String url = REST_RESOURCEBUNDLE_FULL_PATH + "get/or/create/bundlename/" + bundleappname
-			+ "/" + baseName + "/" + locale;
-		HttpResponse<BundleName> response = Unirest.get(url).asObject(BundleName.class);
-		BundleName body = response.getBody();
-		return body;
-	}
-
-	public static BundleApplication getBundleApplication(String name) throws UnirestException
-	{
-		String url = REST_RESOURCEBUNDLE_FULL_PATH + "get/r/app/" + name;
-		HttpResponse<BundleApplication> response = Unirest.get(url)
-			.asObject(BundleApplication.class);
-		BundleApplication body = response.getBody();
-		return body;
-	}
-
 	public static List<BundleApplication> findAllBundleApplications() throws UnirestException,
 		JsonParseException, JsonMappingException, JSONException, IOException
 	{
@@ -168,26 +149,6 @@ public class UniRestService
 			Resourcebundle.class);
 		return list;
 	}
-
-	public static BundleApplication newBundleApplication(BundleApplication bundleApplication)
-		throws UnirestException
-	{
-		String url = REST_BUNDLE_APP_FULL_PATH;
-		HttpResponse<BundleApplication> response = Unirest.post(url).body(bundleApplication)
-			.asObject(BundleApplication.class);
-		BundleApplication body = response.getBody();
-		return body;
-	}
-
-	// public static LanguageLocale newLanguageLocale(String localeCode) throws UnirestException
-	// {
-	// String url = REST_LANGUAGE_LOCALE_FULL_PATH;
-	// LanguageLocale languageLocale = LanguageLocale.builder().locale(localeCode).build();
-	// HttpResponse<LanguageLocale> response = Unirest.post(url).body(languageLocale)
-	// .asObject(LanguageLocale.class);
-	// LanguageLocale body = response.getBody();
-	// return body;
-	// }
 
 	public static void deleteBundleApplication(BundleApplication bundleApplication)
 		throws UnirestException

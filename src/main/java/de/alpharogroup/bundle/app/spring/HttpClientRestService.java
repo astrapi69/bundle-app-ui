@@ -8,7 +8,6 @@ import java.util.Properties;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -16,6 +15,9 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 import de.alpharogroup.collections.pairs.Quattro;
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
@@ -50,6 +52,7 @@ public class HttpClientRestService
 	public static final String REST_BUNDLE_NAME_FULL_PATH = REST_HOST_FULL_PATH
 		+ REST_BUNDLE_NAME_MAIN_PATH;
 
+
 	public static void update(BundleApplication bundleApplication) throws IOException
 	{
 		String url = REST_BUNDLE_APP_FULL_PATH + "merge/";
@@ -62,6 +65,37 @@ public class HttpClientRestService
 
 		client.execute(post);
 	}
+
+	public static BundleApplication newBundleApplication(BundleApplication bundleApplication)
+		throws ClientProtocolException, IOException
+	{
+		String url = REST_BUNDLE_APP_FULL_PATH;
+		HttpClient client = HttpClientBuilder.create().build();
+		HttpPost post = new HttpPost(url);
+		String jsonString = ObjectToJsonExtensions.toJson(bundleApplication);
+		StringEntity input = new StringEntity(jsonString);
+		input.setContentType("application/json");
+		post.setEntity(input);
+
+		HttpResponse response = client.execute(post);
+		BundleApplication object = readEntity(response, BundleApplication.class);
+		return object;
+	}
+
+	public static<T> T readEntity(HttpResponse response, final Class<T> clazz)
+		throws IOException, JsonParseException, JsonMappingException
+	{
+		BufferedReader rd = new BufferedReader(
+			new InputStreamReader(response.getEntity().getContent()));
+		String json = IOUtils.toString(rd);
+		T object = null;
+		if(StringUtils.isNotEmpty(json)) 
+		{
+			object = JsonToObjectExtensions.toObject(json, clazz);
+		} 
+		return object;
+	}
+
 
 	public static BundleName updateProperties(Quattro<Properties, String, String, Locale> quattro)
 		throws ClientProtocolException, IOException
@@ -77,11 +111,8 @@ public class HttpClientRestService
 		post.setEntity(input);
 
 		HttpResponse response = client.execute(post);
-		BufferedReader rd = new BufferedReader(
-			new InputStreamReader(response.getEntity().getContent()));
-		String json = IOUtils.toString(rd);
-		BundleName actual = JsonToObjectExtensions.toObject(json, BundleName.class);
-		return actual;
+		BundleName object = readEntity(response, BundleName.class);
+		return object;
 	}
 
 	public static LanguageLocale newLanguageLocale(String localeCode)
@@ -97,11 +128,8 @@ public class HttpClientRestService
 		post.setEntity(input);
 
 		HttpResponse response = client.execute(post);
-		BufferedReader rd = new BufferedReader(
-			new InputStreamReader(response.getEntity().getContent()));
-		String json = IOUtils.toString(rd);
-		LanguageLocale actual = JsonToObjectExtensions.toObject(json, LanguageLocale.class);
-		return actual;
+		LanguageLocale object = readEntity(response, LanguageLocale.class);
+		return object;
 	}
 
 	public static LanguageLocale find(String localeCode) throws ClientProtocolException, IOException
@@ -111,26 +139,35 @@ public class HttpClientRestService
 		HttpClient client = HttpClientBuilder.create().build();
 		HttpGet get = new HttpGet(url);
 
-
 		HttpResponse response = client.execute(get);
-		HttpEntity entity = response.getEntity();
-		BufferedReader rd = new BufferedReader(
-			new InputStreamReader(entity.getContent()));
-
-		StringBuffer result = new StringBuffer();
-		String line = "";
-		while ((line = rd.readLine()) != null)
-		{
-			result.append(line);
-		}
-		String ll = result.toString();
-		LanguageLocale actual = null;
-		if (StringUtils.isNotEmpty(ll))
-		{
-			actual = JsonToObjectExtensions.toObject(result.toString(), LanguageLocale.class);
-		}
-		return actual;
+		LanguageLocale object = readEntity(response, LanguageLocale.class);
+		return object;	
 	}
 
 
+	public static BundleApplication findBundleApplication(String name) throws IOException
+	{
+		String url = REST_BUNDLE_APP_FULL_PATH + "find/by/name/"
+			+ name;
+		HttpClient client = HttpClientBuilder.create().build();
+		HttpGet get = new HttpGet(url);
+
+		HttpResponse response = client.execute(get);
+		BundleApplication object = readEntity(response, BundleApplication.class);
+		return object;
+	}	
+	
+
+	public static BundleName getOrCreateBundleName(String bundleappname, String baseName,
+		String locale) throws ClientProtocolException, IOException
+	{
+		String url = REST_RESOURCEBUNDLE_FULL_PATH + "get/or/create/bundlename/" + bundleappname
+			+ "/" + baseName + "/" + locale;
+		HttpClient client = HttpClientBuilder.create().build();
+		HttpGet get = new HttpGet(url);
+
+		HttpResponse response = client.execute(get);
+		BundleName object = readEntity(response, BundleName.class);
+		return object;		
+	}
 }

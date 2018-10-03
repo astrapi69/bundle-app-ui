@@ -1,16 +1,17 @@
 package de.alpharogroup.bundle.app.panels.creation;
 
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 
 import javax.swing.JComboBox;
 
-import com.mashape.unirest.http.exceptions.UnirestException;
+import org.apache.http.client.ClientProtocolException;
 
 import de.alpharogroup.bundle.app.actions.ReturnToDashboardAction;
 import de.alpharogroup.bundle.app.combobox.model.LanguageLocalesComboBoxModel;
 import de.alpharogroup.bundle.app.combobox.renderer.LanguageLocalesComboBoxRenderer;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
-import de.alpharogroup.bundle.app.spring.UniRestService;
+import de.alpharogroup.bundle.app.spring.HttpClientRestService;
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
 import de.alpharogroup.model.BaseModel;
@@ -160,9 +161,14 @@ public class NewBundleNamePanel extends BasePanel<ApplicationDashboardBean>
 		}
 		try
 		{
-			UniRestService.getOrCreateBundleName(bundleApplication.getName(), baseName, locale);
+			HttpClientRestService.getOrCreateBundleName(bundleApplication.getName(), baseName, locale);
 		}
-		catch (UnirestException e1)
+		catch (ClientProtocolException e1)
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		catch (IOException e1)
 		{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
