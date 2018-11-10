@@ -5,21 +5,25 @@
 
 	<parent>
 		<groupId>de.alpharogroup</groupId>
-		<artifactId>mvn-ui-parent</artifactId>
-		<version>1.19</version>
-		<relativePath></relativePath>
+		<artifactId>mvn-spring-boot-swing-parent</artifactId>
+		<version>2.1</version>
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
 	<artifactId>bundle-app-ui</artifactId>
 	<version>1.3</version>
 
 	<properties>
-		<!-- UI properties -->
-		<silly-collections.version>4.33</silly-collections.version>
+		<!-- SWING-COMPONENTS version -->
+		<swing-components.version>4.31</swing-components.version>
+		<!-- JCOMMONS-LANG version -->
+		<jcommons-lang.version>5</jcommons-lang.version>
 		<!-- MIGLAYOUT-SWING version -->
 		<miglayout-swing.version>5.0</miglayout-swing.version>
 		<!-- GUAVA version -->
-		<guava.version>23.0</guava.version>
+		<guava.version>26.0-jre</guava.version>
+		<!-- UI properties -->
+		<silly-collections.version>4.35</silly-collections.version>
 		<!-- GENERIC-DESIGN-PATTERN version -->
 		<design-patterns.version>4.12.0</design-patterns.version>
 		<observer.version>${design-patterns.version}</observer.version>
@@ -28,7 +32,7 @@
 		<resourcebundle-core.version>3</resourcebundle-core.version>
 		<resourcebundle-inspector.version>${resourcebundle-core.version}</resourcebundle-inspector.version>
 		<!-- MODEL-DATA version -->
-		<model-data.version>1.5.0</model-data.version>
+		<model-data.version>1.6</model-data.version>
 		<model-api.version>${model-data.version}</model-api.version>
 		<model-object.version>${model-data.version}</model-object.version>
 		<model-type-safe.version>${model-data.version}</model-type-safe.version>
@@ -56,12 +60,6 @@
 	<dependencyManagement>
 
 		<dependencies>
-			<!-- XML-EXTENSIONS DEPENDENCY -->
-			<dependency>
-				<groupId>de.alpharogroup</groupId>
-				<artifactId>xml-extensions</artifactId>
-				<version>${xml-extensions.version}</version>
-			</dependency>
 			<!-- UNIREST DEPENDENCIES -->
 			<dependency>
 				<groupId>com.mashape.unirest</groupId>
@@ -87,12 +85,6 @@
 				<groupId>org.json</groupId>
 				<artifactId>json</artifactId>
 				<version>${json.version}</version>
-			</dependency>
-			<!-- MIGLAYOUT-SWING DEPENDENCY -->
-			<dependency>
-				<groupId>com.miglayout</groupId>
-				<artifactId>miglayout-swing</artifactId>
-				<version>${miglayout-swing.version}</version>
 			</dependency>
 			<!-- STATE DESIGN-PATTERN DEPENDENCIES -->
 			<dependency>
@@ -141,6 +133,21 @@
 	</dependencyManagement>
 
 	<dependencies>
+		<!-- SPRING-BOOT DEPENDENCIES -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>ch.qos.logback</groupId>
+					<artifactId>logback-core</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 		<!-- XML-EXTENSIONS DEPENDENCY -->
 		<dependency>
 			<groupId>de.alpharogroup</groupId>
@@ -207,28 +214,12 @@
 			<groupId>de.alpharogroup</groupId>
 			<artifactId>model-type-safe</artifactId>
 		</dependency>
+		<!-- MODEL-CORE DEPENDENCY -->
+		<dependency>
+			<groupId>de.alpharogroup</groupId>
+			<artifactId>model-core</artifactId>
+		</dependency>
 
 	</dependencies>
-
-	<build>
-
-		<finalName>${full-app-name}</finalName>
-
-		<plugins>
-
-			<plugin>
-				<artifactId>maven-jar-plugin</artifactId>
-			</plugin>
-
-			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<artifactId>maven-dependency-plugin</artifactId>
-			</plugin>
-
-		</plugins>
-
-	</build>
 
 </project>

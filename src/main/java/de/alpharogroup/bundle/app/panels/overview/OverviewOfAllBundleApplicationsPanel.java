@@ -17,7 +17,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
-import de.alpharogroup.bundle.app.MainFrame;
+import de.alpharogroup.bundle.app.SpringBootSwingApplication;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardContentPanel;
 import de.alpharogroup.bundle.app.panels.dashboard.mainapp.MainDashboardBean;
@@ -97,10 +97,10 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 				UniRestService.deleteBundleApplication(selectedBundleApplication);
 				final List<BundleApplication> bundleApplications = UniRestService
 					.findAllBundleApplications();
-				MainFrame.getInstance().getModelObject().setBundleApplications(bundleApplications);
-				MainFrame.getInstance().replaceInternalFrame("Overview bundle apps",
+				SpringBootSwingApplication.getInstance().getModelObject().setBundleApplications(bundleApplications);
+				SpringBootSwingApplication.getInstance().replaceInternalFrame("Overview bundle apps",
 					new MainDashboardPanel(PropertyModel
-						.<MainDashboardBean> of(MainFrame.getInstance(), "model.object")));
+						.<MainDashboardBean> of(SpringBootSwingApplication.getInstance(), "model.object")));
 			}
 			catch (UnirestException e)
 			{
@@ -174,12 +174,12 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 			{
 				final BundleApplication selectedBundleApplication = (BundleApplication)this
 					.getValue();
-				MainFrame.getInstance().setSelectedBundleApplication(selectedBundleApplication);
-				final Model<ApplicationDashboardBean> baModel = MainFrame.getInstance()
+				SpringBootSwingApplication.getInstance().setSelectedBundleApplication(selectedBundleApplication);
+				final Model<ApplicationDashboardBean> baModel = SpringBootSwingApplication.getInstance()
 					.getSelectedBundleApplicationPropertyModel();
 				final ApplicationDashboardContentPanel component = new ApplicationDashboardContentPanel(
 					baModel);
-				MainFrame.getInstance().replaceInternalFrame(
+				SpringBootSwingApplication.getInstance().replaceInternalFrame(
 					"Dashboard of " + selectedBundleApplication.getName() + " bundle app",
 					component);
 

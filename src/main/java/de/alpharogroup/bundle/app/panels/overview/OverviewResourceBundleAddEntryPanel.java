@@ -20,7 +20,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
-import de.alpharogroup.bundle.app.MainFrame;
+import de.alpharogroup.bundle.app.SpringBootSwingApplication;
 import de.alpharogroup.bundle.app.actions.ReturnToDashboardAction;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardContentPanel;
@@ -102,7 +102,7 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 
 		reloadTableModel();
 
-		MainFrame.getInstance().getModelObject().getSelectedBundleApplication()
+		SpringBootSwingApplication.getInstance().getModelObject().getSelectedBundleApplication()
 			.setSelectedResourcebundle(null);
 
 		txtKey.setText("");
@@ -121,11 +121,11 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 			{
 				UniRestService.deleteBundleName(getModelObject().getSelectedBundleName());
 
-				final Model<ApplicationDashboardBean> baModel = MainFrame.getInstance()
+				final Model<ApplicationDashboardBean> baModel = SpringBootSwingApplication.getInstance()
 					.getSelectedBundleApplicationPropertyModel();
 				final ApplicationDashboardContentPanel component = new ApplicationDashboardContentPanel(
 					baModel);
-				MainFrame.getInstance()
+				SpringBootSwingApplication.getInstance()
 					.replaceInternalFrame("Dashboard of "
 						+ baModel.getObject().getBundleApplication().getName() + " bundle app",
 						component);
@@ -144,7 +144,7 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setDialogTitle("Specify a file to save");
 
-		int userSelection = fileChooser.showSaveDialog(MainFrame.get());
+		int userSelection = fileChooser.showSaveDialog(SpringBootSwingApplication.getInstance());
 
 		if (userSelection == JFileChooser.APPROVE_OPTION)
 		{
@@ -217,7 +217,7 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 			{
 				final Resourcebundle selected = (Resourcebundle)this.getValue();
 
-				MainFrame.getInstance().getModelObject().getSelectedBundleApplication()
+				SpringBootSwingApplication.getInstance().getModelObject().getSelectedBundleApplication()
 					.setSelectedResourcebundle(selected);
 
 				txtKey.setText(selected.getKey().getName());
@@ -295,12 +295,12 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 					log.error(e.getLocalizedMessage(), e);
 				}
 
-				if (selected.equals(MainFrame.getInstance().getModelObject()
+				if (selected.equals(SpringBootSwingApplication.getInstance().getModelObject()
 					.getSelectedBundleApplication().getSelectedResourcebundle()))
 				{
 					txtKey.setText("");
 					txtValue.setText("");
-					MainFrame.getInstance().getModelObject().getSelectedBundleApplication()
+					SpringBootSwingApplication.getInstance().getModelObject().getSelectedBundleApplication()
 						.setSelectedResourcebundle(null);
 				}
 

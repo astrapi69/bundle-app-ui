@@ -24,9 +24,8 @@ import javax.swing.JCheckBox;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 
-import de.alpharogroup.bundle.app.MainApplication;
+import de.alpharogroup.bundle.app.ApplicationEventBus;
 import de.alpharogroup.bundle.app.panels.imports.ext.ConvertExtensions;
-import de.alpharogroup.swing.table.editor.TableCellCheckboxEditor;
 import de.alpharogroup.bundle.app.table.model.FileLocaleBooleanTableModel;
 import de.alpharogroup.collections.pairs.KeyValuePair;
 import de.alpharogroup.collections.pairs.Triple;
@@ -36,6 +35,7 @@ import de.alpharogroup.design.pattern.observer.event.EventSource;
 import de.alpharogroup.design.pattern.state.wizard.model.WizardModelStateMachine;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.renderer.TableCellButtonRenderer;
+import de.alpharogroup.swing.table.editor.TableCellCheckboxEditor;
 import de.alpharogroup.swing.wizard.BaseWizardContentPanel;
 import de.alpharogroup.swing.x.GenericJXTable;
 import lombok.Getter;
@@ -76,7 +76,7 @@ public class ImportProgressPanel extends BaseWizardContentPanel<ImportWizardMode
 	{
 		super.onBeforeInitialize();
 		// register as listener...
-		final EventSource<EventObject<ImportWizardModel>> eventSource = MainApplication
+		final EventSource<EventObject<ImportWizardModel>> eventSource = ApplicationEventBus
 			.getImportWizardModel();
 		eventSource.add(this);
 	}

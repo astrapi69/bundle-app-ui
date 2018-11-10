@@ -17,7 +17,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
-import de.alpharogroup.bundle.app.MainFrame;
+import de.alpharogroup.bundle.app.SpringBootSwingApplication;
 import de.alpharogroup.bundle.app.actions.ReturnToDashboardAction;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.bundle.app.spring.UniRestService;
@@ -89,12 +89,12 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 				log.error(e.getLocalizedMessage(), e);
 			}
 
-			MainFrame.getInstance().getModelObject().getSelectedBundleApplication().getBundleNames()
+			SpringBootSwingApplication.getInstance().getModelObject().getSelectedBundleApplication().getBundleNames()
 				.remove(selectedBundleName);
-			MainFrame.getInstance().getModelObject().getSelectedBundleApplication()
+			SpringBootSwingApplication.getInstance().getModelObject().getSelectedBundleApplication()
 				.setSelectedBundleName(null);
 
-			MainFrame.getInstance().replaceInternalFrame(
+			SpringBootSwingApplication.getInstance().replaceInternalFrame(
 				"Dashboard of " + getModelObject().getBundleApplication().getName() + " bundle app",
 				new OverviewOfAllResourceBundlesPanel(getModel()));
 		}
@@ -157,15 +157,15 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 			{
 				final BundleName selectedBundleName = (BundleName)this.getValue();
 
-				final Model<ApplicationDashboardBean> baModel = MainFrame.getInstance()
+				final Model<ApplicationDashboardBean> baModel = SpringBootSwingApplication.getInstance()
 					.getSelectedBundleApplicationPropertyModel();
-				MainFrame.getInstance().getModelObject().getSelectedBundleApplication()
+				SpringBootSwingApplication.getInstance().getModelObject().getSelectedBundleApplication()
 					.setSelectedBundleName(selectedBundleName);
 
 				final OverviewResourceBundleAddEntryPanel component = new OverviewResourceBundleAddEntryPanel(
 					baModel);
 
-				MainFrame.getInstance().replaceInternalFrame(
+				SpringBootSwingApplication.getInstance().replaceInternalFrame(
 					"Values of resource bundle " + selectedBundleName.getBaseName().getName()
 						+ " with locale " + selectedBundleName.getLocale().getLocale() + "",
 					component);

@@ -15,8 +15,8 @@ import org.apache.commons.lang3.BooleanUtils;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
 
-import de.alpharogroup.bundle.app.MainApplication;
-import de.alpharogroup.bundle.app.MainFrame;
+import de.alpharogroup.bundle.app.ApplicationEventBus;
+import de.alpharogroup.bundle.app.SpringBootSwingApplication;
 import de.alpharogroup.bundle.app.panels.creation.NewBundleApplicationPanel;
 import de.alpharogroup.bundle.app.panels.creation.NewBundleNamePanel;
 import de.alpharogroup.bundle.app.panels.creation.NewCustomLocalePanel;
@@ -26,12 +26,12 @@ import de.alpharogroup.bundle.app.panels.imports.file.ImportResourceBundlePanel;
 import de.alpharogroup.bundle.app.panels.overview.OverviewOfAllResourceBundlesPanel;
 import de.alpharogroup.bundle.app.panels.overview.OverviewResourceBundleAddEntryPanel;
 import de.alpharogroup.bundle.app.spring.HttpClientRestService;
+import de.alpharogroup.collection.comparators.KeyValuePairKeyComparator;
 import de.alpharogroup.collections.pairs.KeyValuePair;
 import de.alpharogroup.collections.pairs.Quattro;
 import de.alpharogroup.collections.pairs.Triple;
 import de.alpharogroup.collections.properties.PropertiesExtensions;
 import de.alpharogroup.comparators.NullCheckComparator;
-import de.alpharogroup.comparators.pairs.KeyValuePairKeyComparator;
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
@@ -304,13 +304,13 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 					final Properties importedProperties = PropertiesExtensions
 						.loadProperties(resourceBundleToImport);
 					getModelObject().setImportedProperties(importedProperties);
-					final List<KeyValuePair<String, String>> keyValuePairs = PropertiesExtensions
-						.toKeyValuePairs(importedProperties);
+					final List<KeyValuePair<String, String>> keyValuePairs = KeyValuePair.toKeyValuePairs(importedProperties);
+					
 					Collections.sort(keyValuePairs, NullCheckComparator
 						.<KeyValuePair<String, String>> of(new KeyValuePairKeyComparator<>()));
 					getModelObject().setImportedKeyValuePairs(keyValuePairs);
 
-					MainApplication.get().getApplicationEventBus()
+					ApplicationEventBus.getInstance().getApplicationEventBus()
 						.post(ApplicationDashboardContentPanel.this.getModelObject());
 					getCardLayout().show(this, ApplicationDashboardView.IMPORT_RB.name());
 				}
@@ -388,9 +388,9 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 
 	protected void onSaveBundleApplication(final ActionEvent e)
 	{
-		final String title = "Dashboard of " + MainFrame.getInstance().getModelObject()
+		final String title = "Dashboard of " + SpringBootSwingApplication.getInstance().getModelObject()
 			.getSelectedBundleApplication().getBundleApplication().getName() + " bundle app";
-		MainFrame.getInstance().getCurrentVisibleInternalFrame().setTitle(title);
+		SpringBootSwingApplication.getInstance().getCurrentVisibleInternalFrame().setTitle(title);
 		getCardLayout().show(this, ApplicationDashboardView.DASHBOARD.name());
 	}
 

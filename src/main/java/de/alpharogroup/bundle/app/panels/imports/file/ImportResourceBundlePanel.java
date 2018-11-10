@@ -10,7 +10,7 @@ import org.apache.http.client.ClientProtocolException;
 
 import com.google.common.eventbus.Subscribe;
 
-import de.alpharogroup.bundle.app.MainApplication;
+import de.alpharogroup.bundle.app.ApplicationEventBus;
 import de.alpharogroup.bundle.app.actions.ReturnToDashboardAction;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.bundle.app.spring.HttpClientRestService;
@@ -59,7 +59,7 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 	protected void onBeforeInitialize()
 	{
 		super.onBeforeInitialize();
-		MainApplication.get().getApplicationEventBus().register(this);
+		ApplicationEventBus.getInstance().getApplicationEventBus().register(this);
 	}
 
 	protected void onCancel(final ActionEvent e)

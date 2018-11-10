@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 
-import de.alpharogroup.bundle.app.MainFrame;
+import de.alpharogroup.bundle.app.SpringBootSwingApplication;
 import de.alpharogroup.bundle.app.panels.start.WizardPanel;
 
 /**
@@ -33,7 +33,7 @@ public class NewBundleAppInternalFrameAction extends AbstractAction
 	@Override
 	public void actionPerformed(final ActionEvent e)
 	{
-		MainFrame.getInstance().replaceInternalFrame("New bundle app", new WizardPanel());
+		SpringBootSwingApplication.getInstance().replaceInternalFrame("New bundle app", new WizardPanel());
 	}
 
 }

@@ -12,7 +12,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
-import de.alpharogroup.bundle.app.MainFrame;
+import de.alpharogroup.bundle.app.SpringBootSwingApplication;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardContentPanel;
 import de.alpharogroup.bundle.app.panels.dashboard.mainapp.MainDashboardBean;
@@ -44,14 +44,14 @@ public class ReturnToDashboardAction extends AbstractAction
 
 	public void now()
 	{
-		final Model<ApplicationDashboardBean> baModel = MainFrame.getInstance()
+		final Model<ApplicationDashboardBean> baModel = SpringBootSwingApplication.getInstance()
 			.getSelectedBundleApplicationPropertyModel();
 
 		if (baModel.getObject().getBundleApplication() != null)
 		{
 			final ApplicationDashboardContentPanel component = new ApplicationDashboardContentPanel(
 				baModel);
-			MainFrame.getInstance()
+			SpringBootSwingApplication.getInstance()
 				.replaceInternalFrame("Dashboard of "
 					+ baModel.getObject().getBundleApplication().getName() + " bundle app",
 					component);
@@ -84,10 +84,10 @@ public class ReturnToDashboardAction extends AbstractAction
 			{
 				log.error(e.getLocalizedMessage(), e);
 			}
-			MainFrame.getInstance().getModelObject().setBundleApplications(bundleApplications);
-			MainFrame.getInstance().replaceInternalFrame("Overview bundle apps",
+			SpringBootSwingApplication.getInstance().getModelObject().setBundleApplications(bundleApplications);
+			SpringBootSwingApplication.getInstance().replaceInternalFrame("Overview bundle apps",
 				new MainDashboardPanel(
-					PropertyModel.<MainDashboardBean> of(MainFrame.getInstance(), "model.object")));
+					PropertyModel.<MainDashboardBean> of(SpringBootSwingApplication.getInstance(), "model.object")));
 		}
 	}
 

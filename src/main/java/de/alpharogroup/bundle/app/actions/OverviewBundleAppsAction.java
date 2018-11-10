@@ -12,7 +12,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
-import de.alpharogroup.bundle.app.MainFrame;
+import de.alpharogroup.bundle.app.SpringBootSwingApplication;
 import de.alpharogroup.bundle.app.panels.dashboard.mainapp.MainDashboardBean;
 import de.alpharogroup.bundle.app.panels.dashboard.mainapp.MainDashboardPanel;
 import de.alpharogroup.bundle.app.spring.UniRestService;
@@ -83,9 +83,9 @@ public class OverviewBundleAppsAction extends AbstractAction
 		{
 			log.error(e1.getLocalizedMessage(), e1);
 		}
-		MainFrame.getInstance().getModelObject().setBundleApplications(bundleApplications);
-		MainFrame.getInstance().replaceInternalFrame("Overview bundle apps", new MainDashboardPanel(
-			PropertyModel.<MainDashboardBean> of(MainFrame.getInstance(), "model.object")));
+		SpringBootSwingApplication.getInstance().getModelObject().setBundleApplications(bundleApplications);
+		SpringBootSwingApplication.getInstance().replaceInternalFrame("Overview bundle apps", new MainDashboardPanel(
+			PropertyModel.<MainDashboardBean> of(SpringBootSwingApplication.getInstance(), "model.object")));
 	}
 
 }
