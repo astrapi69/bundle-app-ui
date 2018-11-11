@@ -15,7 +15,7 @@
 
 	<properties>
 		<!-- SWING-COMPONENTS version -->
-		<swing-components.version>4.31</swing-components.version>
+		<swing-components.version>4.32-SNAPSHOT</swing-components.version>
 		<!-- JCOMMONS-LANG version -->
 		<jcommons-lang.version>5</jcommons-lang.version>
 		<!-- MIGLAYOUT-SWING version -->

@@ -5,8 +5,9 @@ import java.awt.EventQueue;
 import java.io.IOException;
 import java.util.List;
 
-import javax.swing.JInternalFrame;
+import javax.swing.*;
 
+import de.alpharogroup.swing.dialog.DialogExtensions;
 import org.json.JSONException;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -22,7 +23,6 @@ import de.alpharogroup.bundle.app.panels.dashboard.mainapp.MainDashboardPanel;
 import de.alpharogroup.bundle.app.spring.UniRestService;
 import de.alpharogroup.collections.list.ListFactory;
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
-import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.PropertyModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.ApplicationFrame;
@@ -74,37 +74,48 @@ public class SpringBootSwingApplication extends ApplicationFrame<MainDashboardBe
 
 	private void initDb()
 	{
-		List<BundleApplication> allBundleApplications = ListFactory.newArrayList();
+		List<BundleApplication> allBundleApplications = loadAndSetAllBundleApplications();
+	}
+
+	public List<BundleApplication> loadAndSetAllBundleApplications()
+	{
+		List<BundleApplication> bundleApplications = ListFactory.newArrayList();
 		try
 		{
-			allBundleApplications = UniRestService.findAllBundleApplications();
+			bundleApplications = (List<BundleApplication>)UniRestService
+				.findAllBundleApplications();
 		}
 		catch (UnirestException e)
 		{
+			DialogExtensions.showExceptionDialog(e, SpringBootSwingApplication.getInstance(),
+				"YOU HAVE TO START THE REST SERVER THAT PROVIDE THE REST SERVICES");
 			log.error(e.getLocalizedMessage(), e);
 		}
 		catch (JsonParseException e)
 		{
+			DialogExtensions.showExceptionDialog(e, SpringBootSwingApplication.getInstance());
 			log.error(e.getLocalizedMessage(), e);
 		}
 		catch (JsonMappingException e)
 		{
+			DialogExtensions.showExceptionDialog(e, SpringBootSwingApplication.getInstance());
 			log.error(e.getLocalizedMessage(), e);
 		}
 		catch (JSONException e)
 		{
+			DialogExtensions.showExceptionDialog(e, SpringBootSwingApplication.getInstance());
 			log.error(e.getLocalizedMessage(), e);
 		}
 		catch (IOException e)
 		{
+			DialogExtensions.showExceptionDialog(e, SpringBootSwingApplication.getInstance());
 			log.error(e.getLocalizedMessage(), e);
 		}
-		final Model<MainDashboardBean> model = BaseModel.<MainDashboardBean> of(
-			MainDashboardBean.builder().bundleApplications(allBundleApplications).build());
-		setModel(model);
-		final MainDashboardPanel mainDashboardPanel = new MainDashboardPanel(
-			PropertyModel.<MainDashboardBean> of(this, "model.object"));
-		replaceInternalFrame("Main dashboard", mainDashboardPanel);
+		SpringBootSwingApplication.getInstance().getModelObject().setBundleApplications(bundleApplications);
+		SpringBootSwingApplication.getInstance().replaceInternalFrame("Overview bundle apps",
+			new MainDashboardPanel(
+				PropertyModel.<MainDashboardBean> of(SpringBootSwingApplication.getInstance(), "model.object")));
+		return bundleApplications;
 	}
 
 	/**
@@ -146,7 +157,7 @@ public class SpringBootSwingApplication extends ApplicationFrame<MainDashboardBe
 		super.onInitializeComponents();
 		initDb();
 	}
-	
+
 
 	/** The internal frame. */
 	@Getter

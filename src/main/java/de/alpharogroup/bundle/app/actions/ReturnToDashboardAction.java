@@ -22,6 +22,7 @@ import de.alpharogroup.collections.list.ListFactory;
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import de.alpharogroup.model.PropertyModel;
 import de.alpharogroup.model.api.Model;
+import de.alpharogroup.swing.dialog.DialogExtensions;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -58,36 +59,7 @@ public class ReturnToDashboardAction extends AbstractAction
 		}
 		else
 		{
-			List<BundleApplication> bundleApplications = ListFactory.newArrayList();
-			try
-			{
-				bundleApplications = (List<BundleApplication>)UniRestService
-					.findAllBundleApplications();
-			}
-			catch (UnirestException e)
-			{
-				log.error(e.getLocalizedMessage(), e);
-			}
-			catch (JsonParseException e)
-			{
-				log.error(e.getLocalizedMessage(), e);
-			}
-			catch (JsonMappingException e)
-			{
-				log.error(e.getLocalizedMessage(), e);
-			}
-			catch (JSONException e)
-			{
-				log.error(e.getLocalizedMessage(), e);
-			}
-			catch (IOException e)
-			{
-				log.error(e.getLocalizedMessage(), e);
-			}
-			SpringBootSwingApplication.getInstance().getModelObject().setBundleApplications(bundleApplications);
-			SpringBootSwingApplication.getInstance().replaceInternalFrame("Overview bundle apps",
-				new MainDashboardPanel(
-					PropertyModel.<MainDashboardBean> of(SpringBootSwingApplication.getInstance(), "model.object")));
+			SpringBootSwingApplication.getInstance().loadAndSetAllBundleApplications();
 		}
 	}
 
