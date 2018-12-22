@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.swing.*;
 
+import de.alpharogroup.layout.ScreenSizeExtensions;
 import de.alpharogroup.swing.dialog.DialogExtensions;
 import org.json.JSONException;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -155,6 +156,8 @@ public class SpringBootSwingApplication extends ApplicationFrame<MainDashboardBe
 	protected void onInitializeComponents()
 	{
 		super.onInitializeComponents();
+		int screenID = ScreenSizeExtensions.getScreenID(this);
+		System.err.println("screenID:"+screenID);
 		initDb();
 	}
 
