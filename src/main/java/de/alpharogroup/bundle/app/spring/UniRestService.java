@@ -2,6 +2,7 @@ package de.alpharogroup.bundle.app.spring;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
 
 import org.json.JSONException;
 
@@ -22,10 +23,10 @@ import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
 import de.alpharogroup.xml.json.JsonToObjectExtensions;
 import lombok.experimental.UtilityClass;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.java.Log;
 
 @UtilityClass
-@Slf4j
+@Log
 public class UniRestService
 {
 
@@ -57,6 +58,7 @@ public class UniRestService
 		{
 			private com.fasterxml.jackson.databind.ObjectMapper jacksonObjectMapper = new com.fasterxml.jackson.databind.ObjectMapper();
 
+			@Override
 			public <T> T readValue(String value, Class<T> valueType)
 			{
 				try
@@ -69,6 +71,7 @@ public class UniRestService
 				}
 			}
 
+			@Override
 			public String writeValue(Object value)
 			{
 				try
@@ -162,16 +165,12 @@ public class UniRestService
 			{
 				BundleApplication object = JsonToObjectExtensions.toObject(body.toString(),
 					BundleApplication.class);
-				log.debug(object.toString());
+				log.log(Level.FINE, object.toString());
 			}
-		}
-		catch (JsonProcessingException e)
-		{
-			log.error(e.getLocalizedMessage(), e);
 		}
 		catch (IOException e)
 		{
-			log.error(e.getLocalizedMessage(), e);
+			log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}
 	}
 
@@ -186,12 +185,12 @@ public class UniRestService
 			{
 				BundleName object = JsonToObjectExtensions.toObject(body.toString(),
 					BundleName.class);
-				log.debug(object.toString());
+				log.log(Level.FINE, object.toString());
 			}
 		}
 		catch (IOException e)
 		{
-			log.error(e.getLocalizedMessage(), e);
+			log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}
 	}
 
@@ -206,12 +205,12 @@ public class UniRestService
 			{
 				Resourcebundle object = JsonToObjectExtensions.toObject(body.toString(),
 					Resourcebundle.class);
-				log.debug(object.toString());
+				log.log(Level.FINE, object.toString());
 			}
 		}
 		catch (IOException e)
 		{
-			log.error(e.getLocalizedMessage(), e);
+			log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}
 	}
 
@@ -226,7 +225,7 @@ public class UniRestService
 		{
 			Resourcebundle object = JsonToObjectExtensions.toObject(body.toString(),
 				Resourcebundle.class);
-			log.debug(object.toString());
+			log.log(Level.FINE, object.toString());
 			return object;
 		}
 		return null;

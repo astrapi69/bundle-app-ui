@@ -1,31 +1,14 @@
 package de.alpharogroup.bundle.app.actions;
 
 import java.awt.event.ActionEvent;
-import java.io.IOException;
-import java.util.List;
 
 import javax.swing.AbstractAction;
-
-import org.json.JSONException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.mashape.unirest.http.exceptions.UnirestException;
 
 import de.alpharogroup.bundle.app.SpringBootSwingApplication;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardContentPanel;
-import de.alpharogroup.bundle.app.panels.dashboard.mainapp.MainDashboardBean;
-import de.alpharogroup.bundle.app.panels.dashboard.mainapp.MainDashboardPanel;
-import de.alpharogroup.bundle.app.spring.UniRestService;
-import de.alpharogroup.collections.list.ListFactory;
-import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
-import de.alpharogroup.model.PropertyModel;
 import de.alpharogroup.model.api.Model;
-import de.alpharogroup.swing.dialog.DialogExtensions;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 public class ReturnToDashboardAction extends AbstractAction
 {
 

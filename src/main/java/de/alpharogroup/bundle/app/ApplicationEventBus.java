@@ -16,20 +16,10 @@ import lombok.Getter;
 public class ApplicationEventBus
 {
 
+	private static final Map<String, EventSource<?>> eventSources = new HashMap<>();
+
 	/** The instance. */
 	private static ApplicationEventBus instance = new ApplicationEventBus();
-	
-	public static ApplicationEventBus getInstance()
-	{
-		return instance;
-	}
-	
-	private ApplicationEventBus(){}
-	
-	@Getter
-	private final EventBus applicationEventBus = new EventBus();
-
-	private static final Map<String, EventSource<?>> eventSources = new HashMap<>();
 
 	public static EventSource<?> get(final String key)
 	{
@@ -86,9 +76,21 @@ public class ApplicationEventBus
 		return eventSource;
 	}
 
+	public static ApplicationEventBus getInstance()
+	{
+		return instance;
+	}
+
 	public static synchronized EventSource<?> put(final String key, final EventSource<?> value)
 	{
 		return eventSources.put(key, value);
+	}
+
+	@Getter
+	private final EventBus applicationEventBus = new EventBus();
+
+	private ApplicationEventBus()
+	{
 	}
 
 }

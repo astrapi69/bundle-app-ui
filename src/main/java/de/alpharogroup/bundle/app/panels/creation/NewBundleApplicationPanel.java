@@ -242,6 +242,7 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 		btnSave.setEnabled(false);
 		new EnableButtonBehavior(btnSave.getModel(), txtBundleName.getDocument(), false)
 		{
+			@Override
 			protected void onChange()
 			{
 				boolean defaultLocale;
@@ -380,7 +381,8 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 			}
 			else
 			{
-				BundleApplication newBundleApplication = HttpClientRestService.findBundleApplication(name);
+				BundleApplication newBundleApplication = HttpClientRestService
+					.findBundleApplication(name);
 				if (newBundleApplication == null)
 				{
 					LanguageLocale defaultLocale = getModelObject().getDefaultLocale();
@@ -389,11 +391,11 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 						BundleApplication.builder().name(name).defaultLocale(defaultLocale)
 							.supportedLocales(getModelObject().getSupportedLocales()).build());
 				}
-				if (!SpringBootSwingApplication.getInstance().getModelObject().getBundleApplications()
-					.contains(newBundleApplication))
+				if (!SpringBootSwingApplication.getInstance().getModelObject()
+					.getBundleApplications().contains(newBundleApplication))
 				{
-					SpringBootSwingApplication.getInstance().getModelObject().getBundleApplications()
-						.add(newBundleApplication);
+					SpringBootSwingApplication.getInstance().getModelObject()
+						.getBundleApplications().add(newBundleApplication);
 				}
 				getModelObject().setBundleApplication(newBundleApplication);
 			}

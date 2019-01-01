@@ -74,6 +74,7 @@ public class NewUserFormPanel extends javax.swing.JPanel
 
 		txtPw.addActionListener(new java.awt.event.ActionListener()
 		{
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt)
 			{
 				txtPwActionPerformed(evt);
@@ -83,6 +84,7 @@ public class NewUserFormPanel extends javax.swing.JPanel
 		btnSave.setText("Save");
 		btnSave.addActionListener(new java.awt.event.ActionListener()
 		{
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt)
 			{
 				btnSaveActionPerformed(evt);
@@ -97,6 +99,7 @@ public class NewUserFormPanel extends javax.swing.JPanel
 
 		txtRepeatPw.addActionListener(new java.awt.event.ActionListener()
 		{
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt)
 			{
 				txtRepeatPwActionPerformed(evt);

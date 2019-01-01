@@ -5,8 +5,7 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.concurrent.CompletableFuture;
-
-import org.apache.http.client.ClientProtocolException;
+import java.util.logging.Level;
 
 import com.google.common.eventbus.Subscribe;
 
@@ -23,10 +22,10 @@ import de.alpharogroup.resourcebundle.locale.LocaleResolver;
 import de.alpharogroup.swing.base.BasePanel;
 import de.alpharogroup.swing.table.model.properties.StringKeyValueTableModel;
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.java.Log;
 
 @Getter
-@Slf4j
+@Log
 public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBean>
 {
 
@@ -84,15 +83,11 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 			try
 			{
 				BundleName bundleName = HttpClientRestService.updateProperties(quattro);
-				log.debug(bundleName.getBaseName().getName());
-			}
-			catch (ClientProtocolException e1)
-			{
-				log.error(e1.getLocalizedMessage(), e1);
+				log.log(Level.FINE, bundleName.getBaseName().getName());
 			}
 			catch (IOException e1)
 			{
-				log.error(e1.getLocalizedMessage(), e1);
+				log.log(Level.SEVERE, e1.getLocalizedMessage(), e1);
 			}
 		});
 		returnToDashboardAction.now();

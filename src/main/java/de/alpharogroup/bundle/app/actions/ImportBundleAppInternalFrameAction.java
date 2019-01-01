@@ -33,7 +33,8 @@ public class ImportBundleAppInternalFrameAction extends AbstractAction
 	@Override
 	public void actionPerformed(final ActionEvent e)
 	{
-		SpringBootSwingApplication.getInstance().replaceInternalFrame("Import bundle app", new ImportWizardPanel());
+		SpringBootSwingApplication.getInstance().replaceInternalFrame("Import bundle app",
+			new ImportWizardPanel());
 	}
 
 }

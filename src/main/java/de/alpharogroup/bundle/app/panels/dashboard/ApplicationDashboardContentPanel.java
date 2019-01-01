@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.concurrent.CompletableFuture;
+import java.util.logging.Level;
 
 import javax.swing.JFileChooser;
 
@@ -38,12 +39,12 @@ import de.alpharogroup.model.api.Model;
 import de.alpharogroup.resourcebundle.inspector.search.PropertiesListResolver;
 import de.alpharogroup.resourcebundle.locale.LocaleResolver;
 import de.alpharogroup.swing.base.BaseCardLayoutPanel;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.java.Log;
 
 /**
  * The class {@link ApplicationDashboardContentPanel}.
  */
-@Slf4j
+@Log
 public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<ApplicationDashboardBean>
 {
 
@@ -86,14 +87,9 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 				{
 					super.onSave(e);
 				}
-				catch (UnirestException e1)
+				catch (UnirestException | IOException e1)
 				{
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				catch (IOException e1)
-				{
-					e1.printStackTrace();
+					log.log(Level.SEVERE, e1.getLocalizedMessage(), e1);
 				}
 				onSaveBundleApplication(e);
 			}
@@ -294,7 +290,7 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 							}
 							catch (final IOException e)
 							{
-								log.error(e.getLocalizedMessage(), e);
+								log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 							}
 						}
 					}
@@ -304,8 +300,9 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 					final Properties importedProperties = PropertiesExtensions
 						.loadProperties(resourceBundleToImport);
 					getModelObject().setImportedProperties(importedProperties);
-					final List<KeyValuePair<String, String>> keyValuePairs = KeyValuePair.toKeyValuePairs(importedProperties);
-					
+					final List<KeyValuePair<String, String>> keyValuePairs = KeyValuePair
+						.toKeyValuePairs(importedProperties);
+
 					Collections.sort(keyValuePairs, NullCheckComparator
 						.<KeyValuePair<String, String>> of(new KeyValuePairKeyComparator<>()));
 					getModelObject().setImportedKeyValuePairs(keyValuePairs);
@@ -317,7 +314,7 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 			}
 			catch (final IOException e)
 			{
-				log.error(e.getLocalizedMessage(), e);
+				log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			}
 		}
 	}
@@ -339,8 +336,6 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 
 	protected void onImportResourceBundleCancel(final ActionEvent e)
 	{
-		// TODO Auto-generated method stub
-		log.debug("onImportResourceBundleCancel");
 	}
 
 	protected void onImportResourceBundleFromDir(final ActionEvent e)
@@ -381,15 +376,13 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 
 	protected void onResourceBundleImport(final ActionEvent e)
 	{
-		// TODO Auto-generated method stub
-		log.debug("onResourceBundleImport");
-
 	}
 
 	protected void onSaveBundleApplication(final ActionEvent e)
 	{
-		final String title = "Dashboard of " + SpringBootSwingApplication.getInstance().getModelObject()
-			.getSelectedBundleApplication().getBundleApplication().getName() + " bundle app";
+		final String title = "Dashboard of " + SpringBootSwingApplication.getInstance()
+			.getModelObject().getSelectedBundleApplication().getBundleApplication().getName()
+			+ " bundle app";
 		SpringBootSwingApplication.getInstance().getCurrentVisibleInternalFrame().setTitle(title);
 		getCardLayout().show(this, ApplicationDashboardView.DASHBOARD.name());
 	}

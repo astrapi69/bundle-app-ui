@@ -2,9 +2,8 @@ package de.alpharogroup.bundle.app.combobox.model;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 import de.alpharogroup.bundle.app.SpringBootSwingApplication;
@@ -13,9 +12,9 @@ import de.alpharogroup.collections.list.ListFactory;
 import de.alpharogroup.db.resource.bundles.domain.Country;
 import de.alpharogroup.swing.combobox.model.AbstractComboBoxModel;
 import de.alpharogroup.swing.dialog.DialogExtensions;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.java.Log;
 
-@Slf4j
+@Log
 public class CountriesComboBoxModel extends AbstractComboBoxModel<Country>
 {
 	private static final CountriesComboBoxModel COMBO_BOX_MODEL = new CountriesComboBoxModel();
@@ -35,25 +34,10 @@ public class CountriesComboBoxModel extends AbstractComboBoxModel<Country>
 		{
 			availableCountries = UniRestService.findAllCountries();
 		}
-		catch (UnirestException e)
+		catch (UnirestException | IOException e)
 		{
 			DialogExtensions.showExceptionDialog(e, SpringBootSwingApplication.getInstance());
-			log.error(e.getLocalizedMessage(), e);
-		}
-		catch (JsonParseException e)
-		{
-			DialogExtensions.showExceptionDialog(e, SpringBootSwingApplication.getInstance());
-			log.error(e.getLocalizedMessage(), e);
-		}
-		catch (JsonMappingException e)
-		{
-			DialogExtensions.showExceptionDialog(e, SpringBootSwingApplication.getInstance());
-			log.error(e.getLocalizedMessage(), e);
-		}
-		catch (IOException e)
-		{
-			DialogExtensions.showExceptionDialog(e, SpringBootSwingApplication.getInstance());
-			log.error(e.getLocalizedMessage(), e);
+			log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}
 		setComboList(availableCountries);
 	}

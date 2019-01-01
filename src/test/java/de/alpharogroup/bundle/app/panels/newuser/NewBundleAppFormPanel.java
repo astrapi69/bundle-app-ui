@@ -76,6 +76,7 @@ public class NewBundleAppFormPanel extends javax.swing.JPanel
 
 		txtRepeatPw.addActionListener(new java.awt.event.ActionListener()
 		{
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt)
 			{
 				txtRepeatPwActionPerformed(evt);
@@ -86,6 +87,7 @@ public class NewBundleAppFormPanel extends javax.swing.JPanel
 
 		txtPw.addActionListener(new java.awt.event.ActionListener()
 		{
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt)
 			{
 				txtPwActionPerformed(evt);

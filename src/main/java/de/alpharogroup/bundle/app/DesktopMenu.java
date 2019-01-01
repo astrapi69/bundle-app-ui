@@ -32,8 +32,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.logging.Level;
 
-import javax.swing.*;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
+
+import org.springframework.core.io.Resource;
 
 import de.alpharogroup.bundle.app.actions.ImportBundleAppInternalFrameAction;
 import de.alpharogroup.bundle.app.actions.NewBundleAppInternalFrameAction;
@@ -42,14 +48,13 @@ import de.alpharogroup.swing.actions.ExitApplicationAction;
 import de.alpharogroup.swing.base.BaseDesktopMenu;
 import de.alpharogroup.swing.menu.MenuExtensions;
 import lombok.NonNull;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.io.Resource;
+import lombok.extern.java.Log;
 
 /**
  * The class {@link DesktopMenu} holds the menu items from the application.
  */
 @SuppressWarnings("serial")
-@Slf4j
+@Log
 public class DesktopMenu extends BaseDesktopMenu
 {
 
@@ -70,11 +75,12 @@ public class DesktopMenu extends BaseDesktopMenu
 	 *
 	 * @return the new {@link JMenu}
 	 */
+	@Override
 	protected JMenu newFileMenu(final ActionListener listener)
 	{
 
 		final JMenu fileMenu = super.newFileMenu(listener);
-		
+
 		JMenuItem jmi;
 
 		// Overview all bundle apps
@@ -111,11 +117,55 @@ public class DesktopMenu extends BaseDesktopMenu
 		return fileMenu;
 	}
 
+	@Override
+	protected String newLabelTextApplicationName()
+	{
+		return Messages.getString("InfoJPanel.application.name.value");
+	}
+
+	@Override
+	protected String newLabelTextCopyright()
+	{
+		return Messages.getString("InfoJPanel.copyright.value");
+	}
+
+	@Override
+	protected String newLabelTextLabelApplicationName()
+	{
+		return Messages.getString("InfoJPanel.application.name.key");
+	}
+
+	@Override
+	protected String newLabelTextLabelCopyright()
+	{
+		return Messages.getString("InfoJPanel.copyright.key");
+	}
+
+	@Override
+	protected String newLabelTextLabelVersion()
+	{
+		return Messages.getString("InfoJPanel.version.key");
+	}
+
+	@Override
+	protected String newLabelTextVersion()
+	{
+		return Messages.getString("InfoJPanel.version.value");
+	}
+
+	@Override
+	protected String newTextWarning()
+	{
+		return Messages.getString("InfoJPanel.warning");
+	}
+
+	@Override
 	protected String onNewLicenseText()
 	{
-		final Resource resource = SpringBootSwingApplication.ctx.getResource("classpath:LICENSE.txt");
+		final Resource resource = SpringBootSwingApplication.ctx
+			.getResource("classpath:LICENSE.txt");
 		final StringBuilder license = new StringBuilder();
-		try(InputStream is = resource.getInputStream())
+		try (InputStream is = resource.getInputStream())
 		{
 			String thisLine;
 			final BufferedReader br = new BufferedReader(new InputStreamReader(is));
@@ -128,52 +178,13 @@ public class DesktopMenu extends BaseDesktopMenu
 		catch (final IOException e)
 		{
 			String title = e.getLocalizedMessage();
-			String htmlMessage = "<html><body width='650'>" + "<h2>" + title + "</h2>"
-				+ "<p>" + e.getMessage();
-			JOptionPane
-				.showMessageDialog(SpringBootSwingApplication.getInstance(), htmlMessage, title, JOptionPane.ERROR_MESSAGE);
-			log.error(e.getMessage(), e);
+			String htmlMessage = "<html><body width='650'>" + "<h2>" + title + "</h2>" + "<p>"
+				+ e.getMessage();
+			JOptionPane.showMessageDialog(SpringBootSwingApplication.getInstance(), htmlMessage,
+				title, JOptionPane.ERROR_MESSAGE);
+			log.log(Level.SEVERE, e.getMessage(), e);
 		}
 		return license.toString();
-	}
-
-	protected String newLabelTextLabelApplicationName()
-	{
-		return Messages
-			.getString("InfoJPanel.application.name.key");
-	}
-
-	protected String newLabelTextApplicationName()
-	{
-		return Messages
-			.getString("InfoJPanel.application.name.value");
-	}
-
-	protected String newLabelTextLabelCopyright()
-	{
-		return  Messages.getString("InfoJPanel.copyright.key");
-	}
-
-	protected String newLabelTextCopyright()
-	{
-		return Messages
-			.getString("InfoJPanel.copyright.value");
-	}
-
-	protected String newLabelTextLabelVersion()
-	{
-		return Messages.getString("InfoJPanel.version.key");
-	}
-
-	protected String newLabelTextVersion()
-	{
-		return  Messages
-			.getString("InfoJPanel.version.value");
-	}
-
-	protected String newTextWarning()
-	{
-		return  Messages.getString("InfoJPanel.warning");
 	}
 
 }

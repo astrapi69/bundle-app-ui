@@ -33,7 +33,8 @@ public class NewBundleAppInternalFrameAction extends AbstractAction
 	@Override
 	public void actionPerformed(final ActionEvent e)
 	{
-		SpringBootSwingApplication.getInstance().replaceInternalFrame("New bundle app", new WizardPanel());
+		SpringBootSwingApplication.getInstance().replaceInternalFrame("New bundle app",
+			new WizardPanel());
 	}
 
 }

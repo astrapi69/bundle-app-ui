@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
 
 import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
@@ -16,8 +17,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 import de.alpharogroup.bundle.app.SpringBootSwingApplication;
@@ -37,9 +36,9 @@ import de.alpharogroup.swing.base.BasePanel;
 import de.alpharogroup.swing.renderer.TableCellButtonRenderer;
 import de.alpharogroup.swing.table.editor.TableCellButtonEditor;
 import de.alpharogroup.swing.x.GenericJXTable;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.java.Log;
 
-@Slf4j
+@Log
 public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDashboardBean>
 {
 
@@ -91,13 +90,9 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 			UniRestService.saveOrUpdateEntry(bundleApplication.getName(), baseName,
 				getModelObject().getSelectedBundleName().getLocale().getLocale(), key, value);
 		}
-		catch (UnirestException e1)
+		catch (UnirestException | IOException e1)
 		{
-			log.error(e1.getLocalizedMessage(), e1);
-		}
-		catch (IOException e1)
-		{
-			log.error(e1.getLocalizedMessage(), e1);
+			log.log(Level.SEVERE, e1.getLocalizedMessage(), e1);
 		}
 
 		reloadTableModel();
@@ -121,8 +116,8 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 			{
 				UniRestService.deleteBundleName(getModelObject().getSelectedBundleName());
 
-				final Model<ApplicationDashboardBean> baModel = SpringBootSwingApplication.getInstance()
-					.getSelectedBundleApplicationPropertyModel();
+				final Model<ApplicationDashboardBean> baModel = SpringBootSwingApplication
+					.getInstance().getSelectedBundleApplicationPropertyModel();
 				final ApplicationDashboardContentPanel component = new ApplicationDashboardContentPanel(
 					baModel);
 				SpringBootSwingApplication.getInstance()
@@ -132,7 +127,7 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 			}
 			catch (UnirestException e1)
 			{
-				log.error(e1.getLocalizedMessage(), e1);
+				log.log(Level.SEVERE, e1.getLocalizedMessage(), e1);
 			}
 
 		}
@@ -161,7 +156,7 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 			}
 			catch (IOException ex)
 			{
-				log.error(ex.getLocalizedMessage(), ex);
+				log.log(Level.SEVERE, ex.getLocalizedMessage(), ex);
 			}
 		}
 	}
@@ -217,8 +212,8 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 			{
 				final Resourcebundle selected = (Resourcebundle)this.getValue();
 
-				SpringBootSwingApplication.getInstance().getModelObject().getSelectedBundleApplication()
-					.setSelectedResourcebundle(selected);
+				SpringBootSwingApplication.getInstance().getModelObject()
+					.getSelectedBundleApplication().setSelectedResourcebundle(selected);
 
 				txtKey.setText(selected.getKey().getName());
 				txtValue.setText(selected.getValue().getName());
@@ -292,7 +287,7 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 				}
 				catch (UnirestException e)
 				{
-					log.error(e.getLocalizedMessage(), e);
+					log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 				}
 
 				if (selected.equals(SpringBootSwingApplication.getInstance().getModelObject()
@@ -300,8 +295,8 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 				{
 					txtKey.setText("");
 					txtValue.setText("");
-					SpringBootSwingApplication.getInstance().getModelObject().getSelectedBundleApplication()
-						.setSelectedResourcebundle(null);
+					SpringBootSwingApplication.getInstance().getModelObject()
+						.getSelectedBundleApplication().setSelectedResourcebundle(null);
 				}
 
 				reloadTableModel();
@@ -467,23 +462,10 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 				NullCheckComparator.<Quattro<String, String, Resourcebundle, Resourcebundle>> of(
 					(o1, o2) -> o1.getTopLeft().compareTo(o2.getTopLeft())));
 		}
-		catch (UnirestException e)
+		catch (UnirestException | IOException e)
 		{
-			log.error(e.getLocalizedMessage(), e);
+			log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}
-		catch (JsonParseException e)
-		{
-			log.error(e.getLocalizedMessage(), e);
-		}
-		catch (JsonMappingException e)
-		{
-			log.error(e.getLocalizedMessage(), e);
-		}
-		catch (IOException e)
-		{
-			log.error(e.getLocalizedMessage(), e);
-		}
-
 	}
 
 }

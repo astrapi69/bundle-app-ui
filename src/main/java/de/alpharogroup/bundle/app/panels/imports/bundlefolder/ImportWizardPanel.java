@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
+import java.util.logging.Level;
 
 import org.apache.commons.lang3.BooleanUtils;
 
@@ -28,9 +29,9 @@ import de.alpharogroup.resourcebundle.inspector.search.PropertiesListResolver;
 import de.alpharogroup.resourcebundle.locale.LocaleResolver;
 import de.alpharogroup.swing.wizard.AbstractWizardPanel;
 import de.alpharogroup.swing.wizard.BaseWizardContentPanel;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.java.Log;
 
-@Slf4j
+@Log
 public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 	implements
 		EventListener<EventObject<NavigationEventState>>
@@ -119,7 +120,7 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 		}
 		catch (final IOException e)
 		{
-			log.error("Import failed.", e);
+			log.log(Level.SEVERE, "Import failed.", e);
 		}
 
 	}
@@ -150,7 +151,7 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 				}
 				catch (final IOException e)
 				{
-					log.error(
+					log.log(Level.SEVERE,
 						"Loading Properties file " + propertiesFile.getAbsolutePath() + " failed.",
 						e);
 				}

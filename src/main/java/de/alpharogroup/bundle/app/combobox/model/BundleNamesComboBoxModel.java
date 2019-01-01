@@ -22,8 +22,8 @@ public class BundleNamesComboBoxModel extends AbstractComboBoxModel<BundleName>
 	 * init block
 	 **/
 	{
-		final Set<BundleName> bundleNames = SpringBootSwingApplication.getInstance().getModelObject()
-			.getSelectedBundleApplication().getBundleNames();
+		final Set<BundleName> bundleNames = SpringBootSwingApplication.getInstance()
+			.getModelObject().getSelectedBundleApplication().getBundleNames();
 
 		setComboSet(bundleNames);
 	}

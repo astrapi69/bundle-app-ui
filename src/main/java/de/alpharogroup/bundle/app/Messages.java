@@ -27,12 +27,9 @@ package de.alpharogroup.bundle.app;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import lombok.extern.slf4j.Slf4j;
-
 /**
  * The Class Messages.
  */
-@Slf4j
 public class Messages
 {
 
@@ -57,7 +54,6 @@ public class Messages
 		}
 		catch (final MissingResourceException e)
 		{
-			log.error(e.getLocalizedMessage(), e);
 			return '!' + key + '!';
 		}
 	}

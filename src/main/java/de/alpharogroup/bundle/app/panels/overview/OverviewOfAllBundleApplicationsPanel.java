@@ -5,16 +5,13 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 
-import org.json.JSONException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 import de.alpharogroup.bundle.app.SpringBootSwingApplication;
@@ -34,13 +31,13 @@ import de.alpharogroup.swing.renderer.TableCellButtonRenderer;
 import de.alpharogroup.swing.table.editor.TableCellButtonEditor;
 import de.alpharogroup.swing.x.GenericJXTable;
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.java.Log;
 
 /**
  * The class {@link OverviewOfAllBundleApplicationsPanel}.
  */
 @Getter
-@Slf4j
+@Log
 public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboardBean>
 {
 	private static final long serialVersionUID = 1L;
@@ -97,30 +94,16 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 				UniRestService.deleteBundleApplication(selectedBundleApplication);
 				final List<BundleApplication> bundleApplications = UniRestService
 					.findAllBundleApplications();
-				SpringBootSwingApplication.getInstance().getModelObject().setBundleApplications(bundleApplications);
-				SpringBootSwingApplication.getInstance().replaceInternalFrame("Overview bundle apps",
-					new MainDashboardPanel(PropertyModel
-						.<MainDashboardBean> of(SpringBootSwingApplication.getInstance(), "model.object")));
+				SpringBootSwingApplication.getInstance().getModelObject()
+					.setBundleApplications(bundleApplications);
+				SpringBootSwingApplication.getInstance().replaceInternalFrame(
+					"Overview bundle apps",
+					new MainDashboardPanel(PropertyModel.<MainDashboardBean> of(
+						SpringBootSwingApplication.getInstance(), "model.object")));
 			}
-			catch (UnirestException e)
+			catch (UnirestException | IOException e)
 			{
-				log.error(e.getLocalizedMessage(), e);
-			}
-			catch (JsonParseException e)
-			{
-				log.error(e.getLocalizedMessage(), e);
-			}
-			catch (JsonMappingException e)
-			{
-				log.error(e.getLocalizedMessage(), e);
-			}
-			catch (JSONException e)
-			{
-				log.error(e.getLocalizedMessage(), e);
-			}
-			catch (IOException e)
-			{
-				log.error(e.getLocalizedMessage(), e);
+				log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			}
 
 		}
@@ -174,9 +157,10 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 			{
 				final BundleApplication selectedBundleApplication = (BundleApplication)this
 					.getValue();
-				SpringBootSwingApplication.getInstance().setSelectedBundleApplication(selectedBundleApplication);
-				final Model<ApplicationDashboardBean> baModel = SpringBootSwingApplication.getInstance()
-					.getSelectedBundleApplicationPropertyModel();
+				SpringBootSwingApplication.getInstance()
+					.setSelectedBundleApplication(selectedBundleApplication);
+				final Model<ApplicationDashboardBean> baModel = SpringBootSwingApplication
+					.getInstance().getSelectedBundleApplicationPropertyModel();
 				final ApplicationDashboardContentPanel component = new ApplicationDashboardContentPanel(
 					baModel);
 				SpringBootSwingApplication.getInstance().replaceInternalFrame(
@@ -286,7 +270,7 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 				}
 				catch (IndexOutOfBoundsException e)
 				{
-					log.error(e.getLocalizedMessage(), e);
+					log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 				}
 			}
 		});
@@ -360,25 +344,9 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 			bundleApplications = UniRestService.findAllBundleApplications();
 			getModelObject().setBundleApplications(bundleApplications);
 		}
-		catch (UnirestException e)
+		catch (UnirestException | IOException e)
 		{
-			log.error(e.getLocalizedMessage(), e);
-		}
-		catch (JsonParseException e)
-		{
-			log.error(e.getLocalizedMessage(), e);
-		}
-		catch (JsonMappingException e)
-		{
-			log.error(e.getLocalizedMessage(), e);
-		}
-		catch (JSONException e)
-		{
-			log.error(e.getLocalizedMessage(), e);
-		}
-		catch (IOException e)
-		{
-			log.error(e.getLocalizedMessage(), e);
+			log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}
 
 		tableModelList = null;
