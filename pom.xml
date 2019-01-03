@@ -33,7 +33,7 @@
 		<!-- XML-EXTENSIONS version -->
 		<xml-extensions.version>5</xml-extensions.version>
 		<!-- RESOURCE-BUNDLES-VIEW-MODEL versions -->
-		<resource-bundles-view-model.version>1.1-SNAPSHOT</resource-bundles-view-model.version>
+		<resource-bundles-view-model.version>1</resource-bundles-view-model.version>
 		<!-- UNIREST version -->
 		<unirest.version>1.4.9</unirest.version>
 		<httpclient.version>4.3.6</httpclient.version>
