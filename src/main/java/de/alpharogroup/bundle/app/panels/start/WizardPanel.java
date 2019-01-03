@@ -1,6 +1,6 @@
 package de.alpharogroup.bundle.app.panels.start;
 
-import de.alpharogroup.bundle.app.MainFrame;
+import de.alpharogroup.bundle.app.SpringBootSwingApplication;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardContentPanel;
 import de.alpharogroup.design.pattern.state.wizard.model.WizardModelStateMachine;
 import de.alpharogroup.model.BaseModel;
@@ -55,7 +55,7 @@ public class WizardPanel extends AbstractWizardPanel<WizardModel>
 	{
 		super.onCancel();
 		// from here application specific behavior...
-		MainFrame.getInstance().getCurrentVisibleInternalFrame().dispose();
+		SpringBootSwingApplication.getInstance().getCurrentVisibleInternalFrame().dispose();
 	}
 
 	@Override
@@ -63,7 +63,7 @@ public class WizardPanel extends AbstractWizardPanel<WizardModel>
 	{
 		super.onFinish();
 		// from here application specific behavior...
-		MainFrame.getInstance().replaceInternalFrame("Dashboard bundle app",
+		SpringBootSwingApplication.getInstance().replaceInternalFrame("Dashboard bundle app",
 			new ApplicationDashboardContentPanel());
 
 	}

@@ -78,6 +78,7 @@ public class NewBundleNameFormPanel extends javax.swing.JPanel
 
 		txtBasename.addActionListener(new java.awt.event.ActionListener()
 		{
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt)
 			{
 				txtBasenameActionPerformed(evt);
@@ -87,6 +88,7 @@ public class NewBundleNameFormPanel extends javax.swing.JPanel
 		btnSave.setText("Save entry");
 		btnSave.addActionListener(new java.awt.event.ActionListener()
 		{
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt)
 			{
 				btnSaveActionPerformed(evt);
@@ -98,6 +100,7 @@ public class NewBundleNameFormPanel extends javax.swing.JPanel
 		btnCreateNewLocale.setText("Create new custom locale");
 		btnCreateNewLocale.addActionListener(new java.awt.event.ActionListener()
 		{
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt)
 			{
 				btnCreateNewLocaleActionPerformed(evt);

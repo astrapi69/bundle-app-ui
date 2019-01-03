@@ -26,7 +26,7 @@ import javax.swing.JFileChooser;
 
 import org.apache.commons.lang3.StringUtils;
 
-import de.alpharogroup.bundle.app.MainApplication;
+import de.alpharogroup.bundle.app.ApplicationEventBus;
 import de.alpharogroup.bundle.app.combobox.model.LanguageLocalesComboBoxModel;
 import de.alpharogroup.bundle.app.combobox.renderer.LanguageLocalesComboBoxRenderer;
 import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
@@ -240,7 +240,7 @@ public class ImportBundleApplicationStartPanel extends BaseWizardContentPanel<Im
 		if (StringUtils.isNotEmpty(bundleAppName) && defaultLocale != null && rootDir != null)
 		{
 			modelObject.setAllValid();
-			final EventSource<EventObject<NavigationEventState>> eventSource = MainApplication
+			final EventSource<EventObject<NavigationEventState>> eventSource = ApplicationEventBus
 				.getImportNavigationState();
 			eventSource.fireEvent(new EventObject<>(NavigationEventState.UPDATE));
 		}

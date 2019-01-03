@@ -14,6 +14,7 @@ import de.alpharogroup.swing.combobox.model.AbstractComboBoxModel;
  * 
  * @deprecated use instead {@code LanguageLocalesComboBoxModel}
  */
+@Deprecated
 public class LocalesComboBoxModel extends AbstractComboBoxModel<Locale>
 {
 

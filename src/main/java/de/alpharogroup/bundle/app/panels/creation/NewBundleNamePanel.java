@@ -161,7 +161,8 @@ public class NewBundleNamePanel extends BasePanel<ApplicationDashboardBean>
 		}
 		try
 		{
-			HttpClientRestService.getOrCreateBundleName(bundleApplication.getName(), baseName, locale);
+			HttpClientRestService.getOrCreateBundleName(bundleApplication.getName(), baseName,
+				locale);
 		}
 		catch (ClientProtocolException e1)
 		{

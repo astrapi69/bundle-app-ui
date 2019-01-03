@@ -98,6 +98,7 @@ public class OverviewResourceBundleAddEntryFormPanel extends javax.swing.JPanel
 		btnAddEntry.setText("Add new entry");
 		btnAddEntry.addActionListener(new java.awt.event.ActionListener()
 		{
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt)
 			{
 				btnAddEntryActionPerformed(evt);
@@ -106,6 +107,7 @@ public class OverviewResourceBundleAddEntryFormPanel extends javax.swing.JPanel
 
 		txtKey.addActionListener(new java.awt.event.ActionListener()
 		{
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt)
 			{
 				txtKeyActionPerformed(evt);
@@ -117,6 +119,7 @@ public class OverviewResourceBundleAddEntryFormPanel extends javax.swing.JPanel
 		btnExport.setText("Export");
 		btnExport.addActionListener(new java.awt.event.ActionListener()
 		{
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt)
 			{
 				btnExportActionPerformed(evt);
@@ -126,6 +129,7 @@ public class OverviewResourceBundleAddEntryFormPanel extends javax.swing.JPanel
 		btnDelete.setText("Delete");
 		btnDelete.addActionListener(new java.awt.event.ActionListener()
 		{
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt)
 			{
 				btnDeleteActionPerformed(evt);

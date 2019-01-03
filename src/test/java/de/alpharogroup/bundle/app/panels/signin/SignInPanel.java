@@ -73,6 +73,7 @@ public class SignInPanel extends javax.swing.JPanel
 
 		txtPw.addActionListener(new java.awt.event.ActionListener()
 		{
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt)
 			{
 				txtPwActionPerformed(evt);
@@ -82,6 +83,7 @@ public class SignInPanel extends javax.swing.JPanel
 		btnSignin.setText("Sign in");
 		btnSignin.addActionListener(new java.awt.event.ActionListener()
 		{
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt)
 			{
 				btnSigninActionPerformed(evt);

@@ -156,6 +156,7 @@ public class NewCustomLocalePanel extends BasePanel<ApplicationDashboardBean>
 		btnSave.setEnabled(false);
 		new EnableButtonBehavior(btnSave.getModel(), txtVariant.getDocument(), false)
 		{
+			@Override
 			protected void onChange()
 			{
 				boolean country;

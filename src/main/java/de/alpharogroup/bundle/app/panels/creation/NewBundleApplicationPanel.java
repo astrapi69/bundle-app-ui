@@ -16,7 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 import de.alpharogroup.behaviors.EnableButtonBehavior;
-import de.alpharogroup.bundle.app.MainFrame;
+import de.alpharogroup.bundle.app.SpringBootSwingApplication;
 import de.alpharogroup.bundle.app.actions.ReturnToDashboardAction;
 import de.alpharogroup.bundle.app.combobox.model.LanguageLocalesComboBoxModel;
 import de.alpharogroup.bundle.app.combobox.renderer.LanguageLocalesComboBoxRenderer;
@@ -242,6 +242,7 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 		btnSave.setEnabled(false);
 		new EnableButtonBehavior(btnSave.getModel(), txtBundleName.getDocument(), false)
 		{
+			@Override
 			protected void onChange()
 			{
 				boolean defaultLocale;
@@ -380,7 +381,8 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 			}
 			else
 			{
-				BundleApplication newBundleApplication = HttpClientRestService.findBundleApplication(name);
+				BundleApplication newBundleApplication = HttpClientRestService
+					.findBundleApplication(name);
 				if (newBundleApplication == null)
 				{
 					LanguageLocale defaultLocale = getModelObject().getDefaultLocale();
@@ -389,11 +391,11 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 						BundleApplication.builder().name(name).defaultLocale(defaultLocale)
 							.supportedLocales(getModelObject().getSupportedLocales()).build());
 				}
-				if (!MainFrame.getInstance().getModelObject().getBundleApplications()
-					.contains(newBundleApplication))
+				if (!SpringBootSwingApplication.getInstance().getModelObject()
+					.getBundleApplications().contains(newBundleApplication))
 				{
-					MainFrame.getInstance().getModelObject().getBundleApplications()
-						.add(newBundleApplication);
+					SpringBootSwingApplication.getInstance().getModelObject()
+						.getBundleApplications().add(newBundleApplication);
 				}
 				getModelObject().setBundleApplication(newBundleApplication);
 			}

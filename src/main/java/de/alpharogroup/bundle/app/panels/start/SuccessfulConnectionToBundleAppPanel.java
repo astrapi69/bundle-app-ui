@@ -1,6 +1,6 @@
 package de.alpharogroup.bundle.app.panels.start;
 
-import de.alpharogroup.bundle.app.MainApplication;
+import de.alpharogroup.bundle.app.ApplicationEventBus;
 import de.alpharogroup.design.pattern.observer.event.EventListener;
 import de.alpharogroup.design.pattern.observer.event.EventObject;
 import de.alpharogroup.design.pattern.observer.event.EventSource;
@@ -55,7 +55,7 @@ public class SuccessfulConnectionToBundleAppPanel
 	protected void onInitializeComponents()
 	{
 		// register as listener...
-		final EventSource<EventObject<BundleStart>> eventSource = MainApplication
+		final EventSource<EventObject<BundleStart>> eventSource = ApplicationEventBus
 			.getBundleStartEventSource();
 		eventSource.add(this);
 		lblBundleAppName = new javax.swing.JLabel();

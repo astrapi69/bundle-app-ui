@@ -6,11 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
+import java.util.logging.Level;
 
 import org.apache.commons.lang3.BooleanUtils;
 
-import de.alpharogroup.bundle.app.MainApplication;
-import de.alpharogroup.bundle.app.MainFrame;
+import de.alpharogroup.bundle.app.ApplicationEventBus;
+import de.alpharogroup.bundle.app.SpringBootSwingApplication;
 import de.alpharogroup.bundle.app.panels.imports.ext.ConvertExtensions;
 import de.alpharogroup.bundle.app.spring.HttpClientRestService;
 import de.alpharogroup.collections.pairs.KeyValuePair;
@@ -28,9 +29,9 @@ import de.alpharogroup.resourcebundle.inspector.search.PropertiesListResolver;
 import de.alpharogroup.resourcebundle.locale.LocaleResolver;
 import de.alpharogroup.swing.wizard.AbstractWizardPanel;
 import de.alpharogroup.swing.wizard.BaseWizardContentPanel;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.java.Log;
 
-@Slf4j
+@Log
 public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 	implements
 		EventListener<EventObject<NavigationEventState>>
@@ -73,7 +74,7 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 	{
 		super.onCancel();
 		// from here application specific behavior...
-		MainFrame.getInstance().getCurrentVisibleInternalFrame().dispose();
+		SpringBootSwingApplication.getInstance().getCurrentVisibleInternalFrame().dispose();
 	}
 
 	@Override
@@ -91,7 +92,7 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 	{
 		super.onFinish();
 		startDbImport();
-		MainFrame.getInstance().getCurrentVisibleInternalFrame().dispose();
+		SpringBootSwingApplication.getInstance().getCurrentVisibleInternalFrame().dispose();
 
 	}
 
@@ -101,7 +102,7 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 	{
 		super.onInitializeComponents();
 		// register as listener...
-		final EventSource<EventObject<NavigationEventState>> eventSource = MainApplication
+		final EventSource<EventObject<NavigationEventState>> eventSource = ApplicationEventBus
 			.getImportNavigationState();
 		eventSource.add(this);
 		updateButtonState();
@@ -119,7 +120,7 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 		}
 		catch (final IOException e)
 		{
-			log.error("Import failed.", e);
+			log.log(Level.SEVERE, "Import failed.", e);
 		}
 
 	}
@@ -150,7 +151,7 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 				}
 				catch (final IOException e)
 				{
-					log.error(
+					log.log(Level.SEVERE,
 						"Loading Properties file " + propertiesFile.getAbsolutePath() + " failed.",
 						e);
 				}
@@ -169,13 +170,13 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 		final List<KeyValuePair<File, Locale>> propertiesList = resolver1.getPropertiesList();
 		getModelObject().setFoundProperties(ConvertExtensions.convertAndSort(propertiesList));
 		getModelObject().setDbImport(true);
-		final EventSource<EventObject<ImportWizardModel>> eventSource = MainApplication
+		final EventSource<EventObject<ImportWizardModel>> eventSource = ApplicationEventBus
 			.getImportWizardModel();
 		eventSource.fireEvent(new EventObject<>(getModelObject()));
 		// set buttons state...
 		getModelObject().setValidPrevious(true);
 		getModelObject().setValidFinish(true);
-		final EventSource<EventObject<NavigationEventState>> navigationEventState = MainApplication
+		final EventSource<EventObject<NavigationEventState>> navigationEventState = ApplicationEventBus
 			.getImportNavigationState();
 		navigationEventState.fireEvent(new EventObject<>(NavigationEventState.UPDATE));
 

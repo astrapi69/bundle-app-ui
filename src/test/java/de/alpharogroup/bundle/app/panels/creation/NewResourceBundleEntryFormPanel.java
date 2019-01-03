@@ -82,6 +82,7 @@ public class NewResourceBundleEntryFormPanel extends javax.swing.JPanel
 
 		txtValue.addActionListener(new java.awt.event.ActionListener()
 		{
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt)
 			{
 				txtValueActionPerformed(evt);
@@ -92,6 +93,7 @@ public class NewResourceBundleEntryFormPanel extends javax.swing.JPanel
 
 		txtKey.addActionListener(new java.awt.event.ActionListener()
 		{
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt)
 			{
 				txtKeyActionPerformed(evt);
@@ -101,6 +103,7 @@ public class NewResourceBundleEntryFormPanel extends javax.swing.JPanel
 		btnSave.setText("Save entry");
 		btnSave.addActionListener(new java.awt.event.ActionListener()
 		{
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt)
 			{
 				btnSaveActionPerformed(evt);
@@ -112,6 +115,7 @@ public class NewResourceBundleEntryFormPanel extends javax.swing.JPanel
 		btnCreate.setText("Create new Bundle");
 		btnCreate.addActionListener(new java.awt.event.ActionListener()
 		{
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt)
 			{
 				btnCreateActionPerformed(evt);

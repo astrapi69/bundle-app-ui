@@ -7,17 +7,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
 
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
-import de.alpharogroup.bundle.app.MainFrame;
+import de.alpharogroup.bundle.app.SpringBootSwingApplication;
 import de.alpharogroup.bundle.app.actions.ReturnToDashboardAction;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.bundle.app.spring.UniRestService;
@@ -34,9 +33,9 @@ import de.alpharogroup.swing.base.BasePanel;
 import de.alpharogroup.swing.renderer.TableCellButtonRenderer;
 import de.alpharogroup.swing.table.editor.TableCellButtonEditor;
 import de.alpharogroup.swing.x.GenericJXTable;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.java.Log;
 
-@Slf4j
+@Log
 public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDashboardBean>
 {
 	private static final long serialVersionUID = 1L;
@@ -86,15 +85,15 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 			}
 			catch (UnirestException e)
 			{
-				log.error(e.getLocalizedMessage(), e);
+				log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			}
 
-			MainFrame.getInstance().getModelObject().getSelectedBundleApplication().getBundleNames()
-				.remove(selectedBundleName);
-			MainFrame.getInstance().getModelObject().getSelectedBundleApplication()
+			SpringBootSwingApplication.getInstance().getModelObject().getSelectedBundleApplication()
+				.getBundleNames().remove(selectedBundleName);
+			SpringBootSwingApplication.getInstance().getModelObject().getSelectedBundleApplication()
 				.setSelectedBundleName(null);
 
-			MainFrame.getInstance().replaceInternalFrame(
+			SpringBootSwingApplication.getInstance().replaceInternalFrame(
 				"Dashboard of " + getModelObject().getBundleApplication().getName() + " bundle app",
 				new OverviewOfAllResourceBundlesPanel(getModel()));
 		}
@@ -157,15 +156,15 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 			{
 				final BundleName selectedBundleName = (BundleName)this.getValue();
 
-				final Model<ApplicationDashboardBean> baModel = MainFrame.getInstance()
-					.getSelectedBundleApplicationPropertyModel();
-				MainFrame.getInstance().getModelObject().getSelectedBundleApplication()
-					.setSelectedBundleName(selectedBundleName);
+				final Model<ApplicationDashboardBean> baModel = SpringBootSwingApplication
+					.getInstance().getSelectedBundleApplicationPropertyModel();
+				SpringBootSwingApplication.getInstance().getModelObject()
+					.getSelectedBundleApplication().setSelectedBundleName(selectedBundleName);
 
 				final OverviewResourceBundleAddEntryPanel component = new OverviewResourceBundleAddEntryPanel(
 					baModel);
 
-				MainFrame.getInstance().replaceInternalFrame(
+				SpringBootSwingApplication.getInstance().replaceInternalFrame(
 					"Values of resource bundle " + selectedBundleName.getBaseName().getName()
 						+ " with locale " + selectedBundleName.getLocale().getLocale() + "",
 					component);
@@ -352,21 +351,9 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 				NullCheckComparator.<Quattro<String, String, BundleName, BundleName>> of(
 					(o1, o2) -> o1.getTopLeft().compareTo(o2.getTopLeft())));
 		}
-		catch (UnirestException e)
+		catch (UnirestException | IOException e)
 		{
-			log.error(e.getLocalizedMessage(), e);
-		}
-		catch (JsonParseException e)
-		{
-			log.error(e.getLocalizedMessage(), e);
-		}
-		catch (JsonMappingException e)
-		{
-			log.error(e.getLocalizedMessage(), e);
-		}
-		catch (IOException e)
-		{
-			log.error(e.getLocalizedMessage(), e);
+			log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}
 	}
 

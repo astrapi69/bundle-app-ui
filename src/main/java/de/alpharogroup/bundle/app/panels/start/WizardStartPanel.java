@@ -26,7 +26,7 @@ import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.LayoutStyle;
 
-import de.alpharogroup.bundle.app.MainApplication;
+import de.alpharogroup.bundle.app.ApplicationEventBus;
 import de.alpharogroup.design.pattern.observer.event.EventObject;
 import de.alpharogroup.design.pattern.observer.event.EventSource;
 import de.alpharogroup.design.pattern.state.wizard.model.WizardModelStateMachine;
@@ -62,14 +62,14 @@ public class WizardStartPanel extends BasePanel<WizardModelStateMachine<WizardMo
 
 	protected void onCreate()
 	{
-		final EventSource<EventObject<BundleStart>> eventSource = MainApplication
+		final EventSource<EventObject<BundleStart>> eventSource = ApplicationEventBus
 			.getBundleStartEventSource();
 		eventSource.fireEvent(new EventObject<>(BundleStart.CREATE));
 	}
 
 	protected void onImport()
 	{
-		final EventSource<EventObject<BundleStart>> eventSource = MainApplication
+		final EventSource<EventObject<BundleStart>> eventSource = ApplicationEventBus
 			.getBundleStartEventSource();
 		eventSource.fireEvent(new EventObject<>(BundleStart.CONNECT));
 	}

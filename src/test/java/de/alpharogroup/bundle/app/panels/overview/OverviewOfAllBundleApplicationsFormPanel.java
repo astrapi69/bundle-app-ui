@@ -74,6 +74,7 @@ public class OverviewOfAllBundleApplicationsFormPanel extends javax.swing.JPanel
 		btnCreateBundleApp.setText("Create new bundle application");
 		btnCreateBundleApp.addActionListener(new java.awt.event.ActionListener()
 		{
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt)
 			{
 				btnCreateBundleAppActionPerformed(evt);
