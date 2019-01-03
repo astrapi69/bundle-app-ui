@@ -26,12 +26,12 @@ import de.alpharogroup.bundle.app.panels.imports.file.ImportResourceBundlePanel;
 import de.alpharogroup.bundle.app.panels.overview.OverviewOfAllResourceBundlesPanel;
 import de.alpharogroup.bundle.app.panels.overview.OverviewResourceBundleAddEntryPanel;
 import de.alpharogroup.bundle.app.spring.HttpClientRestService;
+import de.alpharogroup.collection.comparators.KeyValuePairKeyComparator;
 import de.alpharogroup.collections.pairs.KeyValuePair;
 import de.alpharogroup.collections.pairs.Quattro;
 import de.alpharogroup.collections.pairs.Triple;
 import de.alpharogroup.collections.properties.PropertiesExtensions;
 import de.alpharogroup.comparators.NullCheckComparator;
-import de.alpharogroup.comparators.pairs.KeyValuePairKeyComparator;
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
@@ -304,7 +304,7 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 					final Properties importedProperties = PropertiesExtensions
 						.loadProperties(resourceBundleToImport);
 					getModelObject().setImportedProperties(importedProperties);
-					final List<KeyValuePair<String, String>> keyValuePairs = PropertiesExtensions
+					final List<KeyValuePair<String, String>> keyValuePairs = KeyValuePair
 						.toKeyValuePairs(importedProperties);
 					Collections.sort(keyValuePairs, NullCheckComparator
 						.<KeyValuePair<String, String>> of(new KeyValuePairKeyComparator<>()));
