@@ -14,6 +14,8 @@
 	<version>1.3</version>
 
 	<properties>
+		<!-- SWING-COMPONENTS version -->
+		<swing-components.version>5.1-SNAPSHOT</swing-components.version>
 		<!-- GUAVA version -->
 		<guava.version>27.0.1-jre</guava.version>
 		<!-- SILLY-COLLECTIONS version -->

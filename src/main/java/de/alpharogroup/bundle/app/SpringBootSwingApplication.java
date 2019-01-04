@@ -2,6 +2,7 @@ package de.alpharogroup.bundle.app;
 
 import java.awt.Component;
 import java.awt.EventQueue;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
@@ -47,7 +48,7 @@ public class SpringBootSwingApplication extends ApplicationFrame<MainDashboardBe
 
 	/** The instance. */
 	private static SpringBootSwingApplication instance;
-
+	
 	/**
 	 * Gets the single instance of SpringBootSwingApplication.
 	 *
@@ -89,7 +90,18 @@ public class SpringBootSwingApplication extends ApplicationFrame<MainDashboardBe
 	public SpringBootSwingApplication()
 	{
 		super(Messages.getString("mainframe.title"));
+	}
 
+	@Override
+	protected File newConfigurationDirectory(final @NonNull String parent, final @NonNull String child)
+	{
+		File applicationConfigurationDirectory =
+			new File(super.newConfigurationDirectory(parent, child), "bundle-app");
+		if (!applicationConfigurationDirectory.exists())
+		{
+			applicationConfigurationDirectory.mkdir();
+		}
+		return applicationConfigurationDirectory;
 	}
 
 	public Model<ApplicationDashboardBean> getSelectedBundleApplicationPropertyModel()
@@ -153,7 +165,6 @@ public class SpringBootSwingApplication extends ApplicationFrame<MainDashboardBe
 	{
 		super.onAfterInitialize();
 		loadAndSetAllBundleApplications();
-
 		if (instance == null)
 		{
 			instance = this;
