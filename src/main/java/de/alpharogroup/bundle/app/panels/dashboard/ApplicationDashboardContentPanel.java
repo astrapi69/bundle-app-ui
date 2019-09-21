@@ -12,6 +12,8 @@ import java.util.logging.Level;
 
 import javax.swing.JFileChooser;
 
+import de.alpharogroup.db.resource.bundles.domain.BundleName;
+import de.alpharogroup.file.FileExtensions;
 import org.apache.commons.lang3.BooleanUtils;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -274,6 +276,7 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 						if (BooleanUtils.toBoolean(entry.getRight().getKey()))
 						{
 							final File propertiesFile = entry.getLeft();
+							String filepath = FileExtensions.getAbsolutPathWithoutFilename(propertiesFile);
 							final Locale locale = entry.getMiddle();
 							final String bundlename = LocaleResolver
 								.resolveBundlename(propertiesFile);
@@ -286,7 +289,10 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 									.topLeft(properties).topRight(bundleApplication.getName())
 									.bottomLeft(bundlename).bottomRight(locale).build();
 
-								HttpClientRestService.updateProperties(quattro);
+								BundleName bundleName = HttpClientRestService
+									.updateProperties(quattro);
+								bundleName.setFilepath(filepath);
+								// TODO update entity
 							}
 							catch (final IOException e)
 							{

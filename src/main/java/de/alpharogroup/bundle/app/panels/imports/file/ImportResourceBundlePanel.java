@@ -1,6 +1,7 @@
 package de.alpharogroup.bundle.app.panels.imports.file;
 
 import java.awt.event.ActionEvent;
+import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.Properties;
@@ -16,6 +17,7 @@ import de.alpharogroup.bundle.app.spring.HttpClientRestService;
 import de.alpharogroup.collections.pairs.Quattro;
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import de.alpharogroup.db.resource.bundles.domain.BundleName;
+import de.alpharogroup.file.FileExtensions;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.resourcebundle.locale.LocaleResolver;
@@ -69,10 +71,12 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 	{
 		// import the properties to the db...
 		CompletableFuture.runAsync(() -> {
+			File resourceBundleToImport = getModelObject().getResourceBundleToImport();
+			String filepath = FileExtensions.getAbsolutPathWithoutFilename(resourceBundleToImport);
 			final String baseName = LocaleResolver
-				.resolveBundlename(getModelObject().getResourceBundleToImport());
+				.resolveBundlename(resourceBundleToImport);
 			final Locale locale = LocaleResolver
-				.resolveLocale(getModelObject().getResourceBundleToImport());
+				.resolveLocale(resourceBundleToImport);
 			BundleApplication bundleApplication = getModelObject().getBundleApplication();
 			Quattro<Properties, String, String, Locale> quattro = Quattro
 				.<Properties, String, String, Locale> builder()
@@ -83,6 +87,8 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 			try
 			{
 				BundleName bundleName = HttpClientRestService.updateProperties(quattro);
+				bundleName.setFilepath(filepath);
+				// TODO update entity
 				log.log(Level.FINE, bundleName.getBaseName().getName());
 			}
 			catch (IOException e1)
