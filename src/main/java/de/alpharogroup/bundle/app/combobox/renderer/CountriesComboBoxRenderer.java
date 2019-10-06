@@ -7,7 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
-import de.alpharogroup.db.resource.bundles.domain.Country;
+import de.alpharogroup.bundlemanagement.viewmodel.Country;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.resourcebundle.locale.LocaleExtensions;
@@ -48,7 +48,7 @@ public class CountriesComboBoxRenderer extends JLabel implements ListCellRendere
 		model.setObject(value);
 		if (value != null)
 		{
-			country = LocaleExtensions.getCountryName(value.getIso3166A2name(), Locale.ENGLISH,
+			country = LocaleExtensions.getCountryName(value.getIso3166a2name(), Locale.ENGLISH,
 				value.getName());
 		}
 		setText(country);

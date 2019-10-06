@@ -12,8 +12,6 @@ import java.util.logging.Level;
 
 import javax.swing.JFileChooser;
 
-import de.alpharogroup.db.resource.bundles.domain.BundleName;
-import de.alpharogroup.file.FileExtensions;
 import org.apache.commons.lang3.BooleanUtils;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -29,13 +27,15 @@ import de.alpharogroup.bundle.app.panels.imports.file.ImportResourceBundlePanel;
 import de.alpharogroup.bundle.app.panels.overview.OverviewOfAllResourceBundlesPanel;
 import de.alpharogroup.bundle.app.panels.overview.OverviewResourceBundleAddEntryPanel;
 import de.alpharogroup.bundle.app.spring.HttpClientRestService;
+import de.alpharogroup.bundlemanagement.viewmodel.BundleApplication;
+import de.alpharogroup.bundlemanagement.viewmodel.BundleName;
 import de.alpharogroup.collection.comparators.KeyValuePairKeyComparator;
 import de.alpharogroup.collections.pairs.KeyValuePair;
 import de.alpharogroup.collections.pairs.Quattro;
 import de.alpharogroup.collections.pairs.Triple;
 import de.alpharogroup.collections.properties.PropertiesExtensions;
 import de.alpharogroup.comparators.NullCheckComparator;
-import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
+import de.alpharogroup.file.FileExtensions;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.resourcebundle.inspector.search.PropertiesListResolver;

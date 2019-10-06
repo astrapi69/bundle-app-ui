@@ -19,43 +19,20 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
+import de.alpharogroup.bundlemanagement.viewmodel.BundleApplication;
+import de.alpharogroup.bundlemanagement.viewmodel.BundleName;
+import de.alpharogroup.bundlemanagement.viewmodel.LanguageLocale;
 import de.alpharogroup.collections.pairs.Quattro;
-import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
-import de.alpharogroup.db.resource.bundles.domain.BundleName;
-import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
 import de.alpharogroup.xml.json.JsonToObjectExtensions;
 import de.alpharogroup.xml.json.ObjectToJsonExtensions;
 
 public class HttpClientRestService
 {
 
-	public static final String REST_RESOURCEBUNDLE_MAIN_PATH = "/resourcebundle/";
-	public static final String REST_COUNTRIES_MAIN_PATH = "/country/";
-	public static final String REST_LANGUAGE_MAIN_PATH = "/language/";
-	public static final String REST_LANGUAGE_LOCALE_MAIN_PATH = "/language/locale/";
-	public static final String REST_BUNDLE_APP_MAIN_PATH = "/bundle/applications/";
-	public static final String REST_HOST_MAIN_PATH = "http://localhost";
-	public static final String REST_BUNDLE_NAME_MAIN_PATH = "/bundle/names/";
-	public static final int REST_HOST_PORT = 8080;
-	public static final String REST_HOST_FULL_PATH = REST_HOST_MAIN_PATH + ":" + REST_HOST_PORT;
-
-	public static final String REST_RESOURCEBUNDLE_FULL_PATH = REST_HOST_FULL_PATH
-		+ REST_RESOURCEBUNDLE_MAIN_PATH;
-	public static final String REST_COUNTRIES_FULL_PATH = REST_HOST_FULL_PATH
-		+ REST_COUNTRIES_MAIN_PATH;
-	public static final String REST_LANGUAGE_FULL_PATH = REST_HOST_FULL_PATH
-		+ REST_LANGUAGE_MAIN_PATH;
-	public static final String REST_LANGUAGE_LOCALE_FULL_PATH = REST_HOST_FULL_PATH
-		+ REST_LANGUAGE_LOCALE_MAIN_PATH;
-	public static final String REST_BUNDLE_APP_FULL_PATH = REST_HOST_FULL_PATH
-		+ REST_BUNDLE_APP_MAIN_PATH;
-	public static final String REST_BUNDLE_NAME_FULL_PATH = REST_HOST_FULL_PATH
-		+ REST_BUNDLE_NAME_MAIN_PATH;
-
 
 	public static void update(BundleApplication bundleApplication) throws IOException
 	{
-		String url = REST_BUNDLE_APP_FULL_PATH + "merge/";
+		String url = RestPaths.REST_BUNDLE_APP_FULL_PATH + "merge/";
 		HttpClient client = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(url);
 		String jsonString = ObjectToJsonExtensions.toJson(bundleApplication);
@@ -69,7 +46,7 @@ public class HttpClientRestService
 	public static BundleApplication newBundleApplication(BundleApplication bundleApplication)
 		throws ClientProtocolException, IOException
 	{
-		String url = REST_BUNDLE_APP_FULL_PATH;
+		String url = RestPaths.REST_BUNDLE_APP_FULL_PATH;
 		HttpClient client = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(url);
 		String jsonString = ObjectToJsonExtensions.toJson(bundleApplication);
@@ -89,10 +66,10 @@ public class HttpClientRestService
 			new InputStreamReader(response.getEntity().getContent()));
 		String json = IOUtils.toString(rd);
 		T object = null;
-		if(StringUtils.isNotEmpty(json)) 
+		if(StringUtils.isNotEmpty(json))
 		{
 			object = JsonToObjectExtensions.toObject(json, clazz);
-		} 
+		}
 		return object;
 	}
 
@@ -100,7 +77,7 @@ public class HttpClientRestService
 	public static BundleName updateProperties(Quattro<Properties, String, String, Locale> quattro)
 		throws ClientProtocolException, IOException
 	{
-		String url = REST_RESOURCEBUNDLE_FULL_PATH + "update/bundlename";
+		String url = RestPaths.REST_RESOURCEBUNDLE_FULL_PATH + "update/bundlename";
 
 		HttpClient client = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(url);
@@ -118,7 +95,7 @@ public class HttpClientRestService
 	public static LanguageLocale newLanguageLocale(String localeCode)
 		throws ClientProtocolException, IOException
 	{
-		String url = REST_LANGUAGE_LOCALE_FULL_PATH;
+		String url = RestPaths.REST_LANGUAGE_LOCALE_FULL_PATH;
 		HttpClient client = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(url);
 
@@ -134,20 +111,20 @@ public class HttpClientRestService
 
 	public static LanguageLocale find(String localeCode) throws ClientProtocolException, IOException
 	{
-		String url = REST_LANGUAGE_LOCALE_FULL_PATH + "find/by/locale/" + localeCode;
+		String url = RestPaths.REST_LANGUAGE_LOCALE_FULL_PATH + "find/by/locale/" + localeCode;
 
 		HttpClient client = HttpClientBuilder.create().build();
 		HttpGet get = new HttpGet(url);
 
 		HttpResponse response = client.execute(get);
 		LanguageLocale object = readEntity(response, LanguageLocale.class);
-		return object;	
+		return object;
 	}
 
 
 	public static BundleApplication findBundleApplication(String name) throws IOException
 	{
-		String url = REST_BUNDLE_APP_FULL_PATH + "find/by/name/"
+		String url = RestPaths.REST_BUNDLE_APP_FULL_PATH + "/find?bundleappname="
 			+ name;
 		HttpClient client = HttpClientBuilder.create().build();
 		HttpGet get = new HttpGet(url);
@@ -155,19 +132,19 @@ public class HttpClientRestService
 		HttpResponse response = client.execute(get);
 		BundleApplication object = readEntity(response, BundleApplication.class);
 		return object;
-	}	
-	
+	}
+
 
 	public static BundleName getOrCreateBundleName(String bundleappname, String baseName,
 		String locale) throws ClientProtocolException, IOException
 	{
-		String url = REST_RESOURCEBUNDLE_FULL_PATH + "get/or/create/bundlename/" + bundleappname
+		String url = RestPaths.REST_RESOURCEBUNDLE_FULL_PATH + "get/or/create/bundlename/" + bundleappname
 			+ "/" + baseName + "/" + locale;
 		HttpClient client = HttpClientBuilder.create().build();
 		HttpGet get = new HttpGet(url);
 
 		HttpResponse response = client.execute(get);
 		BundleName object = readEntity(response, BundleName.class);
-		return object;		
+		return object;
 	}
 }

@@ -3,7 +3,7 @@ package de.alpharogroup.bundle.app.combobox.model;
 import java.util.Set;
 
 import de.alpharogroup.bundle.app.SpringBootSwingApplication;
-import de.alpharogroup.db.resource.bundles.domain.BundleName;
+import de.alpharogroup.bundlemanagement.viewmodel.BundleName;
 import de.alpharogroup.swing.combobox.model.AbstractComboBoxModel;
 
 public class BundleNamesComboBoxModel extends AbstractComboBoxModel<BundleName>

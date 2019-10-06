@@ -29,7 +29,7 @@ import org.apache.commons.lang3.StringUtils;
 import de.alpharogroup.bundle.app.ApplicationEventBus;
 import de.alpharogroup.bundle.app.combobox.model.LanguageLocalesComboBoxModel;
 import de.alpharogroup.bundle.app.combobox.renderer.LanguageLocalesComboBoxRenderer;
-import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
+import de.alpharogroup.bundlemanagement.viewmodel.LanguageLocale;
 import de.alpharogroup.design.pattern.observer.event.EventObject;
 import de.alpharogroup.design.pattern.observer.event.EventSource;
 import de.alpharogroup.design.pattern.state.wizard.model.WizardModelStateMachine;

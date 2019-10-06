@@ -1,6 +1,6 @@
 package de.alpharogroup.bundle.app.table.model;
 
-import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
+import de.alpharogroup.bundlemanagement.viewmodel.LanguageLocale;
 import de.alpharogroup.swing.table.model.TableColumnsModel;
 import de.alpharogroup.swing.table.model.properties.KeyValueTableModel;
 

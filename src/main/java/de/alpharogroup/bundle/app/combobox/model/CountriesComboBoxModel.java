@@ -8,8 +8,8 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 
 import de.alpharogroup.bundle.app.SpringBootSwingApplication;
 import de.alpharogroup.bundle.app.spring.UniRestService;
+import de.alpharogroup.bundlemanagement.viewmodel.Country;
 import de.alpharogroup.collections.list.ListFactory;
-import de.alpharogroup.db.resource.bundles.domain.Country;
 import de.alpharogroup.swing.combobox.model.AbstractComboBoxModel;
 import de.alpharogroup.swing.dialog.DialogExtensions;
 import lombok.extern.java.Log;

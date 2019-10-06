@@ -7,8 +7,8 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
+import de.alpharogroup.bundlemanagement.viewmodel.LanguageLocale;
 import de.alpharogroup.check.Check;
-import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.resourcebundle.locale.LocaleResolver;

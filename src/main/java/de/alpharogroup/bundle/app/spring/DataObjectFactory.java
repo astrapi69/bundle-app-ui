@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import de.alpharogroup.bundlemanagement.viewmodel.Country;
+import de.alpharogroup.bundlemanagement.viewmodel.Language;
+import de.alpharogroup.bundlemanagement.viewmodel.LanguageLocale;
 import de.alpharogroup.collections.list.ListFactory;
-import de.alpharogroup.db.resource.bundles.domain.Country;
-import de.alpharogroup.db.resource.bundles.domain.Language;
-import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
 import de.alpharogroup.resourcebundle.locale.LocaleExtensions;
 import de.alpharogroup.resourcebundle.locale.LocaleResolver;
 import lombok.experimental.UtilityClass;

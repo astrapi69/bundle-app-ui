@@ -6,7 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
-import de.alpharogroup.db.resource.bundles.domain.BundleName;
+import de.alpharogroup.bundlemanagement.viewmodel.BundleName;
 
 public class BundleNamesComboBoxRenderer extends JLabel implements ListCellRenderer<BundleName>
 {

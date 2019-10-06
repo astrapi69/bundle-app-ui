@@ -1,6 +1,6 @@
 package de.alpharogroup.bundle.app.table.model;
 
-import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
+import de.alpharogroup.bundlemanagement.viewmodel.Resourcebundle;
 import de.alpharogroup.swing.table.model.TableColumnsModel;
 import de.alpharogroup.swing.table.model.quattro.QuattroTableModel;
 

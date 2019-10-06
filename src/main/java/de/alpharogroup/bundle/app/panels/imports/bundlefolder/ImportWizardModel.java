@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import de.alpharogroup.bundlemanagement.viewmodel.LanguageLocale;
 import de.alpharogroup.collections.pairs.KeyValuePair;
 import de.alpharogroup.collections.pairs.Triple;
-import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
 import de.alpharogroup.swing.wizard.model.AbstractWizardModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

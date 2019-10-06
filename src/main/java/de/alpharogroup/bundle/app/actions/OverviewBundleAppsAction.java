@@ -13,8 +13,8 @@ import de.alpharogroup.bundle.app.SpringBootSwingApplication;
 import de.alpharogroup.bundle.app.panels.dashboard.mainapp.MainDashboardBean;
 import de.alpharogroup.bundle.app.panels.dashboard.mainapp.MainDashboardPanel;
 import de.alpharogroup.bundle.app.spring.UniRestService;
+import de.alpharogroup.bundlemanagement.viewmodel.BundleApplication;
 import de.alpharogroup.collections.list.ListFactory;
-import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import de.alpharogroup.model.PropertyModel;
 import lombok.extern.java.Log;
 

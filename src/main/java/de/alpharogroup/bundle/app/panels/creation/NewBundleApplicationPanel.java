@@ -23,10 +23,10 @@ import de.alpharogroup.bundle.app.combobox.renderer.LanguageLocalesComboBoxRende
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import de.alpharogroup.bundle.app.spring.HttpClientRestService;
 import de.alpharogroup.bundle.app.table.model.StringLanguageLocalesTableModel;
+import de.alpharogroup.bundlemanagement.viewmodel.BundleApplication;
+import de.alpharogroup.bundlemanagement.viewmodel.LanguageLocale;
 import de.alpharogroup.collections.list.ListFactory;
 import de.alpharogroup.collections.pairs.KeyValuePair;
-import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
-import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BasePanel;

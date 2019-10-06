@@ -9,8 +9,8 @@ import java.util.logging.Level;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 import de.alpharogroup.bundle.app.spring.UniRestService;
+import de.alpharogroup.bundlemanagement.viewmodel.LanguageLocale;
 import de.alpharogroup.collections.list.ListFactory;
-import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
 import de.alpharogroup.swing.combobox.model.AbstractComboBoxModel;
 import lombok.NoArgsConstructor;
 import lombok.extern.java.Log;

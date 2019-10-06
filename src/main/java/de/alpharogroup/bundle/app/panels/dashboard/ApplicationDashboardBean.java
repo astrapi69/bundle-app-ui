@@ -7,12 +7,12 @@ import java.util.Locale;
 import java.util.Properties;
 import java.util.Set;
 
+import de.alpharogroup.bundlemanagement.viewmodel.BundleApplication;
+import de.alpharogroup.bundlemanagement.viewmodel.BundleName;
+import de.alpharogroup.bundlemanagement.viewmodel.LanguageLocale;
+import de.alpharogroup.bundlemanagement.viewmodel.Resourcebundle;
 import de.alpharogroup.collections.pairs.KeyValuePair;
 import de.alpharogroup.collections.pairs.Triple;
-import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
-import de.alpharogroup.db.resource.bundles.domain.BundleName;
-import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
-import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -6,7 +6,7 @@ import de.alpharogroup.bundle.app.actions.ReturnToDashboardAction;
 import de.alpharogroup.bundle.app.combobox.model.BundleNamesComboBoxModel;
 import de.alpharogroup.bundle.app.combobox.renderer.BundleNamesComboBoxRenderer;
 import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardBean;
-import de.alpharogroup.db.resource.bundles.domain.BundleName;
+import de.alpharogroup.bundlemanagement.viewmodel.BundleName;
 import de.alpharogroup.model.BaseModel;
 import de.alpharogroup.model.api.Model;
 import de.alpharogroup.swing.base.BasePanel;

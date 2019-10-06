@@ -6,7 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
-import de.alpharogroup.db.resource.bundles.domain.Language;
+import de.alpharogroup.bundlemanagement.viewmodel.Language;
 
 public class LanguagesComboBoxRenderer extends JLabel implements ListCellRenderer<Language>
 {

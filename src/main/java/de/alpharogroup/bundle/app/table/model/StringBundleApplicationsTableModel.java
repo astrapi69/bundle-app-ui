@@ -1,6 +1,6 @@
 package de.alpharogroup.bundle.app.table.model;
 
-import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
+import de.alpharogroup.bundlemanagement.viewmodel.BundleApplication;
 import de.alpharogroup.swing.table.model.TableColumnsModel;
 import de.alpharogroup.swing.table.model.properties.KeyValueTableModel;
 
