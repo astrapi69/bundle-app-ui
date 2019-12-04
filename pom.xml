@@ -19,7 +19,7 @@
 		<!-- GUAVA version -->
 		<guava.version>27.0.1-jre</guava.version>
 		<!-- SILLY-COLLECTIONS version -->
-		<silly-collections.version>5.2.1</silly-collections.version>
+		<silly-collections.version>5.6</silly-collections.version>
 		<!-- GENERIC-DESIGN-PATTERN version -->
 		<design-patterns.version>4.14</design-patterns.version>
 		<observer.version>${design-patterns.version}</observer.version>
@@ -33,7 +33,7 @@
 		<model-object.version>${model-data.version}</model-object.version>
 		<model-type-safe.version>${model-data.version}</model-type-safe.version>
 		<!-- XML-EXTENSIONS version -->
-		<xml-extensions.version>6.3-SNAPSHOT</xml-extensions.version>
+		<xml-extensions.version>6.3</xml-extensions.version>
 		<!-- UNIREST version -->
 		<unirest.version>1.4.9</unirest.version>
 		<httpclient.version>4.3.6</httpclient.version>

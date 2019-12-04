@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import java.io.IOException;
 import java.util.List;
 
+import de.alpharogroup.bundlemanagement.viewmodel.*;
 import org.json.JSONException;
 import org.junit.Test;
 
@@ -12,12 +13,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
-import de.alpharogroup.bundlemanagement.viewmodel.BundleApplication;
-import de.alpharogroup.bundlemanagement.viewmodel.BundleName;
-import de.alpharogroup.bundlemanagement.viewmodel.Country;
-import de.alpharogroup.bundlemanagement.viewmodel.Language;
-import de.alpharogroup.bundlemanagement.viewmodel.LanguageLocale;
-import de.alpharogroup.bundlemanagement.viewmodel.Resourcebundle;
 import de.alpharogroup.collections.list.ListExtensions;
 
 public class UniRestServiceTest
@@ -143,9 +138,27 @@ public class UniRestServiceTest
 		locale = "de";
 		key = "";
 		value = "";
-		Resourcebundle resourcebundle = UniRestService.saveOrUpdateEntry(bundleappname, baseName,
-			locale, key, value);
-		assertNotNull(resourcebundle);
+
+		PropertiesKey propertiesKey = PropertiesKey.builder().name("foo.key").build();
+		PropertiesValue propertiesValue = PropertiesValue.builder().name("bar value").build();
+		LanguageLocale languageLocale = LanguageLocale.builder().locale("el").build();
+		BundleApplication owner = BundleApplication.builder()
+			.name(bundleappname).build();
+
+		BaseName baseNameObject = BaseName.builder().name(baseName)
+			.build();
+		BundleName bundleName = BundleName.builder().baseName(baseNameObject)
+			.filepath("/opt/i18n/foo.yml")
+			.owner(owner)
+			.locale(languageLocale)
+			.build();
+		Resourcebundle resourcebundle = Resourcebundle.builder()
+			.bundleName(bundleName)
+			.key(propertiesKey)
+			.value(propertiesValue)
+			.build();
+		Resourcebundle resourcebundleDb = UniRestService.saveOrUpdateEntry(resourcebundle);
+		assertNotNull(resourcebundleDb);
 	}
 
 }

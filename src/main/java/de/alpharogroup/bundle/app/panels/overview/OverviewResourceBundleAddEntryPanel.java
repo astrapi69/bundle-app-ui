@@ -26,6 +26,8 @@ import de.alpharogroup.bundle.app.panels.dashboard.ApplicationDashboardContentPa
 import de.alpharogroup.bundle.app.spring.UniRestService;
 import de.alpharogroup.bundle.app.table.model.StringResourcebundlesTableModel;
 import de.alpharogroup.bundlemanagement.viewmodel.BundleApplication;
+import de.alpharogroup.bundlemanagement.viewmodel.PropertiesKey;
+import de.alpharogroup.bundlemanagement.viewmodel.PropertiesValue;
 import de.alpharogroup.bundlemanagement.viewmodel.Resourcebundle;
 import de.alpharogroup.collections.pairs.Quattro;
 import de.alpharogroup.collections.properties.PropertiesExtensions;
@@ -84,11 +86,13 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 		final String value = txtValue.getText();
 		BundleApplication bundleApplication = getModelObject().getBundleApplication();
 		final String baseName = getModelObject().getSelectedBundleName().getBaseName().getName();
-
+		Resourcebundle resourcebundle = Resourcebundle.builder()
+			.bundleName(getModelObject().getSelectedBundleName())
+			.key(PropertiesKey.builder().name(key).build())
+			.value(PropertiesValue.builder().name(value).build()).build();
 		try
 		{
-			UniRestService.saveOrUpdateEntry(bundleApplication.getName(), baseName,
-				getModelObject().getSelectedBundleName().getLocale().getLocale(), key, value);
+			UniRestService.saveOrUpdateEntry(resourcebundle);
 		}
 		catch (UnirestException | IOException e1)
 		{

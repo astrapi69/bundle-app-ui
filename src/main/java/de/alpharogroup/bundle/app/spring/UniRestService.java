@@ -32,6 +32,7 @@ import de.alpharogroup.xml.json.JsonToObjectExtensions;
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 import lombok.extern.java.Log;
+import org.json.JSONObject;
 
 @UtilityClass
 @Log
@@ -172,7 +173,8 @@ public class UniRestService
 				BundleApplication first = ListExtensions.getFirst(list);
 				return Optional.of(first);
 			} else if (body != null && !body.isArray()){
-				BundleApplication object = JsonToObjectExtensions.toObject(body.getObject(),
+				JSONObject object1 = body.getObject();
+				BundleApplication object = JsonToObjectExtensions.toObject(object1,
 					BundleApplication.class, jacksonObjectMapper);
 				return Optional.of(object);
 			}
@@ -252,18 +254,25 @@ public class UniRestService
 		}
 	}
 
-	public static Resourcebundle saveOrUpdateEntry(String bundleappname, String baseName,
-		String locale, String key, String value) throws UnirestException, IOException
+	public static Resourcebundle saveOrUpdateEntry(Resourcebundle resourcebundle) throws UnirestException, IOException
 	{
-		String url = RestPaths.REST_RESOURCEBUNDLE_FULL_PATH + "/" + "save/or/update/resourcebundle/"
-			+ bundleappname + "/" + baseName + "/" + locale + "/" + key + "/" + value;
-		HttpResponse<JsonNode> response = Unirest.get(url).asJson();
+		String url;
+		HttpResponse<JsonNode> response;
+		url = RestPaths.REST_RESOURCEBUNDLE_FULL_PATH + RestPaths.REST_PATH_PERSIST;
+		Map<String, String> headers = new HashMap<>();
+		headers.put("accept", "application/json");
+		headers.put("Content-Type", "application/json");
+		String json = objectMapper.writeValue(resourcebundle);
+		response = Unirest.post(url)
+			.headers(headers)
+			.body(json)
+			.asJson();
 		JsonNode body = response.getBody();
 		if (body != null)
 		{
-			Resourcebundle object = JsonToObjectExtensions.toObject(body.toString(),
-				Resourcebundle.class);
-			log.log(Level.FINE, object.toString());
+			JSONObject object1 = body.getObject();
+			Resourcebundle object = JsonToObjectExtensions.toObject(object1,
+				Resourcebundle.class, jacksonObjectMapper);
 			return object;
 		}
 		return null;

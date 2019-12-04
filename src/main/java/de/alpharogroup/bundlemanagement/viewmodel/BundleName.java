@@ -24,12 +24,15 @@
  */
 package de.alpharogroup.bundlemanagement.viewmodel;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
+
+import java.util.UUID;
 
 /**
  * The class {@link BundleName}
@@ -39,15 +42,16 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class BundleName
 {
-	Integer id;
+	UUID id;
 	Integer version;
 	/** The bundle name. */
 	BaseName baseName;
 
 	/** The filepath. */
-	 String filepath;
+	String filepath;
 
 	/** The locale. */
 	private LanguageLocale locale;

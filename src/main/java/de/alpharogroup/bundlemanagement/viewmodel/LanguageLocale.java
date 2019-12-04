@@ -24,12 +24,15 @@
  */
 package de.alpharogroup.bundlemanagement.viewmodel;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
+
+import java.util.UUID;
 
 /**
  * The class {@link LanguageLocale}.
@@ -39,10 +42,11 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class LanguageLocale
 {
 
-	Integer id;
+	UUID id;
 	Integer version;
 	/** The locale of this entry. */
 	 String locale;

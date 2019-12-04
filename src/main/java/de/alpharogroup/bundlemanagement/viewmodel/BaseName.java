@@ -24,12 +24,15 @@
  */
 package de.alpharogroup.bundlemanagement.viewmodel;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
+
+import java.util.UUID;
 
 /**
  * The class {@link BaseName}
@@ -39,9 +42,10 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @Builder(toBuilder = true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class BaseName
 {
-	Integer id;
+	UUID id;
 	Integer version;
 	String name;
 }
