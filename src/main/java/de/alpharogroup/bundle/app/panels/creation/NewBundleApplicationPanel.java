@@ -9,8 +9,10 @@ import java.awt.event.ItemEvent;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
+import de.alpharogroup.bundle.app.spring.UniRestService;
 import org.apache.commons.lang3.StringUtils;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -147,7 +149,6 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 	protected void onAddSupportedLocale(ActionEvent e)
 	{
 		LanguageLocale selectedItem = (LanguageLocale)cmbSupportedLocaleToAdd.getSelectedItem();
-		System.out.println(selectedItem);
 		ApplicationDashboardBean bean = getModelObject();
 		Set<LanguageLocale> supportedLocales = bean.getSupportedLocales();
 		if (supportedLocales == null)
@@ -372,12 +373,24 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 				{
 					currentBundleApplication.setDefaultLocale(defaultLocale);
 				}
-				currentBundleApplication.getSupportedLocales()
-					.addAll(getModelObject().getSupportedLocales());
-
-				HttpClientRestService.update(currentBundleApplication);
-
-				getModelObject().setBundleApplication(currentBundleApplication);
+				if(getModelObject().getSupportedLocales() != null){
+					currentBundleApplication.getSupportedLocales()
+						.addAll(getModelObject().getSupportedLocales());
+				}
+				BundleApplication newBundleApplication = HttpClientRestService
+					.findBundleApplication(name);
+				if (newBundleApplication == null)
+				{
+					newBundleApplication = BundleApplication.builder().name(name).defaultLocale(defaultLocale)
+						.supportedLocales(getModelObject().getSupportedLocales()).build();
+					Optional<BundleApplication> optionalBundleApplication = UniRestService.saveBundleApplication(newBundleApplication);
+					if(optionalBundleApplication.isPresent()){
+						newBundleApplication = optionalBundleApplication.get();
+					}
+				} else {
+					HttpClientRestService.update(currentBundleApplication);
+					getModelObject().setBundleApplication(currentBundleApplication);
+				}
 			}
 			else
 			{
@@ -386,10 +399,12 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 				if (newBundleApplication == null)
 				{
 					LanguageLocale defaultLocale = getModelObject().getDefaultLocale();
-
-					newBundleApplication = HttpClientRestService.newBundleApplication(
-						BundleApplication.builder().name(name).defaultLocale(defaultLocale)
-							.supportedLocales(getModelObject().getSupportedLocales()).build());
+					newBundleApplication = BundleApplication.builder().name(name).defaultLocale(defaultLocale)
+						.supportedLocales(getModelObject().getSupportedLocales()).build();
+					Optional<BundleApplication> optionalBundleApplication = UniRestService.saveBundleApplication(newBundleApplication);
+					if(optionalBundleApplication.isPresent()){
+						newBundleApplication = optionalBundleApplication.get();
+					}
 				}
 				if (!SpringBootSwingApplication.getInstance().getModelObject()
 					.getBundleApplications().contains(newBundleApplication))

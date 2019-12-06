@@ -29,6 +29,7 @@ import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import de.alpharogroup.collections.set.SetFactory;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -51,6 +52,7 @@ public class BundleApplication
 	Integer version;
 	String name;
 	LanguageLocale defaultLocale;
-	Set<LanguageLocale> supportedLocales;
+	@Builder.Default
+	Set<LanguageLocale> supportedLocales = SetFactory.newHashSet();
 
 }

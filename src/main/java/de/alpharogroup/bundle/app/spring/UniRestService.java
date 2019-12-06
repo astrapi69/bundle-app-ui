@@ -153,7 +153,7 @@ public class UniRestService
 		throws UnirestException
 	{
 		Optional<BundleApplication> result = Optional.empty();
-		String url = RestPaths.REST_BUNDLE_APP_FULL_PATH + RestPaths.REST_PATH_PERSIST;
+		String url = RestPaths.REST_BUNDLE_APP_FULL_PATH;
 		try
 		{
 			Map<String, String> headers = new HashMap<>();

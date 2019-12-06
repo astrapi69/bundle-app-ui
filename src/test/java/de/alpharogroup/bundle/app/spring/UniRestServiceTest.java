@@ -132,23 +132,25 @@ public class UniRestServiceTest
 		String locale;
 		String key;
 		String value;
+		String filepath;
 
 		bundleappname = "test-bundle-application";
 		baseName = "test-resource-bundles";
 		locale = "de";
-		key = "";
-		value = "";
+		key = "foo.key";
+		value = "bar value";
+		filepath = "/opt/i18n/foo.yml";
 
-		PropertiesKey propertiesKey = PropertiesKey.builder().name("foo.key").build();
-		PropertiesValue propertiesValue = PropertiesValue.builder().name("bar value").build();
-		LanguageLocale languageLocale = LanguageLocale.builder().locale("el").build();
+		PropertiesKey propertiesKey = PropertiesKey.builder().name(key).build();
+		PropertiesValue propertiesValue = PropertiesValue.builder().name(value).build();
+		LanguageLocale languageLocale = LanguageLocale.builder().locale(locale).build();
 		BundleApplication owner = BundleApplication.builder()
 			.name(bundleappname).build();
 
 		BaseName baseNameObject = BaseName.builder().name(baseName)
 			.build();
 		BundleName bundleName = BundleName.builder().baseName(baseNameObject)
-			.filepath("/opt/i18n/foo.yml")
+			.filepath(filepath)
 			.owner(owner)
 			.locale(languageLocale)
 			.build();
