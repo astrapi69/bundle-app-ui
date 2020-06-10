@@ -21,7 +21,7 @@ import de.alpharogroup.db.resource.bundles.domain.Country;
 import de.alpharogroup.db.resource.bundles.domain.Language;
 import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
-import de.alpharogroup.xml.json.JsonToObjectExtensions;
+import de.alpharogroup.json.JsonStringToObjectExtensions;
 import lombok.experimental.UtilityClass;
 import lombok.extern.java.Log;
 
@@ -93,7 +93,7 @@ public class UniRestService
 		String url = REST_BUNDLE_APP_FULL_PATH + "find/all";
 		HttpResponse<JsonNode> response = Unirest.get(url).asJson();
 		JsonNode body = response.getBody();
-		list = JsonToObjectExtensions.toObjectList(body.toString(), BundleApplication.class);
+		list = JsonStringToObjectExtensions.toObjectList(body.toString(), BundleApplication.class);
 		return list;
 	}
 
@@ -103,7 +103,7 @@ public class UniRestService
 		String url = REST_COUNTRIES_FULL_PATH + "find/all";
 		HttpResponse<JsonNode> response = Unirest.get(url).asJson();
 		JsonNode body = response.getBody();
-		List<Country> list = JsonToObjectExtensions.toObjectList(body.toString(), Country.class);
+		List<Country> list = JsonStringToObjectExtensions.toObjectList(body.toString(), Country.class);
 		return list;
 	}
 
@@ -113,7 +113,7 @@ public class UniRestService
 		String url = REST_LANGUAGE_FULL_PATH + "find/all";
 		HttpResponse<JsonNode> response = Unirest.get(url).asJson();
 		JsonNode body = response.getBody();
-		List<Language> list = JsonToObjectExtensions.toObjectList(body.toString(), Language.class);
+		List<Language> list = JsonStringToObjectExtensions.toObjectList(body.toString(), Language.class);
 		return list;
 	}
 
@@ -123,7 +123,7 @@ public class UniRestService
 		String url = REST_LANGUAGE_LOCALE_FULL_PATH + "find/all";
 		HttpResponse<JsonNode> response = Unirest.get(url).asJson();
 		JsonNode body = response.getBody();
-		List<LanguageLocale> list = JsonToObjectExtensions.toObjectList(body.toString(),
+		List<LanguageLocale> list = JsonStringToObjectExtensions.toObjectList(body.toString(),
 			LanguageLocale.class);
 		return list;
 	}
@@ -135,7 +135,7 @@ public class UniRestService
 			+ bundleApplication.getName();
 		HttpResponse<JsonNode> response = Unirest.get(url).asJson();
 		JsonNode body = response.getBody();
-		List<BundleName> list = JsonToObjectExtensions.toObjectList(body.toString(),
+		List<BundleName> list = JsonStringToObjectExtensions.toObjectList(body.toString(),
 			BundleName.class);
 		return list;
 	}
@@ -148,7 +148,7 @@ public class UniRestService
 			+ bundleApplication.getName() + "/" + baseName + "/" + localeCode;
 		HttpResponse<JsonNode> response = Unirest.get(url).asJson();
 		JsonNode body = response.getBody();
-		List<Resourcebundle> list = JsonToObjectExtensions.toObjectList(body.toString(),
+		List<Resourcebundle> list = JsonStringToObjectExtensions.toObjectList(body.toString(),
 			Resourcebundle.class);
 		return list;
 	}
@@ -163,7 +163,7 @@ public class UniRestService
 			JsonNode body = response.getBody();
 			if (body != null)
 			{
-				BundleApplication object = JsonToObjectExtensions.toObject(body.toString(),
+				BundleApplication object = JsonStringToObjectExtensions.toObject(body.toString(),
 					BundleApplication.class);
 				log.log(Level.FINE, object.toString());
 			}
@@ -183,7 +183,7 @@ public class UniRestService
 			JsonNode body = response.getBody();
 			if (body != null)
 			{
-				BundleName object = JsonToObjectExtensions.toObject(body.toString(),
+				BundleName object = JsonStringToObjectExtensions.toObject(body.toString(),
 					BundleName.class);
 				log.log(Level.FINE, object.toString());
 			}
@@ -203,7 +203,7 @@ public class UniRestService
 			JsonNode body = response.getBody();
 			if (body != null)
 			{
-				Resourcebundle object = JsonToObjectExtensions.toObject(body.toString(),
+				Resourcebundle object = JsonStringToObjectExtensions.toObject(body.toString(),
 					Resourcebundle.class);
 				log.log(Level.FINE, object.toString());
 			}
@@ -223,7 +223,7 @@ public class UniRestService
 		JsonNode body = response.getBody();
 		if (body != null)
 		{
-			Resourcebundle object = JsonToObjectExtensions.toObject(body.toString(),
+			Resourcebundle object = JsonStringToObjectExtensions.toObject(body.toString(),
 				Resourcebundle.class);
 			log.log(Level.FINE, object.toString());
 			return object;
