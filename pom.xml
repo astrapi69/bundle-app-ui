@@ -38,7 +38,7 @@
 		<resource-bundles-view-model.version>1</resource-bundles-view-model.version>
 		<!-- UNIREST version -->
 		<unirest.version>1.4.9</unirest.version>
-		<httpclient.version>4.3.6</httpclient.version>
+		<httpclient.version>4.5.13</httpclient.version>
 		<httpasyncclient.version>4.0.2</httpasyncclient.version>
 		<httpmime.version>4.3.6</httpmime.version>
 		<json.version>20140107</json.version>
