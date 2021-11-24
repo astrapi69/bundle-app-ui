@@ -21,7 +21,7 @@ import de.alpharogroup.db.resource.bundles.domain.Country;
 import de.alpharogroup.db.resource.bundles.domain.Language;
 import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
-import de.alpharogroup.json.JsonStringToObjectExtensions;
+import io.github.astrapi69.json.JsonStringToObjectExtensions;
 import lombok.experimental.UtilityClass;
 import lombok.extern.java.Log;
 

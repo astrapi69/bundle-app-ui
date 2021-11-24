@@ -23,8 +23,8 @@ import io.github.astrapi69.collections.pairs.Quattro;
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import de.alpharogroup.db.resource.bundles.domain.BundleName;
 import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
-import de.alpharogroup.json.JsonStringToObjectExtensions;
-import de.alpharogroup.xml.json.ObjectToJsonExtensions;
+import io.github.astrapi69.json.JsonStringToObjectExtensions;
+import io.github.astrapi69.json.ObjectToJsonExtensions;
 
 public class HttpClientRestService
 {
