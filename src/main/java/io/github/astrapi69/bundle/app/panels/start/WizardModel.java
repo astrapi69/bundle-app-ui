@@ -1,8 +1,8 @@
 package io.github.astrapi69.bundle.app.panels.start;
 
-import de.alpharogroup.swing.panels.login.pw.ChangePasswordModelBean;
-import de.alpharogroup.swing.radio.model.EnumRadioButtonGroupBean;
-import de.alpharogroup.swing.wizard.model.AbstractWizardModel;
+import io.github.astrapi69.swing.panels.login.pw.ChangePasswordModelBean;
+import io.github.astrapi69.swing.radio.model.EnumRadioButtonGroupBean;
+import io.github.astrapi69.swing.wizard.model.AbstractWizardModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;

@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import de.alpharogroup.collections.list.ListFactory;
+import io.github.astrapi69.collections.list.ListFactory;
 import de.alpharogroup.db.resource.bundles.domain.Country;
 import de.alpharogroup.db.resource.bundles.domain.Language;
 import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
-import de.alpharogroup.resourcebundle.locale.LocaleExtensions;
-import de.alpharogroup.resourcebundle.locale.LocaleResolver;
+import io.github.astrapi69.resourcebundle.locale.LocaleExtensions;
+import io.github.astrapi69.resourcebundle.locale.LocaleResolver;
 import lombok.experimental.UtilityClass;
 
 /**

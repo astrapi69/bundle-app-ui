@@ -1,7 +1,7 @@
 package io.github.astrapi69.bundle.app.panels.creation;
 
-import static de.alpharogroup.model.typesafe.TypeSafeModel.from;
-import static de.alpharogroup.model.typesafe.TypeSafeModel.model;
+import static io.github.astrapi69.model.typesafe.TypeSafeModel.from;
+import static io.github.astrapi69.model.typesafe.TypeSafeModel.model;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,7 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
 
-import de.alpharogroup.behaviors.EnableButtonBehavior;
+import io.github.astrapi69.behaviors.EnableButtonBehavior;
 import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
 import io.github.astrapi69.bundle.app.actions.ReturnToDashboardAction;
 import io.github.astrapi69.bundle.app.combobox.model.LanguageLocalesComboBoxModel;
@@ -23,14 +23,14 @@ import io.github.astrapi69.bundle.app.combobox.renderer.LanguageLocalesComboBoxR
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import io.github.astrapi69.bundle.app.spring.HttpClientRestService;
 import io.github.astrapi69.bundle.app.table.model.StringLanguageLocalesTableModel;
-import de.alpharogroup.collections.list.ListFactory;
-import de.alpharogroup.collections.pairs.KeyValuePair;
+import io.github.astrapi69.collections.list.ListFactory;
+import io.github.astrapi69.collections.pairs.KeyValuePair;
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
-import de.alpharogroup.model.BaseModel;
-import de.alpharogroup.model.api.Model;
-import de.alpharogroup.swing.base.BasePanel;
-import de.alpharogroup.swing.x.GenericJXTable;
+import io.github.astrapi69.model.BaseModel;
+import io.github.astrapi69.model.api.Model;
+import io.github.astrapi69.swing.base.BasePanel;
+import io.github.astrapi69.swing.x.GenericJXTable;
 import lombok.Getter;
 
 @Getter

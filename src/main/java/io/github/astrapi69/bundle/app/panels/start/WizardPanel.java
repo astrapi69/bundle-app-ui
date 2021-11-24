@@ -2,12 +2,12 @@ package io.github.astrapi69.bundle.app.panels.start;
 
 import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardContentPanel;
-import de.alpharogroup.design.pattern.state.wizard.model.WizardModelStateMachine;
-import de.alpharogroup.model.BaseModel;
-import de.alpharogroup.model.api.Model;
-import de.alpharogroup.swing.panels.login.pw.ChangePasswordModelBean;
-import de.alpharogroup.swing.wizard.AbstractWizardPanel;
-import de.alpharogroup.swing.wizard.BaseWizardContentPanel;
+import io.github.astrapi69.design.pattern.state.wizard.model.WizardModelStateMachine;
+import io.github.astrapi69.model.BaseModel;
+import io.github.astrapi69.model.api.Model;
+import io.github.astrapi69.swing.panels.login.pw.ChangePasswordModelBean;
+import io.github.astrapi69.swing.wizard.AbstractWizardPanel;
+import io.github.astrapi69.swing.wizard.BaseWizardContentPanel;
 import lombok.Getter;
 
 @Getter

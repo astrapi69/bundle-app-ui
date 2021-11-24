@@ -4,7 +4,7 @@ import java.util.Set;
 
 import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
 import de.alpharogroup.db.resource.bundles.domain.BundleName;
-import de.alpharogroup.swing.combobox.model.AbstractComboBoxModel;
+import io.github.astrapi69.swing.combobox.model.AbstractComboBoxModel;
 
 public class BundleNamesComboBoxModel extends AbstractComboBoxModel<BundleName>
 {

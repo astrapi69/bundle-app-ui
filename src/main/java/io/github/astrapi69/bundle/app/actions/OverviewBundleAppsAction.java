@@ -13,9 +13,9 @@ import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
 import io.github.astrapi69.bundle.app.panels.dashboard.mainapp.MainDashboardBean;
 import io.github.astrapi69.bundle.app.panels.dashboard.mainapp.MainDashboardPanel;
 import io.github.astrapi69.bundle.app.spring.UniRestService;
-import de.alpharogroup.collections.list.ListFactory;
+import io.github.astrapi69.collections.list.ListFactory;
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
-import de.alpharogroup.model.PropertyModel;
+import io.github.astrapi69.model.PropertyModel;
 import lombok.extern.java.Log;
 
 /**

@@ -3,7 +3,7 @@ package io.github.astrapi69.bundle.app.panels.dashboard.mainapp;
 import java.util.List;
 
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
-import de.alpharogroup.collections.list.ListFactory;
+import io.github.astrapi69.collections.list.ListFactory;
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

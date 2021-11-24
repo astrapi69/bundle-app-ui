@@ -7,7 +7,7 @@ import javax.swing.AbstractAction;
 import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardContentPanel;
-import de.alpharogroup.model.api.Model;
+import io.github.astrapi69.model.api.Model;
 
 public class ReturnToDashboardAction extends AbstractAction
 {

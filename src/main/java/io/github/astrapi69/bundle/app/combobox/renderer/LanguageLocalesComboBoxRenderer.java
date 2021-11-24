@@ -7,11 +7,11 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
-import de.alpharogroup.check.Check;
+import io.github.astrapi69.check.Check;
 import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
-import de.alpharogroup.model.BaseModel;
-import de.alpharogroup.model.api.Model;
-import de.alpharogroup.resourcebundle.locale.LocaleResolver;
+import io.github.astrapi69.model.BaseModel;
+import io.github.astrapi69.model.api.Model;
+import io.github.astrapi69.resourcebundle.locale.LocaleResolver;
 
 public class LanguageLocalesComboBoxRenderer extends JLabel
 	implements

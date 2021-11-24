@@ -11,7 +11,7 @@ import org.apache.http.client.ClientProtocolException;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
 
-import de.alpharogroup.behaviors.EnableButtonBehavior;
+import io.github.astrapi69.behaviors.EnableButtonBehavior;
 import io.github.astrapi69.bundle.app.actions.ReturnToDashboardAction;
 import io.github.astrapi69.bundle.app.combobox.model.CountriesComboBoxModel;
 import io.github.astrapi69.bundle.app.combobox.model.LanguagesComboBoxModel;
@@ -22,9 +22,9 @@ import io.github.astrapi69.bundle.app.spring.HttpClientRestService;
 import de.alpharogroup.db.resource.bundles.domain.Country;
 import de.alpharogroup.db.resource.bundles.domain.Language;
 import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
-import de.alpharogroup.model.BaseModel;
-import de.alpharogroup.model.api.Model;
-import de.alpharogroup.swing.base.BasePanel;
+import io.github.astrapi69.model.BaseModel;
+import io.github.astrapi69.model.api.Model;
+import io.github.astrapi69.swing.base.BasePanel;
 
 public class NewCustomLocalePanel extends BasePanel<ApplicationDashboardBean>
 {
@@ -271,7 +271,7 @@ public class NewCustomLocalePanel extends BasePanel<ApplicationDashboardBean>
 		Country selectedCountry = (Country)cmbCountry.getSelectedItem();
 		String variant = txtVariant.getText();
 		String localeCode = selectedLanguage.getIso639Dash1() + "_"
-			+ selectedCountry.getIso3166A2name() + "_" + variant;
+			+ selectedCountry.getIso3166a2name() + "_" + variant;
 		LanguageLocale languageLocales = HttpClientRestService.find(localeCode);
 		if (languageLocales == null)
 		{

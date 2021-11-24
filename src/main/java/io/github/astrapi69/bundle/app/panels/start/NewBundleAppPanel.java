@@ -5,9 +5,9 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 
-import de.alpharogroup.design.pattern.state.wizard.model.WizardModelStateMachine;
-import de.alpharogroup.model.api.Model;
-import de.alpharogroup.swing.base.BasePanel;
+import io.github.astrapi69.design.pattern.state.wizard.model.WizardModelStateMachine;
+import io.github.astrapi69.model.api.Model;
+import io.github.astrapi69.swing.base.BasePanel;
 import lombok.Getter;
 
 @Getter

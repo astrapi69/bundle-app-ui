@@ -21,15 +21,15 @@ import io.github.astrapi69.bundle.app.panels.dashboard.mainapp.MainDashboardBean
 import io.github.astrapi69.bundle.app.panels.dashboard.mainapp.MainDashboardPanel;
 import io.github.astrapi69.bundle.app.spring.UniRestService;
 import io.github.astrapi69.bundle.app.table.model.StringBundleApplicationsBundleApplicationsTableModel;
-import de.alpharogroup.collections.pairs.Triple;
+import io.github.astrapi69.collections.pairs.Triple;
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
-import de.alpharogroup.model.BaseModel;
-import de.alpharogroup.model.PropertyModel;
-import de.alpharogroup.model.api.Model;
-import de.alpharogroup.swing.base.BasePanel;
-import de.alpharogroup.swing.renderer.TableCellButtonRenderer;
-import de.alpharogroup.swing.table.editor.TableCellButtonEditor;
-import de.alpharogroup.swing.x.GenericJXTable;
+import io.github.astrapi69.model.BaseModel;
+import io.github.astrapi69.model.PropertyModel;
+import io.github.astrapi69.model.api.Model;
+import io.github.astrapi69.swing.base.BasePanel;
+import io.github.astrapi69.swing.renderer.TableCellButtonRenderer;
+import io.github.astrapi69.swing.table.editor.TableCellButtonEditor;
+import io.github.astrapi69.swing.x.GenericJXTable;
 import lombok.Getter;
 import lombok.extern.java.Log;
 

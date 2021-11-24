@@ -2,8 +2,8 @@ package io.github.astrapi69.bundle.app.table.model;
 
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import de.alpharogroup.db.resource.bundles.domain.BundleName;
-import de.alpharogroup.swing.table.model.TableColumnsModel;
-import de.alpharogroup.swing.table.model.quattro.QuattroTableModel;
+import io.github.astrapi69.swing.table.model.TableColumnsModel;
+import io.github.astrapi69.swing.table.model.quattro.QuattroTableModel;
 
 /**
  * The class {@link StringBundleNamesTableModel} that lists key value pairs which the key is the

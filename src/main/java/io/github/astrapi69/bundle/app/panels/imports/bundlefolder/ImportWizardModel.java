@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import de.alpharogroup.collections.pairs.KeyValuePair;
-import de.alpharogroup.collections.pairs.Triple;
+import io.github.astrapi69.collections.pairs.KeyValuePair;
+import io.github.astrapi69.collections.pairs.Triple;
 import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
-import de.alpharogroup.swing.wizard.model.AbstractWizardModel;
+import io.github.astrapi69.swing.wizard.model.AbstractWizardModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;

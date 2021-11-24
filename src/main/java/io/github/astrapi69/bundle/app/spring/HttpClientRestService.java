@@ -19,7 +19,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
-import de.alpharogroup.collections.pairs.Quattro;
+import io.github.astrapi69.collections.pairs.Quattro;
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import de.alpharogroup.db.resource.bundles.domain.BundleName;
 import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;

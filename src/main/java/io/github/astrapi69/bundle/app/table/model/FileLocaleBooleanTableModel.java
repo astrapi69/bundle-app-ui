@@ -3,10 +3,10 @@ package io.github.astrapi69.bundle.app.table.model;
 import java.io.File;
 import java.util.Locale;
 
-import de.alpharogroup.collections.pairs.KeyValuePair;
-import de.alpharogroup.collections.pairs.Triple;
-import de.alpharogroup.swing.table.model.TableColumnsModel;
-import de.alpharogroup.swing.table.model.triple.TripleTableModel;
+import io.github.astrapi69.collections.pairs.KeyValuePair;
+import io.github.astrapi69.collections.pairs.Triple;
+import io.github.astrapi69.swing.table.model.TableColumnsModel;
+import io.github.astrapi69.swing.table.model.triple.TripleTableModel;
 
 /**
  * The class {@link FileLocaleBooleanTableModel} that lists a {@link Triple} of values which the

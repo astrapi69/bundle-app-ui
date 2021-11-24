@@ -3,9 +3,9 @@ package io.github.astrapi69.bundle.app.panels.dashboard;
 import java.awt.event.ActionEvent;
 
 import io.github.astrapi69.bundle.app.actions.OverviewBundleAppsAction;
-import de.alpharogroup.model.BaseModel;
-import de.alpharogroup.model.api.Model;
-import de.alpharogroup.swing.base.BasePanel;
+import io.github.astrapi69.model.BaseModel;
+import io.github.astrapi69.model.api.Model;
+import io.github.astrapi69.swing.base.BasePanel;
 
 public class ApplicationDashboardPanel extends BasePanel<ApplicationDashboardBean>
 {

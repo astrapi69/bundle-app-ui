@@ -7,8 +7,8 @@ import java.util.Locale;
 import java.util.Properties;
 import java.util.Set;
 
-import de.alpharogroup.collections.pairs.KeyValuePair;
-import de.alpharogroup.collections.pairs.Triple;
+import io.github.astrapi69.collections.pairs.KeyValuePair;
+import io.github.astrapi69.collections.pairs.Triple;
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import de.alpharogroup.db.resource.bundles.domain.BundleName;
 import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;

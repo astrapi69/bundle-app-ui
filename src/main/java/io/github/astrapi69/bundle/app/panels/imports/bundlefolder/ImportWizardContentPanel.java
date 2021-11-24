@@ -1,8 +1,8 @@
 package io.github.astrapi69.bundle.app.panels.imports.bundlefolder;
 
-import de.alpharogroup.design.pattern.state.wizard.model.WizardModelStateMachine;
-import de.alpharogroup.model.api.Model;
-import de.alpharogroup.swing.wizard.BaseWizardContentPanel;
+import io.github.astrapi69.design.pattern.state.wizard.model.WizardModelStateMachine;
+import io.github.astrapi69.model.api.Model;
+import io.github.astrapi69.swing.wizard.BaseWizardContentPanel;
 
 public class ImportWizardContentPanel extends BaseWizardContentPanel<ImportWizardModel>
 {

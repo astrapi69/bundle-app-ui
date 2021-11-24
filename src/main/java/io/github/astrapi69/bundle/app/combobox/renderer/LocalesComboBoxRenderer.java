@@ -7,8 +7,8 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
-import de.alpharogroup.check.Check;
-import de.alpharogroup.model.api.Model;
+import io.github.astrapi69.check.Check;
+import io.github.astrapi69.model.api.Model;
 
 /**
  * The Class LocalesComboBoxRenderer.

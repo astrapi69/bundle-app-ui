@@ -44,9 +44,9 @@ import org.springframework.core.io.Resource;
 import io.github.astrapi69.bundle.app.actions.ImportBundleAppInternalFrameAction;
 import io.github.astrapi69.bundle.app.actions.NewBundleAppInternalFrameAction;
 import io.github.astrapi69.bundle.app.actions.OverviewBundleAppsAction;
-import de.alpharogroup.swing.actions.ExitApplicationAction;
-import de.alpharogroup.swing.base.BaseDesktopMenu;
-import de.alpharogroup.swing.menu.MenuExtensions;
+import io.github.astrapi69.swing.actions.ExitApplicationAction;
+import io.github.astrapi69.swing.base.BaseDesktopMenu;
+import io.github.astrapi69.swing.menu.MenuExtensions;
 import lombok.NonNull;
 import lombok.extern.java.Log;
 
@@ -70,16 +70,12 @@ public class DesktopMenu extends BaseDesktopMenu
 	/**
 	 * Factory method for create new {@link JMenu} for the file menu.
 	 *
-	 * @param listener
-	 *            the action listener
-	 *
 	 * @return the new {@link JMenu}
 	 */
-	@Override
-	protected JMenu newFileMenu(final ActionListener listener)
+	protected JMenu newFileMenu()
 	{
 
-		final JMenu fileMenu = super.newFileMenu(listener);
+		final JMenu fileMenu = super.newFileMenu();
 
 		JMenuItem jmi;
 

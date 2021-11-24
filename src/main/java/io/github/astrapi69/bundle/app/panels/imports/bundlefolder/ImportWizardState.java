@@ -1,8 +1,8 @@
 package io.github.astrapi69.bundle.app.panels.imports.bundlefolder;
 
 import io.github.astrapi69.bundle.app.panels.start.WizardModelState;
-import de.alpharogroup.design.pattern.state.wizard.WizardState;
-import de.alpharogroup.design.pattern.state.wizard.model.WizardModelStateMachine;
+import io.github.astrapi69.design.pattern.state.wizard.WizardState;
+import io.github.astrapi69.design.pattern.state.wizard.model.WizardModelStateMachine;
 
 public enum ImportWizardState implements WizardState<WizardModelStateMachine<ImportWizardModel>>
 {

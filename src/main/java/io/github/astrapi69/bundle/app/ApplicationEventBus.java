@@ -8,9 +8,9 @@ import com.google.common.eventbus.EventBus;
 import io.github.astrapi69.bundle.app.panels.imports.bundlefolder.ImportWizardModel;
 import io.github.astrapi69.bundle.app.panels.imports.bundlefolder.NavigationEventState;
 import io.github.astrapi69.bundle.app.panels.start.BundleStart;
-import de.alpharogroup.design.pattern.observer.event.EventObject;
-import de.alpharogroup.design.pattern.observer.event.EventSource;
-import de.alpharogroup.design.pattern.observer.event.EventSubject;
+import io.github.astrapi69.design.pattern.observer.event.EventObject;
+import io.github.astrapi69.design.pattern.observer.event.EventSource;
+import io.github.astrapi69.design.pattern.observer.event.EventSubject;
 import lombok.Getter;
 
 public class ApplicationEventBus

@@ -3,9 +3,9 @@ package io.github.astrapi69.bundle.app.table.model;
 import java.io.File;
 import java.util.Locale;
 
-import de.alpharogroup.collections.pairs.KeyValuePair;
-import de.alpharogroup.swing.table.model.TableColumnsModel;
-import de.alpharogroup.swing.table.model.properties.KeyValueTableModel;
+import io.github.astrapi69.collections.pairs.KeyValuePair;
+import io.github.astrapi69.swing.table.model.TableColumnsModel;
+import io.github.astrapi69.swing.table.model.properties.KeyValueTableModel;
 
 /**
  * The class {@link BundleFileTableModel} that lists of file and the locale.

@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import javax.swing.JFileChooser;
 
 import de.alpharogroup.db.resource.bundles.domain.BundleName;
-import de.alpharogroup.file.FileExtensions;
+import io.github.astrapi69.file.FileExtensions;
 import org.apache.commons.lang3.BooleanUtils;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -29,18 +29,18 @@ import io.github.astrapi69.bundle.app.panels.imports.file.ImportResourceBundlePa
 import io.github.astrapi69.bundle.app.panels.overview.OverviewOfAllResourceBundlesPanel;
 import io.github.astrapi69.bundle.app.panels.overview.OverviewResourceBundleAddEntryPanel;
 import io.github.astrapi69.bundle.app.spring.HttpClientRestService;
-import de.alpharogroup.collection.comparators.KeyValuePairKeyComparator;
-import de.alpharogroup.collections.pairs.KeyValuePair;
-import de.alpharogroup.collections.pairs.Quattro;
-import de.alpharogroup.collections.pairs.Triple;
-import de.alpharogroup.collections.properties.PropertiesExtensions;
-import de.alpharogroup.comparators.NullCheckComparator;
+import io.github.astrapi69.collection.comparators.KeyValuePairKeyComparator;
+import io.github.astrapi69.collections.pairs.KeyValuePair;
+import io.github.astrapi69.collections.pairs.Quattro;
+import io.github.astrapi69.collections.pairs.Triple;
+import io.github.astrapi69.collections.properties.PropertiesExtensions;
+import io.github.astrapi69.comparators.NullCheckComparator;
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
-import de.alpharogroup.model.BaseModel;
-import de.alpharogroup.model.api.Model;
-import de.alpharogroup.resourcebundle.inspector.search.PropertiesListResolver;
-import de.alpharogroup.resourcebundle.locale.LocaleResolver;
-import de.alpharogroup.swing.base.BaseCardLayoutPanel;
+import io.github.astrapi69.model.BaseModel;
+import io.github.astrapi69.model.api.Model;
+import io.github.astrapi69.resourcebundle.inspector.search.PropertiesListResolver;
+import io.github.astrapi69.resourcebundle.locale.LocaleResolver;
+import io.github.astrapi69.swing.base.BaseCardLayoutPanel;
 import lombok.extern.java.Log;
 
 /**

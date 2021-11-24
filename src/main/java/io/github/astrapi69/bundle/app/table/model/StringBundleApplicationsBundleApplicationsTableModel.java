@@ -1,8 +1,8 @@
 package io.github.astrapi69.bundle.app.table.model;
 
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
-import de.alpharogroup.swing.table.model.TableColumnsModel;
-import de.alpharogroup.swing.table.model.triple.TripleTableModel;
+import io.github.astrapi69.swing.table.model.TableColumnsModel;
+import io.github.astrapi69.swing.table.model.triple.TripleTableModel;
 
 /**
  * The class {@link StringBundleApplicationsBundleApplicationsTableModel} that lists triples which

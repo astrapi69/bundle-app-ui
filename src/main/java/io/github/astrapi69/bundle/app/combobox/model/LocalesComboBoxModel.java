@@ -6,8 +6,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-import de.alpharogroup.comparators.LocaleComparator;
-import de.alpharogroup.swing.combobox.model.AbstractComboBoxModel;
+import io.github.astrapi69.comparators.LocaleComparator;
+import io.github.astrapi69.swing.combobox.model.AbstractComboBoxModel;
 
 /**
  * The class {@link LocalesComboBoxModel}.

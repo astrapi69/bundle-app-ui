@@ -27,17 +27,17 @@ import javax.swing.table.TableColumn;
 import io.github.astrapi69.bundle.app.ApplicationEventBus;
 import io.github.astrapi69.bundle.app.panels.imports.ext.ConvertExtensions;
 import io.github.astrapi69.bundle.app.table.model.FileLocaleBooleanTableModel;
-import de.alpharogroup.collections.pairs.KeyValuePair;
-import de.alpharogroup.collections.pairs.Triple;
-import de.alpharogroup.design.pattern.observer.event.EventListener;
-import de.alpharogroup.design.pattern.observer.event.EventObject;
-import de.alpharogroup.design.pattern.observer.event.EventSource;
-import de.alpharogroup.design.pattern.state.wizard.model.WizardModelStateMachine;
-import de.alpharogroup.model.api.Model;
-import de.alpharogroup.swing.renderer.TableCellButtonRenderer;
-import de.alpharogroup.swing.table.editor.TableCellCheckboxEditor;
-import de.alpharogroup.swing.wizard.BaseWizardContentPanel;
-import de.alpharogroup.swing.x.GenericJXTable;
+import io.github.astrapi69.collections.pairs.KeyValuePair;
+import io.github.astrapi69.collections.pairs.Triple;
+import io.github.astrapi69.design.pattern.observer.event.EventListener;
+import io.github.astrapi69.design.pattern.observer.event.EventObject;
+import io.github.astrapi69.design.pattern.observer.event.EventSource;
+import io.github.astrapi69.design.pattern.state.wizard.model.WizardModelStateMachine;
+import io.github.astrapi69.model.api.Model;
+import io.github.astrapi69.swing.renderer.TableCellButtonRenderer;
+import io.github.astrapi69.swing.table.editor.TableCellCheckboxEditor;
+import io.github.astrapi69.swing.wizard.BaseWizardContentPanel;
+import io.github.astrapi69.swing.x.GenericJXTable;
 import lombok.Getter;
 
 /**

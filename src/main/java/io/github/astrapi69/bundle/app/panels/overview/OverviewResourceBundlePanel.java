@@ -1,13 +1,13 @@
 package io.github.astrapi69.bundle.app.panels.overview;
 
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
-import de.alpharogroup.collections.pairs.KeyValuePair;
-import de.alpharogroup.model.BaseModel;
-import de.alpharogroup.model.api.Model;
-import de.alpharogroup.swing.base.BasePanel;
-import de.alpharogroup.swing.table.model.TableColumnsModel;
-import de.alpharogroup.swing.table.model.properties.StringKeyValueTableModel;
-import de.alpharogroup.swing.x.GenericJXTable;
+import io.github.astrapi69.collections.pairs.KeyValuePair;
+import io.github.astrapi69.model.BaseModel;
+import io.github.astrapi69.model.api.Model;
+import io.github.astrapi69.swing.base.BasePanel;
+import io.github.astrapi69.swing.table.model.TableColumnsModel;
+import io.github.astrapi69.swing.table.model.properties.StringKeyValueTableModel;
+import io.github.astrapi69.swing.x.GenericJXTable;
 
 public class OverviewResourceBundlePanel extends BasePanel<ApplicationDashboardBean>
 {

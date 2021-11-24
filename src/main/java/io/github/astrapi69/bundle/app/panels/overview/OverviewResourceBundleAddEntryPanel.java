@@ -25,17 +25,17 @@ import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardContentPanel;
 import io.github.astrapi69.bundle.app.spring.UniRestService;
 import io.github.astrapi69.bundle.app.table.model.StringResourcebundlesTableModel;
-import de.alpharogroup.collections.pairs.Quattro;
-import de.alpharogroup.collections.properties.PropertiesExtensions;
-import de.alpharogroup.comparators.NullCheckComparator;
+import io.github.astrapi69.collections.pairs.Quattro;
+import io.github.astrapi69.collections.properties.PropertiesExtensions;
+import io.github.astrapi69.comparators.NullCheckComparator;
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
-import de.alpharogroup.model.BaseModel;
-import de.alpharogroup.model.api.Model;
-import de.alpharogroup.swing.base.BasePanel;
-import de.alpharogroup.swing.renderer.TableCellButtonRenderer;
-import de.alpharogroup.swing.table.editor.TableCellButtonEditor;
-import de.alpharogroup.swing.x.GenericJXTable;
+import io.github.astrapi69.model.BaseModel;
+import io.github.astrapi69.model.api.Model;
+import io.github.astrapi69.swing.base.BasePanel;
+import io.github.astrapi69.swing.renderer.TableCellButtonRenderer;
+import io.github.astrapi69.swing.table.editor.TableCellButtonEditor;
+import io.github.astrapi69.swing.x.GenericJXTable;
 import lombok.extern.java.Log;
 
 @Log

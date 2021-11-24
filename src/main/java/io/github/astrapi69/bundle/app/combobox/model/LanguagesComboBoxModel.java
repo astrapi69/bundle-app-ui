@@ -7,9 +7,9 @@ import java.util.logging.Level;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 import io.github.astrapi69.bundle.app.spring.UniRestService;
-import de.alpharogroup.collections.list.ListFactory;
+import io.github.astrapi69.collections.list.ListFactory;
 import de.alpharogroup.db.resource.bundles.domain.Language;
-import de.alpharogroup.swing.combobox.model.AbstractComboBoxModel;
+import io.github.astrapi69.swing.combobox.model.AbstractComboBoxModel;
 import lombok.extern.java.Log;
 
 @Log

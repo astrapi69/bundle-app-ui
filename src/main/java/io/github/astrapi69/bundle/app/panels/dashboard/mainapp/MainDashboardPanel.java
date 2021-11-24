@@ -8,10 +8,10 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import io.github.astrapi69.bundle.app.panels.creation.NewBundleApplicationPanel;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import io.github.astrapi69.bundle.app.panels.overview.OverviewOfAllBundleApplicationsPanel;
-import de.alpharogroup.model.BaseModel;
-import de.alpharogroup.model.PropertyModel;
-import de.alpharogroup.model.api.Model;
-import de.alpharogroup.swing.base.BaseCardLayoutPanel;
+import io.github.astrapi69.model.BaseModel;
+import io.github.astrapi69.model.PropertyModel;
+import io.github.astrapi69.model.api.Model;
+import io.github.astrapi69.swing.base.BaseCardLayoutPanel;
 import lombok.Getter;
 
 @Getter

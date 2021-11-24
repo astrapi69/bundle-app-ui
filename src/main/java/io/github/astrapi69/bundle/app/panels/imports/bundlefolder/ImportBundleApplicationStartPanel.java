@@ -15,8 +15,8 @@
  */
 package io.github.astrapi69.bundle.app.panels.imports.bundlefolder;
 
-import static de.alpharogroup.model.typesafe.TypeSafeModel.from;
-import static de.alpharogroup.model.typesafe.TypeSafeModel.model;
+import static io.github.astrapi69.model.typesafe.TypeSafeModel.from;
+import static io.github.astrapi69.model.typesafe.TypeSafeModel.model;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
@@ -30,12 +30,12 @@ import io.github.astrapi69.bundle.app.ApplicationEventBus;
 import io.github.astrapi69.bundle.app.combobox.model.LanguageLocalesComboBoxModel;
 import io.github.astrapi69.bundle.app.combobox.renderer.LanguageLocalesComboBoxRenderer;
 import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
-import de.alpharogroup.design.pattern.observer.event.EventObject;
-import de.alpharogroup.design.pattern.observer.event.EventSource;
-import de.alpharogroup.design.pattern.state.wizard.model.WizardModelStateMachine;
-import de.alpharogroup.model.api.Model;
-import de.alpharogroup.swing.bind.StringBindingListener;
-import de.alpharogroup.swing.wizard.BaseWizardContentPanel;
+import io.github.astrapi69.design.pattern.observer.event.EventObject;
+import io.github.astrapi69.design.pattern.observer.event.EventSource;
+import io.github.astrapi69.design.pattern.state.wizard.model.WizardModelStateMachine;
+import io.github.astrapi69.model.api.Model;
+import io.github.astrapi69.swing.bind.StringBindingListener;
+import io.github.astrapi69.swing.wizard.BaseWizardContentPanel;
 
 /**
  *

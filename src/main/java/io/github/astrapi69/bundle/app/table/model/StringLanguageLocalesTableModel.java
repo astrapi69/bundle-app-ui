@@ -1,8 +1,8 @@
 package io.github.astrapi69.bundle.app.table.model;
 
 import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
-import de.alpharogroup.swing.table.model.TableColumnsModel;
-import de.alpharogroup.swing.table.model.properties.KeyValueTableModel;
+import io.github.astrapi69.swing.table.model.TableColumnsModel;
+import io.github.astrapi69.swing.table.model.properties.KeyValueTableModel;
 
 /**
  * The class {@link StringLanguageLocalesTableModel} that lists key value pairs which the key is the
