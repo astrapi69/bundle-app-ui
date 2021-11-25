@@ -205,7 +205,7 @@ dependencies {
     implementation("io.github.astrapi69:jobj-compare:$jobjCompareVersion")
     implementation("io.github.astrapi69:jobj-core:$jobjCoreVersion")
     implementation("io.github.astrapi69:file-worker:$fileWorkerVersion")
-    implementation("de.alpharogroup:resource-bundles-view-model:$viewModelVersion")
+    implementation("io.github.astrapi69:resource-bundles-view-model:$viewModelVersion")
 
     implementation("commons-io:commons-io:$commonsIoVersion")
     implementation("org.apache.commons:commons-lang3:$commonsLang3Version")
