@@ -22,7 +22,7 @@ import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
 import io.github.astrapi69.design.pattern.observer.event.EventListener;
 import io.github.astrapi69.design.pattern.observer.event.EventObject;
 import io.github.astrapi69.design.pattern.observer.event.EventSource;
-import io.github.astrapi69.design.pattern.state.wizard.model.WizardModelStateMachine;
+import io.github.astrapi69.design.pattern.state.wizard.model.BaseWizardStateMachineModel;
 import io.github.astrapi69.model.BaseModel;
 import io.github.astrapi69.model.api.Model;
 import io.github.astrapi69.resourcebundle.inspector.search.PropertiesListResolver;
@@ -52,7 +52,7 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 
 	@Override
 	protected BaseWizardContentPanel<ImportWizardModel> newWizardContentPanel(
-		final Model<WizardModelStateMachine<ImportWizardModel>> model)
+		final Model<BaseWizardStateMachineModel<ImportWizardModel>> model)
 	{
 		return new ImportWizardContentPanel(model);
 	};
@@ -62,7 +62,7 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 	{
 		super.onBeforeInitializeComponents();
 
-		setStateMachine(WizardModelStateMachine.<ImportWizardModel> builder()
+		setStateMachine(BaseWizardStateMachineModel.<ImportWizardModel> builder()
 			.currentState(ImportWizardState.FIRST).modelObject(getModelObject()).build());
 		getModelObject().setAllValid();
 		getModelObject().setValidNext(false);

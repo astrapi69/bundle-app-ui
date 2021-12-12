@@ -193,6 +193,7 @@ dependencies {
 
     implementation("io.github.astrapi69:observer:$designPatternObserverVersion")
     implementation("io.github.astrapi69:state:$designPatternStateVersion")
+    implementation("io.github.astrapi69:eventbus:$designPatternEventbusVersion")
     implementation("io.github.astrapi69:swing-components:$swingComponentsVersion")
     implementation("io.github.astrapi69:menu-actions:$menuActionsVersion")
     implementation("io.github.astrapi69:json-extensions:$jsonExtensionsVersion")

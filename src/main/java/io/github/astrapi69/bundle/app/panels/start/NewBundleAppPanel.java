@@ -5,13 +5,13 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 
-import io.github.astrapi69.design.pattern.state.wizard.model.WizardModelStateMachine;
+import io.github.astrapi69.design.pattern.state.wizard.model.BaseWizardStateMachineModel;
 import io.github.astrapi69.model.api.Model;
 import io.github.astrapi69.swing.base.BasePanel;
 import lombok.Getter;
 
 @Getter
-public class NewBundleAppPanel extends BasePanel<WizardModelStateMachine<WizardModel>>
+public class NewBundleAppPanel extends BasePanel<BaseWizardStateMachineModel<WizardModel>>
 {
 	private static final long serialVersionUID = 1L;
 	private JLabel lblBundleAppName;
@@ -25,7 +25,7 @@ public class NewBundleAppPanel extends BasePanel<WizardModelStateMachine<WizardM
 	private JTextField txtRepeatPw;
 	private JTextField txtUsername;
 
-	public NewBundleAppPanel(final Model<WizardModelStateMachine<WizardModel>> model)
+	public NewBundleAppPanel(final Model<BaseWizardStateMachineModel<WizardModel>> model)
 	{
 		super(model);
 	}

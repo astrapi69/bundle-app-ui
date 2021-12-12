@@ -7,13 +7,13 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 
-import io.github.astrapi69.design.pattern.state.wizard.model.WizardModelStateMachine;
+import io.github.astrapi69.design.pattern.state.wizard.model.BaseWizardStateMachineModel;
 import io.github.astrapi69.model.api.Model;
 import io.github.astrapi69.swing.base.BasePanel;
 import lombok.Getter;
 
 @Getter
-public class ConnectToExistingBundleAppPanel extends BasePanel<WizardModelStateMachine<WizardModel>>
+public class ConnectToExistingBundleAppPanel extends BasePanel<BaseWizardStateMachineModel<WizardModel>>
 {
 	private static final long serialVersionUID = 1L;
 	private JComboBox<String> cmbDriver;
@@ -26,7 +26,7 @@ public class ConnectToExistingBundleAppPanel extends BasePanel<WizardModelStateM
 	private JTextField txtPw;
 	private JTextField txtUsername;
 
-	public ConnectToExistingBundleAppPanel(final Model<WizardModelStateMachine<WizardModel>> model)
+	public ConnectToExistingBundleAppPanel(final Model<BaseWizardStateMachineModel<WizardModel>> model)
 	{
 		super(model);
 	}

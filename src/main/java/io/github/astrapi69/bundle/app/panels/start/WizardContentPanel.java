@@ -2,7 +2,7 @@ package io.github.astrapi69.bundle.app.panels.start;
 
 import org.jdesktop.swingx.JXPanel;
 
-import io.github.astrapi69.design.pattern.state.wizard.model.WizardModelStateMachine;
+import io.github.astrapi69.design.pattern.state.wizard.model.BaseWizardStateMachineModel;
 import io.github.astrapi69.model.BaseModel;
 import io.github.astrapi69.model.api.Model;
 import io.github.astrapi69.swing.wizard.BaseWizardContentPanel;
@@ -21,8 +21,8 @@ public class WizardContentPanel extends BaseWizardContentPanel<WizardModel>
 	 */
 	public WizardContentPanel()
 	{
-		this(BaseModel.<WizardModelStateMachine<WizardModel>> of(
-			WizardModelStateMachine.<WizardModel> builder().build()));
+		this(BaseModel.<BaseWizardStateMachineModel<WizardModel>> of(
+			BaseWizardStateMachineModel.<WizardModel> builder().build()));
 	}
 
 	/**
@@ -31,29 +31,29 @@ public class WizardContentPanel extends BaseWizardContentPanel<WizardModel>
 	 * @param model
 	 *            the model
 	 */
-	public WizardContentPanel(Model<WizardModelStateMachine<WizardModel>> model)
+	public WizardContentPanel(Model<BaseWizardStateMachineModel<WizardModel>> model)
 	{
 		super(model);
 	}
 
-	public JXPanel newBundleApp(Model<WizardModelStateMachine<WizardModel>> model)
+	public JXPanel newBundleApp(Model<BaseWizardStateMachineModel<WizardModel>> model)
 	{
 		NewBundleAppPanel newBundleAppPanel = new NewBundleAppPanel(model);
 		return newBundleAppPanel;
 	}
 
-	public JXPanel newBundleAppFinalStepPanel(Model<WizardModelStateMachine<WizardModel>> model)
+	public JXPanel newBundleAppFinalStepPanel(Model<BaseWizardStateMachineModel<WizardModel>> model)
 	{
 		return new SuccessfulConnectionToBundleAppPanel(model);
 	}
 
 	public JXPanel newConnectToExistingBundleAppPanel(
-		Model<WizardModelStateMachine<WizardModel>> model)
+		Model<BaseWizardStateMachineModel<WizardModel>> model)
 	{
 		return new ConnectToExistingBundleAppPanel(model);
 	}
 
-	public JXPanel newFirstStepPanel(Model<WizardModelStateMachine<WizardModel>> model)
+	public JXPanel newFirstStepPanel(Model<BaseWizardStateMachineModel<WizardModel>> model)
 	{
 		return new WizardStartPanel(model);
 	}

@@ -2,7 +2,7 @@ package io.github.astrapi69.bundle.app.panels.start;
 
 import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardContentPanel;
-import io.github.astrapi69.design.pattern.state.wizard.model.WizardModelStateMachine;
+import io.github.astrapi69.design.pattern.state.wizard.model.BaseWizardStateMachineModel;
 import io.github.astrapi69.model.BaseModel;
 import io.github.astrapi69.model.api.Model;
 import io.github.astrapi69.swing.panels.login.pw.ChangePasswordModelBean;
@@ -34,7 +34,7 @@ public class WizardPanel extends AbstractWizardPanel<WizardModel>
 
 	@Override
 	protected BaseWizardContentPanel<WizardModel> newWizardContentPanel(
-		Model<WizardModelStateMachine<WizardModel>> model)
+		Model<BaseWizardStateMachineModel<WizardModel>> model)
 	{
 		return new WizardContentPanel(model);
 	}
@@ -45,7 +45,7 @@ public class WizardPanel extends AbstractWizardPanel<WizardModel>
 	{
 		super.onBeforeInitializeComponents();
 
-		setStateMachine(WizardModelStateMachine.<WizardModel> builder()
+		setStateMachine(BaseWizardStateMachineModel.<WizardModel> builder()
 			.currentState(WizardModelState.FIRST).modelObject(getModelObject()).build());
 		getModelObject().setAllValid();
 	}

@@ -32,7 +32,7 @@ import io.github.astrapi69.bundle.app.combobox.renderer.LanguageLocalesComboBoxR
 import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
 import io.github.astrapi69.design.pattern.observer.event.EventObject;
 import io.github.astrapi69.design.pattern.observer.event.EventSource;
-import io.github.astrapi69.design.pattern.state.wizard.model.WizardModelStateMachine;
+import io.github.astrapi69.design.pattern.state.wizard.model.BaseWizardStateMachineModel;
 import io.github.astrapi69.model.api.Model;
 import io.github.astrapi69.swing.bind.StringBindingListener;
 import io.github.astrapi69.swing.wizard.BaseWizardContentPanel;
@@ -61,7 +61,7 @@ public class ImportBundleApplicationStartPanel extends BaseWizardContentPanel<Im
 	private javax.swing.JTextField txtSelectedRootDir;
 
 	public ImportBundleApplicationStartPanel(
-		Model<WizardModelStateMachine<ImportWizardModel>> model)
+		Model<BaseWizardStateMachineModel<ImportWizardModel>> model)
 	{
 		super(model);
 	}

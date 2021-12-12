@@ -1,17 +1,17 @@
 package io.github.astrapi69.bundle.app.panels.imports.bundlefolder;
 
 import io.github.astrapi69.bundle.app.panels.start.WizardModelState;
-import io.github.astrapi69.design.pattern.state.wizard.WizardState;
-import io.github.astrapi69.design.pattern.state.wizard.model.WizardModelStateMachine;
+import io.github.astrapi69.design.pattern.state.wizard.BaseWizardState;
+import io.github.astrapi69.design.pattern.state.wizard.model.BaseWizardStateMachineModel;
 
-public enum ImportWizardState implements WizardState<WizardModelStateMachine<ImportWizardModel>>
+public enum ImportWizardState implements BaseWizardState<BaseWizardStateMachineModel<ImportWizardModel>>
 {
 
 	/** The first {@link WizardModelState} object. */
 	CANCELED {
 
 		@Override
-		public void cancel(final WizardModelStateMachine<ImportWizardModel> stateMachine)
+		public void cancel(final BaseWizardStateMachineModel<ImportWizardModel> stateMachine)
 		{
 			if (stateMachine.getModelObject().isValidCancel())
 			{
@@ -19,7 +19,7 @@ public enum ImportWizardState implements WizardState<WizardModelStateMachine<Imp
 		}
 
 		@Override
-		public void finish(final WizardModelStateMachine<ImportWizardModel> stateMachine)
+		public void finish(final BaseWizardStateMachineModel<ImportWizardModel> stateMachine)
 		{
 			if (stateMachine.getModelObject().isValidFinish())
 			{
@@ -33,12 +33,12 @@ public enum ImportWizardState implements WizardState<WizardModelStateMachine<Imp
 		}
 
 		@Override
-		public void goNext(WizardModelStateMachine<ImportWizardModel> input)
+		public void goNext(BaseWizardStateMachineModel<ImportWizardModel> input)
 		{
 		}
 
 		@Override
-		public void goPrevious(WizardModelStateMachine<ImportWizardModel> input)
+		public void goPrevious(BaseWizardStateMachineModel<ImportWizardModel> input)
 		{
 		}
 
@@ -48,7 +48,7 @@ public enum ImportWizardState implements WizardState<WizardModelStateMachine<Imp
 	FINISHED {
 
 		@Override
-		public void cancel(final WizardModelStateMachine<ImportWizardModel> stateMachine)
+		public void cancel(final BaseWizardStateMachineModel<ImportWizardModel> stateMachine)
 		{
 			if (stateMachine.getModelObject().isValidCancel())
 			{
@@ -56,7 +56,7 @@ public enum ImportWizardState implements WizardState<WizardModelStateMachine<Imp
 		}
 
 		@Override
-		public void finish(final WizardModelStateMachine<ImportWizardModel> stateMachine)
+		public void finish(final BaseWizardStateMachineModel<ImportWizardModel> stateMachine)
 		{
 			if (stateMachine.getModelObject().isValidFinish())
 			{
@@ -70,7 +70,7 @@ public enum ImportWizardState implements WizardState<WizardModelStateMachine<Imp
 		}
 
 		@Override
-		public void goNext(final WizardModelStateMachine<ImportWizardModel> stateMachine)
+		public void goNext(final BaseWizardStateMachineModel<ImportWizardModel> stateMachine)
 		{
 			if (stateMachine.getModelObject().isValidNext())
 			{
@@ -79,7 +79,7 @@ public enum ImportWizardState implements WizardState<WizardModelStateMachine<Imp
 		}
 
 		@Override
-		public void goPrevious(final WizardModelStateMachine<ImportWizardModel> input)
+		public void goPrevious(final BaseWizardStateMachineModel<ImportWizardModel> input)
 		{
 		}
 
@@ -101,7 +101,7 @@ public enum ImportWizardState implements WizardState<WizardModelStateMachine<Imp
 	FIRST {
 
 		@Override
-		public void cancel(final WizardModelStateMachine<ImportWizardModel> stateMachine)
+		public void cancel(final BaseWizardStateMachineModel<ImportWizardModel> stateMachine)
 		{
 			if (stateMachine.getModelObject().isValidCancel())
 			{
@@ -110,7 +110,7 @@ public enum ImportWizardState implements WizardState<WizardModelStateMachine<Imp
 		}
 
 		@Override
-		public void finish(final WizardModelStateMachine<ImportWizardModel> stateMachine)
+		public void finish(final BaseWizardStateMachineModel<ImportWizardModel> stateMachine)
 		{
 			if (stateMachine.getModelObject().isValidFinish())
 			{
@@ -125,7 +125,7 @@ public enum ImportWizardState implements WizardState<WizardModelStateMachine<Imp
 		}
 
 		@Override
-		public void goNext(final WizardModelStateMachine<ImportWizardModel> stateMachine)
+		public void goNext(final BaseWizardStateMachineModel<ImportWizardModel> stateMachine)
 		{
 			if (stateMachine.getModelObject().isValidNext())
 			{
@@ -137,7 +137,7 @@ public enum ImportWizardState implements WizardState<WizardModelStateMachine<Imp
 		}
 
 		@Override
-		public void goPrevious(final WizardModelStateMachine<ImportWizardModel> input)
+		public void goPrevious(final BaseWizardStateMachineModel<ImportWizardModel> input)
 		{
 		}
 
@@ -159,7 +159,7 @@ public enum ImportWizardState implements WizardState<WizardModelStateMachine<Imp
 	PROGRESS {
 
 		@Override
-		public void cancel(final WizardModelStateMachine<ImportWizardModel> stateMachine)
+		public void cancel(final BaseWizardStateMachineModel<ImportWizardModel> stateMachine)
 		{
 			if (stateMachine.getModelObject().isValidCancel())
 			{
@@ -168,7 +168,7 @@ public enum ImportWizardState implements WizardState<WizardModelStateMachine<Imp
 		}
 
 		@Override
-		public void finish(final WizardModelStateMachine<ImportWizardModel> stateMachine)
+		public void finish(final BaseWizardStateMachineModel<ImportWizardModel> stateMachine)
 		{
 			if (stateMachine.getModelObject().isValidFinish())
 			{
@@ -183,7 +183,7 @@ public enum ImportWizardState implements WizardState<WizardModelStateMachine<Imp
 		}
 
 		@Override
-		public void goNext(final WizardModelStateMachine<ImportWizardModel> stateMachine)
+		public void goNext(final BaseWizardStateMachineModel<ImportWizardModel> stateMachine)
 		{
 			if (stateMachine.getModelObject().isValidNext())
 			{
@@ -192,7 +192,7 @@ public enum ImportWizardState implements WizardState<WizardModelStateMachine<Imp
 		}
 
 		@Override
-		public void goPrevious(final WizardModelStateMachine<ImportWizardModel> stateMachine)
+		public void goPrevious(final BaseWizardStateMachineModel<ImportWizardModel> stateMachine)
 		{
 			if (stateMachine.getModelObject().isValidPrevious())
 			{

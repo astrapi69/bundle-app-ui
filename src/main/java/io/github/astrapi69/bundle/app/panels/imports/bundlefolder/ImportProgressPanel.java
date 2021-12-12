@@ -32,7 +32,7 @@ import io.github.astrapi69.collections.pairs.Triple;
 import io.github.astrapi69.design.pattern.observer.event.EventListener;
 import io.github.astrapi69.design.pattern.observer.event.EventObject;
 import io.github.astrapi69.design.pattern.observer.event.EventSource;
-import io.github.astrapi69.design.pattern.state.wizard.model.WizardModelStateMachine;
+import io.github.astrapi69.design.pattern.state.wizard.model.BaseWizardStateMachineModel;
 import io.github.astrapi69.model.api.Model;
 import io.github.astrapi69.swing.renderer.TableCellButtonRenderer;
 import io.github.astrapi69.swing.table.editor.TableCellCheckboxEditor;
@@ -60,7 +60,7 @@ public class ImportProgressPanel extends BaseWizardContentPanel<ImportWizardMode
 	private List<Triple<File, Locale, KeyValuePair<Boolean, File>>> tableModelList;
 	private GenericJXTable<Triple<File, Locale, KeyValuePair<Boolean, File>>> tblFoundProperties;
 
-	public ImportProgressPanel(final Model<WizardModelStateMachine<ImportWizardModel>> model)
+	public ImportProgressPanel(final Model<BaseWizardStateMachineModel<ImportWizardModel>> model)
 	{
 		super(model);
 	}

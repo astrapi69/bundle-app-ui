@@ -1,13 +1,13 @@
 package io.github.astrapi69.bundle.app.panels.start;
 
-import io.github.astrapi69.design.pattern.state.wizard.WizardState;
-import io.github.astrapi69.design.pattern.state.wizard.model.WizardModelStateMachine;
+import io.github.astrapi69.design.pattern.state.wizard.BaseWizardState;
+import io.github.astrapi69.design.pattern.state.wizard.model.BaseWizardStateMachineModel;
 
 /**
  * The enum {@link WizardModelState} represents three wizard states and the cancel with the finish
  * states. The state is only changing if the wizard model is valid.
  */
-public enum WizardModelState implements WizardState<WizardModelStateMachine<WizardModel>>
+public enum WizardModelState implements BaseWizardState<BaseWizardStateMachineModel<WizardModel>>
 {
 
 	/** The cancel {@link WizardModelState} object. */
@@ -15,7 +15,7 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 
 
 		@Override
-		public void cancel(final WizardModelStateMachine<WizardModel> stateMachine)
+		public void cancel(final BaseWizardStateMachineModel<WizardModel> stateMachine)
 		{
 			if (stateMachine.getModelObject().isValidCancel())
 			{
@@ -24,7 +24,7 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 		}
 
 		@Override
-		public void finish(final WizardModelStateMachine<WizardModel> stateMachine)
+		public void finish(final BaseWizardStateMachineModel<WizardModel> stateMachine)
 		{
 			if (stateMachine.getModelObject().isValidFinish())
 			{
@@ -39,12 +39,12 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 		}
 
 		@Override
-		public void goNext(final WizardModelStateMachine<WizardModel> stateMachine)
+		public void goNext(final BaseWizardStateMachineModel<WizardModel> stateMachine)
 		{
 		}
 
 		@Override
-		public void goPrevious(final WizardModelStateMachine<WizardModel> stateMachine)
+		public void goPrevious(final BaseWizardStateMachineModel<WizardModel> stateMachine)
 		{
 		}
 
@@ -53,7 +53,7 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 	CONNECT_TO_EXISTING_BUNDLE_APP {
 
 		@Override
-		public void cancel(final WizardModelStateMachine<WizardModel> stateMachine)
+		public void cancel(final BaseWizardStateMachineModel<WizardModel> stateMachine)
 		{
 			if (stateMachine.getModelObject().isValidCancel())
 			{
@@ -62,7 +62,7 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 		}
 
 		@Override
-		public void finish(final WizardModelStateMachine<WizardModel> stateMachine)
+		public void finish(final BaseWizardStateMachineModel<WizardModel> stateMachine)
 		{
 			if (stateMachine.getModelObject().isValidFinish())
 			{
@@ -77,7 +77,7 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 		}
 
 		@Override
-		public void goNext(final WizardModelStateMachine<WizardModel> stateMachine)
+		public void goNext(final BaseWizardStateMachineModel<WizardModel> stateMachine)
 		{
 			if (stateMachine.getModelObject().isValidNext())
 			{
@@ -88,7 +88,7 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 		}
 
 		@Override
-		public void goPrevious(final WizardModelStateMachine<WizardModel> stateMachine)
+		public void goPrevious(final BaseWizardStateMachineModel<WizardModel> stateMachine)
 		{
 			if (stateMachine.getModelObject().isValidPrevious())
 			{
@@ -102,7 +102,7 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 	FINISHED {
 
 		@Override
-		public void cancel(final WizardModelStateMachine<WizardModel> stateMachine)
+		public void cancel(final BaseWizardStateMachineModel<WizardModel> stateMachine)
 		{
 			if (stateMachine.getModelObject().isValidCancel())
 			{
@@ -111,7 +111,7 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 		}
 
 		@Override
-		public void finish(final WizardModelStateMachine<WizardModel> stateMachine)
+		public void finish(final BaseWizardStateMachineModel<WizardModel> stateMachine)
 		{
 			if (stateMachine.getModelObject().isValidFinish())
 			{
@@ -126,12 +126,12 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 		}
 
 		@Override
-		public void goNext(final WizardModelStateMachine<WizardModel> stateMachine)
+		public void goNext(final BaseWizardStateMachineModel<WizardModel> stateMachine)
 		{
 		}
 
 		@Override
-		public void goPrevious(final WizardModelStateMachine<WizardModel> stateMachine)
+		public void goPrevious(final BaseWizardStateMachineModel<WizardModel> stateMachine)
 		{
 		}
 
@@ -141,7 +141,7 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 	FIRST {
 
 		@Override
-		public void cancel(final WizardModelStateMachine<WizardModel> stateMachine)
+		public void cancel(final BaseWizardStateMachineModel<WizardModel> stateMachine)
 		{
 			if (stateMachine.getModelObject().isValidCancel())
 			{
@@ -150,7 +150,7 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 		}
 
 		@Override
-		public void finish(final WizardModelStateMachine<WizardModel> stateMachine)
+		public void finish(final BaseWizardStateMachineModel<WizardModel> stateMachine)
 		{
 			if (stateMachine.getModelObject().isValidFinish())
 			{
@@ -165,7 +165,7 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 		}
 
 		@Override
-		public void goNext(final WizardModelStateMachine<WizardModel> stateMachine)
+		public void goNext(final BaseWizardStateMachineModel<WizardModel> stateMachine)
 		{
 			if (stateMachine.getModelObject().isValidNext())
 			{
@@ -184,7 +184,7 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 		}
 
 		@Override
-		public void goPrevious(final WizardModelStateMachine<WizardModel> input)
+		public void goPrevious(final BaseWizardStateMachineModel<WizardModel> input)
 		{
 		}
 
@@ -206,7 +206,7 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 	NEW_BUNDLE_APP {
 
 		@Override
-		public void cancel(final WizardModelStateMachine<WizardModel> stateMachine)
+		public void cancel(final BaseWizardStateMachineModel<WizardModel> stateMachine)
 		{
 			if (stateMachine.getModelObject().isValidCancel())
 			{
@@ -215,7 +215,7 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 		}
 
 		@Override
-		public void finish(final WizardModelStateMachine<WizardModel> stateMachine)
+		public void finish(final BaseWizardStateMachineModel<WizardModel> stateMachine)
 		{
 			if (stateMachine.getModelObject().isValidFinish())
 			{
@@ -230,7 +230,7 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 		}
 
 		@Override
-		public void goNext(final WizardModelStateMachine<WizardModel> stateMachine)
+		public void goNext(final BaseWizardStateMachineModel<WizardModel> stateMachine)
 		{
 			if (stateMachine.getModelObject().isValidNext())
 			{
@@ -248,7 +248,7 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 		}
 
 		@Override
-		public void goPrevious(final WizardModelStateMachine<WizardModel> stateMachine)
+		public void goPrevious(final BaseWizardStateMachineModel<WizardModel> stateMachine)
 		{
 			if (stateMachine.getModelObject().isValidPrevious())
 			{
@@ -261,7 +261,7 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 	SUCCESSFUL_CONNECT_TO_BUNDLE_APP {
 
 		@Override
-		public void cancel(final WizardModelStateMachine<WizardModel> stateMachine)
+		public void cancel(final BaseWizardStateMachineModel<WizardModel> stateMachine)
 		{
 			if (stateMachine.getModelObject().isValidCancel())
 			{
@@ -270,7 +270,7 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 		}
 
 		@Override
-		public void finish(final WizardModelStateMachine<WizardModel> stateMachine)
+		public void finish(final BaseWizardStateMachineModel<WizardModel> stateMachine)
 		{
 			if (stateMachine.getModelObject().isValidFinish())
 			{
@@ -285,7 +285,7 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 		}
 
 		@Override
-		public void goNext(final WizardModelStateMachine<WizardModel> stateMachine)
+		public void goNext(final BaseWizardStateMachineModel<WizardModel> stateMachine)
 		{
 			if (stateMachine.getModelObject().isValidNext())
 			{
@@ -301,7 +301,7 @@ public enum WizardModelState implements WizardState<WizardModelStateMachine<Wiza
 		}
 
 		@Override
-		public void goPrevious(final WizardModelStateMachine<WizardModel> stateMachine)
+		public void goPrevious(final BaseWizardStateMachineModel<WizardModel> stateMachine)
 		{
 			if (stateMachine.getModelObject().isValidPrevious())
 			{

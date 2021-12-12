@@ -29,7 +29,7 @@ import javax.swing.LayoutStyle;
 import io.github.astrapi69.bundle.app.ApplicationEventBus;
 import io.github.astrapi69.design.pattern.observer.event.EventObject;
 import io.github.astrapi69.design.pattern.observer.event.EventSource;
-import io.github.astrapi69.design.pattern.state.wizard.model.WizardModelStateMachine;
+import io.github.astrapi69.design.pattern.state.wizard.model.BaseWizardStateMachineModel;
 import io.github.astrapi69.model.BaseModel;
 import io.github.astrapi69.model.api.Model;
 import io.github.astrapi69.swing.base.BasePanel;
@@ -39,7 +39,7 @@ import io.github.astrapi69.swing.radio.model.EnumRadioButtonGroupBean;
  *
  * @author astrapi69
  */
-public class WizardStartPanel extends BasePanel<WizardModelStateMachine<WizardModel>>
+public class WizardStartPanel extends BasePanel<BaseWizardStateMachineModel<WizardModel>>
 {
 
 	private static final long serialVersionUID = 1L;
@@ -51,11 +51,11 @@ public class WizardStartPanel extends BasePanel<WizardModelStateMachine<WizardMo
 
 	public WizardStartPanel()
 	{
-		this(BaseModel.<WizardModelStateMachine<WizardModel>> of(
-			WizardModelStateMachine.<WizardModel> builder().build()));
+		this(BaseModel.<BaseWizardStateMachineModel<WizardModel>> of(
+			BaseWizardStateMachineModel.<WizardModel> builder().build()));
 	}
 
-	public WizardStartPanel(final Model<WizardModelStateMachine<WizardModel>> model)
+	public WizardStartPanel(final Model<BaseWizardStateMachineModel<WizardModel>> model)
 	{
 		super(model);
 	}
