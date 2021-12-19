@@ -11,11 +11,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import io.github.astrapi69.swing.listener.document.EnableButtonBehavior;
+import io.github.astrapi69.swing.table.GenericJXTable;
 import org.apache.commons.lang3.StringUtils;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
 
-import io.github.astrapi69.behaviors.EnableButtonBehavior;
 import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
 import io.github.astrapi69.bundle.app.actions.ReturnToDashboardAction;
 import io.github.astrapi69.bundle.app.combobox.model.LanguageLocalesComboBoxModel;
@@ -30,7 +31,6 @@ import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
 import io.github.astrapi69.model.BaseModel;
 import io.github.astrapi69.model.api.Model;
 import io.github.astrapi69.swing.base.BasePanel;
-import io.github.astrapi69.swing.x.GenericJXTable;
 import lombok.Getter;
 
 @Getter

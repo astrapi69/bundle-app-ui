@@ -21,7 +21,7 @@ import io.github.astrapi69.bundle.app.panels.dashboard.mainapp.MainDashboardPane
 import io.github.astrapi69.bundle.app.spring.UniRestService;
 import io.github.astrapi69.collections.list.ListFactory;
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
-import io.github.astrapi69.layout.ScreenSizeExtensions;
+import io.github.astrapi69.swing.layout.ScreenSizeExtensions;
 import io.github.astrapi69.model.BaseModel;
 import io.github.astrapi69.model.PropertyModel;
 import io.github.astrapi69.model.api.Model;

@@ -34,10 +34,10 @@ import io.github.astrapi69.design.pattern.observer.event.EventObject;
 import io.github.astrapi69.design.pattern.observer.event.EventSource;
 import io.github.astrapi69.design.pattern.state.wizard.model.BaseWizardStateMachineModel;
 import io.github.astrapi69.model.api.Model;
-import io.github.astrapi69.swing.renderer.TableCellButtonRenderer;
+import io.github.astrapi69.swing.table.GenericJXTable;
+import io.github.astrapi69.swing.table.renderer.TableCellButtonRenderer;
 import io.github.astrapi69.swing.table.editor.TableCellCheckboxEditor;
 import io.github.astrapi69.swing.wizard.BaseWizardContentPanel;
-import io.github.astrapi69.swing.x.GenericJXTable;
 import lombok.Getter;
 
 /**

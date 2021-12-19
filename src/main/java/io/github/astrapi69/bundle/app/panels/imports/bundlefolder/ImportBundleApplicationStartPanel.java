@@ -24,6 +24,7 @@ import java.io.File;
 
 import javax.swing.JFileChooser;
 
+import io.github.astrapi69.swing.listener.document.StringBindingListener;
 import org.apache.commons.lang3.StringUtils;
 
 import io.github.astrapi69.bundle.app.ApplicationEventBus;
@@ -34,7 +35,7 @@ import io.github.astrapi69.design.pattern.observer.event.EventObject;
 import io.github.astrapi69.design.pattern.observer.event.EventSource;
 import io.github.astrapi69.design.pattern.state.wizard.model.BaseWizardStateMachineModel;
 import io.github.astrapi69.model.api.Model;
-import io.github.astrapi69.swing.bind.StringBindingListener;
+
 import io.github.astrapi69.swing.wizard.BaseWizardContentPanel;
 
 /**

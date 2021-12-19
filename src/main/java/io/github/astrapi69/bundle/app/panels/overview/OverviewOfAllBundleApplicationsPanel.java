@@ -27,9 +27,9 @@ import io.github.astrapi69.model.BaseModel;
 import io.github.astrapi69.model.PropertyModel;
 import io.github.astrapi69.model.api.Model;
 import io.github.astrapi69.swing.base.BasePanel;
-import io.github.astrapi69.swing.renderer.TableCellButtonRenderer;
+import io.github.astrapi69.swing.table.GenericJXTable;
 import io.github.astrapi69.swing.table.editor.TableCellButtonEditor;
-import io.github.astrapi69.swing.x.GenericJXTable;
+import io.github.astrapi69.swing.table.renderer.TableCellButtonRenderer;
 import lombok.Getter;
 import lombok.extern.java.Log;
 

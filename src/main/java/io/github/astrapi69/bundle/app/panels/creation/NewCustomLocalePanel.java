@@ -7,11 +7,11 @@ import java.io.IOException;
 
 import javax.swing.JOptionPane;
 
+import io.github.astrapi69.swing.listener.document.EnableButtonBehavior;
 import org.apache.http.client.ClientProtocolException;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
 
-import io.github.astrapi69.behaviors.EnableButtonBehavior;
 import io.github.astrapi69.bundle.app.actions.ReturnToDashboardAction;
 import io.github.astrapi69.bundle.app.combobox.model.CountriesComboBoxModel;
 import io.github.astrapi69.bundle.app.combobox.model.LanguagesComboBoxModel;

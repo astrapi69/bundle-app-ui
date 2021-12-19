@@ -5,9 +5,9 @@ import io.github.astrapi69.collections.pairs.KeyValuePair;
 import io.github.astrapi69.model.BaseModel;
 import io.github.astrapi69.model.api.Model;
 import io.github.astrapi69.swing.base.BasePanel;
+import io.github.astrapi69.swing.table.GenericJXTable;
 import io.github.astrapi69.swing.table.model.TableColumnsModel;
 import io.github.astrapi69.swing.table.model.properties.StringKeyValueTableModel;
-import io.github.astrapi69.swing.x.GenericJXTable;
 
 public class OverviewResourceBundlePanel extends BasePanel<ApplicationDashboardBean>
 {
