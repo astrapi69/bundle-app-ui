@@ -22,7 +22,7 @@ import io.github.astrapi69.bundle.app.panels.dashboard.mainapp.MainDashboardPane
 import io.github.astrapi69.bundle.app.spring.UniRestService;
 import io.github.astrapi69.bundle.app.table.model.StringBundleApplicationsBundleApplicationsTableModel;
 import io.github.astrapi69.collections.pairs.Triple;
-import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
+import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;
 import io.github.astrapi69.model.BaseModel;
 import io.github.astrapi69.model.PropertyModel;
 import io.github.astrapi69.model.api.Model;

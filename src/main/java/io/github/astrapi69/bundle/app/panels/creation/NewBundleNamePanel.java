@@ -5,6 +5,8 @@ import java.io.IOException;
 
 import javax.swing.JComboBox;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
+import io.github.astrapi69.bundle.app.spring.UniRestService;
 import org.apache.http.client.ClientProtocolException;
 
 import io.github.astrapi69.bundle.app.actions.ReturnToDashboardAction;
@@ -12,8 +14,8 @@ import io.github.astrapi69.bundle.app.combobox.model.LanguageLocalesComboBoxMode
 import io.github.astrapi69.bundle.app.combobox.renderer.LanguageLocalesComboBoxRenderer;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import io.github.astrapi69.bundle.app.spring.HttpClientRestService;
-import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
-import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
+import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;
+import io.github.astrapi69.bundlemanagement.viewmodel.LanguageLocale;
 import io.github.astrapi69.model.BaseModel;
 import io.github.astrapi69.model.api.Model;
 import io.github.astrapi69.swing.base.BasePanel;
@@ -161,18 +163,17 @@ public class NewBundleNamePanel extends BasePanel<ApplicationDashboardBean>
 		}
 		try
 		{
-			HttpClientRestService.getOrCreateBundleName(bundleApplication.getName(), baseName,
+			UniRestService.getOrCreateBundleName(bundleApplication.getName(), baseName,
 				locale);
-		}
-		catch (ClientProtocolException e1)
-		{
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
 		}
 		catch (IOException e1)
 		{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
+		}
+		catch (UnirestException ex)
+		{
+			ex.printStackTrace();
 		}
 	}
 

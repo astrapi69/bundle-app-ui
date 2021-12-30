@@ -10,7 +10,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 
 import io.github.astrapi69.bundle.app.spring.UniRestService;
 import io.github.astrapi69.collections.list.ListFactory;
-import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
+import io.github.astrapi69.bundlemanagement.viewmodel.LanguageLocale;
 import io.github.astrapi69.swing.combobox.model.AbstractComboBoxModel;
 import lombok.NoArgsConstructor;
 import lombok.extern.java.Log;

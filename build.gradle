@@ -211,18 +211,19 @@ dependencies {
     implementation("io.github.astrapi69:jobj-compare:$jobjCompareVersion")
     implementation("io.github.astrapi69:jobj-core:$jobjCoreVersion")
     implementation("io.github.astrapi69:file-worker:$fileWorkerVersion")
-    implementation("io.github.astrapi69:resource-bundles-view-model:$viewModelVersion")
+    implementation("io.github.astrapi69:bundle-viewmodels:$viewModelVersion")
 
     implementation("commons-io:commons-io:$commonsIoVersion")
     implementation("org.apache.commons:commons-lang3:$commonsLang3Version")
     implementation("com.mashape.unirest:unirest-java:$unirestJavaVersion")
+
     implementation("org.apache.httpcomponents:httpclient:$httpclientVersion")
     implementation("org.apache.httpcomponents:httpasyncclient:$httpasyncclientVersion")
     implementation("org.apache.httpcomponents:httpmime:$httpclientVersion")
     implementation("org.json:json:$jsonVersion")
     implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
     implementation("com.google.guava:guava:$guavaVersion")
-
+    // swing external libraries
     implementation("javax.help:javahelp:$javahelpVersion")
     implementation("org.swinglabs:swing-layout:$swingLayoutVersion")
     implementation("org.swinglabs:jxlayer:$jxlayerVersion")
@@ -230,7 +231,6 @@ dependencies {
     implementation("org.swinglabs.swingx:swingx-all:$swingxAllVersion")
     implementation("com.miglayout:miglayout-swing:$miglayoutSwingVersion")
     implementation("xml-apis:xml-apis:$xmlApisVersion")
-
     // spring
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-integration")

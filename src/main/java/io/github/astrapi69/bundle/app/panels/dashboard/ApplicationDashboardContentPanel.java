@@ -12,7 +12,7 @@ import java.util.logging.Level;
 
 import javax.swing.JFileChooser;
 
-import de.alpharogroup.db.resource.bundles.domain.BundleName;
+import io.github.astrapi69.bundlemanagement.viewmodel.BundleName;
 import io.github.astrapi69.file.FileExtensions;
 import org.apache.commons.lang3.BooleanUtils;
 
@@ -35,7 +35,7 @@ import io.github.astrapi69.collections.pairs.Quattro;
 import io.github.astrapi69.collections.pairs.Triple;
 import io.github.astrapi69.collections.properties.PropertiesExtensions;
 import io.github.astrapi69.comparators.NullCheckComparator;
-import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
+import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;
 import io.github.astrapi69.model.BaseModel;
 import io.github.astrapi69.model.api.Model;
 import io.github.astrapi69.resourcebundle.inspector.search.PropertiesListResolver;

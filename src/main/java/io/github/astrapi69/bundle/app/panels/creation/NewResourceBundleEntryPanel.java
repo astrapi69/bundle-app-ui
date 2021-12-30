@@ -6,7 +6,7 @@ import io.github.astrapi69.bundle.app.actions.ReturnToDashboardAction;
 import io.github.astrapi69.bundle.app.combobox.model.BundleNamesComboBoxModel;
 import io.github.astrapi69.bundle.app.combobox.renderer.BundleNamesComboBoxRenderer;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
-import de.alpharogroup.db.resource.bundles.domain.BundleName;
+import io.github.astrapi69.bundlemanagement.viewmodel.BundleName;
 import io.github.astrapi69.model.BaseModel;
 import io.github.astrapi69.model.api.Model;
 import io.github.astrapi69.swing.base.BasePanel;

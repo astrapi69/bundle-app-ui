@@ -17,14 +17,6 @@ You can build it from the source files by clone this git repository. It is a mav
 
 Than compile the project:
 
-```
-mvn clean install
-```
-
-To start the application you have to start the main method of the MainApplication class.
-
-Note: Before you start the MainApplication class a rest server have to be running. Pull the project [resource-bundles-data](https://github.com/lightblueseas/resource-bundles-data) and start the class 'de.alpharogroup.db.resource.bundles.ApplicationJettyRunner' which starts jetty server that provides the rest services. 
-
 ## License
 
 The source code comes under the liberal MIT License.

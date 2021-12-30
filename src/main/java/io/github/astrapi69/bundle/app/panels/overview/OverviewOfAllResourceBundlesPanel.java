@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
@@ -25,8 +26,8 @@ import io.github.astrapi69.collections.CollectionExtensions;
 import io.github.astrapi69.collections.pairs.Quattro;
 import io.github.astrapi69.collections.set.SetFactory;
 import io.github.astrapi69.comparators.NullCheckComparator;
-import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
-import de.alpharogroup.db.resource.bundles.domain.BundleName;
+import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;
+import io.github.astrapi69.bundlemanagement.viewmodel.BundleName;
 import io.github.astrapi69.model.BaseModel;
 import io.github.astrapi69.model.api.Model;
 import io.github.astrapi69.swing.base.BasePanel;
@@ -86,6 +87,10 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 			catch (UnirestException e)
 			{
 				log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			}
+			catch (JsonProcessingException e)
+			{
+				e.printStackTrace();
 			}
 
 			SpringBootSwingApplication.getInstance().getModelObject().getSelectedBundleApplication()

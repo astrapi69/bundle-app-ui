@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
@@ -28,8 +29,8 @@ import io.github.astrapi69.bundle.app.table.model.StringResourcebundlesTableMode
 import io.github.astrapi69.collections.pairs.Quattro;
 import io.github.astrapi69.collections.properties.PropertiesExtensions;
 import io.github.astrapi69.comparators.NullCheckComparator;
-import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
-import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
+import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;
+import io.github.astrapi69.bundlemanagement.viewmodel.Resourcebundle;
 import io.github.astrapi69.model.BaseModel;
 import io.github.astrapi69.model.api.Model;
 import io.github.astrapi69.swing.base.BasePanel;
@@ -128,6 +129,10 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 			catch (UnirestException e1)
 			{
 				log.log(Level.SEVERE, e1.getLocalizedMessage(), e1);
+			}
+			catch (JsonProcessingException ex)
+			{
+				ex.printStackTrace();
 			}
 
 		}

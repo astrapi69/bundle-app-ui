@@ -9,9 +9,9 @@ import java.util.Locale;
 import java.util.Map;
 
 import io.github.astrapi69.collections.list.ListFactory;
-import de.alpharogroup.db.resource.bundles.domain.Country;
-import de.alpharogroup.db.resource.bundles.domain.Language;
-import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
+import io.github.astrapi69.bundlemanagement.viewmodel.Country;
+import io.github.astrapi69.bundlemanagement.viewmodel.Language;
+import io.github.astrapi69.bundlemanagement.viewmodel.LanguageLocale;
 import io.github.astrapi69.resourcebundle.locale.LocaleExtensions;
 import io.github.astrapi69.resourcebundle.locale.LocaleResolver;
 import lombok.experimental.UtilityClass;

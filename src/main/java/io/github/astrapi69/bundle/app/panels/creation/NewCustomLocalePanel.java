@@ -19,9 +19,9 @@ import io.github.astrapi69.bundle.app.combobox.renderer.CountriesComboBoxRendere
 import io.github.astrapi69.bundle.app.combobox.renderer.LanguagesComboBoxRenderer;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import io.github.astrapi69.bundle.app.spring.HttpClientRestService;
-import de.alpharogroup.db.resource.bundles.domain.Country;
-import de.alpharogroup.db.resource.bundles.domain.Language;
-import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
+import io.github.astrapi69.bundlemanagement.viewmodel.Country;
+import io.github.astrapi69.bundlemanagement.viewmodel.Language;
+import io.github.astrapi69.bundlemanagement.viewmodel.LanguageLocale;
 import io.github.astrapi69.model.BaseModel;
 import io.github.astrapi69.model.api.Model;
 import io.github.astrapi69.swing.base.BasePanel;

@@ -18,7 +18,7 @@ import io.github.astrapi69.collections.pairs.KeyValuePair;
 import io.github.astrapi69.collections.pairs.Quattro;
 import io.github.astrapi69.collections.pairs.Triple;
 import io.github.astrapi69.collections.properties.PropertiesExtensions;
-import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
+import io.github.astrapi69.bundlemanagement.viewmodel.LanguageLocale;
 import io.github.astrapi69.design.pattern.observer.event.EventListener;
 import io.github.astrapi69.design.pattern.observer.event.EventObject;
 import io.github.astrapi69.design.pattern.observer.event.EventSource;
