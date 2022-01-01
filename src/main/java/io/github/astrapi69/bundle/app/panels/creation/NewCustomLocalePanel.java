@@ -275,7 +275,7 @@ public class NewCustomLocalePanel extends BasePanel<ApplicationDashboardBean>
 		LanguageLocale languageLocales = HttpClientRestService.find(localeCode);
 		if (languageLocales == null)
 		{
-			HttpClientRestService.newLanguageLocale(localeCode);
+			HttpClientRestService.newLanguageLocale(LanguageLocale.builder().locale(localeCode).build());
 			cmbCountry.setModel(new CountriesComboBoxModel());
 			cmbLanguage.setModel(new LanguagesComboBoxModel());
 			txtVariant.setText("");

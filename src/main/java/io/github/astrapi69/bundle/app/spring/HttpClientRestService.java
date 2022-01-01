@@ -95,8 +95,8 @@ public class HttpClientRestService
 		return object;
 	}
 
-	public static LanguageLocale newLanguageLocale(String localeCode)
-		throws ClientProtocolException, IOException
+	public static LanguageLocale newLanguageLocale(LanguageLocale localeCode)
+		throws IOException
 	{
 		String url = ApplicationRestPath.REST_PATH_LANGUAGE_LOCALES;
 		HttpClient client = HttpClientBuilder.create().build();
@@ -114,8 +114,9 @@ public class HttpClientRestService
 
 	public static LanguageLocale find(String localeCode) throws ClientProtocolException, IOException
 	{
+		// http://localhost:37159/v1/locales/find/by/locale?locale={locale}
 		String url = ApplicationRestPath.REST_PATH_LANGUAGE_LOCALES
-			+ AppRestPath.SLASH + "find/by/locale/" + localeCode;
+			 + ActionRestPath.ACTION_FIND_BY_LOCALE + "?locale=" + localeCode;
 
 		HttpClient client = HttpClientBuilder.create().build();
 		HttpGet get = new HttpGet(url);
