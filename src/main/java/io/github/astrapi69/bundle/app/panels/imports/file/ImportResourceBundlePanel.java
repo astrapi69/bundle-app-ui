@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import com.google.common.eventbus.Subscribe;
 
 import io.github.astrapi69.bundle.app.ApplicationEventBus;
+import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
 import io.github.astrapi69.bundle.app.actions.ReturnToDashboardAction;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import io.github.astrapi69.bundle.app.spring.HttpClientRestService;
@@ -86,7 +87,8 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 
 			try
 			{
-				BundleName bundleName = HttpClientRestService.updateProperties(quattro);
+				BundleName bundleName = SpringBootSwingApplication.getInstance()
+					.getBundleApplicationsRestClient().updateProperties(quattro);
 				bundleName.setFilepath(filepath);
 				// TODO update entity
 				log.log(Level.FINE, bundleName.getBaseName().getName());

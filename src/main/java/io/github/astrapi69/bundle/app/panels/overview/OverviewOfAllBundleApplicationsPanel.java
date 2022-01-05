@@ -20,6 +20,7 @@ import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardConte
 import io.github.astrapi69.bundle.app.panels.dashboard.mainapp.MainDashboardBean;
 import io.github.astrapi69.bundle.app.panels.dashboard.mainapp.MainDashboardPanel;
 import io.github.astrapi69.bundle.app.spring.UniRestService;
+import io.github.astrapi69.bundle.app.spring.rest.BundleApplicationsRestClient;
 import io.github.astrapi69.bundle.app.table.model.StringBundleApplicationsBundleApplicationsTableModel;
 import io.github.astrapi69.collections.pairs.Triple;
 import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;
@@ -51,6 +52,8 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 	private List<Triple<String, BundleApplication, BundleApplication>> tableModelList;
 
 	private GenericJXTable<Triple<String, BundleApplication, BundleApplication>> tblBundleApps;
+
+//	private BundleApplicationsRestClient restClient;
 
 	public OverviewOfAllBundleApplicationsPanel()
 	{
@@ -91,8 +94,10 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 		{
 			try
 			{
-				UniRestService.deleteBundleApplication(selectedBundleApplication);
-				final List<BundleApplication> bundleApplications = UniRestService
+				SpringBootSwingApplication.getInstance().getBundleApplicationsRestClient()
+					.deleteBundleApplication(selectedBundleApplication);
+				final List<BundleApplication> bundleApplications =
+					SpringBootSwingApplication.getInstance().getBundleApplicationsRestClient()
 					.findAllBundleApplications();
 				SpringBootSwingApplication.getInstance().getModelObject()
 					.setBundleApplications(bundleApplications);
@@ -101,7 +106,7 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 					new MainDashboardPanel(PropertyModel.<MainDashboardBean> of(
 						SpringBootSwingApplication.getInstance(), "model.object")));
 			}
-			catch (UnirestException | IOException e)
+			catch (IOException e)
 			{
 				log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			}
@@ -113,7 +118,6 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 	protected void onInitializeComponents()
 	{
 		super.onInitializeComponents();
-
 		lblHeaderOverview = new javax.swing.JLabel();
 		lblBundleApp = new javax.swing.JLabel();
 		srcBundleApps = new javax.swing.JScrollPane();
@@ -341,10 +345,11 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 		List<BundleApplication> bundleApplications;
 		try
 		{
-			bundleApplications = UniRestService.findAllBundleApplications();
+			bundleApplications = SpringBootSwingApplication.getInstance()
+				.getBundleApplicationsRestClient().findAllBundleApplications();
 			getModelObject().setBundleApplications(bundleApplications);
 		}
-		catch (UnirestException | IOException e)
+		catch ( IOException e)
 		{
 			log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}

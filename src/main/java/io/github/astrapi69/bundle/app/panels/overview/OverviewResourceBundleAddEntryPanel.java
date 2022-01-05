@@ -88,10 +88,11 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 
 		try
 		{
-			UniRestService.saveOrUpdateEntry(bundleApplication.getName(), baseName,
+			SpringBootSwingApplication.getInstance().getResourceBundlesRestClient()
+			.saveOrUpdateEntry(bundleApplication.getName(), baseName,
 				getModelObject().getSelectedBundleName().getLocale().getLocale(), key, value);
 		}
-		catch (UnirestException | IOException e1)
+		catch (IOException e1)
 		{
 			log.log(Level.SEVERE, e1.getLocalizedMessage(), e1);
 		}
@@ -115,7 +116,8 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 		{
 			try
 			{
-				UniRestService.deleteBundleName(getModelObject().getSelectedBundleName());
+				SpringBootSwingApplication.getInstance().getBundleNamesRestClient()
+				.deleteBundleName(getModelObject().getSelectedBundleName());
 
 				final Model<ApplicationDashboardBean> baModel = SpringBootSwingApplication
 					.getInstance().getSelectedBundleApplicationPropertyModel();
@@ -126,13 +128,9 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 						+ baModel.getObject().getBundleApplication().getName() + " bundle app",
 						component);
 			}
-			catch (UnirestException e1)
+			catch (IOException e1)
 			{
 				log.log(Level.SEVERE, e1.getLocalizedMessage(), e1);
-			}
-			catch (JsonProcessingException ex)
-			{
-				ex.printStackTrace();
 			}
 
 		}
@@ -288,9 +286,10 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 				final Resourcebundle selected = (Resourcebundle)this.getValue();
 				try
 				{
-					UniRestService.deleteResourcebundle(selected);
+					SpringBootSwingApplication.getInstance().getResourceBundlesRestClient()
+					.deleteResourcebundle(selected);
 				}
-				catch (UnirestException e)
+				catch (IOException e)
 				{
 					log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 				}
@@ -453,7 +452,9 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 		List<Resourcebundle> list;
 		try
 		{
-			list = UniRestService.findResourceBundles(bundleApplication, baseName, localeCode);
+			list = SpringBootSwingApplication.getInstance()
+				.getResourceBundlesRestClient()
+				.findResourceBundles(bundleApplication, baseName, localeCode);
 
 			for (final Resourcebundle resourcebundle : list)
 			{
@@ -467,7 +468,7 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 				NullCheckComparator.<Quattro<String, String, Resourcebundle, Resourcebundle>> of(
 					(o1, o2) -> o1.getTopLeft().compareTo(o2.getTopLeft())));
 		}
-		catch (UnirestException | IOException e)
+		catch ( IOException e)
 		{
 			log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}

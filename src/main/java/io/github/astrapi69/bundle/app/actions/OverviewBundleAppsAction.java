@@ -13,6 +13,7 @@ import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
 import io.github.astrapi69.bundle.app.panels.dashboard.mainapp.MainDashboardBean;
 import io.github.astrapi69.bundle.app.panels.dashboard.mainapp.MainDashboardPanel;
 import io.github.astrapi69.bundle.app.spring.UniRestService;
+import io.github.astrapi69.bundle.app.spring.rest.BundleApplicationsRestClient;
 import io.github.astrapi69.collections.list.ListFactory;
 import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;
 import io.github.astrapi69.model.PropertyModel;
@@ -27,6 +28,7 @@ public class OverviewBundleAppsAction extends AbstractAction
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	BundleApplicationsRestClient restClient;
 
 	public static OverviewBundleAppsAction of()
 	{
@@ -35,6 +37,7 @@ public class OverviewBundleAppsAction extends AbstractAction
 
 	public OverviewBundleAppsAction()
 	{
+		restClient = SpringBootSwingApplication.getInstance().getBundleApplicationsRestClient();
 	}
 
 	/**
@@ -57,9 +60,9 @@ public class OverviewBundleAppsAction extends AbstractAction
 		List<BundleApplication> bundleApplications = ListFactory.newArrayList();
 		try
 		{
-			bundleApplications = UniRestService.findAllBundleApplications();
+			bundleApplications = restClient.findAllBundleApplications();
 		}
-		catch (UnirestException | IOException e1)
+		catch (IOException e1)
 		{
 			log.log(Level.SEVERE, e1.getLocalizedMessage(), e1);
 		}

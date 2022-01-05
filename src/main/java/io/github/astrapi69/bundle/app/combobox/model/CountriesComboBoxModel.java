@@ -8,6 +8,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 
 import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
 import io.github.astrapi69.bundle.app.spring.UniRestService;
+import io.github.astrapi69.bundle.app.spring.rest.CountriesRestClient;
 import io.github.astrapi69.collections.list.ListFactory;
 import io.github.astrapi69.bundlemanagement.viewmodel.Country;
 import io.github.astrapi69.swing.combobox.model.AbstractComboBoxModel;
@@ -30,11 +31,12 @@ public class CountriesComboBoxModel extends AbstractComboBoxModel<Country>
 	 **/
 	{
 		List<Country> availableCountries = ListFactory.newArrayList();
+		CountriesRestClient restClient = new CountriesRestClient();
 		try
 		{
-			availableCountries = UniRestService.findAllCountries();
+			availableCountries = restClient.findAllCountries();
 		}
-		catch (UnirestException | IOException e)
+		catch (IOException e)
 		{
 			DialogExtensions.showExceptionDialog(e, SpringBootSwingApplication.getInstance());
 			log.log(Level.SEVERE, e.getLocalizedMessage(), e);

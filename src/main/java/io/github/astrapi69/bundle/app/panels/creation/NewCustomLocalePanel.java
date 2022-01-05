@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import javax.swing.JOptionPane;
 
+import io.github.astrapi69.bundle.app.spring.rest.LanguageLocalesRestClient;
 import io.github.astrapi69.swing.listener.document.EnableButtonBehavior;
 import org.apache.http.client.ClientProtocolException;
 
@@ -70,6 +71,7 @@ public class NewCustomLocalePanel extends BasePanel<ApplicationDashboardBean>
 	private javax.swing.JTextField txtVariant;
 
 	CustomLocaleVerifier verifier;
+	LanguageLocalesRestClient restClient;
 
 	public NewCustomLocalePanel()
 	{
@@ -272,10 +274,12 @@ public class NewCustomLocalePanel extends BasePanel<ApplicationDashboardBean>
 		String variant = txtVariant.getText();
 		String localeCode = selectedLanguage.getIso639Dash1() + "_"
 			+ selectedCountry.getIso3166a2name() + "_" + variant;
-		LanguageLocale languageLocales = HttpClientRestService.find(localeCode);
+
+		LanguageLocale languageLocales = restClient.find(localeCode);
 		if (languageLocales == null)
 		{
-			HttpClientRestService.newLanguageLocale(LanguageLocale.builder().locale(localeCode).build());
+			LanguageLocale languageLocale = LanguageLocale.builder().locale(localeCode).build();
+			restClient.save(languageLocale);
 			cmbCountry.setModel(new CountriesComboBoxModel());
 			cmbLanguage.setModel(new LanguagesComboBoxModel());
 			txtVariant.setText("");

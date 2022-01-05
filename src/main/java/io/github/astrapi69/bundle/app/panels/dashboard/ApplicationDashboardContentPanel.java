@@ -289,7 +289,9 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 									.topLeft(properties).topRight(bundleApplication.getName())
 									.bottomLeft(bundlename).bottomRight(locale).build();
 
-								BundleName bundleName = HttpClientRestService
+								BundleName bundleName =
+									SpringBootSwingApplication.getInstance()
+										.getBundleApplicationsRestClient()
 									.updateProperties(quattro);
 								bundleName.setFilepath(filepath);
 								// TODO update entity

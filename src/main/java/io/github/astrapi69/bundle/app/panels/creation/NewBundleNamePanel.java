@@ -6,6 +6,7 @@ import java.io.IOException;
 import javax.swing.JComboBox;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
+import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
 import io.github.astrapi69.bundle.app.spring.UniRestService;
 import org.apache.http.client.ClientProtocolException;
 
@@ -163,7 +164,8 @@ public class NewBundleNamePanel extends BasePanel<ApplicationDashboardBean>
 		}
 		try
 		{
-			UniRestService.getOrCreateBundleName(bundleApplication.getName(), baseName,
+			SpringBootSwingApplication.getInstance().getBundleNamesRestClient()
+			.getOrCreateBundleName(bundleApplication.getName(), baseName,
 				locale);
 		}
 		catch (IOException e1)

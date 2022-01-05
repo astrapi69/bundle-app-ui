@@ -82,15 +82,12 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 		{
 			try
 			{
-				UniRestService.deleteBundleName(selectedBundleName);
+				SpringBootSwingApplication.getInstance().getBundleNamesRestClient()
+				.deleteBundleName(selectedBundleName);
 			}
-			catch (UnirestException e)
+			catch (IOException e)
 			{
 				log.log(Level.SEVERE, e.getLocalizedMessage(), e);
-			}
-			catch (JsonProcessingException e)
-			{
-				e.printStackTrace();
 			}
 
 			SpringBootSwingApplication.getInstance().getModelObject().getSelectedBundleApplication()
@@ -339,7 +336,9 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 		List<BundleName> findBundleNames;
 		try
 		{
-			findBundleNames = UniRestService.findBundleNames(bundleApplication);
+
+			findBundleNames = SpringBootSwingApplication.getInstance()
+				.getBundleApplicationsRestClient().findBundleNames(bundleApplication);
 			getModelObject().setBundleNames(SetFactory.newHashSet(findBundleNames));
 			final Set<BundleName> set = getModelObject().getBundleNames();
 			if (CollectionExtensions.isNotEmpty(set))
@@ -356,7 +355,7 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 				NullCheckComparator.<Quattro<String, String, BundleName, BundleName>> of(
 					(o1, o2) -> o1.getTopLeft().compareTo(o2.getTopLeft())));
 		}
-		catch (UnirestException | IOException e)
+		catch (IOException e)
 		{
 			log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}

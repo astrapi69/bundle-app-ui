@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 import io.github.astrapi69.bundle.app.spring.UniRestService;
+import io.github.astrapi69.bundle.app.spring.rest.LanguageLocalesRestClient;
 import io.github.astrapi69.collections.list.ListFactory;
 import io.github.astrapi69.bundlemanagement.viewmodel.LanguageLocale;
 import io.github.astrapi69.swing.combobox.model.AbstractComboBoxModel;
@@ -28,10 +29,11 @@ public class LanguageLocalesComboBoxModel extends AbstractComboBoxModel<Language
 		List<LanguageLocale> languageLocales = ListFactory.newArrayList();
 		try
 		{
-			languageLocales = UniRestService.findAllLanguageLocales();
+			LanguageLocalesRestClient restClient = new LanguageLocalesRestClient();
+			languageLocales = restClient.findAllLanguageLocales();
 			Collections.sort(languageLocales, Comparator.comparing(LanguageLocale::getLocale));
 		}
-		catch (UnirestException | IOException e)
+		catch (IOException e)
 		{
 			log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}

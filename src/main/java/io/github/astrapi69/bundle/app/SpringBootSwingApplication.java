@@ -9,6 +9,9 @@ import java.util.logging.Level;
 
 import javax.swing.JInternalFrame;
 
+import io.github.astrapi69.bundle.app.spring.rest.BundleApplicationsRestClient;
+import io.github.astrapi69.bundle.app.spring.rest.BundleNamesRestClient;
+import io.github.astrapi69.bundle.app.spring.rest.ResourceBundlesRestClient;
 import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -84,12 +87,39 @@ public class SpringBootSwingApplication extends ApplicationFrame<MainDashboardBe
 
 	Model<ApplicationDashboardBean> selectedBundleApplicationPropertyModel;
 
+	BundleApplicationsRestClient bundleApplicationsRestClient;
+
+	ResourceBundlesRestClient resourceBundlesRestClient;
+
+	BundleNamesRestClient bundleNamesRestClient;
+
 	/**
 	 * Instantiates a new main frame.
 	 */
 	public SpringBootSwingApplication()
 	{
 		super(Messages.getString("mainframe.title"));
+	}
+
+	public BundleNamesRestClient getBundleNamesRestClient() {
+		if(bundleNamesRestClient == null) {
+			bundleNamesRestClient = new BundleNamesRestClient();
+		}
+		return bundleNamesRestClient;
+	}
+
+	public ResourceBundlesRestClient getResourceBundlesRestClient(){
+		if(resourceBundlesRestClient == null) {
+			resourceBundlesRestClient = new ResourceBundlesRestClient();
+		}
+		return resourceBundlesRestClient;
+	}
+
+	public BundleApplicationsRestClient getBundleApplicationsRestClient(){
+		if(bundleApplicationsRestClient == null) {
+			bundleApplicationsRestClient = new BundleApplicationsRestClient();
+		}
+		return bundleApplicationsRestClient;
 	}
 
 	@Override
@@ -127,11 +157,12 @@ public class SpringBootSwingApplication extends ApplicationFrame<MainDashboardBe
 	public List<BundleApplication> loadAndSetAllBundleApplications()
 	{
 		List<BundleApplication> bundleApplications = ListFactory.newArrayList();
+		// FIXME TODO do not welcome the user with an exception :-)
 		try
 		{
-			bundleApplications = UniRestService.findAllBundleApplications();
+			bundleApplications = getBundleApplicationsRestClient().findAllBundleApplications();
 		}
-		catch (UnirestException | IOException e)
+		catch (IOException e)
 		{
 			DialogExtensions.showExceptionDialog(e, SpringBootSwingApplication.getInstance(),
 				"YOU HAVE TO START THE REST SERVER THAT PROVIDE THE REST SERVICES");

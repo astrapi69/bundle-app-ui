@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import io.github.astrapi69.bundle.app.spring.rest.BundleApplicationsRestClient;
 import io.github.astrapi69.swing.listener.document.EnableButtonBehavior;
 import io.github.astrapi69.swing.table.GenericJXTable;
 import org.apache.commons.lang3.StringUtils;
@@ -73,6 +74,8 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 	private javax.swing.JTextField txtBundleName;
 
 	private DefaultLocaleVerifier verifier;
+
+	private BundleApplicationsRestClient restClient;
 
 	public NewBundleApplicationPanel()
 	{
@@ -178,6 +181,7 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 	protected void onInitializeComponents()
 	{
 		super.onInitializeComponents();
+		restClient = new BundleApplicationsRestClient();
 		verifier = new DefaultLocaleVerifier();
 		lblHeaderNewBundleApp = new javax.swing.JLabel();
 		lblBundleName = new javax.swing.JLabel();
@@ -375,21 +379,21 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 				currentBundleApplication.getSupportedLocales()
 					.addAll(getModelObject().getSupportedLocales());
 
-				HttpClientRestService.update(currentBundleApplication);
+				restClient.update(currentBundleApplication);
 
 				getModelObject().setBundleApplication(currentBundleApplication);
 			}
 			else
 			{
-				BundleApplication newBundleApplication = HttpClientRestService
-					.findBundleApplication(name);
+				BundleApplication newBundleApplication = restClient.find(name);
 				if (newBundleApplication == null)
 				{
 					LanguageLocale defaultLocale = getModelObject().getDefaultLocale();
+					BundleApplication bundleApplication = BundleApplication.builder().name(name)
+						.defaultLocale(defaultLocale)
+						.supportedLocales(getModelObject().getSupportedLocales()).build();
 
-					newBundleApplication = HttpClientRestService.newBundleApplication(
-						BundleApplication.builder().name(name).defaultLocale(defaultLocale)
-							.supportedLocales(getModelObject().getSupportedLocales()).build());
+					newBundleApplication = restClient.save(bundleApplication);
 				}
 				if (!SpringBootSwingApplication.getInstance().getModelObject()
 					.getBundleApplications().contains(newBundleApplication))
