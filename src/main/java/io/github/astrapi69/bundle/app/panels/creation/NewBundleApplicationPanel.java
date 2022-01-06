@@ -16,8 +16,6 @@ import io.github.astrapi69.swing.listener.document.EnableButtonBehavior;
 import io.github.astrapi69.swing.table.GenericJXTable;
 import org.apache.commons.lang3.StringUtils;
 
-import com.mashape.unirest.http.exceptions.UnirestException;
-
 import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
 import io.github.astrapi69.bundle.app.actions.ReturnToDashboardAction;
 import io.github.astrapi69.bundle.app.combobox.model.LanguageLocalesComboBoxModel;
@@ -210,11 +208,6 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 			{
 				onSave(e);
 			}
-			catch (UnirestException e1)
-			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
 			catch (IOException e1)
 			{
 				e1.printStackTrace();
@@ -355,7 +348,7 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 				.addGap(18, 18, 18).addComponent(btnSave).addContainerGap(58, Short.MAX_VALUE)));
 	}
 
-	protected void onSave(final ActionEvent e) throws UnirestException, IOException
+	protected void onSave(final ActionEvent e) throws IOException
 	{
 		// final BundleApplicationsService bundleApplicationsService = SpringApplicationContext
 		// .getInstance().getBundleApplicationsService();

@@ -5,7 +5,6 @@ import java.io.IOException;
 
 import javax.swing.JComboBox;
 
-import com.mashape.unirest.http.exceptions.UnirestException;
 import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
 
 import io.github.astrapi69.bundle.app.actions.ReturnToDashboardAction;
@@ -17,6 +16,7 @@ import io.github.astrapi69.bundlemanagement.viewmodel.LanguageLocale;
 import io.github.astrapi69.model.BaseModel;
 import io.github.astrapi69.model.api.Model;
 import io.github.astrapi69.swing.base.BasePanel;
+import io.github.astrapi69.swing.dialog.DialogExtensions;
 
 public class NewBundleNamePanel extends BasePanel<ApplicationDashboardBean>
 {
@@ -167,12 +167,8 @@ public class NewBundleNamePanel extends BasePanel<ApplicationDashboardBean>
 		}
 		catch (IOException e1)
 		{
-			// TODO Auto-generated catch block
+			DialogExtensions.showExceptionDialog(e1, SpringBootSwingApplication.getInstance());
 			e1.printStackTrace();
-		}
-		catch (UnirestException ex)
-		{
-			ex.printStackTrace();
 		}
 	}
 

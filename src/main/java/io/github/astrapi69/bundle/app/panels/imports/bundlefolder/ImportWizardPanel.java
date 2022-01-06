@@ -152,7 +152,7 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 						.locale(locale)
 						.properties(properties)
 						.build();
-					SpringBootSwingApplication.getInstance().getBundleApplicationsRestClient()
+					SpringBootSwingApplication.getInstance().getResourceBundlesRestClient()
 						.updateProperties(imprortableBundleName);
 				}
 				catch (final IOException e)

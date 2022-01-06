@@ -162,8 +162,12 @@ public class SpringBootSwingApplication extends ApplicationFrame<MainDashboardBe
 		}
 		catch (IOException e)
 		{
-			DialogExtensions.showExceptionDialog(e, SpringBootSwingApplication.getInstance(),
-				"YOU HAVE TO START THE REST SERVER THAT PROVIDE THE REST SERVICES");
+			DialogExtensions.info("No connection to a rest server",
+				"You have to start the rest server that provide the rest services." +
+					"For more information visit 'https://github.com/astrapi69/bundle-management' " +
+					"and start the server for provide the rest services." +
+					"After the rest server is started restart this program again.");
+
 			log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}
 		if (getModel() == null)

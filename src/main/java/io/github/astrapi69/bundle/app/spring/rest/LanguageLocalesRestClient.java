@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.List;
 
 import lombok.NoArgsConstructor;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.springframework.stereotype.Component;
@@ -25,21 +26,10 @@ public class LanguageLocalesRestClient extends GenericRestClient<LanguageLocale>
 		return ApplicationRestPath.REST_PATH_LANGUAGE_LOCALES;
 	}
 
-	// public LanguageLocale save(LanguageLocale localeCode) throws IOException
-	// {
-	// String url = ApplicationRestPath.REST_PATH_LANGUAGE_LOCALES;
-	//
-	// HttpPost post = newHttpPost(url, localeCode);
-	//
-	// HttpResponse response = client.execute(post);
-	// LanguageLocale object = readEntity(response, LanguageLocale.class);
-	// return object;
-	// }
-
 	public LanguageLocale find(String localeCode) throws IOException
 	{
-		String url = ApplicationRestPath.REST_PATH_LANGUAGE_LOCALES
-			+ ActionRestPath.ACTION_FIND_BY_LOCALE + "?locale=" + localeCode;
+		String url = getBaseRestUrl() + ActionRestPath.ACTION_FIND_BY_LOCALE + "?locale="
+			+ localeCode;
 
 		HttpGet get = new HttpGet(url);
 
@@ -50,8 +40,7 @@ public class LanguageLocalesRestClient extends GenericRestClient<LanguageLocale>
 
 	public List<LanguageLocale> findAllLanguageLocales() throws IOException
 	{
-		String url = ApplicationRestPath.REST_PATH_LANGUAGE_LOCALES
-			+ ActionRestPath.ACTION_FIND_ALL;
+		String url = getBaseRestUrl() + ActionRestPath.ACTION_FIND_ALL;
 
 		HttpGet get = new HttpGet(url);
 

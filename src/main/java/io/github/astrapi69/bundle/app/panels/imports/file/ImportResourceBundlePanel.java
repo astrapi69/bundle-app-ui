@@ -91,7 +91,7 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 			try
 			{
 				BundleName bundleName = SpringBootSwingApplication.getInstance()
-					.getBundleApplicationsRestClient().updateProperties(imprortableBundleName);
+					.getResourceBundlesRestClient().updateProperties(imprortableBundleName);
 
 				log.log(Level.FINE, bundleName.getBaseName().getName());
 			}

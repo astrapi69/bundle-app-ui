@@ -7,13 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.extern.java.Log;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.stereotype.Component;
-
-import com.mashape.unirest.http.exceptions.UnirestException;
 
 import io.github.astrapi69.bundle.app.spring.ApplicationRestPath;
 import io.github.astrapi69.bundlemanagement.enums.ActionRestPath;
@@ -48,11 +44,10 @@ public class BundleNamesRestClient extends GenericRestClient<BundleName>
 
 
 	public BundleName getOrCreateBundleName(String bundleappname, String baseName, String locale)
-		throws UnirestException, IOException
+		throws IOException
 	{
-		String url = ApplicationRestPath.REST_PATH_BUNDLE_NAMES + AppRestPath.SLASH
-			+ ActionRestPath.ACTION_SAVE_OR_UPDATE + "?bundleappname=" + bundleappname
-			+ "&basename=" + baseName + "&locale=" + locale;
+		String url = getBaseRestUrl() + AppRestPath.SLASH + ActionRestPath.ACTION_SAVE_OR_UPDATE
+			+ "?bundleappname=" + bundleappname + "&basename=" + baseName + "&locale=" + locale;
 
 		HttpPost post = new HttpPost(url);
 

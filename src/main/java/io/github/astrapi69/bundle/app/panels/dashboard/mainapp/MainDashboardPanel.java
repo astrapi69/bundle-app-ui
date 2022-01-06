@@ -3,8 +3,6 @@ package io.github.astrapi69.bundle.app.panels.dashboard.mainapp;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 
-import com.mashape.unirest.http.exceptions.UnirestException;
-
 import io.github.astrapi69.bundle.app.panels.creation.NewBundleApplicationPanel;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import io.github.astrapi69.bundle.app.panels.overview.OverviewOfAllBundleApplicationsPanel;
@@ -48,11 +46,6 @@ public class MainDashboardPanel extends BaseCardLayoutPanel<MainDashboardBean>
 				try
 				{
 					super.onSave(e);
-				}
-				catch (UnirestException e1)
-				{
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
 				}
 				catch (IOException e1)
 				{

@@ -215,7 +215,6 @@ dependencies {
 
     implementation("commons-io:commons-io:$commonsIoVersion")
     implementation("org.apache.commons:commons-lang3:$commonsLang3Version")
-    implementation("com.mashape.unirest:unirest-java:$unirestJavaVersion")
 
     implementation("org.apache.httpcomponents:httpclient:$httpclientVersion")
     implementation("org.apache.httpcomponents:httpmime:$httpclientVersion")

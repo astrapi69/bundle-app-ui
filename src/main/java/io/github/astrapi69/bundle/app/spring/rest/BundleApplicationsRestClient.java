@@ -3,19 +3,15 @@ package io.github.astrapi69.bundle.app.spring.rest;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.List;
-import java.util.Locale;
-import java.util.Properties;
 
-import io.github.astrapi69.bundlemanagement.viewmodel.ImprortableBundleName;
 import lombok.NoArgsConstructor;
+
 import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.stereotype.Component;
 
 import io.github.astrapi69.bundle.app.spring.ApplicationRestPath;
@@ -23,8 +19,6 @@ import io.github.astrapi69.bundlemanagement.enums.ActionRestPath;
 import io.github.astrapi69.bundlemanagement.enums.AppRestPath;
 import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;
 import io.github.astrapi69.bundlemanagement.viewmodel.BundleName;
-import io.github.astrapi69.collections.pairs.Quattro;
-import io.github.astrapi69.json.ObjectToJsonExtensions;
 
 @Component
 @NoArgsConstructor
@@ -55,8 +49,7 @@ public class BundleApplicationsRestClient extends GenericRestClient<BundleApplic
 	public void deleteBundleApplication(BundleApplication bundleApplication) throws IOException
 	{
 
-		String url = ApplicationRestPath.REST_PATH_BUNDLE_APPLICATIONS + AppRestPath.SLASH
-			+ bundleApplication.getId();
+		String url = getBaseRestUrl() + AppRestPath.SLASH + bundleApplication.getId();
 
 		HttpDelete delete = new HttpDelete(url);
 
@@ -65,8 +58,7 @@ public class BundleApplicationsRestClient extends GenericRestClient<BundleApplic
 
 	public BundleApplication update(BundleApplication bundleApplication) throws IOException
 	{
-		String url = ApplicationRestPath.REST_PATH_BUNDLE_APPLICATIONS
-			+ ActionRestPath.ACTION_UPDATE;
+		String url = getBaseRestUrl() + ActionRestPath.ACTION_UPDATE;
 
 		HttpPut put = new HttpPut(url);
 		StringEntity input = HttpResponseExtensions.getStringEntity(bundleApplication);
@@ -82,8 +74,8 @@ public class BundleApplicationsRestClient extends GenericRestClient<BundleApplic
 
 	public BundleApplication find(String bundleappname) throws IOException
 	{
-		String url = ApplicationRestPath.REST_PATH_BUNDLE_APPLICATIONS + ActionRestPath.ACTION_FIND
-			+ "?bundleappname=" + URLEncoder.encode(bundleappname, "UTF-8");
+		String url = getBaseRestUrl() + ActionRestPath.ACTION_FIND + "?bundleappname="
+			+ URLEncoder.encode(bundleappname, "UTF-8");
 		HttpGet get = new HttpGet(url);
 
 		HttpResponse response = client.execute(get);
@@ -95,8 +87,7 @@ public class BundleApplicationsRestClient extends GenericRestClient<BundleApplic
 	public List<BundleApplication> findAllBundleApplications() throws IOException
 	{
 
-		String url = ApplicationRestPath.REST_PATH_BUNDLE_APPLICATIONS
-			+ ActionRestPath.ACTION_FIND_ALL;
+		String url = getBaseRestUrl() + ActionRestPath.ACTION_FIND_ALL;
 		HttpGet get = new HttpGet(url);
 
 		HttpResponse response = client.execute(get);
@@ -107,9 +98,8 @@ public class BundleApplicationsRestClient extends GenericRestClient<BundleApplic
 
 	public List<BundleName> findBundleNames(BundleApplication bundleApplication) throws IOException
 	{
-		String url = ApplicationRestPath.REST_PATH_BUNDLE_APPLICATIONS
-			+ ActionRestPath.ACTION_FIND_ALL_BUNDLE_NAMES + "?bundleappname="
-			+ bundleApplication.getName();
+		String url = getBaseRestUrl() + ActionRestPath.ACTION_FIND_ALL_BUNDLE_NAMES
+			+ "?bundleappname=" + bundleApplication.getName();
 		HttpGet get = new HttpGet(url);
 
 		HttpResponse response = client.execute(get);
@@ -120,32 +110,12 @@ public class BundleApplicationsRestClient extends GenericRestClient<BundleApplic
 	public BundleApplication findByBundleName(BundleName bundlename) throws IOException
 	{
 
-		String url = ApplicationRestPath.REST_PATH_BUNDLE_APPLICATIONS
-			+ ActionRestPath.ACTION_FIND_BY_BUNDLE_NAME;
+		String url = getBaseRestUrl() + ActionRestPath.ACTION_FIND_BY_BUNDLE_NAME;
 		HttpPost post = HttpResponseExtensions.newHttpPost(url, bundlename);
 
 		HttpResponse response = client.execute(post);
 		BundleApplication object = HttpResponseExtensions.readEntity(response,
 			BundleApplication.class);
-		return object;
-	}
-
-	public BundleName updateProperties(ImprortableBundleName imprortableBundleName)
-		throws IOException
-	{
-		String url = ApplicationRestPath.REST_PATH_RESOURCEBUNDLES + AppRestPath.SLASH
-			+ "update/bundlename";
-
-		HttpClient client = HttpClientBuilder.create().build();
-		HttpPost post = new HttpPost(url);
-
-		String jsonString = ObjectToJsonExtensions.toJson(imprortableBundleName);
-		StringEntity input = new StringEntity(jsonString, "UTF-8");
-		input.setContentType("application/json;charset=UTF-8");
-		post.setEntity(input);
-
-		HttpResponse response = client.execute(post);
-		BundleName object = HttpResponseExtensions.readEntity(response, BundleName.class);
 		return object;
 	}
 

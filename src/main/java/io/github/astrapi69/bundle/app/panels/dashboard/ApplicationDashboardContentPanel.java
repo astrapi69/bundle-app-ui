@@ -17,8 +17,6 @@ import io.github.astrapi69.bundlemanagement.viewmodel.ImprortableBundleName;
 import io.github.astrapi69.file.FileExtensions;
 import org.apache.commons.lang3.BooleanUtils;
 
-import com.mashape.unirest.http.exceptions.UnirestException;
-
 import io.github.astrapi69.bundle.app.ApplicationEventBus;
 import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
 import io.github.astrapi69.bundle.app.panels.creation.NewBundleApplicationPanel;
@@ -89,7 +87,7 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 				{
 					super.onSave(e);
 				}
-				catch (UnirestException | IOException e1)
+				catch (IOException e1)
 				{
 					log.log(Level.SEVERE, e1.getLocalizedMessage(), e1);
 				}
@@ -295,7 +293,7 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 									.build();
 								BundleName bundleName =
 									SpringBootSwingApplication.getInstance()
-										.getBundleApplicationsRestClient()
+										.getResourceBundlesRestClient()
 									.updateProperties(imprortableBundleName);
 							}
 							catch (final IOException e)

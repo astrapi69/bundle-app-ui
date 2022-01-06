@@ -11,8 +11,6 @@ import io.github.astrapi69.bundle.app.spring.rest.LanguageLocalesRestClient;
 import io.github.astrapi69.swing.listener.document.EnableButtonBehavior;
 import org.apache.http.client.ClientProtocolException;
 
-import com.mashape.unirest.http.exceptions.UnirestException;
-
 import io.github.astrapi69.bundle.app.actions.ReturnToDashboardAction;
 import io.github.astrapi69.bundle.app.combobox.model.CountriesComboBoxModel;
 import io.github.astrapi69.bundle.app.combobox.model.LanguagesComboBoxModel;
@@ -140,11 +138,6 @@ public class NewCustomLocalePanel extends BasePanel<ApplicationDashboardBean>
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			catch (UnirestException e1)
-			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
 		});
 		btnToDashboard = new javax.swing.JButton();
 		btnToDashboard.addActionListener(ReturnToDashboardAction.of());
@@ -266,7 +259,7 @@ public class NewCustomLocalePanel extends BasePanel<ApplicationDashboardBean>
 	}
 
 	private void onSave(final ActionEvent e)
-		throws ClientProtocolException, IOException, UnirestException
+		throws ClientProtocolException, IOException
 	{
 		Language selectedLanguage = (Language)cmbLanguage.getSelectedItem();
 		Country selectedCountry = (Country)cmbCountry.getSelectedItem();
