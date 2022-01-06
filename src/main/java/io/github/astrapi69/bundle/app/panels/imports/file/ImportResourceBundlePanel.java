@@ -14,7 +14,7 @@ import io.github.astrapi69.bundle.app.ApplicationEventBus;
 import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
 import io.github.astrapi69.bundle.app.actions.ReturnToDashboardAction;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
-import io.github.astrapi69.bundle.app.spring.HttpClientRestService;
+import io.github.astrapi69.bundlemanagement.viewmodel.ImprortableBundleName;
 import io.github.astrapi69.collections.pairs.Quattro;
 import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;
 import io.github.astrapi69.bundlemanagement.viewmodel.BundleName;
@@ -79,18 +79,20 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 			final Locale locale = LocaleResolver
 				.resolveLocale(resourceBundleToImport);
 			BundleApplication bundleApplication = getModelObject().getBundleApplication();
-			Quattro<Properties, String, String, Locale> quattro = Quattro
-				.<Properties, String, String, Locale> builder()
-				.topLeft(getModelObject().getImportedProperties())
-				.topRight(bundleApplication.getName()).bottomLeft(baseName).bottomRight(locale)
-				.build();
 
+			ImprortableBundleName imprortableBundleName = ImprortableBundleName
+				.builder()
+				.baseName(baseName)
+				.bundleappname(bundleApplication.getName())
+				.filepath(filepath)
+				.locale(locale)
+				.properties(getModelObject().getImportedProperties())
+				.build();
 			try
 			{
 				BundleName bundleName = SpringBootSwingApplication.getInstance()
-					.getBundleApplicationsRestClient().updateProperties(quattro);
-				bundleName.setFilepath(filepath);
-				// TODO update entity
+					.getBundleApplicationsRestClient().updateProperties(imprortableBundleName);
+
 				log.log(Level.FINE, bundleName.getBaseName().getName());
 			}
 			catch (IOException e1)

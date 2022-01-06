@@ -19,7 +19,6 @@ import io.github.astrapi69.bundle.app.combobox.model.LanguagesComboBoxModel;
 import io.github.astrapi69.bundle.app.combobox.renderer.CountriesComboBoxRenderer;
 import io.github.astrapi69.bundle.app.combobox.renderer.LanguagesComboBoxRenderer;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
-import io.github.astrapi69.bundle.app.spring.HttpClientRestService;
 import io.github.astrapi69.bundlemanagement.viewmodel.Country;
 import io.github.astrapi69.bundlemanagement.viewmodel.Language;
 import io.github.astrapi69.bundlemanagement.viewmodel.LanguageLocale;

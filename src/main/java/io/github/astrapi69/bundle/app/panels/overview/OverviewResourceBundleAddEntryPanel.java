@@ -17,14 +17,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.mashape.unirest.http.exceptions.UnirestException;
-
 import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
 import io.github.astrapi69.bundle.app.actions.ReturnToDashboardAction;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardContentPanel;
-import io.github.astrapi69.bundle.app.spring.UniRestService;
 import io.github.astrapi69.bundle.app.table.model.StringResourcebundlesTableModel;
 import io.github.astrapi69.collections.pairs.Quattro;
 import io.github.astrapi69.collections.properties.PropertiesExtensions;

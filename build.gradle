@@ -1,3 +1,6 @@
+group = "$groupPackage" as Object
+version = "$projectVersion" as Object
+description = "$rootProject.name"
 
 buildscript {
     repositories {
@@ -30,9 +33,6 @@ apply plugin: "com.github.ben-manes.versions"
 apply plugin: "com.github.hierynomus.license"
 apply plugin: "jacoco"
 
-group = "$groupPackage"
-version = "$projectVersion"
-description = "$rootProject.name"
 sourceCompatibility = "$projectSourceCompatibility"
 
 repositories {
@@ -218,7 +218,6 @@ dependencies {
     implementation("com.mashape.unirest:unirest-java:$unirestJavaVersion")
 
     implementation("org.apache.httpcomponents:httpclient:$httpclientVersion")
-    implementation("org.apache.httpcomponents:httpasyncclient:$httpasyncclientVersion")
     implementation("org.apache.httpcomponents:httpmime:$httpclientVersion")
     implementation("org.json:json:$jsonVersion")
     implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")

@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import javax.swing.JFileChooser;
 
 import io.github.astrapi69.bundlemanagement.viewmodel.BundleName;
+import io.github.astrapi69.bundlemanagement.viewmodel.ImprortableBundleName;
 import io.github.astrapi69.file.FileExtensions;
 import org.apache.commons.lang3.BooleanUtils;
 
@@ -28,7 +29,6 @@ import io.github.astrapi69.bundle.app.panels.imports.ext.ConvertExtensions;
 import io.github.astrapi69.bundle.app.panels.imports.file.ImportResourceBundlePanel;
 import io.github.astrapi69.bundle.app.panels.overview.OverviewOfAllResourceBundlesPanel;
 import io.github.astrapi69.bundle.app.panels.overview.OverviewResourceBundleAddEntryPanel;
-import io.github.astrapi69.bundle.app.spring.HttpClientRestService;
 import io.github.astrapi69.collection.comparators.KeyValuePairKeyComparator;
 import io.github.astrapi69.collections.pairs.KeyValuePair;
 import io.github.astrapi69.collections.pairs.Quattro;
@@ -284,17 +284,19 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 							try
 							{
 								properties = PropertiesExtensions.loadProperties(propertiesFile);
-								Quattro<Properties, String, String, Locale> quattro = Quattro
-									.<Properties, String, String, Locale> builder()
-									.topLeft(properties).topRight(bundleApplication.getName())
-									.bottomLeft(bundlename).bottomRight(locale).build();
 
+								ImprortableBundleName imprortableBundleName = ImprortableBundleName
+									.builder()
+									.baseName(bundlename)
+									.bundleappname(bundleApplication.getName())
+									.filepath(filepath)
+									.locale(locale)
+									.properties(properties)
+									.build();
 								BundleName bundleName =
 									SpringBootSwingApplication.getInstance()
 										.getBundleApplicationsRestClient()
-									.updateProperties(quattro);
-								bundleName.setFilepath(filepath);
-								// TODO update entity
+									.updateProperties(imprortableBundleName);
 							}
 							catch (final IOException e)
 							{

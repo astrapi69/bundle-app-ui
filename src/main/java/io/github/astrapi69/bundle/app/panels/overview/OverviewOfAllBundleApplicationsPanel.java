@@ -12,15 +12,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 
-import com.mashape.unirest.http.exceptions.UnirestException;
-
 import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardContentPanel;
 import io.github.astrapi69.bundle.app.panels.dashboard.mainapp.MainDashboardBean;
 import io.github.astrapi69.bundle.app.panels.dashboard.mainapp.MainDashboardPanel;
-import io.github.astrapi69.bundle.app.spring.UniRestService;
-import io.github.astrapi69.bundle.app.spring.rest.BundleApplicationsRestClient;
 import io.github.astrapi69.bundle.app.table.model.StringBundleApplicationsBundleApplicationsTableModel;
 import io.github.astrapi69.collections.pairs.Triple;
 import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;

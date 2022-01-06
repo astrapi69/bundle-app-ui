@@ -8,12 +8,13 @@ import java.util.Locale;
 import java.util.Properties;
 import java.util.logging.Level;
 
+import io.github.astrapi69.bundlemanagement.viewmodel.ImprortableBundleName;
+import io.github.astrapi69.file.FileExtensions;
 import org.apache.commons.lang3.BooleanUtils;
 
 import io.github.astrapi69.bundle.app.ApplicationEventBus;
 import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
 import io.github.astrapi69.bundle.app.panels.imports.ext.ConvertExtensions;
-import io.github.astrapi69.bundle.app.spring.HttpClientRestService;
 import io.github.astrapi69.collections.pairs.KeyValuePair;
 import io.github.astrapi69.collections.pairs.Quattro;
 import io.github.astrapi69.collections.pairs.Triple;
@@ -136,18 +137,23 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 			if (BooleanUtils.toBoolean(entry.getRight().getKey()))
 			{
 				final File propertiesFile = entry.getLeft();
+				String filepath = FileExtensions.getAbsolutPathWithoutFilename(propertiesFile);
 				final Locale locale = entry.getMiddle();
 				final String bundlename = LocaleResolver.resolveBundlename(propertiesFile);
 				Properties properties = null;
 				try
 				{
 					properties = PropertiesExtensions.loadProperties(propertiesFile);
-					Quattro<Properties, String, String, Locale> quattro = Quattro
-						.<Properties, String, String, Locale> builder().topLeft(properties)
-						.topRight(getModelObject().getBundleAppName()).bottomLeft(bundlename)
-						.bottomRight(locale).build();
-
-					SpringBootSwingApplication.getInstance().getBundleApplicationsRestClient().updateProperties(quattro);
+					ImprortableBundleName imprortableBundleName = ImprortableBundleName
+						.builder()
+						.baseName(bundlename)
+						.bundleappname(getModelObject().getBundleAppName())
+						.filepath(filepath)
+						.locale(locale)
+						.properties(properties)
+						.build();
+					SpringBootSwingApplication.getInstance().getBundleApplicationsRestClient()
+						.updateProperties(imprortableBundleName);
 				}
 				catch (final IOException e)
 				{

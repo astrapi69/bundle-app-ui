@@ -6,9 +6,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Level;
 
-import com.mashape.unirest.http.exceptions.UnirestException;
-
-import io.github.astrapi69.bundle.app.spring.UniRestService;
 import io.github.astrapi69.bundle.app.spring.rest.LanguageLocalesRestClient;
 import io.github.astrapi69.collections.list.ListFactory;
 import io.github.astrapi69.bundlemanagement.viewmodel.LanguageLocale;

@@ -6,6 +6,7 @@ import io.github.astrapi69.bundlemanagement.enums.ActionRestPath;
 import io.github.astrapi69.bundlemanagement.enums.AppRestPath;
 import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;
 import io.github.astrapi69.bundlemanagement.viewmodel.Resourcebundle;
+import lombok.NoArgsConstructor;
 import lombok.extern.java.Log;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -22,14 +23,14 @@ import java.util.logging.Level;
 
 import static io.github.astrapi69.bundle.app.spring.rest.HttpResponseExtensions.readListEntity;
 
+@NoArgsConstructor
 @Log
-@Component public class ResourceBundlesRestClient
+@Component public class ResourceBundlesRestClient extends GenericRestClient<Resourcebundle>
 {
-	HttpClient client;
 
-	public ResourceBundlesRestClient()
+	@Override protected String getBaseRestUrl()
 	{
-		client = HttpClientBuilder.create().build();
+		return ApplicationRestPath.REST_PATH_RESOURCEBUNDLES;
 	}
 
 	public List<Resourcebundle> findResourceBundles(BundleApplication bundleApplication,
@@ -63,16 +64,16 @@ import static io.github.astrapi69.bundle.app.spring.rest.HttpResponseExtensions.
 		log.log(Level.FINE, readEntity.toString());
 	}
 
-	public Resourcebundle save(Resourcebundle resourcebundle) throws IOException
-	{
-		String url = ApplicationRestPath.REST_PATH_RESOURCEBUNDLES;
-		HttpPost post = HttpResponseExtensions.newHttpPost(url, resourcebundle);
-
-		HttpResponse response = client.execute(post);
-		Resourcebundle object = HttpResponseExtensions.readEntity(response,
-			Resourcebundle.class);
-		return object;
-	}
+//	public Resourcebundle save(Resourcebundle resourcebundle) throws IOException
+//	{
+//		String url = ApplicationRestPath.REST_PATH_RESOURCEBUNDLES;
+//		HttpPost post = HttpResponseExtensions.newHttpPost(url, resourcebundle);
+//
+//		HttpResponse response = client.execute(post);
+//		Resourcebundle object = HttpResponseExtensions.readEntity(response,
+//			Resourcebundle.class);
+//		return object;
+//	}
 
 	public Resourcebundle saveOrUpdateEntry(String bundleappname, String baseName,
 		String locale, String key, String value) throws IOException

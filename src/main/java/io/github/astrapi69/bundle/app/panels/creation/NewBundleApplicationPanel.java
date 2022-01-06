@@ -23,7 +23,6 @@ import io.github.astrapi69.bundle.app.actions.ReturnToDashboardAction;
 import io.github.astrapi69.bundle.app.combobox.model.LanguageLocalesComboBoxModel;
 import io.github.astrapi69.bundle.app.combobox.renderer.LanguageLocalesComboBoxRenderer;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
-import io.github.astrapi69.bundle.app.spring.HttpClientRestService;
 import io.github.astrapi69.bundle.app.table.model.StringLanguageLocalesTableModel;
 import io.github.astrapi69.collections.list.ListFactory;
 import io.github.astrapi69.collections.pairs.KeyValuePair;
@@ -95,11 +94,13 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 		if (bundleApplication != null)
 		{
 			Set<LanguageLocale> supportedLocales = bundleApplication.getSupportedLocales();
-			modelObject.setSupportedLocales(supportedLocales);
-			for (LanguageLocale supportedLocale : supportedLocales)
-			{
-				list.add(KeyValuePair.<String, LanguageLocale> builder()
-					.key(supportedLocale.getLocale()).value(supportedLocale).build());
+			if(supportedLocales != null && !supportedLocales.isEmpty()){
+				modelObject.setSupportedLocales(supportedLocales);
+				for (LanguageLocale supportedLocale : supportedLocales)
+				{
+					list.add(KeyValuePair.<String, LanguageLocale> builder()
+						.key(supportedLocale.getLocale()).value(supportedLocale).build());
+				}
 			}
 		}
 		return list;
@@ -134,7 +135,9 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 		if (bundleApplication != null)
 		{
 			Set<LanguageLocale> supportedLocales = bundleApplication.getSupportedLocales();
-			cmbModel.getComboList().removeAll(supportedLocales);
+			if(supportedLocales != null && !supportedLocales.isEmpty()) {
+				cmbModel.getComboList().removeAll(supportedLocales);
+			}
 
 			LanguageLocale defaultLocale = bundleApplication.getDefaultLocale();
 			cmbModel.getComboList().remove(defaultLocale);

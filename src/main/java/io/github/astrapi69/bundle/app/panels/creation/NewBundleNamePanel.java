@@ -7,14 +7,11 @@ import javax.swing.JComboBox;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
 import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
-import io.github.astrapi69.bundle.app.spring.UniRestService;
-import org.apache.http.client.ClientProtocolException;
 
 import io.github.astrapi69.bundle.app.actions.ReturnToDashboardAction;
 import io.github.astrapi69.bundle.app.combobox.model.LanguageLocalesComboBoxModel;
 import io.github.astrapi69.bundle.app.combobox.renderer.LanguageLocalesComboBoxRenderer;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
-import io.github.astrapi69.bundle.app.spring.HttpClientRestService;
 import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;
 import io.github.astrapi69.bundlemanagement.viewmodel.LanguageLocale;
 import io.github.astrapi69.model.BaseModel;

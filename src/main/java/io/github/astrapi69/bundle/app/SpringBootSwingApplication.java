@@ -17,12 +17,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import com.mashape.unirest.http.exceptions.UnirestException;
-
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import io.github.astrapi69.bundle.app.panels.dashboard.mainapp.MainDashboardBean;
 import io.github.astrapi69.bundle.app.panels.dashboard.mainapp.MainDashboardPanel;
-import io.github.astrapi69.bundle.app.spring.UniRestService;
 import io.github.astrapi69.collections.list.ListFactory;
 import io.github.astrapi69.swing.layout.ScreenSizeExtensions;
 import io.github.astrapi69.model.BaseModel;
@@ -99,6 +96,7 @@ public class SpringBootSwingApplication extends ApplicationFrame<MainDashboardBe
 	public SpringBootSwingApplication()
 	{
 		super(Messages.getString("mainframe.title"));
+		setLocationByPlatform(true);
 	}
 
 	public BundleNamesRestClient getBundleNamesRestClient() {
