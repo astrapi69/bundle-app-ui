@@ -15,15 +15,15 @@
  */
 package io.github.astrapi69.bundle.app.panels.imports.bundlefolder;
 
-import java.awt.Component;
+import java.awt.*;
 import java.io.File;
 import java.util.List;
 import java.util.Locale;
 
-import javax.swing.JCheckBox;
-import javax.swing.JTable;
+import javax.swing.*;
 import javax.swing.table.TableColumn;
 
+import lombok.Getter;
 import io.github.astrapi69.bundle.app.ApplicationEventBus;
 import io.github.astrapi69.bundle.app.panels.imports.ext.ConvertExtensions;
 import io.github.astrapi69.bundle.app.table.model.FileLocaleBooleanTableModel;
@@ -35,10 +35,9 @@ import io.github.astrapi69.design.pattern.observer.event.EventSource;
 import io.github.astrapi69.design.pattern.state.wizard.model.BaseWizardStateMachineModel;
 import io.github.astrapi69.model.api.Model;
 import io.github.astrapi69.swing.table.GenericJXTable;
-import io.github.astrapi69.swing.table.renderer.TableCellButtonRenderer;
 import io.github.astrapi69.swing.table.editor.TableCellCheckboxEditor;
+import io.github.astrapi69.swing.table.renderer.TableCellButtonRenderer;
 import io.github.astrapi69.swing.wizard.BaseWizardContentPanel;
-import lombok.Getter;
 
 /**
  *

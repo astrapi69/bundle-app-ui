@@ -21,7 +21,7 @@ public class WizardContentPanel extends BaseWizardContentPanel<WizardModel>
 	 */
 	public WizardContentPanel()
 	{
-		this(BaseModel.<BaseWizardStateMachineModel<WizardModel>> of(
+		this(BaseModel.of(
 			BaseWizardStateMachineModel.<WizardModel> builder().build()));
 	}
 

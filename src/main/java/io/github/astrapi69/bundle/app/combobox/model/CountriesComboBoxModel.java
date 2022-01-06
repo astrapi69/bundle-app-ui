@@ -4,24 +4,19 @@ import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 
+import lombok.extern.java.Log;
 import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
 import io.github.astrapi69.bundle.app.spring.rest.CountriesRestClient;
-import io.github.astrapi69.collections.list.ListFactory;
 import io.github.astrapi69.bundlemanagement.viewmodel.Country;
+import io.github.astrapi69.collections.list.ListFactory;
 import io.github.astrapi69.swing.combobox.model.AbstractComboBoxModel;
 import io.github.astrapi69.swing.dialog.DialogExtensions;
-import lombok.extern.java.Log;
 
 @Log
 public class CountriesComboBoxModel extends AbstractComboBoxModel<Country>
 {
 	private static final CountriesComboBoxModel COMBO_BOX_MODEL = new CountriesComboBoxModel();
 	private static final long serialVersionUID = 1L;
-
-	public static CountriesComboBoxModel get()
-	{
-		return COMBO_BOX_MODEL;
-	}
 
 	/**
 	 * init block
@@ -39,6 +34,11 @@ public class CountriesComboBoxModel extends AbstractComboBoxModel<Country>
 			log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}
 		setComboList(availableCountries);
+	}
+
+	public static CountriesComboBoxModel get()
+	{
+		return COMBO_BOX_MODEL;
 	}
 
 }

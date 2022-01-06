@@ -6,12 +6,12 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Level;
 
-import io.github.astrapi69.bundle.app.spring.rest.LanguageLocalesRestClient;
-import io.github.astrapi69.collections.list.ListFactory;
-import io.github.astrapi69.bundlemanagement.viewmodel.LanguageLocale;
-import io.github.astrapi69.swing.combobox.model.AbstractComboBoxModel;
 import lombok.NoArgsConstructor;
 import lombok.extern.java.Log;
+import io.github.astrapi69.bundle.app.spring.rest.LanguageLocalesRestClient;
+import io.github.astrapi69.bundlemanagement.viewmodel.LanguageLocale;
+import io.github.astrapi69.collections.list.ListFactory;
+import io.github.astrapi69.swing.combobox.model.AbstractComboBoxModel;
 
 @Log
 @NoArgsConstructor

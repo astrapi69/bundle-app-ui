@@ -5,10 +5,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.io.IOException;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
-import io.github.astrapi69.bundle.app.spring.rest.LanguageLocalesRestClient;
-import io.github.astrapi69.swing.listener.document.EnableButtonBehavior;
 import org.apache.http.client.ClientProtocolException;
 
 import io.github.astrapi69.bundle.app.actions.ReturnToDashboardAction;
@@ -17,45 +15,21 @@ import io.github.astrapi69.bundle.app.combobox.model.LanguagesComboBoxModel;
 import io.github.astrapi69.bundle.app.combobox.renderer.CountriesComboBoxRenderer;
 import io.github.astrapi69.bundle.app.combobox.renderer.LanguagesComboBoxRenderer;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
+import io.github.astrapi69.bundle.app.spring.rest.LanguageLocalesRestClient;
 import io.github.astrapi69.bundlemanagement.viewmodel.Country;
 import io.github.astrapi69.bundlemanagement.viewmodel.Language;
 import io.github.astrapi69.bundlemanagement.viewmodel.LanguageLocale;
 import io.github.astrapi69.model.BaseModel;
 import io.github.astrapi69.model.api.Model;
 import io.github.astrapi69.swing.base.BasePanel;
+import io.github.astrapi69.swing.listener.document.EnableButtonBehavior;
 
 public class NewCustomLocalePanel extends BasePanel<ApplicationDashboardBean>
 {
 
-	class CustomLocaleVerifier implements ActionListener
-	{
-		boolean country;
-		boolean language;
-		boolean variant;
-
-		@Override
-		public void actionPerformed(ActionEvent e)
-		{
-			verify();
-		}
-
-		private boolean verify()
-		{
-
-			boolean country;
-			boolean language;
-			boolean variant;
-			country = cmbCountry.getSelectedItem() != null;
-			language = cmbLanguage.getSelectedItem() != null;
-			variant = 0 < txtVariant.getText().length();
-			boolean result = country && language && variant;
-			btnSave.setEnabled(result);
-			return result;
-		}
-
-	}
-
 	private static final long serialVersionUID = 1L;
+	CustomLocaleVerifier verifier;
+	LanguageLocalesRestClient restClient;
 	private javax.swing.JButton btnCancel;
 	private javax.swing.JButton btnSave;
 	private javax.swing.JButton btnToDashboard;
@@ -66,15 +40,10 @@ public class NewCustomLocalePanel extends BasePanel<ApplicationDashboardBean>
 	private javax.swing.JLabel lblLanguage;
 	private javax.swing.JLabel lblVariant;
 	private javax.swing.JTextField txtVariant;
-
-	CustomLocaleVerifier verifier;
-	LanguageLocalesRestClient restClient;
-
 	public NewCustomLocalePanel()
 	{
-		this(BaseModel.<ApplicationDashboardBean> of(ApplicationDashboardBean.builder().build()));
+		this(BaseModel.of(ApplicationDashboardBean.builder().build()));
 	}
-
 
 	public NewCustomLocalePanel(final Model<ApplicationDashboardBean> model)
 	{
@@ -161,7 +130,7 @@ public class NewCustomLocalePanel extends BasePanel<ApplicationDashboardBean>
 				variant = 0 < txtVariant.getDocument().getLength();
 				boolean result = country && language && variant;
 				getButtonModel().setEnabled(result);
-			};
+			}
 		};
 
 		lblHeaderNewLocale.setText("Create new custom locale");
@@ -179,7 +148,6 @@ public class NewCustomLocalePanel extends BasePanel<ApplicationDashboardBean>
 
 		btnCancel.setText("Cancel");
 	}
-
 
 	@Override
 	protected void onInitializeLayout()
@@ -258,8 +226,7 @@ public class NewCustomLocalePanel extends BasePanel<ApplicationDashboardBean>
 
 	}
 
-	private void onSave(final ActionEvent e)
-		throws ClientProtocolException, IOException
+	private void onSave(final ActionEvent e) throws IOException
 	{
 		Language selectedLanguage = (Language)cmbLanguage.getSelectedItem();
 		Country selectedCountry = (Country)cmbCountry.getSelectedItem();
@@ -285,6 +252,34 @@ public class NewCustomLocalePanel extends BasePanel<ApplicationDashboardBean>
 				"Invalid Value", // title
 				JOptionPane.WARNING_MESSAGE);
 		}
+	}
+
+	class CustomLocaleVerifier implements ActionListener
+	{
+		boolean country;
+		boolean language;
+		boolean variant;
+
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			verify();
+		}
+
+		private boolean verify()
+		{
+
+			boolean country;
+			boolean language;
+			boolean variant;
+			country = cmbCountry.getSelectedItem() != null;
+			language = cmbLanguage.getSelectedItem() != null;
+			variant = 0 < txtVariant.getText().length();
+			boolean result = country && language && variant;
+			btnSave.setEnabled(result);
+			return result;
+		}
+
 	}
 
 }

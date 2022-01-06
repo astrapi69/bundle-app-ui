@@ -24,13 +24,9 @@
  */
 package io.github.astrapi69.bundle.app.help;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import java.awt.*;
 
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
+import javax.swing.*;
 
 import io.github.astrapi69.bundle.app.Messages;
 

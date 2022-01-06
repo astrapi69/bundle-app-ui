@@ -4,7 +4,8 @@ import io.github.astrapi69.bundle.app.panels.start.WizardModelState;
 import io.github.astrapi69.design.pattern.state.wizard.BaseWizardState;
 import io.github.astrapi69.design.pattern.state.wizard.model.BaseWizardStateMachineModel;
 
-public enum ImportWizardState implements BaseWizardState<BaseWizardStateMachineModel<ImportWizardModel>>
+public enum ImportWizardState
+	implements BaseWizardState<BaseWizardStateMachineModel<ImportWizardModel>>
 {
 
 	/** The first {@link WizardModelState} object. */
@@ -212,5 +213,5 @@ public enum ImportWizardState implements BaseWizardState<BaseWizardStateMachineM
 			return false;
 		}
 
-	};
+	}
 }

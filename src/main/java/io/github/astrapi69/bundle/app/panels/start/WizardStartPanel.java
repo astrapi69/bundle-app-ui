@@ -20,11 +20,7 @@ import static io.github.astrapi69.model.typesafe.TypeSafeModel.model;
 
 import java.util.EnumMap;
 
-import javax.swing.ButtonGroup;
-import javax.swing.GroupLayout;
-import javax.swing.JLabel;
-import javax.swing.JRadioButton;
-import javax.swing.LayoutStyle;
+import javax.swing.*;
 
 import io.github.astrapi69.bundle.app.ApplicationEventBus;
 import io.github.astrapi69.design.pattern.observer.event.EventObject;
@@ -51,7 +47,7 @@ public class WizardStartPanel extends BasePanel<BaseWizardStateMachineModel<Wiza
 
 	public WizardStartPanel()
 	{
-		this(BaseModel.<BaseWizardStateMachineModel<WizardModel>> of(
+		this(BaseModel.of(
 			BaseWizardStateMachineModel.<WizardModel> builder().build()));
 	}
 

@@ -29,7 +29,7 @@ public class NewResourceBundleEntryPanel extends BasePanel<ApplicationDashboardB
 
 	public NewResourceBundleEntryPanel()
 	{
-		this(BaseModel.<ApplicationDashboardBean> of(ApplicationDashboardBean.builder().build()));
+		this(BaseModel.of(ApplicationDashboardBean.builder().build()));
 	}
 
 	public NewResourceBundleEntryPanel(final Model<ApplicationDashboardBean> model)

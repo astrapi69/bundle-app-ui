@@ -1,6 +1,6 @@
 package io.github.astrapi69.bundle.app.panels.overview;
 
-import java.awt.Component;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,28 +9,26 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 
-import javax.swing.JCheckBox;
-import javax.swing.JOptionPane;
-import javax.swing.JTable;
+import javax.swing.*;
 import javax.swing.table.TableColumn;
 
+import lombok.extern.java.Log;
 import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
 import io.github.astrapi69.bundle.app.actions.ReturnToDashboardAction;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import io.github.astrapi69.bundle.app.table.model.StringBundleNamesTableModel;
+import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;
+import io.github.astrapi69.bundlemanagement.viewmodel.BundleName;
 import io.github.astrapi69.collections.CollectionExtensions;
 import io.github.astrapi69.collections.pairs.Quattro;
 import io.github.astrapi69.collections.set.SetFactory;
 import io.github.astrapi69.comparators.NullCheckComparator;
-import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;
-import io.github.astrapi69.bundlemanagement.viewmodel.BundleName;
 import io.github.astrapi69.model.BaseModel;
 import io.github.astrapi69.model.api.Model;
 import io.github.astrapi69.swing.base.BasePanel;
 import io.github.astrapi69.swing.table.GenericJXTable;
 import io.github.astrapi69.swing.table.editor.TableCellButtonEditor;
 import io.github.astrapi69.swing.table.renderer.TableCellButtonRenderer;
-import lombok.extern.java.Log;
 
 @Log
 public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDashboardBean>
@@ -48,7 +46,7 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 
 	public OverviewOfAllResourceBundlesPanel()
 	{
-		this(BaseModel.<ApplicationDashboardBean> of(ApplicationDashboardBean.builder().build()));
+		this(BaseModel.of(ApplicationDashboardBean.builder().build()));
 	}
 
 	public OverviewOfAllResourceBundlesPanel(final Model<ApplicationDashboardBean> model)
@@ -79,7 +77,7 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 			try
 			{
 				SpringBootSwingApplication.getInstance().getBundleNamesRestClient()
-				.deleteBundleName(selectedBundleName);
+					.deleteBundleName(selectedBundleName);
 			}
 			catch (IOException e)
 			{
@@ -348,7 +346,7 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 				}
 			}
 			Collections.sort(tableModelList,
-				NullCheckComparator.<Quattro<String, String, BundleName, BundleName>> of(
+				NullCheckComparator.of(
 					(o1, o2) -> o1.getTopLeft().compareTo(o2.getTopLeft())));
 		}
 		catch (IOException e)

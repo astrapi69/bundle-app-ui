@@ -22,7 +22,7 @@ public class ApplicationDashboardPanel extends BasePanel<ApplicationDashboardBea
 
 	public ApplicationDashboardPanel()
 	{
-		this(BaseModel.<ApplicationDashboardBean> of(ApplicationDashboardBean.builder().build()));
+		this(BaseModel.of(ApplicationDashboardBean.builder().build()));
 	}
 
 	public ApplicationDashboardPanel(final Model<ApplicationDashboardBean> model)

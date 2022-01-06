@@ -1,14 +1,11 @@
 package io.github.astrapi69.bundle.app.panels.start;
 
-import javax.swing.GroupLayout;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.LayoutStyle;
+import javax.swing.*;
 
+import lombok.Getter;
 import io.github.astrapi69.design.pattern.state.wizard.model.BaseWizardStateMachineModel;
 import io.github.astrapi69.model.api.Model;
 import io.github.astrapi69.swing.base.BasePanel;
-import lombok.Getter;
 
 @Getter
 public class NewBundleAppPanel extends BasePanel<BaseWizardStateMachineModel<WizardModel>>

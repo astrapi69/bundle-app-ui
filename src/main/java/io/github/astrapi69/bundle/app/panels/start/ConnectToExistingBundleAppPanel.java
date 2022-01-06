@@ -1,19 +1,16 @@
 package io.github.astrapi69.bundle.app.panels.start;
 
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.GroupLayout;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.LayoutStyle;
+import javax.swing.*;
 
+import lombok.Getter;
 import io.github.astrapi69.design.pattern.state.wizard.model.BaseWizardStateMachineModel;
 import io.github.astrapi69.model.api.Model;
 import io.github.astrapi69.swing.base.BasePanel;
-import lombok.Getter;
 
 @Getter
-public class ConnectToExistingBundleAppPanel extends BasePanel<BaseWizardStateMachineModel<WizardModel>>
+public class ConnectToExistingBundleAppPanel
+	extends
+		BasePanel<BaseWizardStateMachineModel<WizardModel>>
 {
 	private static final long serialVersionUID = 1L;
 	private JComboBox<String> cmbDriver;
@@ -26,7 +23,8 @@ public class ConnectToExistingBundleAppPanel extends BasePanel<BaseWizardStateMa
 	private JTextField txtPw;
 	private JTextField txtUsername;
 
-	public ConnectToExistingBundleAppPanel(final Model<BaseWizardStateMachineModel<WizardModel>> model)
+	public ConnectToExistingBundleAppPanel(
+		final Model<BaseWizardStateMachineModel<WizardModel>> model)
 	{
 		super(model);
 	}

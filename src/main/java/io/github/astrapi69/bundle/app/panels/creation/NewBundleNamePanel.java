@@ -3,10 +3,9 @@ package io.github.astrapi69.bundle.app.panels.creation;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 
-import javax.swing.JComboBox;
+import javax.swing.*;
 
 import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
-
 import io.github.astrapi69.bundle.app.actions.ReturnToDashboardAction;
 import io.github.astrapi69.bundle.app.combobox.model.LanguageLocalesComboBoxModel;
 import io.github.astrapi69.bundle.app.combobox.renderer.LanguageLocalesComboBoxRenderer;
@@ -34,7 +33,7 @@ public class NewBundleNamePanel extends BasePanel<ApplicationDashboardBean>
 
 	public NewBundleNamePanel()
 	{
-		this(BaseModel.<ApplicationDashboardBean> of(ApplicationDashboardBean.builder().build()));
+		this(BaseModel.of(ApplicationDashboardBean.builder().build()));
 	}
 
 	public NewBundleNamePanel(final Model<ApplicationDashboardBean> model)
@@ -162,8 +161,7 @@ public class NewBundleNamePanel extends BasePanel<ApplicationDashboardBean>
 		try
 		{
 			SpringBootSwingApplication.getInstance().getBundleNamesRestClient()
-			.getOrCreateBundleName(bundleApplication.getName(), baseName,
-				locale);
+				.getOrCreateBundleName(bundleApplication.getName(), baseName, locale);
 		}
 		catch (IOException e1)
 		{

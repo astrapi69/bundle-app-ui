@@ -22,9 +22,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.io.File;
 
-import javax.swing.JFileChooser;
+import javax.swing.*;
 
-import io.github.astrapi69.swing.listener.document.StringBindingListener;
 import org.apache.commons.lang3.StringUtils;
 
 import io.github.astrapi69.bundle.app.ApplicationEventBus;
@@ -35,7 +34,7 @@ import io.github.astrapi69.design.pattern.observer.event.EventObject;
 import io.github.astrapi69.design.pattern.observer.event.EventSource;
 import io.github.astrapi69.design.pattern.state.wizard.model.BaseWizardStateMachineModel;
 import io.github.astrapi69.model.api.Model;
-
+import io.github.astrapi69.swing.listener.document.StringBindingListener;
 import io.github.astrapi69.swing.wizard.BaseWizardContentPanel;
 
 /**
@@ -70,7 +69,7 @@ public class ImportBundleApplicationStartPanel extends BaseWizardContentPanel<Im
 	protected void onBundleAppName(ActionEvent e)
 	{
 		updateWizardButtons();
-	};
+	}
 
 	protected void onChangeDefaultLocale(ItemEvent e)
 	{

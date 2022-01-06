@@ -24,8 +24,7 @@
  */
 package io.github.astrapi69.bundle.app;
 
-import java.awt.Component;
-import java.awt.event.ActionListener;
+import java.awt.*;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
@@ -34,10 +33,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.logging.Level;
 
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.KeyStroke;
+import javax.swing.*;
+
+import lombok.NonNull;
+import lombok.extern.java.Log;
 
 import org.springframework.core.io.Resource;
 
@@ -47,8 +46,6 @@ import io.github.astrapi69.bundle.app.actions.OverviewBundleAppsAction;
 import io.github.astrapi69.swing.actions.ExitApplicationAction;
 import io.github.astrapi69.swing.base.BaseDesktopMenu;
 import io.github.astrapi69.swing.menu.MenuExtensions;
-import lombok.NonNull;
-import lombok.extern.java.Log;
 
 /**
  * The class {@link DesktopMenu} holds the menu items from the application.

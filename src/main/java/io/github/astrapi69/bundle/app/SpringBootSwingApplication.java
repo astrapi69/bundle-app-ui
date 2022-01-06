@@ -1,18 +1,19 @@
 package io.github.astrapi69.bundle.app;
 
-import java.awt.Component;
-import java.awt.EventQueue;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 
-import javax.swing.JInternalFrame;
+import javax.swing.*;
 
-import io.github.astrapi69.bundle.app.spring.rest.BundleApplicationsRestClient;
-import io.github.astrapi69.bundle.app.spring.rest.BundleNamesRestClient;
-import io.github.astrapi69.bundle.app.spring.rest.ResourceBundlesRestClient;
-import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.experimental.FieldDefaults;
+import lombok.extern.java.Log;
+
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -20,19 +21,18 @@ import org.springframework.context.ConfigurableApplicationContext;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import io.github.astrapi69.bundle.app.panels.dashboard.mainapp.MainDashboardBean;
 import io.github.astrapi69.bundle.app.panels.dashboard.mainapp.MainDashboardPanel;
+import io.github.astrapi69.bundle.app.spring.rest.BundleApplicationsRestClient;
+import io.github.astrapi69.bundle.app.spring.rest.BundleNamesRestClient;
+import io.github.astrapi69.bundle.app.spring.rest.ResourceBundlesRestClient;
+import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;
 import io.github.astrapi69.collections.list.ListFactory;
-import io.github.astrapi69.swing.layout.ScreenSizeExtensions;
 import io.github.astrapi69.model.BaseModel;
 import io.github.astrapi69.model.PropertyModel;
 import io.github.astrapi69.model.api.Model;
 import io.github.astrapi69.swing.base.ApplicationFrame;
 import io.github.astrapi69.swing.base.BaseDesktopMenu;
 import io.github.astrapi69.swing.dialog.DialogExtensions;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.experimental.FieldDefaults;
-import lombok.extern.java.Log;
+import io.github.astrapi69.swing.layout.ScreenSizeExtensions;
 
 /**
  * The class {@link SpringBootSwingApplication}
@@ -48,7 +48,23 @@ public class SpringBootSwingApplication extends ApplicationFrame<MainDashboardBe
 
 	/** The instance. */
 	private static SpringBootSwingApplication instance;
-	
+	/** The internal frame. */
+	@Getter
+	JInternalFrame internalFrame;
+	Model<ApplicationDashboardBean> selectedBundleApplicationPropertyModel;
+	BundleApplicationsRestClient bundleApplicationsRestClient;
+	ResourceBundlesRestClient resourceBundlesRestClient;
+	BundleNamesRestClient bundleNamesRestClient;
+
+	/**
+	 * Instantiates a new main frame.
+	 */
+	public SpringBootSwingApplication()
+	{
+		super(Messages.getString("mainframe.title"));
+		setLocationByPlatform(true);
+	}
+
 	/**
 	 * Gets the single instance of SpringBootSwingApplication.
 	 *
@@ -78,53 +94,39 @@ public class SpringBootSwingApplication extends ApplicationFrame<MainDashboardBe
 		});
 	}
 
-	/** The internal frame. */
-	@Getter
-	JInternalFrame internalFrame;
-
-	Model<ApplicationDashboardBean> selectedBundleApplicationPropertyModel;
-
-	BundleApplicationsRestClient bundleApplicationsRestClient;
-
-	ResourceBundlesRestClient resourceBundlesRestClient;
-
-	BundleNamesRestClient bundleNamesRestClient;
-
-	/**
-	 * Instantiates a new main frame.
-	 */
-	public SpringBootSwingApplication()
+	public BundleNamesRestClient getBundleNamesRestClient()
 	{
-		super(Messages.getString("mainframe.title"));
-		setLocationByPlatform(true);
-	}
-
-	public BundleNamesRestClient getBundleNamesRestClient() {
-		if(bundleNamesRestClient == null) {
+		if (bundleNamesRestClient == null)
+		{
 			bundleNamesRestClient = new BundleNamesRestClient();
 		}
 		return bundleNamesRestClient;
 	}
 
-	public ResourceBundlesRestClient getResourceBundlesRestClient(){
-		if(resourceBundlesRestClient == null) {
+	public ResourceBundlesRestClient getResourceBundlesRestClient()
+	{
+		if (resourceBundlesRestClient == null)
+		{
 			resourceBundlesRestClient = new ResourceBundlesRestClient();
 		}
 		return resourceBundlesRestClient;
 	}
 
-	public BundleApplicationsRestClient getBundleApplicationsRestClient(){
-		if(bundleApplicationsRestClient == null) {
+	public BundleApplicationsRestClient getBundleApplicationsRestClient()
+	{
+		if (bundleApplicationsRestClient == null)
+		{
 			bundleApplicationsRestClient = new BundleApplicationsRestClient();
 		}
 		return bundleApplicationsRestClient;
 	}
 
 	@Override
-	protected File newConfigurationDirectory(final @NonNull String parent, final @NonNull String child)
+	protected File newConfigurationDirectory(final @NonNull String parent,
+		final @NonNull String child)
 	{
-		File applicationConfigurationDirectory =
-			new File(super.newConfigurationDirectory(parent, child), "bundle-app");
+		File applicationConfigurationDirectory = new File(
+			super.newConfigurationDirectory(parent, child), "bundle-app");
 		if (!applicationConfigurationDirectory.exists())
 		{
 			applicationConfigurationDirectory.mkdir();
@@ -138,7 +140,7 @@ public class SpringBootSwingApplication extends ApplicationFrame<MainDashboardBe
 		{
 			initApllicationDashboardBean();
 			this.selectedBundleApplicationPropertyModel = PropertyModel
-				.<ApplicationDashboardBean> of(getModelObject(), "selectedBundleApplication");
+				.of(getModelObject(), "selectedBundleApplication");
 		}
 		return this.selectedBundleApplicationPropertyModel;
 	}
@@ -163,10 +165,10 @@ public class SpringBootSwingApplication extends ApplicationFrame<MainDashboardBe
 		catch (IOException e)
 		{
 			DialogExtensions.info("No connection to a rest server",
-				"You have to start the rest server that provide the rest services." +
-					"For more information visit 'https://github.com/astrapi69/bundle-management' " +
-					"and start the server for provide the rest services." +
-					"After the rest server is started restart this program again.");
+				"You have to start the rest server that provide the rest services."
+					+ "For more information visit 'https://github.com/astrapi69/bundle-management' "
+					+ "and start the server for provide the rest services."
+					+ "After the rest server is started restart this program again.");
 
 			log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}
@@ -176,7 +178,7 @@ public class SpringBootSwingApplication extends ApplicationFrame<MainDashboardBe
 		}
 		getModelObject().setBundleApplications(bundleApplications);
 		replaceInternalFrame("Overview bundle apps",
-			new MainDashboardPanel(PropertyModel.<MainDashboardBean> of(this, "model.object")));
+			new MainDashboardPanel(PropertyModel.of(this, "model.object")));
 		return bundleApplications;
 	}
 

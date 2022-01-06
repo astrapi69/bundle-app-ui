@@ -5,16 +5,16 @@ import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 
-import javax.swing.AbstractAction;
+import javax.swing.*;
 
+import lombok.extern.java.Log;
 import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
 import io.github.astrapi69.bundle.app.panels.dashboard.mainapp.MainDashboardBean;
 import io.github.astrapi69.bundle.app.panels.dashboard.mainapp.MainDashboardPanel;
 import io.github.astrapi69.bundle.app.spring.rest.BundleApplicationsRestClient;
-import io.github.astrapi69.collections.list.ListFactory;
 import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;
+import io.github.astrapi69.collections.list.ListFactory;
 import io.github.astrapi69.model.PropertyModel;
-import lombok.extern.java.Log;
 
 /**
  * The class {@link OverviewBundleAppsAction}.
@@ -26,11 +26,6 @@ public class OverviewBundleAppsAction extends AbstractAction
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	BundleApplicationsRestClient restClient;
-
-	public static OverviewBundleAppsAction of()
-	{
-		return new OverviewBundleAppsAction();
-	}
 
 	public OverviewBundleAppsAction()
 	{
@@ -46,6 +41,11 @@ public class OverviewBundleAppsAction extends AbstractAction
 	public OverviewBundleAppsAction(final String name)
 	{
 		super(name);
+	}
+
+	public static OverviewBundleAppsAction of()
+	{
+		return new OverviewBundleAppsAction();
 	}
 
 	/**
@@ -67,7 +67,7 @@ public class OverviewBundleAppsAction extends AbstractAction
 			.setBundleApplications(bundleApplications);
 		SpringBootSwingApplication.getInstance().replaceInternalFrame("Overview bundle apps",
 			new MainDashboardPanel(PropertyModel
-				.<MainDashboardBean> of(SpringBootSwingApplication.getInstance(), "model.object")));
+				.of(SpringBootSwingApplication.getInstance(), "model.object")));
 	}
 
 }

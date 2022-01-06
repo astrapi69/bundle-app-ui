@@ -10,11 +10,10 @@ import java.util.Properties;
 import java.util.concurrent.CompletableFuture;
 import java.util.logging.Level;
 
-import javax.swing.JFileChooser;
+import javax.swing.*;
 
-import io.github.astrapi69.bundlemanagement.viewmodel.BundleName;
-import io.github.astrapi69.bundlemanagement.viewmodel.ImprortableBundleName;
-import io.github.astrapi69.file.FileExtensions;
+import lombok.extern.java.Log;
+
 import org.apache.commons.lang3.BooleanUtils;
 
 import io.github.astrapi69.bundle.app.ApplicationEventBus;
@@ -27,19 +26,20 @@ import io.github.astrapi69.bundle.app.panels.imports.ext.ConvertExtensions;
 import io.github.astrapi69.bundle.app.panels.imports.file.ImportResourceBundlePanel;
 import io.github.astrapi69.bundle.app.panels.overview.OverviewOfAllResourceBundlesPanel;
 import io.github.astrapi69.bundle.app.panels.overview.OverviewResourceBundleAddEntryPanel;
+import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;
+import io.github.astrapi69.bundlemanagement.viewmodel.BundleName;
+import io.github.astrapi69.bundlemanagement.viewmodel.ImprortableBundleName;
 import io.github.astrapi69.collection.comparators.KeyValuePairKeyComparator;
 import io.github.astrapi69.collections.pairs.KeyValuePair;
-import io.github.astrapi69.collections.pairs.Quattro;
 import io.github.astrapi69.collections.pairs.Triple;
 import io.github.astrapi69.collections.properties.PropertiesExtensions;
 import io.github.astrapi69.comparators.NullCheckComparator;
-import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;
+import io.github.astrapi69.file.FileExtensions;
 import io.github.astrapi69.model.BaseModel;
 import io.github.astrapi69.model.api.Model;
 import io.github.astrapi69.resourcebundle.inspector.search.PropertiesListResolver;
 import io.github.astrapi69.resourcebundle.locale.LocaleResolver;
 import io.github.astrapi69.swing.base.BaseCardLayoutPanel;
-import lombok.extern.java.Log;
 
 /**
  * The class {@link ApplicationDashboardContentPanel}.
@@ -58,7 +58,7 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 	 */
 	public ApplicationDashboardContentPanel()
 	{
-		this(BaseModel.<ApplicationDashboardBean> of(ApplicationDashboardBean.builder().build()));
+		this(BaseModel.of(ApplicationDashboardBean.builder().build()));
 	}
 
 	/**
@@ -274,7 +274,8 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 						if (BooleanUtils.toBoolean(entry.getRight().getKey()))
 						{
 							final File propertiesFile = entry.getLeft();
-							String filepath = FileExtensions.getAbsolutPathWithoutFilename(propertiesFile);
+							String filepath = FileExtensions
+								.getAbsolutPathWithoutFilename(propertiesFile);
 							final Locale locale = entry.getMiddle();
 							final String bundlename = LocaleResolver
 								.resolveBundlename(propertiesFile);
@@ -284,16 +285,11 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 								properties = PropertiesExtensions.loadProperties(propertiesFile);
 
 								ImprortableBundleName imprortableBundleName = ImprortableBundleName
-									.builder()
-									.baseName(bundlename)
-									.bundleappname(bundleApplication.getName())
-									.filepath(filepath)
-									.locale(locale)
-									.properties(properties)
-									.build();
-								BundleName bundleName =
-									SpringBootSwingApplication.getInstance()
-										.getResourceBundlesRestClient()
+									.builder().baseName(bundlename)
+									.bundleappname(bundleApplication.getName()).filepath(filepath)
+									.locale(locale).properties(properties).build();
+								BundleName bundleName = SpringBootSwingApplication.getInstance()
+									.getResourceBundlesRestClient()
 									.updateProperties(imprortableBundleName);
 							}
 							catch (final IOException e)
@@ -312,7 +308,7 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 						.toKeyValuePairs(importedProperties);
 
 					Collections.sort(keyValuePairs, NullCheckComparator
-						.<KeyValuePair<String, String>> of(new KeyValuePairKeyComparator<>()));
+						.of(new KeyValuePairKeyComparator<>()));
 					getModelObject().setImportedKeyValuePairs(keyValuePairs);
 
 					ApplicationEventBus.getInstance().getApplicationEventBus()

@@ -1,10 +1,8 @@
 package io.github.astrapi69.bundle.app.combobox.renderer;
 
-import java.awt.Component;
+import java.awt.*;
 
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.ListCellRenderer;
+import javax.swing.*;
 
 import io.github.astrapi69.bundlemanagement.viewmodel.BundleName;
 

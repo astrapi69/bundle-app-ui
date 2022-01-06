@@ -39,28 +39,14 @@ public class SpringApplicationContext implements ApplicationContextAware
 {
 
 	/** The only single one instance. */
-	private static SpringApplicationContext instance = new SpringApplicationContext();
-
-	/**
-	 * Gets the single instance of SpringApplicationContext.
-	 *
-	 * @return single instance of SpringApplicationContext
-	 */
-	public static SpringApplicationContext getInstance()
-	{
-		return instance;
-	}
-
-	/** The application context. */
-	private ApplicationContext applicationContext;
+	private static final SpringApplicationContext instance = new SpringApplicationContext();
 	boolean countriesInitialized;
 	Properties databaseProperties;
-
 	boolean languageLocalesInitialized;
-
 	boolean languagesInitialized;
-
 	Preferences preferences;
+	/** The application context. */
+	private ApplicationContext applicationContext;
 
 	/**
 	 * Instantiates a new spring application context.
@@ -73,6 +59,16 @@ public class SpringApplicationContext implements ApplicationContextAware
 		this.languagesInitialized = preferences.getBoolean("languages.initialized", false);
 		this.languageLocalesInitialized = preferences.getBoolean("languageLocales.initialized",
 			false);
+	}
+
+	/**
+	 * Gets the single instance of SpringApplicationContext.
+	 *
+	 * @return single instance of SpringApplicationContext
+	 */
+	public static SpringApplicationContext getInstance()
+	{
+		return instance;
 	}
 
 	public ApplicationContext getApplicationContext()

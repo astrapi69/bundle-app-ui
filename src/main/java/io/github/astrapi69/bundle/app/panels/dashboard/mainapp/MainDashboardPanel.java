@@ -3,6 +3,7 @@ package io.github.astrapi69.bundle.app.panels.dashboard.mainapp;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 
+import lombok.Getter;
 import io.github.astrapi69.bundle.app.panels.creation.NewBundleApplicationPanel;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import io.github.astrapi69.bundle.app.panels.overview.OverviewOfAllBundleApplicationsPanel;
@@ -10,7 +11,6 @@ import io.github.astrapi69.model.BaseModel;
 import io.github.astrapi69.model.PropertyModel;
 import io.github.astrapi69.model.api.Model;
 import io.github.astrapi69.swing.base.BaseCardLayoutPanel;
-import lombok.Getter;
 
 @Getter
 public class MainDashboardPanel extends BaseCardLayoutPanel<MainDashboardBean>
@@ -20,7 +20,7 @@ public class MainDashboardPanel extends BaseCardLayoutPanel<MainDashboardBean>
 
 	public MainDashboardPanel()
 	{
-		this(BaseModel.<MainDashboardBean> of(MainDashboardBean.builder().build()));
+		this(BaseModel.of(MainDashboardBean.builder().build()));
 	}
 
 	public MainDashboardPanel(final Model<MainDashboardBean> model)
@@ -34,7 +34,7 @@ public class MainDashboardPanel extends BaseCardLayoutPanel<MainDashboardBean>
 	{
 		model.getObject().setSelectedBundleApplication(ApplicationDashboardBean.builder().build());
 		final Model<ApplicationDashboardBean> baModel = PropertyModel
-			.<ApplicationDashboardBean> of(model, "selectedBundleApplication");
+			.of(model, "selectedBundleApplication");
 
 		return new NewBundleApplicationPanel(baModel)
 		{

@@ -1,25 +1,25 @@
 package io.github.astrapi69.bundle.app.panels.overview;
 
-import java.awt.Component;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
-import javax.swing.JCheckBox;
-import javax.swing.JOptionPane;
-import javax.swing.JTable;
+import javax.swing.*;
 import javax.swing.table.TableColumn;
 
+import lombok.Getter;
+import lombok.extern.java.Log;
 import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardContentPanel;
 import io.github.astrapi69.bundle.app.panels.dashboard.mainapp.MainDashboardBean;
 import io.github.astrapi69.bundle.app.panels.dashboard.mainapp.MainDashboardPanel;
 import io.github.astrapi69.bundle.app.table.model.StringBundleApplicationsBundleApplicationsTableModel;
-import io.github.astrapi69.collections.pairs.Triple;
 import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;
+import io.github.astrapi69.collections.pairs.Triple;
 import io.github.astrapi69.model.BaseModel;
 import io.github.astrapi69.model.PropertyModel;
 import io.github.astrapi69.model.api.Model;
@@ -27,8 +27,6 @@ import io.github.astrapi69.swing.base.BasePanel;
 import io.github.astrapi69.swing.table.GenericJXTable;
 import io.github.astrapi69.swing.table.editor.TableCellButtonEditor;
 import io.github.astrapi69.swing.table.renderer.TableCellButtonRenderer;
-import lombok.Getter;
-import lombok.extern.java.Log;
 
 /**
  * The class {@link OverviewOfAllBundleApplicationsPanel}.
@@ -49,11 +47,11 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 
 	private GenericJXTable<Triple<String, BundleApplication, BundleApplication>> tblBundleApps;
 
-//	private BundleApplicationsRestClient restClient;
+	// private BundleApplicationsRestClient restClient;
 
 	public OverviewOfAllBundleApplicationsPanel()
 	{
-		this(BaseModel.<MainDashboardBean> of(MainDashboardBean.builder().build()));
+		this(BaseModel.of(MainDashboardBean.builder().build()));
 	}
 
 	public OverviewOfAllBundleApplicationsPanel(final Model<MainDashboardBean> model)
@@ -92,14 +90,13 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 			{
 				SpringBootSwingApplication.getInstance().getBundleApplicationsRestClient()
 					.deleteBundleApplication(selectedBundleApplication);
-				final List<BundleApplication> bundleApplications =
-					SpringBootSwingApplication.getInstance().getBundleApplicationsRestClient()
-					.findAllBundleApplications();
+				final List<BundleApplication> bundleApplications = SpringBootSwingApplication
+					.getInstance().getBundleApplicationsRestClient().findAllBundleApplications();
 				SpringBootSwingApplication.getInstance().getModelObject()
 					.setBundleApplications(bundleApplications);
 				SpringBootSwingApplication.getInstance().replaceInternalFrame(
 					"Overview bundle apps",
-					new MainDashboardPanel(PropertyModel.<MainDashboardBean> of(
+					new MainDashboardPanel(PropertyModel.of(
 						SpringBootSwingApplication.getInstance(), "model.object")));
 			}
 			catch (IOException e)
@@ -345,7 +342,7 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 				.getBundleApplicationsRestClient().findAllBundleApplications();
 			getModelObject().setBundleApplications(bundleApplications);
 		}
-		catch ( IOException e)
+		catch (IOException e)
 		{
 			log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}

@@ -1,11 +1,9 @@
 package io.github.astrapi69.bundle.app.combobox.renderer;
 
-import java.awt.Component;
+import java.awt.*;
 import java.util.Locale;
 
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.ListCellRenderer;
+import javax.swing.*;
 
 import io.github.astrapi69.bundlemanagement.viewmodel.Country;
 import io.github.astrapi69.model.BaseModel;
@@ -16,7 +14,7 @@ public class CountriesComboBoxRenderer extends JLabel implements ListCellRendere
 {
 
 	private static final long serialVersionUID = 1L;
-	private Model<Country> model;
+	private final Model<Country> model;
 
 	public CountriesComboBoxRenderer()
 	{

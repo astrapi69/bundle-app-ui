@@ -13,11 +13,6 @@ public class BundleNamesComboBoxModel extends AbstractComboBoxModel<BundleName>
 
 	private static final long serialVersionUID = 1L;
 
-	public static final BundleNamesComboBoxModel get()
-	{
-		return COMBO_BOX_MODEL;
-	}
-
 	/**
 	 * init block
 	 **/
@@ -28,9 +23,13 @@ public class BundleNamesComboBoxModel extends AbstractComboBoxModel<BundleName>
 		setComboSet(bundleNames);
 	}
 
-
 	private BundleNamesComboBoxModel()
 	{
+	}
+
+	public static final BundleNamesComboBoxModel get()
+	{
+		return COMBO_BOX_MODEL;
 	}
 
 

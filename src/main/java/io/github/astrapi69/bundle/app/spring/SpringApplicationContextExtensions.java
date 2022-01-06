@@ -1,9 +1,9 @@
 package io.github.astrapi69.bundle.app.spring;
 
+import lombok.experimental.UtilityClass;
+
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
-
-import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class SpringApplicationContextExtensions

@@ -2,7 +2,7 @@ package io.github.astrapi69.bundle.app.actions;
 
 import java.awt.event.ActionEvent;
 
-import javax.swing.AbstractAction;
+import javax.swing.*;
 
 import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;

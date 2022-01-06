@@ -4,9 +4,11 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
-import java.util.Properties;
 import java.util.concurrent.CompletableFuture;
 import java.util.logging.Level;
+
+import lombok.Getter;
+import lombok.extern.java.Log;
 
 import com.google.common.eventbus.Subscribe;
 
@@ -14,18 +16,15 @@ import io.github.astrapi69.bundle.app.ApplicationEventBus;
 import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
 import io.github.astrapi69.bundle.app.actions.ReturnToDashboardAction;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
-import io.github.astrapi69.bundlemanagement.viewmodel.ImprortableBundleName;
-import io.github.astrapi69.collections.pairs.Quattro;
 import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;
 import io.github.astrapi69.bundlemanagement.viewmodel.BundleName;
+import io.github.astrapi69.bundlemanagement.viewmodel.ImprortableBundleName;
 import io.github.astrapi69.file.FileExtensions;
 import io.github.astrapi69.model.BaseModel;
 import io.github.astrapi69.model.api.Model;
 import io.github.astrapi69.resourcebundle.locale.LocaleResolver;
 import io.github.astrapi69.swing.base.BasePanel;
 import io.github.astrapi69.swing.table.model.properties.StringKeyValueTableModel;
-import lombok.Getter;
-import lombok.extern.java.Log;
 
 @Getter
 @Log
@@ -48,7 +47,7 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 
 	ImportResourceBundlePanel()
 	{
-		super(BaseModel.<ApplicationDashboardBean> of(ApplicationDashboardBean.builder().build()));
+		super(BaseModel.of(ApplicationDashboardBean.builder().build()));
 	}
 
 	public ImportResourceBundlePanel(final Model<ApplicationDashboardBean> model)
@@ -74,20 +73,13 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 		CompletableFuture.runAsync(() -> {
 			File resourceBundleToImport = getModelObject().getResourceBundleToImport();
 			String filepath = FileExtensions.getAbsolutPathWithoutFilename(resourceBundleToImport);
-			final String baseName = LocaleResolver
-				.resolveBundlename(resourceBundleToImport);
-			final Locale locale = LocaleResolver
-				.resolveLocale(resourceBundleToImport);
+			final String baseName = LocaleResolver.resolveBundlename(resourceBundleToImport);
+			final Locale locale = LocaleResolver.resolveLocale(resourceBundleToImport);
 			BundleApplication bundleApplication = getModelObject().getBundleApplication();
 
-			ImprortableBundleName imprortableBundleName = ImprortableBundleName
-				.builder()
-				.baseName(baseName)
-				.bundleappname(bundleApplication.getName())
-				.filepath(filepath)
-				.locale(locale)
-				.properties(getModelObject().getImportedProperties())
-				.build();
+			ImprortableBundleName imprortableBundleName = ImprortableBundleName.builder()
+				.baseName(baseName).bundleappname(bundleApplication.getName()).filepath(filepath)
+				.locale(locale).properties(getModelObject().getImportedProperties()).build();
 			try
 			{
 				BundleName bundleName = SpringBootSwingApplication.getInstance()

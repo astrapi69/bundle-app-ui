@@ -1,5 +1,6 @@
 package io.github.astrapi69.bundle.app.panels.start;
 
+import lombok.Getter;
 import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardContentPanel;
 import io.github.astrapi69.design.pattern.state.wizard.model.BaseWizardStateMachineModel;
@@ -8,7 +9,6 @@ import io.github.astrapi69.model.api.Model;
 import io.github.astrapi69.swing.panels.login.pw.ChangePasswordModelBean;
 import io.github.astrapi69.swing.wizard.AbstractWizardPanel;
 import io.github.astrapi69.swing.wizard.BaseWizardContentPanel;
-import lombok.Getter;
 
 @Getter
 public class WizardPanel extends AbstractWizardPanel<WizardModel>
@@ -19,7 +19,7 @@ public class WizardPanel extends AbstractWizardPanel<WizardModel>
 	{
 		this(
 			BaseModel
-				.<WizardModel> of(
+				.of(
 					WizardModel
 						.builder().changePassword(ChangePasswordModelBean.builder()
 							.currentPassword("").newPassword("").repeatNewPassword("").build())

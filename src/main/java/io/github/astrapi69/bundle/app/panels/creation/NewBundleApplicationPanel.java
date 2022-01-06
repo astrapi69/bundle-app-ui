@@ -11,9 +11,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import io.github.astrapi69.bundle.app.spring.rest.BundleApplicationsRestClient;
-import io.github.astrapi69.swing.listener.document.EnableButtonBehavior;
-import io.github.astrapi69.swing.table.GenericJXTable;
+import lombok.Getter;
+
 import org.apache.commons.lang3.StringUtils;
 
 import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
@@ -21,38 +20,21 @@ import io.github.astrapi69.bundle.app.actions.ReturnToDashboardAction;
 import io.github.astrapi69.bundle.app.combobox.model.LanguageLocalesComboBoxModel;
 import io.github.astrapi69.bundle.app.combobox.renderer.LanguageLocalesComboBoxRenderer;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
+import io.github.astrapi69.bundle.app.spring.rest.BundleApplicationsRestClient;
 import io.github.astrapi69.bundle.app.table.model.StringLanguageLocalesTableModel;
-import io.github.astrapi69.collections.list.ListFactory;
-import io.github.astrapi69.collections.pairs.KeyValuePair;
 import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;
 import io.github.astrapi69.bundlemanagement.viewmodel.LanguageLocale;
+import io.github.astrapi69.collections.list.ListFactory;
+import io.github.astrapi69.collections.pairs.KeyValuePair;
 import io.github.astrapi69.model.BaseModel;
 import io.github.astrapi69.model.api.Model;
 import io.github.astrapi69.swing.base.BasePanel;
-import lombok.Getter;
+import io.github.astrapi69.swing.listener.document.EnableButtonBehavior;
+import io.github.astrapi69.swing.table.GenericJXTable;
 
 @Getter
 public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBean>
 {
-
-	class DefaultLocaleVerifier implements ActionListener
-	{
-		boolean defaultLocale;
-
-		@Override
-		public void actionPerformed(ActionEvent e)
-		{
-			verify();
-		}
-
-		private boolean verify()
-		{
-			defaultLocale = cmbDefaultLocale.getSelectedItem() != null;
-			btnSave.setEnabled(defaultLocale);
-			return defaultLocale;
-		}
-
-	}
 
 	private static final long serialVersionUID = 1L;
 	private javax.swing.JButton btnAddSupportedLocale;
@@ -67,16 +49,13 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 	private javax.swing.JLabel lblSupportedLocaleToAdd;
 	private javax.swing.JScrollPane srcSupportedLocales;
 	private GenericJXTable<KeyValuePair<String, LanguageLocale>> tblSupportedLocales;
-
 	private javax.swing.JTextField txtBundleName;
-
 	private DefaultLocaleVerifier verifier;
-
 	private BundleApplicationsRestClient restClient;
 
 	public NewBundleApplicationPanel()
 	{
-		this(BaseModel.<ApplicationDashboardBean> of(ApplicationDashboardBean.builder().build()));
+		this(BaseModel.of(ApplicationDashboardBean.builder().build()));
 	}
 
 	public NewBundleApplicationPanel(final Model<ApplicationDashboardBean> model)
@@ -92,7 +71,8 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 		if (bundleApplication != null)
 		{
 			Set<LanguageLocale> supportedLocales = bundleApplication.getSupportedLocales();
-			if(supportedLocales != null && !supportedLocales.isEmpty()){
+			if (supportedLocales != null && !supportedLocales.isEmpty())
+			{
 				modelObject.setSupportedLocales(supportedLocales);
 				for (LanguageLocale supportedLocale : supportedLocales)
 				{
@@ -133,7 +113,8 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 		if (bundleApplication != null)
 		{
 			Set<LanguageLocale> supportedLocales = bundleApplication.getSupportedLocales();
-			if(supportedLocales != null && !supportedLocales.isEmpty()) {
+			if (supportedLocales != null && !supportedLocales.isEmpty())
+			{
 				cmbModel.getComboList().removeAll(supportedLocales);
 			}
 
@@ -247,13 +228,9 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 			{
 				boolean defaultLocale;
 				defaultLocale = cmbDefaultLocale.getSelectedItem() != null;
-				boolean enabled = false;
-				if (getDocument().getLength() > 0)
-				{
-					enabled = true;
-				}
+				boolean enabled = getDocument().getLength() > 0;
 				getButtonModel().setEnabled(defaultLocale && enabled);
-			};
+			}
 		};
 
 	}
@@ -399,6 +376,25 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 				}
 				getModelObject().setBundleApplication(newBundleApplication);
 			}
+		}
+
+	}
+
+	class DefaultLocaleVerifier implements ActionListener
+	{
+		boolean defaultLocale;
+
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			verify();
+		}
+
+		private boolean verify()
+		{
+			defaultLocale = cmbDefaultLocale.getSelectedItem() != null;
+			btnSave.setEnabled(defaultLocale);
+			return defaultLocale;
 		}
 
 	}

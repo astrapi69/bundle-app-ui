@@ -21,11 +21,6 @@ public class LocalesComboBoxModel extends AbstractComboBoxModel<Locale>
 	private static final LocalesComboBoxModel COMBO_BOX_MODEL = new LocalesComboBoxModel();
 	private static final long serialVersionUID = 1L;
 
-	public static final LocalesComboBoxModel get()
-	{
-		return COMBO_BOX_MODEL;
-	}
-
 	/**
 	 * init block
 	 **/
@@ -37,6 +32,11 @@ public class LocalesComboBoxModel extends AbstractComboBoxModel<Locale>
 
 	private LocalesComboBoxModel()
 	{
+	}
+
+	public static final LocalesComboBoxModel get()
+	{
+		return COMBO_BOX_MODEL;
 	}
 
 

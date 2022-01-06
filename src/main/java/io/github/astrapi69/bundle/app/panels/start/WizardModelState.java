@@ -331,5 +331,5 @@ public enum WizardModelState implements BaseWizardState<BaseWizardStateMachineMo
 			return true;
 		}
 
-	};
+	}
 }

@@ -19,7 +19,7 @@ public class OverviewResourceBundlePanel extends BasePanel<ApplicationDashboardB
 
 	public OverviewResourceBundlePanel()
 	{
-		this(BaseModel.<ApplicationDashboardBean> of(ApplicationDashboardBean.builder().build()));
+		this(BaseModel.of(ApplicationDashboardBean.builder().build()));
 	}
 
 	public OverviewResourceBundlePanel(final Model<ApplicationDashboardBean> model)

@@ -8,29 +8,29 @@ import java.util.Locale;
 import java.util.Properties;
 import java.util.logging.Level;
 
-import io.github.astrapi69.bundlemanagement.viewmodel.ImprortableBundleName;
-import io.github.astrapi69.file.FileExtensions;
+import lombok.extern.java.Log;
+
 import org.apache.commons.lang3.BooleanUtils;
 
 import io.github.astrapi69.bundle.app.ApplicationEventBus;
 import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
 import io.github.astrapi69.bundle.app.panels.imports.ext.ConvertExtensions;
+import io.github.astrapi69.bundlemanagement.viewmodel.ImprortableBundleName;
+import io.github.astrapi69.bundlemanagement.viewmodel.LanguageLocale;
 import io.github.astrapi69.collections.pairs.KeyValuePair;
-import io.github.astrapi69.collections.pairs.Quattro;
 import io.github.astrapi69.collections.pairs.Triple;
 import io.github.astrapi69.collections.properties.PropertiesExtensions;
-import io.github.astrapi69.bundlemanagement.viewmodel.LanguageLocale;
 import io.github.astrapi69.design.pattern.observer.event.EventListener;
 import io.github.astrapi69.design.pattern.observer.event.EventObject;
 import io.github.astrapi69.design.pattern.observer.event.EventSource;
 import io.github.astrapi69.design.pattern.state.wizard.model.BaseWizardStateMachineModel;
+import io.github.astrapi69.file.FileExtensions;
 import io.github.astrapi69.model.BaseModel;
 import io.github.astrapi69.model.api.Model;
 import io.github.astrapi69.resourcebundle.inspector.search.PropertiesListResolver;
 import io.github.astrapi69.resourcebundle.locale.LocaleResolver;
 import io.github.astrapi69.swing.wizard.AbstractWizardPanel;
 import io.github.astrapi69.swing.wizard.BaseWizardContentPanel;
-import lombok.extern.java.Log;
 
 @Log
 public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
@@ -41,7 +41,7 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 
 	public ImportWizardPanel()
 	{
-		this(BaseModel.<ImportWizardModel> of(
+		this(BaseModel.of(
 			ImportWizardModel.builder().foundProperties(new ArrayList<>()).build()));
 	}
 
@@ -56,7 +56,7 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 		final Model<BaseWizardStateMachineModel<ImportWizardModel>> model)
 	{
 		return new ImportWizardContentPanel(model);
-	};
+	}
 
 	@Override
 	protected void onBeforeInitializeComponents()
@@ -144,14 +144,9 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 				try
 				{
 					properties = PropertiesExtensions.loadProperties(propertiesFile);
-					ImprortableBundleName imprortableBundleName = ImprortableBundleName
-						.builder()
-						.baseName(bundlename)
-						.bundleappname(getModelObject().getBundleAppName())
-						.filepath(filepath)
-						.locale(locale)
-						.properties(properties)
-						.build();
+					ImprortableBundleName imprortableBundleName = ImprortableBundleName.builder()
+						.baseName(bundlename).bundleappname(getModelObject().getBundleAppName())
+						.filepath(filepath).locale(locale).properties(properties).build();
 					SpringBootSwingApplication.getInstance().getResourceBundlesRestClient()
 						.updateProperties(imprortableBundleName);
 				}

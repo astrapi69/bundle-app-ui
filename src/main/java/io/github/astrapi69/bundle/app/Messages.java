@@ -40,6 +40,13 @@ public class Messages
 	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
 
 	/**
+	 * Instantiates a new messages.
+	 */
+	private Messages()
+	{
+	}
+
+	/**
 	 * Gets the string.
 	 *
 	 * @param key
@@ -56,12 +63,5 @@ public class Messages
 		{
 			return '!' + key + '!';
 		}
-	}
-
-	/**
-	 * Instantiates a new messages.
-	 */
-	private Messages()
-	{
 	}
 }

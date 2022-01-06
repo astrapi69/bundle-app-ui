@@ -1,14 +1,12 @@
 package io.github.astrapi69.bundle.app.combobox.renderer;
 
-import java.awt.Component;
+import java.awt.*;
 import java.util.Locale;
 
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.ListCellRenderer;
+import javax.swing.*;
 
-import io.github.astrapi69.check.Check;
 import io.github.astrapi69.bundlemanagement.viewmodel.LanguageLocale;
+import io.github.astrapi69.check.Check;
 import io.github.astrapi69.model.BaseModel;
 import io.github.astrapi69.model.api.Model;
 import io.github.astrapi69.resourcebundle.locale.LocaleResolver;
@@ -23,7 +21,7 @@ public class LanguageLocalesComboBoxRenderer extends JLabel
 
 	public LanguageLocalesComboBoxRenderer()
 	{
-		this(BaseModel.<LanguageLocale> of());
+		this(BaseModel.of());
 	}
 
 	public LanguageLocalesComboBoxRenderer(final Model<LanguageLocale> model)

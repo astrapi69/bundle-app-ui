@@ -1,6 +1,6 @@
 package io.github.astrapi69.bundle.app.panels.overview;
 
-import java.awt.Component;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -11,29 +11,26 @@ import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 
-import javax.swing.JCheckBox;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.swing.JTable;
+import javax.swing.*;
 import javax.swing.table.TableColumn;
 
+import lombok.extern.java.Log;
 import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
 import io.github.astrapi69.bundle.app.actions.ReturnToDashboardAction;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardContentPanel;
 import io.github.astrapi69.bundle.app.table.model.StringResourcebundlesTableModel;
+import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;
+import io.github.astrapi69.bundlemanagement.viewmodel.Resourcebundle;
 import io.github.astrapi69.collections.pairs.Quattro;
 import io.github.astrapi69.collections.properties.PropertiesExtensions;
 import io.github.astrapi69.comparators.NullCheckComparator;
-import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;
-import io.github.astrapi69.bundlemanagement.viewmodel.Resourcebundle;
 import io.github.astrapi69.model.BaseModel;
 import io.github.astrapi69.model.api.Model;
 import io.github.astrapi69.swing.base.BasePanel;
 import io.github.astrapi69.swing.table.GenericJXTable;
 import io.github.astrapi69.swing.table.editor.TableCellButtonEditor;
 import io.github.astrapi69.swing.table.renderer.TableCellButtonRenderer;
-import lombok.extern.java.Log;
 
 @Log
 public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDashboardBean>
@@ -58,7 +55,7 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 
 	public OverviewResourceBundleAddEntryPanel()
 	{
-		this(BaseModel.<ApplicationDashboardBean> of(ApplicationDashboardBean.builder().build()));
+		this(BaseModel.of(ApplicationDashboardBean.builder().build()));
 	}
 
 	public OverviewResourceBundleAddEntryPanel(final Model<ApplicationDashboardBean> model)
@@ -85,8 +82,8 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 		try
 		{
 			SpringBootSwingApplication.getInstance().getResourceBundlesRestClient()
-			.saveOrUpdateEntry(bundleApplication.getName(), baseName,
-				getModelObject().getSelectedBundleName().getLocale().getLocale(), key, value);
+				.saveOrUpdateEntry(bundleApplication.getName(), baseName,
+					getModelObject().getSelectedBundleName().getLocale().getLocale(), key, value);
 		}
 		catch (IOException e1)
 		{
@@ -113,7 +110,7 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 			try
 			{
 				SpringBootSwingApplication.getInstance().getBundleNamesRestClient()
-				.deleteBundleName(getModelObject().getSelectedBundleName());
+					.deleteBundleName(getModelObject().getSelectedBundleName());
 
 				final Model<ApplicationDashboardBean> baModel = SpringBootSwingApplication
 					.getInstance().getSelectedBundleApplicationPropertyModel();
@@ -283,7 +280,7 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 				try
 				{
 					SpringBootSwingApplication.getInstance().getResourceBundlesRestClient()
-					.deleteResourcebundle(selected);
+						.deleteResourcebundle(selected);
 				}
 				catch (IOException e)
 				{
@@ -448,8 +445,7 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 		List<Resourcebundle> list;
 		try
 		{
-			list = SpringBootSwingApplication.getInstance()
-				.getResourceBundlesRestClient()
+			list = SpringBootSwingApplication.getInstance().getResourceBundlesRestClient()
 				.findResourceBundles(bundleApplication, baseName, localeCode);
 
 			for (final Resourcebundle resourcebundle : list)
@@ -461,10 +457,10 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 						.bottomRight(resourcebundle).build());
 			}
 			Collections.sort(tableModelList,
-				NullCheckComparator.<Quattro<String, String, Resourcebundle, Resourcebundle>> of(
+				NullCheckComparator.of(
 					(o1, o2) -> o1.getTopLeft().compareTo(o2.getTopLeft())));
 		}
-		catch ( IOException e)
+		catch (IOException e)
 		{
 			log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}
