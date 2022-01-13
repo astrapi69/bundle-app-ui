@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.logging.Level;
 
 import lombok.extern.java.Log;
-import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
+import io.github.astrapi69.bundle.app.BundleManagementApplicationFrame;
 import io.github.astrapi69.bundle.app.spring.rest.CountriesRestClient;
 import io.github.astrapi69.bundlemanagement.viewmodel.Country;
 import io.github.astrapi69.collections.list.ListFactory;
@@ -30,7 +30,7 @@ public class CountriesComboBoxModel extends AbstractComboBoxModel<Country>
 		}
 		catch (IOException e)
 		{
-			DialogExtensions.showExceptionDialog(e, SpringBootSwingApplication.getInstance());
+			DialogExtensions.showExceptionDialog(e, BundleManagementApplicationFrame.getInstance());
 			log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		}
 		setComboList(availableCountries);

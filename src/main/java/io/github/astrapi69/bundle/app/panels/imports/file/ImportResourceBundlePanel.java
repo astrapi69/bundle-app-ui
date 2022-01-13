@@ -13,7 +13,7 @@ import lombok.extern.java.Log;
 import com.google.common.eventbus.Subscribe;
 
 import io.github.astrapi69.bundle.app.ApplicationEventBus;
-import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
+import io.github.astrapi69.bundle.app.BundleManagementApplicationFrame;
 import io.github.astrapi69.bundle.app.actions.ReturnToDashboardAction;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;
@@ -73,7 +73,7 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 		CompletableFuture.runAsync(() -> {
 			File resourceBundleToImport = getModelObject().getResourceBundleToImport();
 			String filepath = FileExtensions.getAbsolutPathWithoutFilename(resourceBundleToImport);
-			final String baseName = LocaleResolver.resolveBundlename(resourceBundleToImport);
+			final String baseName = LocaleResolver.resolveBundleName(resourceBundleToImport);
 			final Locale locale = LocaleResolver.resolveLocale(resourceBundleToImport);
 			BundleApplication bundleApplication = getModelObject().getBundleApplication();
 
@@ -82,7 +82,7 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 				.locale(locale).properties(getModelObject().getImportedProperties()).build();
 			try
 			{
-				BundleName bundleName = SpringBootSwingApplication.getInstance()
+				BundleName bundleName = BundleManagementApplicationFrame.getInstance()
 					.getResourceBundlesRestClient().updateProperties(imprortableBundleName);
 
 				log.log(Level.FINE, bundleName.getBaseName().getName());

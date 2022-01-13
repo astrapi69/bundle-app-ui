@@ -17,7 +17,7 @@ import lombok.extern.java.Log;
 import org.apache.commons.lang3.BooleanUtils;
 
 import io.github.astrapi69.bundle.app.ApplicationEventBus;
-import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
+import io.github.astrapi69.bundle.app.BundleManagementApplicationFrame;
 import io.github.astrapi69.bundle.app.panels.creation.NewBundleApplicationPanel;
 import io.github.astrapi69.bundle.app.panels.creation.NewBundleNamePanel;
 import io.github.astrapi69.bundle.app.panels.creation.NewCustomLocalePanel;
@@ -149,6 +149,12 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 			}
 
 			@Override
+			protected void onExportBundleApplication(ActionEvent e)
+			{
+			}
+
+
+			@Override
 			protected void onImportResourceBundledFile(final ActionEvent e)
 			{
 				fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -278,7 +284,7 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 								.getAbsolutPathWithoutFilename(propertiesFile);
 							final Locale locale = entry.getMiddle();
 							final String bundlename = LocaleResolver
-								.resolveBundlename(propertiesFile);
+								.resolveBundleName(propertiesFile);
 							Properties properties = null;
 							try
 							{
@@ -288,7 +294,7 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 									.builder().baseName(bundlename)
 									.bundleappname(bundleApplication.getName()).filepath(filepath)
 									.locale(locale).properties(properties).build();
-								BundleName bundleName = SpringBootSwingApplication.getInstance()
+								BundleName bundleName = BundleManagementApplicationFrame.getInstance()
 									.getResourceBundlesRestClient()
 									.updateProperties(imprortableBundleName);
 							}
@@ -347,6 +353,10 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 		onChooseImportResourceBundle(true);
 	}
 
+	protected void onExportBundleApplication(ActionEvent e)
+	{
+	}
+
 	protected void onImportResourceBundleFromFile(final ActionEvent e)
 	{
 		onChooseImportResourceBundle(false);
@@ -384,10 +394,10 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 
 	protected void onSaveBundleApplication(final ActionEvent e)
 	{
-		final String title = "Dashboard of " + SpringBootSwingApplication.getInstance()
+		final String title = "Dashboard of " + BundleManagementApplicationFrame.getInstance()
 			.getModelObject().getSelectedBundleApplication().getBundleApplication().getName()
 			+ " bundle app";
-		SpringBootSwingApplication.getInstance().getCurrentVisibleInternalFrame().setTitle(title);
+		BundleManagementApplicationFrame.getInstance().getCurrentVisibleInternalFrame().setTitle(title);
 		getCardLayout().show(this, ApplicationDashboardView.DASHBOARD.name());
 	}
 

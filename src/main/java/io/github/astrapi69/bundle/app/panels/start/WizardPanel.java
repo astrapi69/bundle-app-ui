@@ -1,7 +1,7 @@
 package io.github.astrapi69.bundle.app.panels.start;
 
 import lombok.Getter;
-import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
+import io.github.astrapi69.bundle.app.BundleManagementApplicationFrame;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardContentPanel;
 import io.github.astrapi69.design.pattern.state.wizard.model.BaseWizardStateMachineModel;
 import io.github.astrapi69.model.BaseModel;
@@ -55,7 +55,7 @@ public class WizardPanel extends AbstractWizardPanel<WizardModel>
 	{
 		super.onCancel();
 		// from here application specific behavior...
-		SpringBootSwingApplication.getInstance().getCurrentVisibleInternalFrame().dispose();
+		BundleManagementApplicationFrame.getInstance().getCurrentVisibleInternalFrame().dispose();
 	}
 
 	@Override
@@ -63,7 +63,7 @@ public class WizardPanel extends AbstractWizardPanel<WizardModel>
 	{
 		super.onFinish();
 		// from here application specific behavior...
-		SpringBootSwingApplication.getInstance().replaceInternalFrame("Dashboard bundle app",
+		BundleManagementApplicationFrame.getInstance().replaceInternalFrame("Dashboard bundle app",
 			new ApplicationDashboardContentPanel());
 
 	}

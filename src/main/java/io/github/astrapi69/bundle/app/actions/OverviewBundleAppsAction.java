@@ -7,9 +7,8 @@ import java.util.logging.Level;
 
 import javax.swing.*;
 
+import io.github.astrapi69.bundle.app.BundleManagementApplicationFrame;
 import lombok.extern.java.Log;
-import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
-import io.github.astrapi69.bundle.app.panels.dashboard.mainapp.MainDashboardBean;
 import io.github.astrapi69.bundle.app.panels.dashboard.mainapp.MainDashboardPanel;
 import io.github.astrapi69.bundle.app.spring.rest.BundleApplicationsRestClient;
 import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;
@@ -29,7 +28,7 @@ public class OverviewBundleAppsAction extends AbstractAction
 
 	public OverviewBundleAppsAction()
 	{
-		restClient = SpringBootSwingApplication.getInstance().getBundleApplicationsRestClient();
+		restClient = BundleManagementApplicationFrame.getInstance().getBundleApplicationsRestClient();
 	}
 
 	/**
@@ -63,11 +62,11 @@ public class OverviewBundleAppsAction extends AbstractAction
 		{
 			log.log(Level.SEVERE, e1.getLocalizedMessage(), e1);
 		}
-		SpringBootSwingApplication.getInstance().getModelObject()
+		BundleManagementApplicationFrame.getInstance().getModelObject()
 			.setBundleApplications(bundleApplications);
-		SpringBootSwingApplication.getInstance().replaceInternalFrame("Overview bundle apps",
+		BundleManagementApplicationFrame.getInstance().replaceInternalFrame("Overview bundle apps",
 			new MainDashboardPanel(PropertyModel
-				.of(SpringBootSwingApplication.getInstance(), "model.object")));
+				.of(BundleManagementApplicationFrame.getInstance(), "model.object")));
 	}
 
 }

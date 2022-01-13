@@ -12,7 +12,7 @@ import javax.swing.table.TableColumn;
 
 import lombok.Getter;
 import lombok.extern.java.Log;
-import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
+import io.github.astrapi69.bundle.app.BundleManagementApplicationFrame;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardContentPanel;
 import io.github.astrapi69.bundle.app.panels.dashboard.mainapp.MainDashboardBean;
@@ -88,16 +88,16 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 		{
 			try
 			{
-				SpringBootSwingApplication.getInstance().getBundleApplicationsRestClient()
+				BundleManagementApplicationFrame.getInstance().getBundleApplicationsRestClient()
 					.deleteBundleApplication(selectedBundleApplication);
-				final List<BundleApplication> bundleApplications = SpringBootSwingApplication
+				final List<BundleApplication> bundleApplications = BundleManagementApplicationFrame
 					.getInstance().getBundleApplicationsRestClient().findAllBundleApplications();
-				SpringBootSwingApplication.getInstance().getModelObject()
+				BundleManagementApplicationFrame.getInstance().getModelObject()
 					.setBundleApplications(bundleApplications);
-				SpringBootSwingApplication.getInstance().replaceInternalFrame(
+				BundleManagementApplicationFrame.getInstance().replaceInternalFrame(
 					"Overview bundle apps",
 					new MainDashboardPanel(PropertyModel.of(
-						SpringBootSwingApplication.getInstance(), "model.object")));
+						BundleManagementApplicationFrame.getInstance(), "model.object")));
 			}
 			catch (IOException e)
 			{
@@ -154,13 +154,13 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 			{
 				final BundleApplication selectedBundleApplication = (BundleApplication)this
 					.getValue();
-				SpringBootSwingApplication.getInstance()
+				BundleManagementApplicationFrame.getInstance()
 					.setSelectedBundleApplication(selectedBundleApplication);
-				final Model<ApplicationDashboardBean> baModel = SpringBootSwingApplication
+				final Model<ApplicationDashboardBean> baModel = BundleManagementApplicationFrame
 					.getInstance().getSelectedBundleApplicationPropertyModel();
 				final ApplicationDashboardContentPanel component = new ApplicationDashboardContentPanel(
 					baModel);
-				SpringBootSwingApplication.getInstance().replaceInternalFrame(
+				BundleManagementApplicationFrame.getInstance().replaceInternalFrame(
 					"Dashboard of " + selectedBundleApplication.getName() + " bundle app",
 					component);
 
@@ -338,7 +338,7 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 		List<BundleApplication> bundleApplications;
 		try
 		{
-			bundleApplications = SpringBootSwingApplication.getInstance()
+			bundleApplications = BundleManagementApplicationFrame.getInstance()
 				.getBundleApplicationsRestClient().findAllBundleApplications();
 			getModelObject().setBundleApplications(bundleApplications);
 		}

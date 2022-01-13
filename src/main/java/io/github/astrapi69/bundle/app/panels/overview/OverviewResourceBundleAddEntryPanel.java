@@ -15,7 +15,7 @@ import javax.swing.*;
 import javax.swing.table.TableColumn;
 
 import lombok.extern.java.Log;
-import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
+import io.github.astrapi69.bundle.app.BundleManagementApplicationFrame;
 import io.github.astrapi69.bundle.app.actions.ReturnToDashboardAction;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardContentPanel;
@@ -81,7 +81,7 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 
 		try
 		{
-			SpringBootSwingApplication.getInstance().getResourceBundlesRestClient()
+			BundleManagementApplicationFrame.getInstance().getResourceBundlesRestClient()
 				.saveOrUpdateEntry(bundleApplication.getName(), baseName,
 					getModelObject().getSelectedBundleName().getLocale().getLocale(), key, value);
 		}
@@ -92,7 +92,7 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 
 		reloadTableModel();
 
-		SpringBootSwingApplication.getInstance().getModelObject().getSelectedBundleApplication()
+		BundleManagementApplicationFrame.getInstance().getModelObject().getSelectedBundleApplication()
 			.setSelectedResourcebundle(null);
 
 		txtKey.setText("");
@@ -109,14 +109,14 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 		{
 			try
 			{
-				SpringBootSwingApplication.getInstance().getBundleNamesRestClient()
+				BundleManagementApplicationFrame.getInstance().getBundleNamesRestClient()
 					.deleteBundleName(getModelObject().getSelectedBundleName());
 
-				final Model<ApplicationDashboardBean> baModel = SpringBootSwingApplication
+				final Model<ApplicationDashboardBean> baModel = BundleManagementApplicationFrame
 					.getInstance().getSelectedBundleApplicationPropertyModel();
 				final ApplicationDashboardContentPanel component = new ApplicationDashboardContentPanel(
 					baModel);
-				SpringBootSwingApplication.getInstance()
+				BundleManagementApplicationFrame.getInstance()
 					.replaceInternalFrame("Dashboard of "
 						+ baModel.getObject().getBundleApplication().getName() + " bundle app",
 						component);
@@ -135,7 +135,7 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setDialogTitle("Specify a file to save");
 
-		int userSelection = fileChooser.showSaveDialog(SpringBootSwingApplication.getInstance());
+		int userSelection = fileChooser.showSaveDialog(BundleManagementApplicationFrame.getInstance());
 
 		if (userSelection == JFileChooser.APPROVE_OPTION)
 		{
@@ -208,7 +208,7 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 			{
 				final Resourcebundle selected = (Resourcebundle)this.getValue();
 
-				SpringBootSwingApplication.getInstance().getModelObject()
+				BundleManagementApplicationFrame.getInstance().getModelObject()
 					.getSelectedBundleApplication().setSelectedResourcebundle(selected);
 
 				txtKey.setText(selected.getKey().getName());
@@ -279,7 +279,7 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 				final Resourcebundle selected = (Resourcebundle)this.getValue();
 				try
 				{
-					SpringBootSwingApplication.getInstance().getResourceBundlesRestClient()
+					BundleManagementApplicationFrame.getInstance().getResourceBundlesRestClient()
 						.deleteResourcebundle(selected);
 				}
 				catch (IOException e)
@@ -287,12 +287,12 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 					log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 				}
 
-				if (selected.equals(SpringBootSwingApplication.getInstance().getModelObject()
+				if (selected.equals(BundleManagementApplicationFrame.getInstance().getModelObject()
 					.getSelectedBundleApplication().getSelectedResourcebundle()))
 				{
 					txtKey.setText("");
 					txtValue.setText("");
-					SpringBootSwingApplication.getInstance().getModelObject()
+					BundleManagementApplicationFrame.getInstance().getModelObject()
 						.getSelectedBundleApplication().setSelectedResourcebundle(null);
 				}
 
@@ -445,7 +445,7 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 		List<Resourcebundle> list;
 		try
 		{
-			list = SpringBootSwingApplication.getInstance().getResourceBundlesRestClient()
+			list = BundleManagementApplicationFrame.getInstance().getResourceBundlesRestClient()
 				.findResourceBundles(bundleApplication, baseName, localeCode);
 
 			for (final Resourcebundle resourcebundle : list)

@@ -13,7 +13,7 @@ import javax.swing.*;
 import javax.swing.table.TableColumn;
 
 import lombok.extern.java.Log;
-import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
+import io.github.astrapi69.bundle.app.BundleManagementApplicationFrame;
 import io.github.astrapi69.bundle.app.actions.ReturnToDashboardAction;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import io.github.astrapi69.bundle.app.table.model.StringBundleNamesTableModel;
@@ -76,7 +76,7 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 		{
 			try
 			{
-				SpringBootSwingApplication.getInstance().getBundleNamesRestClient()
+				BundleManagementApplicationFrame.getInstance().getBundleNamesRestClient()
 					.deleteBundleName(selectedBundleName);
 			}
 			catch (IOException e)
@@ -84,12 +84,12 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 				log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			}
 
-			SpringBootSwingApplication.getInstance().getModelObject().getSelectedBundleApplication()
+			BundleManagementApplicationFrame.getInstance().getModelObject().getSelectedBundleApplication()
 				.getBundleNames().remove(selectedBundleName);
-			SpringBootSwingApplication.getInstance().getModelObject().getSelectedBundleApplication()
+			BundleManagementApplicationFrame.getInstance().getModelObject().getSelectedBundleApplication()
 				.setSelectedBundleName(null);
 
-			SpringBootSwingApplication.getInstance().replaceInternalFrame(
+			BundleManagementApplicationFrame.getInstance().replaceInternalFrame(
 				"Dashboard of " + getModelObject().getBundleApplication().getName() + " bundle app",
 				new OverviewOfAllResourceBundlesPanel(getModel()));
 		}
@@ -152,15 +152,15 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 			{
 				final BundleName selectedBundleName = (BundleName)this.getValue();
 
-				final Model<ApplicationDashboardBean> baModel = SpringBootSwingApplication
+				final Model<ApplicationDashboardBean> baModel = BundleManagementApplicationFrame
 					.getInstance().getSelectedBundleApplicationPropertyModel();
-				SpringBootSwingApplication.getInstance().getModelObject()
+				BundleManagementApplicationFrame.getInstance().getModelObject()
 					.getSelectedBundleApplication().setSelectedBundleName(selectedBundleName);
 
 				final OverviewResourceBundleAddEntryPanel component = new OverviewResourceBundleAddEntryPanel(
 					baModel);
 
-				SpringBootSwingApplication.getInstance().replaceInternalFrame(
+				BundleManagementApplicationFrame.getInstance().replaceInternalFrame(
 					"Values of resource bundle " + selectedBundleName.getBaseName().getName()
 						+ " with locale " + selectedBundleName.getLocale().getLocale() + "",
 					component);
@@ -331,7 +331,7 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 		try
 		{
 
-			findBundleNames = SpringBootSwingApplication.getInstance()
+			findBundleNames = BundleManagementApplicationFrame.getInstance()
 				.getBundleApplicationsRestClient().findBundleNames(bundleApplication);
 			getModelObject().setBundleNames(SetFactory.newHashSet(findBundleNames));
 			final Set<BundleName> set = getModelObject().getBundleNames();

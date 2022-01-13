@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.*;
 
-import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
+import io.github.astrapi69.bundle.app.BundleManagementApplicationFrame;
 import io.github.astrapi69.bundle.app.panels.imports.bundlefolder.ImportWizardPanel;
 
 /**
@@ -33,7 +33,7 @@ public class ImportBundleAppInternalFrameAction extends AbstractAction
 	@Override
 	public void actionPerformed(final ActionEvent e)
 	{
-		SpringBootSwingApplication.getInstance().replaceInternalFrame("Import bundle app",
+		BundleManagementApplicationFrame.getInstance().replaceInternalFrame("Import bundle app",
 			new ImportWizardPanel());
 	}
 

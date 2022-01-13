@@ -13,7 +13,7 @@ import lombok.extern.java.Log;
 import org.apache.commons.lang3.BooleanUtils;
 
 import io.github.astrapi69.bundle.app.ApplicationEventBus;
-import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
+import io.github.astrapi69.bundle.app.BundleManagementApplicationFrame;
 import io.github.astrapi69.bundle.app.panels.imports.ext.ConvertExtensions;
 import io.github.astrapi69.bundlemanagement.viewmodel.ImprortableBundleName;
 import io.github.astrapi69.bundlemanagement.viewmodel.LanguageLocale;
@@ -75,7 +75,7 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 	{
 		super.onCancel();
 		// from here application specific behavior...
-		SpringBootSwingApplication.getInstance().getCurrentVisibleInternalFrame().dispose();
+		BundleManagementApplicationFrame.getInstance().getCurrentVisibleInternalFrame().dispose();
 	}
 
 	@Override
@@ -93,7 +93,7 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 	{
 		super.onFinish();
 		startDbImport();
-		SpringBootSwingApplication.getInstance().getCurrentVisibleInternalFrame().dispose();
+		BundleManagementApplicationFrame.getInstance().getCurrentVisibleInternalFrame().dispose();
 
 	}
 
@@ -139,7 +139,7 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 				final File propertiesFile = entry.getLeft();
 				String filepath = FileExtensions.getAbsolutPathWithoutFilename(propertiesFile);
 				final Locale locale = entry.getMiddle();
-				final String bundlename = LocaleResolver.resolveBundlename(propertiesFile);
+				final String bundlename = LocaleResolver.resolveBundleName(propertiesFile);
 				Properties properties = null;
 				try
 				{
@@ -147,7 +147,7 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 					ImprortableBundleName imprortableBundleName = ImprortableBundleName.builder()
 						.baseName(bundlename).bundleappname(getModelObject().getBundleAppName())
 						.filepath(filepath).locale(locale).properties(properties).build();
-					SpringBootSwingApplication.getInstance().getResourceBundlesRestClient()
+					BundleManagementApplicationFrame.getInstance().getResourceBundlesRestClient()
 						.updateProperties(imprortableBundleName);
 				}
 				catch (final IOException e)

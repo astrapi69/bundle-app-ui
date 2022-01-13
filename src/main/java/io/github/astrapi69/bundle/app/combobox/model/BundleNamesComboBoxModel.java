@@ -2,7 +2,7 @@ package io.github.astrapi69.bundle.app.combobox.model;
 
 import java.util.Set;
 
-import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
+import io.github.astrapi69.bundle.app.BundleManagementApplicationFrame;
 import io.github.astrapi69.bundlemanagement.viewmodel.BundleName;
 import io.github.astrapi69.swing.combobox.model.AbstractComboBoxModel;
 
@@ -17,7 +17,7 @@ public class BundleNamesComboBoxModel extends AbstractComboBoxModel<BundleName>
 	 * init block
 	 **/
 	{
-		final Set<BundleName> bundleNames = SpringBootSwingApplication.getInstance()
+		final Set<BundleName> bundleNames = BundleManagementApplicationFrame.getInstance()
 			.getModelObject().getSelectedBundleApplication().getBundleNames();
 
 		setComboSet(bundleNames);

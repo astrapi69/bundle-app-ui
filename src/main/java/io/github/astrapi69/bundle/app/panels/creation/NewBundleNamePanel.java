@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import javax.swing.*;
 
-import io.github.astrapi69.bundle.app.SpringBootSwingApplication;
+import io.github.astrapi69.bundle.app.BundleManagementApplicationFrame;
 import io.github.astrapi69.bundle.app.actions.ReturnToDashboardAction;
 import io.github.astrapi69.bundle.app.combobox.model.LanguageLocalesComboBoxModel;
 import io.github.astrapi69.bundle.app.combobox.renderer.LanguageLocalesComboBoxRenderer;
@@ -160,12 +160,12 @@ public class NewBundleNamePanel extends BasePanel<ApplicationDashboardBean>
 		}
 		try
 		{
-			SpringBootSwingApplication.getInstance().getBundleNamesRestClient()
+			BundleManagementApplicationFrame.getInstance().getBundleNamesRestClient()
 				.getOrCreateBundleName(bundleApplication.getName(), baseName, locale);
 		}
 		catch (IOException e1)
 		{
-			DialogExtensions.showExceptionDialog(e1, SpringBootSwingApplication.getInstance());
+			DialogExtensions.showExceptionDialog(e1, BundleManagementApplicationFrame.getInstance());
 			e1.printStackTrace();
 		}
 	}

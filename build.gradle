@@ -33,7 +33,7 @@ apply plugin: "com.github.ben-manes.versions"
 apply plugin: "com.github.hierynomus.license"
 apply plugin: "jacoco"
 
-sourceCompatibility = "$projectSourceCompatibility"
+sourceCompatibility = "$projectSourceCompatibility" as Object
 
 repositories {
     mavenLocal()
@@ -54,8 +54,8 @@ izpack {
 }
 
 license {
-    ext.year="2015"
-    ext.owner="Asterios Raptis"
+    ext.year="$projectInceptionYear"
+    ext.owner="$projectLeaderName"
     header rootProject.file("src/main/resources/LICENSE.txt")
     excludes(["**/README",
               "**/README.md",
