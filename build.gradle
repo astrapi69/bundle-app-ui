@@ -1,3 +1,6 @@
+group = "$groupPackage" as Object
+version = "$projectVersion" as Object
+description = "$rootProject.name"
 
 buildscript {
     repositories {
@@ -30,10 +33,7 @@ apply plugin: "com.github.ben-manes.versions"
 apply plugin: "com.github.hierynomus.license"
 apply plugin: "jacoco"
 
-group = "$groupPackage"
-version = "$projectVersion"
-description = "$rootProject.name"
-sourceCompatibility = "$projectSourceCompatibility"
+sourceCompatibility = "$projectSourceCompatibility" as Object
 
 repositories {
     mavenLocal()
@@ -54,8 +54,8 @@ izpack {
 }
 
 license {
-    ext.year="2015"
-    ext.owner="Asterios Raptis"
+    ext.year="$projectInceptionYear"
+    ext.owner="$projectLeaderName"
     header rootProject.file("src/main/resources/LICENSE.txt")
     excludes(["**/README",
               "**/README.md",
@@ -191,37 +191,52 @@ dependencies {
     compileOnly("org.projectlombok:lombok:$lombokVersion")
     annotationProcessor("org.projectlombok:lombok:$lombokVersion")
 
-    implementation("de.alpharogroup:xml-extensions:$xmlExtensionsVersion")
-    implementation("com.mashape.unirest:unirest-java:$unirestJavaVersion")
+    implementation("io.github.astrapi69:observer:$designPatternObserverVersion")
+    implementation("io.github.astrapi69:state:$designPatternStateVersion")
+    implementation("io.github.astrapi69:eventbus:$designPatternEventbusVersion")
+    implementation("io.github.astrapi69:swing-components:$swingComponentsVersion")
+    implementation("io.github.astrapi69:swing-base-components:$swingBaseComponentsVersion")
+    implementation("io.github.astrapi69:swing-tree-component:$swingTreeComponentVersion")
+    implementation("io.github.astrapi69:swing-splashscreen:$swingSplashscreenVersion")
+    implementation("io.github.astrapi69:swing-table-components:$swingTableComponentsVersion")
+    implementation("io.github.astrapi69:menu-actions:$menuActionsVersion")
+    implementation("io.github.astrapi69:swing-wizard:$swingWizardVersion")
+    implementation("io.github.astrapi69:json-extensions:$jsonExtensionsVersion")
+    implementation("io.github.astrapi69:model-api:$modelApiVersion")
+    implementation("io.github.astrapi69:model-object:$modelObjectVersion")
+    implementation("io.github.astrapi69:model-type-safe:$modelTypeSafeVersion")
+    implementation("io.github.astrapi69:resourcebundle-core:$resourcebundleCoreVersion")
+    implementation("io.github.astrapi69:silly-collections:$sillyCollectionsVersion")
+    implementation("io.github.astrapi69:silly-beans:$sillyBeansVersion")
+    implementation("io.github.astrapi69:jobj-compare:$jobjCompareVersion")
+    implementation("io.github.astrapi69:jobj-core:$jobjCoreVersion")
+    implementation("io.github.astrapi69:file-worker:$fileWorkerVersion")
+    implementation("io.github.astrapi69:bundle-viewmodels:$viewModelVersion")
+
+    implementation("commons-io:commons-io:$commonsIoVersion")
+    implementation("org.apache.commons:commons-lang3:$commonsLang3Version")
+
     implementation("org.apache.httpcomponents:httpclient:$httpclientVersion")
-    implementation("org.apache.httpcomponents:httpasyncclient:$httpasyncclientVersion")
     implementation("org.apache.httpcomponents:httpmime:$httpclientVersion")
     implementation("org.json:json:$jsonVersion")
-    implementation("de.alpharogroup:observer:$designPatternObserverVersion")
-    implementation("de.alpharogroup:state:$designPatternStateVersion")
-    implementation("de.alpharogroup:resourcebundle-inspector:$resourcebundleInspectorVersion")
-    implementation("de.alpharogroup:silly-collections:$sillyCollectionsVersion")
-    implementation("de.alpharogroup:resource-bundles-view-model:$viewModelVersion")
     implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
-    implementation("de.alpharogroup:json-extensions:$jsonExtensionsVersion")
-
-    implementation("de.alpharogroup:model-object:$modelObjectVersion")
-    implementation("de.alpharogroup:model-type-safe:$modelTypeSafeVersion")
-
-    implementation("javax.help:javahelp:$javahelpVersion")
     implementation("com.google.guava:guava:$guavaVersion")
-
-    implementation("de.alpharogroup:swing-components:$swingComponentsVersion")
+    // swing external libraries
+    implementation("javax.help:javahelp:$javahelpVersion")
     implementation("org.swinglabs:swing-layout:$swingLayoutVersion")
     implementation("org.swinglabs:jxlayer:$jxlayerVersion")
     implementation("org.swinglabs:swing-worker:$swingWorkerVersion")
     implementation("org.swinglabs.swingx:swingx-all:$swingxAllVersion")
     implementation("com.miglayout:miglayout-swing:$miglayoutSwingVersion")
     implementation("xml-apis:xml-apis:$xmlApisVersion")
+    // spring
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-integration")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("io.github.astrapi69:randomizer:$randomizerVersion")
+    testImplementation("org.jeasy:easy-random-core:$easyRandomVersion")
+
 }

@@ -1,8 +1,9 @@
 # Overview
 
 The bundle-app-ui is a cross-platform Java swing application for resource-bundle management. 
-The initial intention was to show the features of the library [resource-bundles-data](https://github.com/lightblueseas/resource-bundles-data). 
-This application does not need a database but an rest server have to be running on localhost on port 8080 from project [resource-bundles-data](https://github.com/lightblueseas/resource-bundles-data). 
+The initial intention was to show the features of the library [bundle-management](https://github.com/astrapi69/bundle-management).
+
+This application does not need a database but an rest server have to be running on localhost on port 8080 from project [bundle-management](https://github.com/astrapi69/bundle-management). 
 
 # Features
 
@@ -13,17 +14,8 @@ This application does not need a database but an rest server have to be running 
 
 # Install
 
-You can build it from the source files by clone this git repository. It is a maven project so you will need maven and a JDK.
+You can build it from the source files by clone this git repository. It is a gradle project so you will need gradle and a JDK.
 
-Than compile the project:
-
-```
-mvn clean install
-```
-
-To start the application you have to start the main method of the MainApplication class.
-
-Note: Before you start the MainApplication class a rest server have to be running. Pull the project [resource-bundles-data](https://github.com/lightblueseas/resource-bundles-data) and start the class 'de.alpharogroup.db.resource.bundles.ApplicationJettyRunner' which starts jetty server that provides the rest services. 
 
 ## License
 
