@@ -23,7 +23,7 @@ import de.alpharogroup.collections.pairs.Quattro;
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import de.alpharogroup.db.resource.bundles.domain.BundleName;
 import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
-import de.alpharogroup.xml.json.JsonToObjectExtensions;
+import de.alpharogroup.json.JsonStringToObjectExtensions;
 import de.alpharogroup.xml.json.ObjectToJsonExtensions;
 
 public class HttpClientRestService
@@ -67,7 +67,7 @@ public class HttpClientRestService
 	}
 
 	public static BundleApplication newBundleApplication(BundleApplication bundleApplication)
-		throws ClientProtocolException, IOException
+		throws IOException
 	{
 		String url = REST_BUNDLE_APP_FULL_PATH;
 		HttpClient client = HttpClientBuilder.create().build();
@@ -91,7 +91,7 @@ public class HttpClientRestService
 		T object = null;
 		if(StringUtils.isNotEmpty(json)) 
 		{
-			object = JsonToObjectExtensions.toObject(json, clazz);
+			object = JsonStringToObjectExtensions.toObject(json, clazz);
 		} 
 		return object;
 	}
