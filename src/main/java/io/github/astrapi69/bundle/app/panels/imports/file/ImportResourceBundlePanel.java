@@ -21,7 +21,7 @@ import io.github.astrapi69.bundlemanagement.viewmodel.BundleName;
 import io.github.astrapi69.bundlemanagement.viewmodel.ImprortableBundleName;
 import io.github.astrapi69.file.FileExtensions;
 import io.github.astrapi69.model.BaseModel;
-import io.github.astrapi69.model.api.Model;
+import io.github.astrapi69.model.api.IModel;
 import io.github.astrapi69.resourcebundle.locale.LocaleResolver;
 import io.github.astrapi69.swing.base.BasePanel;
 import io.github.astrapi69.swing.table.model.properties.StringKeyValueTableModel;
@@ -50,7 +50,7 @@ public class ImportResourceBundlePanel extends BasePanel<ApplicationDashboardBea
 		super(BaseModel.of(ApplicationDashboardBean.builder().build()));
 	}
 
-	public ImportResourceBundlePanel(final Model<ApplicationDashboardBean> model)
+	public ImportResourceBundlePanel(final IModel<ApplicationDashboardBean> model)
 	{
 		super(model);
 	}

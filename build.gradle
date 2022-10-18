@@ -56,6 +56,7 @@ izpack {
 license {
     ext.year="$projectInceptionYear"
     ext.owner="$projectLeaderName"
+    ignoreFailures = true
     header rootProject.file("src/main/resources/LICENSE.txt")
     excludes(["**/README",
               "**/README.md",
@@ -202,16 +203,15 @@ dependencies {
     implementation("io.github.astrapi69:menu-actions:$menuActionsVersion")
     implementation("io.github.astrapi69:swing-wizard:$swingWizardVersion")
     implementation("io.github.astrapi69:json-extensions:$jsonExtensionsVersion")
-    implementation("io.github.astrapi69:model-api:$modelApiVersion")
-    implementation("io.github.astrapi69:model-object:$modelObjectVersion")
-    implementation("io.github.astrapi69:model-type-safe:$modelTypeSafeVersion")
+    implementation("io.github.astrapi69:model-data:$modelDataVersion")
     implementation("io.github.astrapi69:resourcebundle-core:$resourcebundleCoreVersion")
-    implementation("io.github.astrapi69:silly-collections:$sillyCollectionsVersion")
-    implementation("io.github.astrapi69:silly-beans:$sillyBeansVersion")
+    implementation("io.github.astrapi69:silly-collection:$sillyCollectionVersion")
+    implementation("io.github.astrapi69:silly-bean:$sillyBeanVersion")
     implementation("io.github.astrapi69:jobj-compare:$jobjCompareVersion")
     implementation("io.github.astrapi69:jobj-core:$jobjCoreVersion")
     implementation("io.github.astrapi69:file-worker:$fileWorkerVersion")
     implementation("io.github.astrapi69:bundle-viewmodels:$viewModelVersion")
+    implementation("io.github.astrapi69:comparator-extensions:$comparatorExtensionsVersion")
 
     implementation("commons-io:commons-io:$commonsIoVersion")
     implementation("org.apache.commons:commons-lang3:$commonsLang3Version")

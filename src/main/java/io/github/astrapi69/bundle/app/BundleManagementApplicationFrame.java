@@ -15,10 +15,10 @@ import io.github.astrapi69.bundle.app.spring.rest.BundleApplicationsRestClient;
 import io.github.astrapi69.bundle.app.spring.rest.BundleNamesRestClient;
 import io.github.astrapi69.bundle.app.spring.rest.ResourceBundlesRestClient;
 import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;
-import io.github.astrapi69.collections.list.ListFactory;
+import io.github.astrapi69.collection.list.ListFactory;
 import io.github.astrapi69.model.BaseModel;
 import io.github.astrapi69.model.PropertyModel;
-import io.github.astrapi69.model.api.Model;
+import io.github.astrapi69.model.api.IModel;
 import io.github.astrapi69.swing.base.ApplicationFrame;
 import io.github.astrapi69.swing.base.BaseDesktopMenu;
 import io.github.astrapi69.swing.dialog.DialogExtensions;
@@ -28,7 +28,7 @@ import io.github.astrapi69.swing.layout.ScreenSizeExtensions;
 public class BundleManagementApplicationFrame extends ApplicationFrame<MainDashboardBean>
 {
 
-	Model<ApplicationDashboardBean> selectedBundleApplicationPropertyModel;
+	IModel<ApplicationDashboardBean> selectedBundleApplicationPropertyModel;
 	BundleApplicationsRestClient bundleApplicationsRestClient;
 	ResourceBundlesRestClient resourceBundlesRestClient;
 	BundleNamesRestClient bundleNamesRestClient;
@@ -122,7 +122,7 @@ public class BundleManagementApplicationFrame extends ApplicationFrame<MainDashb
 		return applicationConfigurationDirectory;
 	}
 
-	public Model<ApplicationDashboardBean> getSelectedBundleApplicationPropertyModel()
+	public IModel<ApplicationDashboardBean> getSelectedBundleApplicationPropertyModel()
 	{
 		if (this.selectedBundleApplicationPropertyModel == null)
 		{

@@ -12,7 +12,7 @@ import lombok.experimental.UtilityClass;
 import io.github.astrapi69.bundlemanagement.viewmodel.Country;
 import io.github.astrapi69.bundlemanagement.viewmodel.Language;
 import io.github.astrapi69.bundlemanagement.viewmodel.LanguageLocale;
-import io.github.astrapi69.collections.list.ListFactory;
+import io.github.astrapi69.collection.list.ListFactory;
 import io.github.astrapi69.resourcebundle.locale.LocaleExtensions;
 import io.github.astrapi69.resourcebundle.locale.LocaleResolver;
 

@@ -1,7 +1,0 @@
-Manifest-Version: 1.0
-Archiver-Version: Plexus Archiver
-Created-By: Apache Maven
-Built-By: astrapi69
-Build-Jdk: 1.8.0_161
-Package: io.github.astrapi69.bundle.app
-Main-Class: io.github.astrapi69.bundle.app.SpringBootSwingApplication

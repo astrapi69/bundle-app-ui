@@ -1,9 +1,9 @@
 package io.github.astrapi69.bundle.app.panels.overview;
 
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
-import io.github.astrapi69.collections.pairs.KeyValuePair;
+import io.github.astrapi69.collection.pair.KeyValuePair;
 import io.github.astrapi69.model.BaseModel;
-import io.github.astrapi69.model.api.Model;
+import io.github.astrapi69.model.api.IModel;
 import io.github.astrapi69.swing.base.BasePanel;
 import io.github.astrapi69.swing.table.GenericJXTable;
 import io.github.astrapi69.swing.table.model.TableColumnsModel;
@@ -22,7 +22,7 @@ public class OverviewResourceBundlePanel extends BasePanel<ApplicationDashboardB
 		this(BaseModel.of(ApplicationDashboardBean.builder().build()));
 	}
 
-	public OverviewResourceBundlePanel(final Model<ApplicationDashboardBean> model)
+	public OverviewResourceBundlePanel(final IModel<ApplicationDashboardBean> model)
 	{
 		super(model);
 	}

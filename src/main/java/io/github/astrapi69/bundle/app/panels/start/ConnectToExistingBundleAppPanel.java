@@ -4,7 +4,7 @@ import javax.swing.*;
 
 import lombok.Getter;
 import io.github.astrapi69.design.pattern.state.wizard.model.BaseWizardStateMachineModel;
-import io.github.astrapi69.model.api.Model;
+import io.github.astrapi69.model.api.IModel;
 import io.github.astrapi69.swing.base.BasePanel;
 
 @Getter
@@ -24,7 +24,7 @@ public class ConnectToExistingBundleAppPanel
 	private JTextField txtUsername;
 
 	public ConnectToExistingBundleAppPanel(
-		final Model<BaseWizardStateMachineModel<WizardModel>> model)
+		final IModel<BaseWizardStateMachineModel<WizardModel>> model)
 	{
 		super(model);
 	}

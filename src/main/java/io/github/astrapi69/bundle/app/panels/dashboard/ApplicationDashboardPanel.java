@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 
 import io.github.astrapi69.bundle.app.actions.OverviewBundleAppsAction;
 import io.github.astrapi69.model.BaseModel;
-import io.github.astrapi69.model.api.Model;
+import io.github.astrapi69.model.api.IModel;
 import io.github.astrapi69.swing.base.BasePanel;
 
 public class ApplicationDashboardPanel extends BasePanel<ApplicationDashboardBean>
@@ -25,7 +25,7 @@ public class ApplicationDashboardPanel extends BasePanel<ApplicationDashboardBea
 		this(BaseModel.of(ApplicationDashboardBean.builder().build()));
 	}
 
-	public ApplicationDashboardPanel(final Model<ApplicationDashboardBean> model)
+	public ApplicationDashboardPanel(final IModel<ApplicationDashboardBean> model)
 	{
 		super(model);
 	}

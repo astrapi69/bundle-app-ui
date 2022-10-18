@@ -22,11 +22,11 @@ import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardConte
 import io.github.astrapi69.bundle.app.table.model.StringResourcebundlesTableModel;
 import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;
 import io.github.astrapi69.bundlemanagement.viewmodel.Resourcebundle;
-import io.github.astrapi69.collections.pairs.Quattro;
-import io.github.astrapi69.collections.properties.PropertiesExtensions;
-import io.github.astrapi69.comparators.NullCheckComparator;
+import io.github.astrapi69.collection.pair.Quattro;
+import io.github.astrapi69.collection.properties.PropertiesExtensions;
+import io.github.astrapi69.comparator.NullCheckComparator;
 import io.github.astrapi69.model.BaseModel;
-import io.github.astrapi69.model.api.Model;
+import io.github.astrapi69.model.api.IModel;
 import io.github.astrapi69.swing.base.BasePanel;
 import io.github.astrapi69.swing.table.GenericJXTable;
 import io.github.astrapi69.swing.table.editor.TableCellButtonEditor;
@@ -58,7 +58,7 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 		this(BaseModel.of(ApplicationDashboardBean.builder().build()));
 	}
 
-	public OverviewResourceBundleAddEntryPanel(final Model<ApplicationDashboardBean> model)
+	public OverviewResourceBundleAddEntryPanel(final IModel<ApplicationDashboardBean> model)
 	{
 		super(model);
 	}
@@ -112,7 +112,7 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 				BundleManagementApplicationFrame.getInstance().getBundleNamesRestClient()
 					.deleteBundleName(getModelObject().getSelectedBundleName());
 
-				final Model<ApplicationDashboardBean> baModel = BundleManagementApplicationFrame
+				final IModel<ApplicationDashboardBean> baModel = BundleManagementApplicationFrame
 					.getInstance().getSelectedBundleApplicationPropertyModel();
 				final ApplicationDashboardContentPanel component = new ApplicationDashboardContentPanel(
 					baModel);

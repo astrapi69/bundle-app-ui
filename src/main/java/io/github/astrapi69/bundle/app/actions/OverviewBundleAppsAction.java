@@ -12,7 +12,7 @@ import lombok.extern.java.Log;
 import io.github.astrapi69.bundle.app.panels.dashboard.mainapp.MainDashboardPanel;
 import io.github.astrapi69.bundle.app.spring.rest.BundleApplicationsRestClient;
 import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;
-import io.github.astrapi69.collections.list.ListFactory;
+import io.github.astrapi69.collection.list.ListFactory;
 import io.github.astrapi69.model.PropertyModel;
 
 /**

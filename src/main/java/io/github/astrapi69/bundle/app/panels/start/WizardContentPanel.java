@@ -4,7 +4,7 @@ import org.jdesktop.swingx.JXPanel;
 
 import io.github.astrapi69.design.pattern.state.wizard.model.BaseWizardStateMachineModel;
 import io.github.astrapi69.model.BaseModel;
-import io.github.astrapi69.model.api.Model;
+import io.github.astrapi69.model.api.IModel;
 import io.github.astrapi69.swing.wizard.BaseWizardContentPanel;
 
 /**
@@ -31,29 +31,29 @@ public class WizardContentPanel extends BaseWizardContentPanel<WizardModel>
 	 * @param model
 	 *            the model
 	 */
-	public WizardContentPanel(Model<BaseWizardStateMachineModel<WizardModel>> model)
+	public WizardContentPanel(IModel<BaseWizardStateMachineModel<WizardModel>> model)
 	{
 		super(model);
 	}
 
-	public JXPanel newBundleApp(Model<BaseWizardStateMachineModel<WizardModel>> model)
+	public JXPanel newBundleApp(IModel<BaseWizardStateMachineModel<WizardModel>> model)
 	{
 		NewBundleAppPanel newBundleAppPanel = new NewBundleAppPanel(model);
 		return newBundleAppPanel;
 	}
 
-	public JXPanel newBundleAppFinalStepPanel(Model<BaseWizardStateMachineModel<WizardModel>> model)
+	public JXPanel newBundleAppFinalStepPanel(IModel<BaseWizardStateMachineModel<WizardModel>> model)
 	{
 		return new SuccessfulConnectionToBundleAppPanel(model);
 	}
 
 	public JXPanel newConnectToExistingBundleAppPanel(
-		Model<BaseWizardStateMachineModel<WizardModel>> model)
+		IModel<BaseWizardStateMachineModel<WizardModel>> model)
 	{
 		return new ConnectToExistingBundleAppPanel(model);
 	}
 
-	public JXPanel newFirstStepPanel(Model<BaseWizardStateMachineModel<WizardModel>> model)
+	public JXPanel newFirstStepPanel(IModel<BaseWizardStateMachineModel<WizardModel>> model)
 	{
 		return new WizardStartPanel(model);
 	}

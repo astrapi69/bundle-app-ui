@@ -7,14 +7,14 @@ import javax.swing.*;
 
 import io.github.astrapi69.bundlemanagement.viewmodel.Country;
 import io.github.astrapi69.model.BaseModel;
-import io.github.astrapi69.model.api.Model;
+import io.github.astrapi69.model.api.IModel;
 import io.github.astrapi69.resourcebundle.locale.LocaleExtensions;
 
 public class CountriesComboBoxRenderer extends JLabel implements ListCellRenderer<Country>
 {
 
 	private static final long serialVersionUID = 1L;
-	private final Model<Country> model;
+	private final IModel<Country> model;
 
 	public CountriesComboBoxRenderer()
 	{

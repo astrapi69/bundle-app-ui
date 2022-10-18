@@ -15,9 +15,6 @@
  */
 package io.github.astrapi69.bundle.app.panels.start;
 
-import static io.github.astrapi69.model.typesafe.TypeSafeModel.from;
-import static io.github.astrapi69.model.typesafe.TypeSafeModel.model;
-
 import java.util.EnumMap;
 
 import javax.swing.*;
@@ -27,7 +24,8 @@ import io.github.astrapi69.design.pattern.observer.event.EventObject;
 import io.github.astrapi69.design.pattern.observer.event.EventSource;
 import io.github.astrapi69.design.pattern.state.wizard.model.BaseWizardStateMachineModel;
 import io.github.astrapi69.model.BaseModel;
-import io.github.astrapi69.model.api.Model;
+import io.github.astrapi69.model.PropertyModel;
+import io.github.astrapi69.model.api.IModel;
 import io.github.astrapi69.swing.base.BasePanel;
 import io.github.astrapi69.swing.radio.model.EnumRadioButtonGroupBean;
 
@@ -51,7 +49,7 @@ public class WizardStartPanel extends BasePanel<BaseWizardStateMachineModel<Wiza
 			BaseWizardStateMachineModel.<WizardModel> builder().build()));
 	}
 
-	public WizardStartPanel(final Model<BaseWizardStateMachineModel<WizardModel>> model)
+	public WizardStartPanel(final IModel<BaseWizardStateMachineModel<WizardModel>> model)
 	{
 		super(model);
 	}
@@ -79,9 +77,10 @@ public class WizardStartPanel extends BasePanel<BaseWizardStateMachineModel<Wiza
 		rbnImport = new JRadioButton();
 		if (getModelObject().getModelObject().getBundleAppInitialization() == null)
 		{
+
 			getModelObject().getModelObject().setBundleAppInitialization(
 				new EnumRadioButtonGroupBean<>(new EnumMap<>(BundleStart.class),
-					model(from(getModelObject().getModelObject()).getSelected())));
+						PropertyModel.of(getModelObject().getModelObject(), "selected")));
 
 		}
 		getModelObject().getModelObject().getBundleAppInitialization()

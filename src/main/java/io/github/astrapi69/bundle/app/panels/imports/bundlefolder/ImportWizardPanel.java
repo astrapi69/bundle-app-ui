@@ -17,16 +17,16 @@ import io.github.astrapi69.bundle.app.BundleManagementApplicationFrame;
 import io.github.astrapi69.bundle.app.panels.imports.ext.ConvertExtensions;
 import io.github.astrapi69.bundlemanagement.viewmodel.ImprortableBundleName;
 import io.github.astrapi69.bundlemanagement.viewmodel.LanguageLocale;
-import io.github.astrapi69.collections.pairs.KeyValuePair;
-import io.github.astrapi69.collections.pairs.Triple;
-import io.github.astrapi69.collections.properties.PropertiesExtensions;
+import io.github.astrapi69.collection.pair.KeyValuePair;
+import io.github.astrapi69.collection.pair.Triple;
+import io.github.astrapi69.collection.properties.PropertiesExtensions;
 import io.github.astrapi69.design.pattern.observer.event.EventListener;
 import io.github.astrapi69.design.pattern.observer.event.EventObject;
 import io.github.astrapi69.design.pattern.observer.event.EventSource;
 import io.github.astrapi69.design.pattern.state.wizard.model.BaseWizardStateMachineModel;
 import io.github.astrapi69.file.FileExtensions;
 import io.github.astrapi69.model.BaseModel;
-import io.github.astrapi69.model.api.Model;
+import io.github.astrapi69.model.api.IModel;
 import io.github.astrapi69.resourcebundle.inspector.search.PropertiesListResolver;
 import io.github.astrapi69.resourcebundle.locale.LocaleResolver;
 import io.github.astrapi69.swing.wizard.AbstractWizardPanel;
@@ -46,14 +46,14 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 	}
 
 
-	public ImportWizardPanel(final Model<ImportWizardModel> model)
+	public ImportWizardPanel(final IModel<ImportWizardModel> model)
 	{
 		super(model);
 	}
 
 	@Override
 	protected BaseWizardContentPanel<ImportWizardModel> newWizardContentPanel(
-		final Model<BaseWizardStateMachineModel<ImportWizardModel>> model)
+		final IModel<BaseWizardStateMachineModel<ImportWizardModel>> model)
 	{
 		return new ImportWizardContentPanel(model);
 	}

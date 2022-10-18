@@ -1,8 +1,5 @@
 package io.github.astrapi69.bundle.app.panels.creation;
 
-import static io.github.astrapi69.model.typesafe.TypeSafeModel.from;
-import static io.github.astrapi69.model.typesafe.TypeSafeModel.model;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -24,10 +21,10 @@ import io.github.astrapi69.bundle.app.spring.rest.BundleApplicationsRestClient;
 import io.github.astrapi69.bundle.app.table.model.StringLanguageLocalesTableModel;
 import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;
 import io.github.astrapi69.bundlemanagement.viewmodel.LanguageLocale;
-import io.github.astrapi69.collections.list.ListFactory;
-import io.github.astrapi69.collections.pairs.KeyValuePair;
+import io.github.astrapi69.collection.list.ListFactory;
+import io.github.astrapi69.collection.pair.KeyValuePair;
 import io.github.astrapi69.model.BaseModel;
-import io.github.astrapi69.model.api.Model;
+import io.github.astrapi69.model.api.IModel;
 import io.github.astrapi69.swing.base.BasePanel;
 import io.github.astrapi69.swing.listener.document.EnableButtonBehavior;
 import io.github.astrapi69.swing.table.GenericJXTable;
@@ -58,7 +55,7 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 		this(BaseModel.of(ApplicationDashboardBean.builder().build()));
 	}
 
-	public NewBundleApplicationPanel(final Model<ApplicationDashboardBean> model)
+	public NewBundleApplicationPanel(final IModel<ApplicationDashboardBean> model)
 	{
 		super(model);
 	}
@@ -85,7 +82,7 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 	}
 
 	protected javax.swing.JComboBox<LanguageLocale> newCmbDefaultLocale(
-		final Model<ApplicationDashboardBean> model)
+		final IModel<ApplicationDashboardBean> model)
 	{
 		ApplicationDashboardBean bean = model.getObject();
 		BundleApplication bundleApplication = bean.getBundleApplication();
@@ -99,13 +96,14 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 		final javax.swing.JComboBox<LanguageLocale> cmbDefaultLocale = new javax.swing.JComboBox<>(
 			cmbModel);
 		cmbDefaultLocale.addItemListener(e -> onChangeDefaultLocale(e));
-		final Model<LanguageLocale> defaultLocaleModel = model(from(getModel()).getDefaultLocale());
+		final IModel<LanguageLocale> defaultLocaleModel = BaseModel.of(getModelObject().getDefaultLocale());
+//				model(from(getModel()).getDefaultLocale());
 		cmbDefaultLocale.setRenderer(new LanguageLocalesComboBoxRenderer(defaultLocaleModel));
 		return cmbDefaultLocale;
 	}
 
 	protected javax.swing.JComboBox<LanguageLocale> newCmbSupportedLocaleToAdd(
-		final Model<ApplicationDashboardBean> model)
+		final IModel<ApplicationDashboardBean> model)
 	{
 		ApplicationDashboardBean bean = model.getObject();
 		BundleApplication bundleApplication = bean.getBundleApplication();

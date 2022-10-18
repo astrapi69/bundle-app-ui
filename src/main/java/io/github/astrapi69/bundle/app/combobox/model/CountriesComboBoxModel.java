@@ -8,7 +8,7 @@ import lombok.extern.java.Log;
 import io.github.astrapi69.bundle.app.BundleManagementApplicationFrame;
 import io.github.astrapi69.bundle.app.spring.rest.CountriesRestClient;
 import io.github.astrapi69.bundlemanagement.viewmodel.Country;
-import io.github.astrapi69.collections.list.ListFactory;
+import io.github.astrapi69.collection.list.ListFactory;
 import io.github.astrapi69.swing.combobox.model.AbstractComboBoxModel;
 import io.github.astrapi69.swing.dialog.DialogExtensions;
 

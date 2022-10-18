@@ -8,7 +8,7 @@ import io.github.astrapi69.bundle.app.combobox.renderer.BundleNamesComboBoxRende
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import io.github.astrapi69.bundlemanagement.viewmodel.BundleName;
 import io.github.astrapi69.model.BaseModel;
-import io.github.astrapi69.model.api.Model;
+import io.github.astrapi69.model.api.IModel;
 import io.github.astrapi69.swing.base.BasePanel;
 
 public class NewResourceBundleEntryPanel extends BasePanel<ApplicationDashboardBean>
@@ -32,7 +32,7 @@ public class NewResourceBundleEntryPanel extends BasePanel<ApplicationDashboardB
 		this(BaseModel.of(ApplicationDashboardBean.builder().build()));
 	}
 
-	public NewResourceBundleEntryPanel(final Model<ApplicationDashboardBean> model)
+	public NewResourceBundleEntryPanel(final IModel<ApplicationDashboardBean> model)
 	{
 		super(model);
 	}

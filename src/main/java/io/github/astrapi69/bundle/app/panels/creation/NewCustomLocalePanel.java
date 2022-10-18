@@ -20,7 +20,7 @@ import io.github.astrapi69.bundlemanagement.viewmodel.Country;
 import io.github.astrapi69.bundlemanagement.viewmodel.Language;
 import io.github.astrapi69.bundlemanagement.viewmodel.LanguageLocale;
 import io.github.astrapi69.model.BaseModel;
-import io.github.astrapi69.model.api.Model;
+import io.github.astrapi69.model.api.IModel;
 import io.github.astrapi69.swing.base.BasePanel;
 import io.github.astrapi69.swing.listener.document.EnableButtonBehavior;
 
@@ -45,13 +45,13 @@ public class NewCustomLocalePanel extends BasePanel<ApplicationDashboardBean>
 		this(BaseModel.of(ApplicationDashboardBean.builder().build()));
 	}
 
-	public NewCustomLocalePanel(final Model<ApplicationDashboardBean> model)
+	public NewCustomLocalePanel(final IModel<ApplicationDashboardBean> model)
 	{
 		super(model);
 	}
 
 	protected javax.swing.JComboBox<Country> newCmbCountry(
-		final Model<ApplicationDashboardBean> model)
+		final IModel<ApplicationDashboardBean> model)
 	{
 		CountriesComboBoxModel cmbModel = CountriesComboBoxModel.get();
 
@@ -62,7 +62,7 @@ public class NewCustomLocalePanel extends BasePanel<ApplicationDashboardBean>
 	}
 
 	protected javax.swing.JComboBox<Language> newCmbLanguage(
-		final Model<ApplicationDashboardBean> model)
+		final IModel<ApplicationDashboardBean> model)
 	{
 		LanguagesComboBoxModel cmbModel = LanguagesComboBoxModel.get();
 

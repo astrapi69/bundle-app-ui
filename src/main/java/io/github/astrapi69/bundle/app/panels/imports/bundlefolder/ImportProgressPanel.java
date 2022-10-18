@@ -27,13 +27,13 @@ import lombok.Getter;
 import io.github.astrapi69.bundle.app.ApplicationEventBus;
 import io.github.astrapi69.bundle.app.panels.imports.ext.ConvertExtensions;
 import io.github.astrapi69.bundle.app.table.model.FileLocaleBooleanTableModel;
-import io.github.astrapi69.collections.pairs.KeyValuePair;
-import io.github.astrapi69.collections.pairs.Triple;
+import io.github.astrapi69.collection.pair.KeyValuePair;
+import io.github.astrapi69.collection.pair.Triple;
 import io.github.astrapi69.design.pattern.observer.event.EventListener;
 import io.github.astrapi69.design.pattern.observer.event.EventObject;
 import io.github.astrapi69.design.pattern.observer.event.EventSource;
 import io.github.astrapi69.design.pattern.state.wizard.model.BaseWizardStateMachineModel;
-import io.github.astrapi69.model.api.Model;
+import io.github.astrapi69.model.api.IModel;
 import io.github.astrapi69.swing.table.GenericJXTable;
 import io.github.astrapi69.swing.table.editor.TableCellCheckboxEditor;
 import io.github.astrapi69.swing.table.renderer.TableCellButtonRenderer;
@@ -59,7 +59,7 @@ public class ImportProgressPanel extends BaseWizardContentPanel<ImportWizardMode
 	private List<Triple<File, Locale, KeyValuePair<Boolean, File>>> tableModelList;
 	private GenericJXTable<Triple<File, Locale, KeyValuePair<Boolean, File>>> tblFoundProperties;
 
-	public ImportProgressPanel(final Model<BaseWizardStateMachineModel<ImportWizardModel>> model)
+	public ImportProgressPanel(final IModel<BaseWizardStateMachineModel<ImportWizardModel>> model)
 	{
 		super(model);
 	}

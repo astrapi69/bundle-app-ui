@@ -13,7 +13,7 @@ import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;
 import io.github.astrapi69.bundlemanagement.viewmodel.LanguageLocale;
 import io.github.astrapi69.model.BaseModel;
-import io.github.astrapi69.model.api.Model;
+import io.github.astrapi69.model.api.IModel;
 import io.github.astrapi69.swing.base.BasePanel;
 import io.github.astrapi69.swing.dialog.DialogExtensions;
 
@@ -36,7 +36,7 @@ public class NewBundleNamePanel extends BasePanel<ApplicationDashboardBean>
 		this(BaseModel.of(ApplicationDashboardBean.builder().build()));
 	}
 
-	public NewBundleNamePanel(final Model<ApplicationDashboardBean> model)
+	public NewBundleNamePanel(final IModel<ApplicationDashboardBean> model)
 	{
 		super(model);
 	}

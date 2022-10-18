@@ -15,15 +15,13 @@
  */
 package io.github.astrapi69.bundle.app.panels.imports.bundlefolder;
 
-import static io.github.astrapi69.model.typesafe.TypeSafeModel.from;
-import static io.github.astrapi69.model.typesafe.TypeSafeModel.model;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.io.File;
 
 import javax.swing.*;
 
+import io.github.astrapi69.model.PropertyModel;
 import org.apache.commons.lang3.StringUtils;
 
 import io.github.astrapi69.bundle.app.ApplicationEventBus;
@@ -33,7 +31,7 @@ import io.github.astrapi69.bundlemanagement.viewmodel.LanguageLocale;
 import io.github.astrapi69.design.pattern.observer.event.EventObject;
 import io.github.astrapi69.design.pattern.observer.event.EventSource;
 import io.github.astrapi69.design.pattern.state.wizard.model.BaseWizardStateMachineModel;
-import io.github.astrapi69.model.api.Model;
+import io.github.astrapi69.model.api.IModel;
 import io.github.astrapi69.swing.listener.document.StringBindingListener;
 import io.github.astrapi69.swing.wizard.BaseWizardContentPanel;
 
@@ -61,7 +59,7 @@ public class ImportBundleApplicationStartPanel extends BaseWizardContentPanel<Im
 	private javax.swing.JTextField txtSelectedRootDir;
 
 	public ImportBundleApplicationStartPanel(
-		Model<BaseWizardStateMachineModel<ImportWizardModel>> model)
+		IModel<BaseWizardStateMachineModel<ImportWizardModel>> model)
 	{
 		super(model);
 	}
@@ -101,8 +99,8 @@ public class ImportBundleApplicationStartPanel extends BaseWizardContentPanel<Im
 		lblBundleAppName = new javax.swing.JLabel();
 
 		txtBundleAppName = new javax.swing.JTextField();
-		final Model<String> bundleAppNameModel = model(
-			from(getModelObject().getModelObject()).getBundleAppName());
+		final IModel<String> bundleAppNameModel = PropertyModel.of(getModelObject().getModelObject(), "bundleAppName");
+
 		txtBundleAppName.getDocument()
 			.addDocumentListener(new StringBindingListener(bundleAppNameModel));
 		txtBundleAppName.addActionListener(e -> onBundleAppName(e));
@@ -117,8 +115,8 @@ public class ImportBundleApplicationStartPanel extends BaseWizardContentPanel<Im
 
 		cmbDefaultLocale = new javax.swing.JComboBox<>(new LanguageLocalesComboBoxModel());
 		cmbDefaultLocale.addItemListener(e -> onChangeDefaultLocale(e));
-		final Model<LanguageLocale> defaultLocaleModel = model(
-			from(getModelObject().getModelObject()).getDefaultLocale());
+		final IModel<LanguageLocale> defaultLocaleModel = PropertyModel.of(getModelObject().getModelObject(), "defaultLocale");
+
 		cmbDefaultLocale.setRenderer(new LanguageLocalesComboBoxRenderer(defaultLocaleModel));
 
 		lblSelectedRootDir = new javax.swing.JLabel();

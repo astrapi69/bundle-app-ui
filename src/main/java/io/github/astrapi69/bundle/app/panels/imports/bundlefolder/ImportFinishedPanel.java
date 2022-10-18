@@ -16,7 +16,7 @@
 package io.github.astrapi69.bundle.app.panels.imports.bundlefolder;
 
 import io.github.astrapi69.design.pattern.state.wizard.model.BaseWizardStateMachineModel;
-import io.github.astrapi69.model.api.Model;
+import io.github.astrapi69.model.api.IModel;
 import io.github.astrapi69.swing.wizard.BaseWizardContentPanel;
 
 /**
@@ -32,7 +32,7 @@ public class ImportFinishedPanel extends BaseWizardContentPanel<ImportWizardMode
 	private javax.swing.JScrollPane srcBundles;
 	private javax.swing.JTable tblBundles;
 
-	public ImportFinishedPanel(Model<BaseWizardStateMachineModel<ImportWizardModel>> model)
+	public ImportFinishedPanel(IModel<BaseWizardStateMachineModel<ImportWizardModel>> model)
 	{
 		super(model);
 	}

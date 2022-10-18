@@ -11,7 +11,7 @@ import lombok.Setter;
 import lombok.ToString;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;
-import io.github.astrapi69.collections.list.ListFactory;
+import io.github.astrapi69.collection.list.ListFactory;
 
 @Getter
 @Setter

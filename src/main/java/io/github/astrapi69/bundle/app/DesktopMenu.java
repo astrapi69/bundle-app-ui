@@ -43,7 +43,7 @@ import org.springframework.core.io.Resource;
 import io.github.astrapi69.bundle.app.actions.ImportBundleAppInternalFrameAction;
 import io.github.astrapi69.bundle.app.actions.NewBundleAppInternalFrameAction;
 import io.github.astrapi69.bundle.app.actions.OverviewBundleAppsAction;
-import io.github.astrapi69.swing.actions.ExitApplicationAction;
+import io.github.astrapi69.swing.action.ExitApplicationAction;
 import io.github.astrapi69.swing.base.BaseDesktopMenu;
 import io.github.astrapi69.swing.menu.MenuExtensions;
 

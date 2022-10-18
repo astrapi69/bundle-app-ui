@@ -6,10 +6,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-import io.github.astrapi69.collections.CollectionExtensions;
-import io.github.astrapi69.collections.pairs.KeyValuePair;
-import io.github.astrapi69.collections.pairs.Triple;
-import io.github.astrapi69.comparators.NullCheckComparator;
+import io.github.astrapi69.collection.CollectionExtensions;
+import io.github.astrapi69.collection.pair.KeyValuePair;
+import io.github.astrapi69.collection.pair.Triple;
+import io.github.astrapi69.comparator.NullCheckComparator;
 
 /**
  * The class {@link ConvertExtensions} provides algorithms for converting and sorting from

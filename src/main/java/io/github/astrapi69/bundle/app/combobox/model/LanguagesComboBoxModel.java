@@ -7,7 +7,7 @@ import java.util.logging.Level;
 import lombok.extern.java.Log;
 import io.github.astrapi69.bundle.app.spring.rest.LanguagesRestClient;
 import io.github.astrapi69.bundlemanagement.viewmodel.Language;
-import io.github.astrapi69.collections.list.ListFactory;
+import io.github.astrapi69.collection.list.ListFactory;
 import io.github.astrapi69.swing.combobox.model.AbstractComboBoxModel;
 
 @Log

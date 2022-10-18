@@ -20,8 +20,8 @@ import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;
 import io.github.astrapi69.bundlemanagement.viewmodel.BundleName;
 import io.github.astrapi69.bundlemanagement.viewmodel.LanguageLocale;
 import io.github.astrapi69.bundlemanagement.viewmodel.Resourcebundle;
-import io.github.astrapi69.collections.pairs.KeyValuePair;
-import io.github.astrapi69.collections.pairs.Triple;
+import io.github.astrapi69.collection.pair.KeyValuePair;
+import io.github.astrapi69.collection.pair.Triple;
 
 @Getter
 @Setter

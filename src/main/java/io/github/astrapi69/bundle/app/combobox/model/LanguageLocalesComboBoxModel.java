@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.extern.java.Log;
 import io.github.astrapi69.bundle.app.spring.rest.LanguageLocalesRestClient;
 import io.github.astrapi69.bundlemanagement.viewmodel.LanguageLocale;
-import io.github.astrapi69.collections.list.ListFactory;
+import io.github.astrapi69.collection.list.ListFactory;
 import io.github.astrapi69.swing.combobox.model.AbstractComboBoxModel;
 
 @Log

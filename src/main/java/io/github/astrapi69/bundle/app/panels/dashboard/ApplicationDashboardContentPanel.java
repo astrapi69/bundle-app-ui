@@ -29,14 +29,14 @@ import io.github.astrapi69.bundle.app.panels.overview.OverviewResourceBundleAddE
 import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;
 import io.github.astrapi69.bundlemanagement.viewmodel.BundleName;
 import io.github.astrapi69.bundlemanagement.viewmodel.ImprortableBundleName;
-import io.github.astrapi69.collection.comparators.KeyValuePairKeyComparator;
-import io.github.astrapi69.collections.pairs.KeyValuePair;
-import io.github.astrapi69.collections.pairs.Triple;
-import io.github.astrapi69.collections.properties.PropertiesExtensions;
-import io.github.astrapi69.comparators.NullCheckComparator;
+import io.github.astrapi69.collection.comparator.KeyValuePairKeyComparator;
+import io.github.astrapi69.collection.pair.KeyValuePair;
+import io.github.astrapi69.collection.pair.Triple;
+import io.github.astrapi69.collection.properties.PropertiesExtensions;
+import io.github.astrapi69.comparator.NullCheckComparator;
 import io.github.astrapi69.file.FileExtensions;
 import io.github.astrapi69.model.BaseModel;
-import io.github.astrapi69.model.api.Model;
+import io.github.astrapi69.model.api.IModel;
 import io.github.astrapi69.resourcebundle.inspector.search.PropertiesListResolver;
 import io.github.astrapi69.resourcebundle.locale.LocaleResolver;
 import io.github.astrapi69.swing.base.BaseCardLayoutPanel;
@@ -67,14 +67,14 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 	 * @param model
 	 *            the model
 	 */
-	public ApplicationDashboardContentPanel(final Model<ApplicationDashboardBean> model)
+	public ApplicationDashboardContentPanel(final IModel<ApplicationDashboardBean> model)
 	{
 		super(model);
 		getCardLayout().show(this, ApplicationDashboardView.DASHBOARD.name());
 	}
 
 	protected NewBundleApplicationPanel newBundleApplicationPanel(
-		final Model<ApplicationDashboardBean> model)
+		final IModel<ApplicationDashboardBean> model)
 	{
 		return new NewBundleApplicationPanel(model)
 		{
@@ -96,7 +96,7 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 		};
 	}
 
-	protected NewBundleNamePanel newBundleNamePanel(final Model<ApplicationDashboardBean> model)
+	protected NewBundleNamePanel newBundleNamePanel(final IModel<ApplicationDashboardBean> model)
 	{
 		return new NewBundleNamePanel(model)
 		{
@@ -117,14 +117,14 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 		};
 	}
 
-	protected NewCustomLocalePanel newCustomLocalePanel(final Model<ApplicationDashboardBean> model)
+	protected NewCustomLocalePanel newCustomLocalePanel(final IModel<ApplicationDashboardBean> model)
 	{
 		return new NewCustomLocalePanel(model);
 	}
 
 
 	protected ApplicationDashboardPanel newDashboardPanel(
-		final Model<ApplicationDashboardBean> model)
+		final IModel<ApplicationDashboardBean> model)
 	{
 		return new ApplicationDashboardPanel(model)
 		{
@@ -179,7 +179,7 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 	}
 
 	protected ImportResourceBundlePanel newImportResourceBundlePanel(
-		final Model<ApplicationDashboardBean> model)
+		final IModel<ApplicationDashboardBean> model)
 	{
 		return new ImportResourceBundlePanel(model)
 		{
@@ -201,7 +201,7 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 	}
 
 	protected OverviewOfAllResourceBundlesPanel newOverviewOfAllResourceBundlesPanel(
-		final Model<ApplicationDashboardBean> model)
+		final IModel<ApplicationDashboardBean> model)
 	{
 		return new OverviewOfAllResourceBundlesPanel(model)
 		{
@@ -216,13 +216,13 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 	}
 
 	protected OverviewResourceBundleAddEntryPanel newOverviewResourceBundlePanel(
-		final Model<ApplicationDashboardBean> model)
+		final IModel<ApplicationDashboardBean> model)
 	{
 		return new OverviewResourceBundleAddEntryPanel(model);
 	}
 
 	protected NewResourceBundleEntryPanel newResourceBundleEntryPanel(
-		final Model<ApplicationDashboardBean> model)
+		final IModel<ApplicationDashboardBean> model)
 	{
 		return new NewResourceBundleEntryPanel(model);
 	}

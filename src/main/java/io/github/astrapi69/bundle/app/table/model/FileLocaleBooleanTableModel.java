@@ -3,8 +3,8 @@ package io.github.astrapi69.bundle.app.table.model;
 import java.io.File;
 import java.util.Locale;
 
-import io.github.astrapi69.collections.pairs.KeyValuePair;
-import io.github.astrapi69.collections.pairs.Triple;
+import io.github.astrapi69.collection.pair.KeyValuePair;
+import io.github.astrapi69.collection.pair.Triple;
 import io.github.astrapi69.swing.table.model.TableColumnsModel;
 import io.github.astrapi69.swing.table.model.triple.TripleTableModel;
 

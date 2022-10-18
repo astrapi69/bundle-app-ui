@@ -9,7 +9,7 @@ import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import io.github.astrapi69.bundle.app.panels.overview.OverviewOfAllBundleApplicationsPanel;
 import io.github.astrapi69.model.BaseModel;
 import io.github.astrapi69.model.PropertyModel;
-import io.github.astrapi69.model.api.Model;
+import io.github.astrapi69.model.api.IModel;
 import io.github.astrapi69.swing.base.BaseCardLayoutPanel;
 
 @Getter
@@ -23,17 +23,17 @@ public class MainDashboardPanel extends BaseCardLayoutPanel<MainDashboardBean>
 		this(BaseModel.of(MainDashboardBean.builder().build()));
 	}
 
-	public MainDashboardPanel(final Model<MainDashboardBean> model)
+	public MainDashboardPanel(final IModel<MainDashboardBean> model)
 	{
 		super(model);
 		getCardLayout().show(this, MainDashboardView.MAIN_DASHBOARD.name());
 	}
 
 	protected NewBundleApplicationPanel newBundleApplicationPanel(
-		final Model<MainDashboardBean> model)
+		final IModel<MainDashboardBean> model)
 	{
 		model.getObject().setSelectedBundleApplication(ApplicationDashboardBean.builder().build());
-		final Model<ApplicationDashboardBean> baModel = PropertyModel
+		final IModel<ApplicationDashboardBean> baModel = PropertyModel
 			.of(model, "selectedBundleApplication");
 
 		return new NewBundleApplicationPanel(baModel)
@@ -57,7 +57,7 @@ public class MainDashboardPanel extends BaseCardLayoutPanel<MainDashboardBean>
 	}
 
 	protected OverviewOfAllBundleApplicationsPanel newOverviewOfAllBundleApplicationsPanel(
-		final Model<MainDashboardBean> model)
+		final IModel<MainDashboardBean> model)
 	{
 		return new OverviewOfAllBundleApplicationsPanel(model)
 		{

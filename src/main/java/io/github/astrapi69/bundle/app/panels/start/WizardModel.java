@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import io.github.astrapi69.swing.panels.login.pw.ChangePasswordModelBean;
+import io.github.astrapi69.swing.panel.login.pw.ChangePasswordModelBean;
 import io.github.astrapi69.swing.radio.model.EnumRadioButtonGroupBean;
 import io.github.astrapi69.swing.wizard.model.AbstractWizardModel;
 

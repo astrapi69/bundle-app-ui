@@ -19,10 +19,10 @@ import io.github.astrapi69.bundle.app.panels.dashboard.mainapp.MainDashboardBean
 import io.github.astrapi69.bundle.app.panels.dashboard.mainapp.MainDashboardPanel;
 import io.github.astrapi69.bundle.app.table.model.StringBundleApplicationsBundleApplicationsTableModel;
 import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;
-import io.github.astrapi69.collections.pairs.Triple;
+import io.github.astrapi69.collection.pair.Triple;
 import io.github.astrapi69.model.BaseModel;
 import io.github.astrapi69.model.PropertyModel;
-import io.github.astrapi69.model.api.Model;
+import io.github.astrapi69.model.api.IModel;
 import io.github.astrapi69.swing.base.BasePanel;
 import io.github.astrapi69.swing.table.GenericJXTable;
 import io.github.astrapi69.swing.table.editor.TableCellButtonEditor;
@@ -54,7 +54,7 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 		this(BaseModel.of(MainDashboardBean.builder().build()));
 	}
 
-	public OverviewOfAllBundleApplicationsPanel(final Model<MainDashboardBean> model)
+	public OverviewOfAllBundleApplicationsPanel(final IModel<MainDashboardBean> model)
 	{
 		super(model);
 	}
@@ -156,7 +156,7 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 					.getValue();
 				BundleManagementApplicationFrame.getInstance()
 					.setSelectedBundleApplication(selectedBundleApplication);
-				final Model<ApplicationDashboardBean> baModel = BundleManagementApplicationFrame
+				final IModel<ApplicationDashboardBean> baModel = BundleManagementApplicationFrame
 					.getInstance().getSelectedBundleApplicationPropertyModel();
 				final ApplicationDashboardContentPanel component = new ApplicationDashboardContentPanel(
 					baModel);

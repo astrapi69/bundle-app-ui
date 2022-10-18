@@ -8,7 +8,7 @@ import javax.swing.*;
 import io.github.astrapi69.bundlemanagement.viewmodel.LanguageLocale;
 import io.github.astrapi69.check.Check;
 import io.github.astrapi69.model.BaseModel;
-import io.github.astrapi69.model.api.Model;
+import io.github.astrapi69.model.api.IModel;
 import io.github.astrapi69.resourcebundle.locale.LocaleResolver;
 
 public class LanguageLocalesComboBoxRenderer extends JLabel
@@ -17,14 +17,14 @@ public class LanguageLocalesComboBoxRenderer extends JLabel
 {
 
 	private static final long serialVersionUID = 1L;
-	private final Model<LanguageLocale> model;
+	private final IModel<LanguageLocale> model;
 
 	public LanguageLocalesComboBoxRenderer()
 	{
 		this(BaseModel.of());
 	}
 
-	public LanguageLocalesComboBoxRenderer(final Model<LanguageLocale> model)
+	public LanguageLocalesComboBoxRenderer(final IModel<LanguageLocale> model)
 	{
 		Check.get().notNull(model, "model");
 		this.model = model;

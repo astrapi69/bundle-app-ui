@@ -5,8 +5,8 @@ import io.github.astrapi69.bundle.app.BundleManagementApplicationFrame;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardContentPanel;
 import io.github.astrapi69.design.pattern.state.wizard.model.BaseWizardStateMachineModel;
 import io.github.astrapi69.model.BaseModel;
-import io.github.astrapi69.model.api.Model;
-import io.github.astrapi69.swing.panels.login.pw.ChangePasswordModelBean;
+import io.github.astrapi69.model.api.IModel;
+import io.github.astrapi69.swing.panel.login.pw.ChangePasswordModelBean;
 import io.github.astrapi69.swing.wizard.AbstractWizardPanel;
 import io.github.astrapi69.swing.wizard.BaseWizardContentPanel;
 
@@ -27,14 +27,14 @@ public class WizardPanel extends AbstractWizardPanel<WizardModel>
 	}
 
 
-	public WizardPanel(Model<WizardModel> model)
+	public WizardPanel(IModel<WizardModel> model)
 	{
 		super(model);
 	}
 
 	@Override
 	protected BaseWizardContentPanel<WizardModel> newWizardContentPanel(
-		Model<BaseWizardStateMachineModel<WizardModel>> model)
+		IModel<BaseWizardStateMachineModel<WizardModel>> model)
 	{
 		return new WizardContentPanel(model);
 	}

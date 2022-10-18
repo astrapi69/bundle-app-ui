@@ -1,7 +1,7 @@
 package io.github.astrapi69.bundle.app.panels.imports.bundlefolder;
 
 import io.github.astrapi69.design.pattern.state.wizard.model.BaseWizardStateMachineModel;
-import io.github.astrapi69.model.api.Model;
+import io.github.astrapi69.model.api.IModel;
 import io.github.astrapi69.swing.wizard.BaseWizardContentPanel;
 
 public class ImportWizardContentPanel extends BaseWizardContentPanel<ImportWizardModel>
@@ -14,25 +14,25 @@ public class ImportWizardContentPanel extends BaseWizardContentPanel<ImportWizar
 		super();
 	}
 
-	public ImportWizardContentPanel(Model<BaseWizardStateMachineModel<ImportWizardModel>> model)
+	public ImportWizardContentPanel(IModel<BaseWizardStateMachineModel<ImportWizardModel>> model)
 	{
 		super(model);
 	}
 
 	protected ImportBundleApplicationStartPanel newImportBundleApplicationStartPanel(
-		Model<BaseWizardStateMachineModel<ImportWizardModel>> model)
+		IModel<BaseWizardStateMachineModel<ImportWizardModel>> model)
 	{
 		return new ImportBundleApplicationStartPanel(model);
 	}
 
 	protected ImportFinishedPanel newImportFinishedPanel(
-		Model<BaseWizardStateMachineModel<ImportWizardModel>> model)
+		IModel<BaseWizardStateMachineModel<ImportWizardModel>> model)
 	{
 		return new ImportFinishedPanel(model);
 	}
 
 	protected ImportProgressPanel newImportProgressPanel(
-		Model<BaseWizardStateMachineModel<ImportWizardModel>> model)
+			IModel<BaseWizardStateMachineModel<ImportWizardModel>> model)
 	{
 		return new ImportProgressPanel(model);
 	}

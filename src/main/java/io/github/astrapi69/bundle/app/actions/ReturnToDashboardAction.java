@@ -7,7 +7,7 @@ import javax.swing.*;
 import io.github.astrapi69.bundle.app.BundleManagementApplicationFrame;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardContentPanel;
-import io.github.astrapi69.model.api.Model;
+import io.github.astrapi69.model.api.IModel;
 
 public class ReturnToDashboardAction extends AbstractAction
 {
@@ -28,7 +28,7 @@ public class ReturnToDashboardAction extends AbstractAction
 
 	public void now()
 	{
-		final Model<ApplicationDashboardBean> baModel = BundleManagementApplicationFrame.getInstance()
+		final IModel<ApplicationDashboardBean> baModel = BundleManagementApplicationFrame.getInstance()
 			.getSelectedBundleApplicationPropertyModel();
 
 		if (baModel.getObject().getBundleApplication() != null)

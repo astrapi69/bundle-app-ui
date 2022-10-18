@@ -6,7 +6,7 @@ import java.util.Locale;
 import javax.swing.*;
 
 import io.github.astrapi69.check.Check;
-import io.github.astrapi69.model.api.Model;
+import io.github.astrapi69.model.api.IModel;
 
 /**
  * The Class LocalesComboBoxRenderer.
@@ -18,9 +18,9 @@ public class LocalesComboBoxRenderer extends JLabel implements ListCellRenderer<
 {
 
 	private static final long serialVersionUID = 1L;
-	private final Model<Locale> model;
+	private final IModel<Locale> model;
 
-	public LocalesComboBoxRenderer(final Model<Locale> model)
+	public LocalesComboBoxRenderer(final IModel<Locale> model)
 	{
 		setOpaque(true);
 		Check.get().notNull(model, "model");

@@ -19,12 +19,12 @@ import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import io.github.astrapi69.bundle.app.table.model.StringBundleNamesTableModel;
 import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;
 import io.github.astrapi69.bundlemanagement.viewmodel.BundleName;
-import io.github.astrapi69.collections.CollectionExtensions;
-import io.github.astrapi69.collections.pairs.Quattro;
-import io.github.astrapi69.collections.set.SetFactory;
-import io.github.astrapi69.comparators.NullCheckComparator;
+import io.github.astrapi69.collection.CollectionExtensions;
+import io.github.astrapi69.collection.pair.Quattro;
+import io.github.astrapi69.collection.set.SetFactory;
+import io.github.astrapi69.comparator.NullCheckComparator;
 import io.github.astrapi69.model.BaseModel;
-import io.github.astrapi69.model.api.Model;
+import io.github.astrapi69.model.api.IModel;
 import io.github.astrapi69.swing.base.BasePanel;
 import io.github.astrapi69.swing.table.GenericJXTable;
 import io.github.astrapi69.swing.table.editor.TableCellButtonEditor;
@@ -49,7 +49,7 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 		this(BaseModel.of(ApplicationDashboardBean.builder().build()));
 	}
 
-	public OverviewOfAllResourceBundlesPanel(final Model<ApplicationDashboardBean> model)
+	public OverviewOfAllResourceBundlesPanel(final IModel<ApplicationDashboardBean> model)
 	{
 		super(model);
 	}
@@ -152,7 +152,7 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 			{
 				final BundleName selectedBundleName = (BundleName)this.getValue();
 
-				final Model<ApplicationDashboardBean> baModel = BundleManagementApplicationFrame
+				final IModel<ApplicationDashboardBean> baModel = BundleManagementApplicationFrame
 					.getInstance().getSelectedBundleApplicationPropertyModel();
 				BundleManagementApplicationFrame.getInstance().getModelObject()
 					.getSelectedBundleApplication().setSelectedBundleName(selectedBundleName);

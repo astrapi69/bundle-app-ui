@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-import io.github.astrapi69.comparators.LocaleComparator;
+import io.github.astrapi69.comparator.object.LocaleComparator;
 import io.github.astrapi69.swing.combobox.model.AbstractComboBoxModel;
 
 /**

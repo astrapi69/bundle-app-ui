@@ -5,7 +5,7 @@ import io.github.astrapi69.design.pattern.observer.event.EventListener;
 import io.github.astrapi69.design.pattern.observer.event.EventObject;
 import io.github.astrapi69.design.pattern.observer.event.EventSource;
 import io.github.astrapi69.design.pattern.state.wizard.model.BaseWizardStateMachineModel;
-import io.github.astrapi69.model.api.Model;
+import io.github.astrapi69.model.api.IModel;
 import io.github.astrapi69.swing.base.BasePanel;
 
 public class SuccessfulConnectionToBundleAppPanel
@@ -20,13 +20,13 @@ public class SuccessfulConnectionToBundleAppPanel
 	private javax.swing.JLabel lblLabelName;
 
 	public SuccessfulConnectionToBundleAppPanel(
-		final Model<BaseWizardStateMachineModel<WizardModel>> model)
+		final IModel<BaseWizardStateMachineModel<WizardModel>> model)
 	{
 		super(model);
 	}
 
 	protected String getLabelHeaderCongratulationText(
-		final Model<BaseWizardStateMachineModel<WizardModel>> model)
+		final IModel<BaseWizardStateMachineModel<WizardModel>> model)
 	{
 		final BundleStart initState = model.getObject().getModelObject()
 			.getBundleAppInitialization().getValue();
