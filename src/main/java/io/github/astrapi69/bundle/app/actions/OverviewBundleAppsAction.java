@@ -65,7 +65,8 @@ public class OverviewBundleAppsAction extends AbstractAction
 		}
 		BundleManagementApplicationFrame.getInstance().getModelObject()
 			.setBundleApplications(bundleApplications);
-		BundleManagementApplicationFrame.getInstance().replaceInternalFrame("Overview bundle apps",
+		BundleManagementApplicationFrame.getInstance().getDesktopPanePanel()
+				.replaceInternalFrame("Overview bundle apps",
 			new MainDashboardPanel(
 				PropertyModel.of(BundleManagementApplicationFrame.getInstance(), "model.object")));
 	}

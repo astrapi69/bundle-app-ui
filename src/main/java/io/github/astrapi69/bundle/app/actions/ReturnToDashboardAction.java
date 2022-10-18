@@ -35,7 +35,7 @@ public class ReturnToDashboardAction extends AbstractAction
 		{
 			final ApplicationDashboardContentPanel component = new ApplicationDashboardContentPanel(
 				baModel);
-			BundleManagementApplicationFrame.getInstance()
+			BundleManagementApplicationFrame.getInstance().getDesktopPanePanel()
 				.replaceInternalFrame("Dashboard of "
 					+ baModel.getObject().getBundleApplication().getName() + " bundle app",
 					component);

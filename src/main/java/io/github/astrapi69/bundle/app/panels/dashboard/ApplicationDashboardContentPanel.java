@@ -398,7 +398,7 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 		final String title = "Dashboard of " + BundleManagementApplicationFrame.getInstance()
 			.getModelObject().getSelectedBundleApplication().getBundleApplication().getName()
 			+ " bundle app";
-		BundleManagementApplicationFrame.getInstance().getCurrentVisibleInternalFrame()
+		BundleManagementApplicationFrame.getInstance().getDesktopPanePanel().getCurrentVisibleInternalFrame()
 			.setTitle(title);
 		getCardLayout().show(this, ApplicationDashboardView.DASHBOARD.name());
 	}

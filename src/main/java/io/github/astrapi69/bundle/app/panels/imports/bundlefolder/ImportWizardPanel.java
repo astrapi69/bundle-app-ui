@@ -74,7 +74,7 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 	{
 		super.onCancel();
 		// from here application specific behavior...
-		BundleManagementApplicationFrame.getInstance().getCurrentVisibleInternalFrame().dispose();
+		BundleManagementApplicationFrame.getInstance().getDesktopPanePanel().getCurrentVisibleInternalFrame().dispose();
 	}
 
 	@Override
@@ -92,7 +92,7 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 	{
 		super.onFinish();
 		startDbImport();
-		BundleManagementApplicationFrame.getInstance().getCurrentVisibleInternalFrame().dispose();
+		BundleManagementApplicationFrame.getInstance().getDesktopPanePanel().getCurrentVisibleInternalFrame().dispose();
 
 	}
 

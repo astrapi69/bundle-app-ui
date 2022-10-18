@@ -6,6 +6,12 @@ import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 
+import io.github.astrapi69.swing.base.ApplicationPanelFrame;
+import io.github.astrapi69.swing.base.BasePanel;
+import io.github.astrapi69.swing.enumtype.FrameMode;
+import io.github.astrapi69.swing.panel.desktoppane.JDesktopPanePanel;
+import io.github.astrapi69.swing.plaf.LookAndFeels;
+import lombok.Getter;
 import lombok.NonNull;
 import lombok.extern.java.Log;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
@@ -25,13 +31,17 @@ import io.github.astrapi69.swing.dialog.DialogExtensions;
 import io.github.astrapi69.swing.layout.ScreenSizeExtensions;
 
 @Log
-public class BundleManagementApplicationFrame extends ApplicationFrame<MainDashboardBean>
+public class BundleManagementApplicationFrame extends ApplicationPanelFrame<MainDashboardBean>
 {
 
 	IModel<ApplicationDashboardBean> selectedBundleApplicationPropertyModel;
 	BundleApplicationsRestClient bundleApplicationsRestClient;
 	ResourceBundlesRestClient resourceBundlesRestClient;
 	BundleNamesRestClient bundleNamesRestClient;
+@Getter
+	JDesktopPanePanel<MainDashboardBean> desktopPanePanel;
+
+	FrameMode frameMode;
 
 	/**
 	 * Constant for the default configuration directory from the current user. current
@@ -165,8 +175,11 @@ public class BundleManagementApplicationFrame extends ApplicationFrame<MainDashb
 			setModel(BaseModel.of(MainDashboardBean.builder().build()));
 		}
 		getModelObject().setBundleApplications(bundleApplications);
-		replaceInternalFrame("Overview bundle apps",
-			new MainDashboardPanel(PropertyModel.of(this, "model.object")));
+
+		desktopPanePanel = (JDesktopPanePanel<MainDashboardBean>) getMainComponent();
+		frameMode = FrameMode.DESKTOP_PANE;
+		desktopPanePanel.replaceInternalFrame("Overview bundle apps",
+				new MainDashboardPanel(PropertyModel.of(this, "model.object")));
 		return bundleApplications;
 	}
 
@@ -197,6 +210,9 @@ public class BundleManagementApplicationFrame extends ApplicationFrame<MainDashb
 	{
 		super.onAfterInitialize();
 		loadAndSetAllBundleApplications();
+		setTitle(Messages.getString("mainframe.title"));
+		setDefaultLookAndFeel(LookAndFeels.NIMBUS, this);
+		this.setSize(ScreenSizeExtensions.getScreenWidth(), ScreenSizeExtensions.getScreenHeight());
 	}
 
 	@Override
@@ -205,6 +221,12 @@ public class BundleManagementApplicationFrame extends ApplicationFrame<MainDashb
 		super.onInitializeComponents();
 		int screenID = ScreenSizeExtensions.getScreenID(this);
 		System.err.println("screenID:" + screenID);
+	}
+
+	@Override
+	protected BasePanel<MainDashboardBean> newMainComponent() {
+		JDesktopPanePanel<MainDashboardBean> desktopPanePanel = new JDesktopPanePanel<>();
+		return desktopPanePanel;
 	}
 
 }

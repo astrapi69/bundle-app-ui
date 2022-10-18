@@ -89,7 +89,7 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 			BundleManagementApplicationFrame.getInstance().getModelObject()
 				.getSelectedBundleApplication().setSelectedBundleName(null);
 
-			BundleManagementApplicationFrame.getInstance().replaceInternalFrame(
+			BundleManagementApplicationFrame.getInstance().getDesktopPanePanel().replaceInternalFrame(
 				"Dashboard of " + getModelObject().getBundleApplication().getName() + " bundle app",
 				new OverviewOfAllResourceBundlesPanel(getModel()));
 		}
@@ -160,7 +160,7 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 				final OverviewResourceBundleAddEntryPanel component = new OverviewResourceBundleAddEntryPanel(
 					baModel);
 
-				BundleManagementApplicationFrame.getInstance().replaceInternalFrame(
+				BundleManagementApplicationFrame.getInstance().getDesktopPanePanel().replaceInternalFrame(
 					"Values of resource bundle " + selectedBundleName.getBaseName().getName()
 						+ " with locale " + selectedBundleName.getLocale().getLocale() + "",
 					component);

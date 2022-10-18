@@ -94,7 +94,7 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 					.getInstance().getBundleApplicationsRestClient().findAllBundleApplications();
 				BundleManagementApplicationFrame.getInstance().getModelObject()
 					.setBundleApplications(bundleApplications);
-				BundleManagementApplicationFrame.getInstance().replaceInternalFrame(
+				BundleManagementApplicationFrame.getInstance().getDesktopPanePanel().replaceInternalFrame(
 					"Overview bundle apps", new MainDashboardPanel(PropertyModel
 						.of(BundleManagementApplicationFrame.getInstance(), "model.object")));
 			}
@@ -159,7 +159,7 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 					.getInstance().getSelectedBundleApplicationPropertyModel();
 				final ApplicationDashboardContentPanel component = new ApplicationDashboardContentPanel(
 					baModel);
-				BundleManagementApplicationFrame.getInstance().replaceInternalFrame(
+				BundleManagementApplicationFrame.getInstance().getDesktopPanePanel().replaceInternalFrame(
 					"Dashboard of " + selectedBundleApplication.getName() + " bundle app",
 					component);
 

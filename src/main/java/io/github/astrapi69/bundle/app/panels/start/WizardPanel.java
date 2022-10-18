@@ -50,7 +50,7 @@ public class WizardPanel extends AbstractWizardPanel<WizardModel>
 	{
 		super.onCancel();
 		// from here application specific behavior...
-		BundleManagementApplicationFrame.getInstance().getCurrentVisibleInternalFrame().dispose();
+		BundleManagementApplicationFrame.getInstance().getDesktopPanePanel().getCurrentVisibleInternalFrame().dispose();
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class WizardPanel extends AbstractWizardPanel<WizardModel>
 	{
 		super.onFinish();
 		// from here application specific behavior...
-		BundleManagementApplicationFrame.getInstance().replaceInternalFrame("Dashboard bundle app",
+		BundleManagementApplicationFrame.getInstance().getDesktopPanePanel().replaceInternalFrame("Dashboard bundle app",
 			new ApplicationDashboardContentPanel());
 
 	}
