@@ -17,13 +17,8 @@ public class WizardPanel extends AbstractWizardPanel<WizardModel>
 
 	public WizardPanel()
 	{
-		this(
-			BaseModel
-				.of(
-					WizardModel
-						.builder().changePassword(ChangePasswordModelBean.builder()
-							.currentPassword("").newPassword("").repeatNewPassword("").build())
-						.build()));
+		this(BaseModel.of(WizardModel.builder().changePassword(ChangePasswordModelBean.builder()
+			.currentPassword("").newPassword("").repeatNewPassword("").build()).build()));
 	}
 
 

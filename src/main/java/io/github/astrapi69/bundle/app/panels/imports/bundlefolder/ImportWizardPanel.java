@@ -41,8 +41,7 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 
 	public ImportWizardPanel()
 	{
-		this(BaseModel.of(
-			ImportWizardModel.builder().foundProperties(new ArrayList<>()).build()));
+		this(BaseModel.of(ImportWizardModel.builder().foundProperties(new ArrayList<>()).build()));
 	}
 
 

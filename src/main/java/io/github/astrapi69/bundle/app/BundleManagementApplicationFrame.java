@@ -182,7 +182,8 @@ public class BundleManagementApplicationFrame extends ApplicationFrame<MainDashb
 		getModelObject().getSelectedBundleApplication().setBundleApplication(bundleApplication);
 	}
 
-	@Override protected void onBeforeInitialize()
+	@Override
+	protected void onBeforeInitialize()
 	{
 		if (instance == null)
 		{

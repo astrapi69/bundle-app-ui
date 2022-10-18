@@ -84,10 +84,10 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 				log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 			}
 
-			BundleManagementApplicationFrame.getInstance().getModelObject().getSelectedBundleApplication()
-				.getBundleNames().remove(selectedBundleName);
-			BundleManagementApplicationFrame.getInstance().getModelObject().getSelectedBundleApplication()
-				.setSelectedBundleName(null);
+			BundleManagementApplicationFrame.getInstance().getModelObject()
+				.getSelectedBundleApplication().getBundleNames().remove(selectedBundleName);
+			BundleManagementApplicationFrame.getInstance().getModelObject()
+				.getSelectedBundleApplication().setSelectedBundleName(null);
 
 			BundleManagementApplicationFrame.getInstance().replaceInternalFrame(
 				"Dashboard of " + getModelObject().getBundleApplication().getName() + " bundle app",
@@ -346,8 +346,7 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 				}
 			}
 			Collections.sort(tableModelList,
-				NullCheckComparator.of(
-					(o1, o2) -> o1.getTopLeft().compareTo(o2.getTopLeft())));
+				NullCheckComparator.of((o1, o2) -> o1.getTopLeft().compareTo(o2.getTopLeft())));
 		}
 		catch (IOException e)
 		{

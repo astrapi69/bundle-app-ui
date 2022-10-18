@@ -99,7 +99,8 @@ public class ImportBundleApplicationStartPanel extends BaseWizardContentPanel<Im
 		lblBundleAppName = new javax.swing.JLabel();
 
 		txtBundleAppName = new javax.swing.JTextField();
-		final IModel<String> bundleAppNameModel = PropertyModel.of(getModelObject().getModelObject(), "bundleAppName");
+		final IModel<String> bundleAppNameModel = PropertyModel
+			.of(getModelObject().getModelObject(), "bundleAppName");
 
 		txtBundleAppName.getDocument()
 			.addDocumentListener(new StringBindingListener(bundleAppNameModel));
@@ -115,7 +116,8 @@ public class ImportBundleApplicationStartPanel extends BaseWizardContentPanel<Im
 
 		cmbDefaultLocale = new javax.swing.JComboBox<>(new LanguageLocalesComboBoxModel());
 		cmbDefaultLocale.addItemListener(e -> onChangeDefaultLocale(e));
-		final IModel<LanguageLocale> defaultLocaleModel = PropertyModel.of(getModelObject().getModelObject(), "defaultLocale");
+		final IModel<LanguageLocale> defaultLocaleModel = PropertyModel
+			.of(getModelObject().getModelObject(), "defaultLocale");
 
 		cmbDefaultLocale.setRenderer(new LanguageLocalesComboBoxRenderer(defaultLocaleModel));
 

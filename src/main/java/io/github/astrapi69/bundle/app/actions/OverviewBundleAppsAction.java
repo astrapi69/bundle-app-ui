@@ -28,7 +28,8 @@ public class OverviewBundleAppsAction extends AbstractAction
 
 	public OverviewBundleAppsAction()
 	{
-		restClient = BundleManagementApplicationFrame.getInstance().getBundleApplicationsRestClient();
+		restClient = BundleManagementApplicationFrame.getInstance()
+			.getBundleApplicationsRestClient();
 	}
 
 	/**
@@ -65,8 +66,8 @@ public class OverviewBundleAppsAction extends AbstractAction
 		BundleManagementApplicationFrame.getInstance().getModelObject()
 			.setBundleApplications(bundleApplications);
 		BundleManagementApplicationFrame.getInstance().replaceInternalFrame("Overview bundle apps",
-			new MainDashboardPanel(PropertyModel
-				.of(BundleManagementApplicationFrame.getInstance(), "model.object")));
+			new MainDashboardPanel(
+				PropertyModel.of(BundleManagementApplicationFrame.getInstance(), "model.object")));
 	}
 
 }

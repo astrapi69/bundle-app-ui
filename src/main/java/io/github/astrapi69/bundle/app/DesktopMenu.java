@@ -173,8 +173,8 @@ public class DesktopMenu extends BaseDesktopMenu
 			String title = e.getLocalizedMessage();
 			String htmlMessage = "<html><body width='650'>" + "<h2>" + title + "</h2>" + "<p>"
 				+ e.getMessage();
-			JOptionPane.showMessageDialog(BundleManagementApplicationFrame.getInstance(), htmlMessage,
-				title, JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(BundleManagementApplicationFrame.getInstance(),
+				htmlMessage, title, JOptionPane.ERROR_MESSAGE);
 			log.log(Level.SEVERE, e.getMessage(), e);
 		}
 		return license.toString();

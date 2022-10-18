@@ -28,8 +28,8 @@ public class ReturnToDashboardAction extends AbstractAction
 
 	public void now()
 	{
-		final IModel<ApplicationDashboardBean> baModel = BundleManagementApplicationFrame.getInstance()
-			.getSelectedBundleApplicationPropertyModel();
+		final IModel<ApplicationDashboardBean> baModel = BundleManagementApplicationFrame
+			.getInstance().getSelectedBundleApplicationPropertyModel();
 
 		if (baModel.getObject().getBundleApplication() != null)
 		{

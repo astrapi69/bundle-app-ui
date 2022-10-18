@@ -45,8 +45,7 @@ public class WizardStartPanel extends BasePanel<BaseWizardStateMachineModel<Wiza
 
 	public WizardStartPanel()
 	{
-		this(BaseModel.of(
-			BaseWizardStateMachineModel.<WizardModel> builder().build()));
+		this(BaseModel.of(BaseWizardStateMachineModel.<WizardModel> builder().build()));
 	}
 
 	public WizardStartPanel(final IModel<BaseWizardStateMachineModel<WizardModel>> model)
@@ -80,7 +79,7 @@ public class WizardStartPanel extends BasePanel<BaseWizardStateMachineModel<Wiza
 
 			getModelObject().getModelObject().setBundleAppInitialization(
 				new EnumRadioButtonGroupBean<>(new EnumMap<>(BundleStart.class),
-						PropertyModel.of(getModelObject().getModelObject(), "selected")));
+					PropertyModel.of(getModelObject().getModelObject(), "selected")));
 
 		}
 		getModelObject().getModelObject().getBundleAppInitialization()

@@ -40,6 +40,7 @@ public class NewCustomLocalePanel extends BasePanel<ApplicationDashboardBean>
 	private javax.swing.JLabel lblLanguage;
 	private javax.swing.JLabel lblVariant;
 	private javax.swing.JTextField txtVariant;
+
 	public NewCustomLocalePanel()
 	{
 		this(BaseModel.of(ApplicationDashboardBean.builder().build()));

@@ -21,8 +21,7 @@ public class WizardContentPanel extends BaseWizardContentPanel<WizardModel>
 	 */
 	public WizardContentPanel()
 	{
-		this(BaseModel.of(
-			BaseWizardStateMachineModel.<WizardModel> builder().build()));
+		this(BaseModel.of(BaseWizardStateMachineModel.<WizardModel> builder().build()));
 	}
 
 	/**
@@ -42,7 +41,8 @@ public class WizardContentPanel extends BaseWizardContentPanel<WizardModel>
 		return newBundleAppPanel;
 	}
 
-	public JXPanel newBundleAppFinalStepPanel(IModel<BaseWizardStateMachineModel<WizardModel>> model)
+	public JXPanel newBundleAppFinalStepPanel(
+		IModel<BaseWizardStateMachineModel<WizardModel>> model)
 	{
 		return new SuccessfulConnectionToBundleAppPanel(model);
 	}

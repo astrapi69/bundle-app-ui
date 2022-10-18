@@ -92,8 +92,8 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 
 		reloadTableModel();
 
-		BundleManagementApplicationFrame.getInstance().getModelObject().getSelectedBundleApplication()
-			.setSelectedResourcebundle(null);
+		BundleManagementApplicationFrame.getInstance().getModelObject()
+			.getSelectedBundleApplication().setSelectedResourcebundle(null);
 
 		txtKey.setText("");
 		txtValue.setText("");
@@ -135,7 +135,8 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setDialogTitle("Specify a file to save");
 
-		int userSelection = fileChooser.showSaveDialog(BundleManagementApplicationFrame.getInstance());
+		int userSelection = fileChooser
+			.showSaveDialog(BundleManagementApplicationFrame.getInstance());
 
 		if (userSelection == JFileChooser.APPROVE_OPTION)
 		{
@@ -457,8 +458,7 @@ public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDa
 						.bottomRight(resourcebundle).build());
 			}
 			Collections.sort(tableModelList,
-				NullCheckComparator.of(
-					(o1, o2) -> o1.getTopLeft().compareTo(o2.getTopLeft())));
+				NullCheckComparator.of((o1, o2) -> o1.getTopLeft().compareTo(o2.getTopLeft())));
 		}
 		catch (IOException e)
 		{

@@ -117,7 +117,8 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 		};
 	}
 
-	protected NewCustomLocalePanel newCustomLocalePanel(final IModel<ApplicationDashboardBean> model)
+	protected NewCustomLocalePanel newCustomLocalePanel(
+		final IModel<ApplicationDashboardBean> model)
 	{
 		return new NewCustomLocalePanel(model);
 	}
@@ -294,8 +295,8 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 									.builder().baseName(bundlename)
 									.bundleappname(bundleApplication.getName()).filepath(filepath)
 									.locale(locale).properties(properties).build();
-								BundleName bundleName = BundleManagementApplicationFrame.getInstance()
-									.getResourceBundlesRestClient()
+								BundleName bundleName = BundleManagementApplicationFrame
+									.getInstance().getResourceBundlesRestClient()
 									.updateProperties(imprortableBundleName);
 							}
 							catch (final IOException e)
@@ -313,8 +314,8 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 					final List<KeyValuePair<String, String>> keyValuePairs = KeyValuePair
 						.toKeyValuePairs(importedProperties);
 
-					Collections.sort(keyValuePairs, NullCheckComparator
-						.of(new KeyValuePairKeyComparator<>()));
+					Collections.sort(keyValuePairs,
+						NullCheckComparator.of(new KeyValuePairKeyComparator<>()));
 					getModelObject().setImportedKeyValuePairs(keyValuePairs);
 
 					ApplicationEventBus.getInstance().getApplicationEventBus()
@@ -397,7 +398,8 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 		final String title = "Dashboard of " + BundleManagementApplicationFrame.getInstance()
 			.getModelObject().getSelectedBundleApplication().getBundleApplication().getName()
 			+ " bundle app";
-		BundleManagementApplicationFrame.getInstance().getCurrentVisibleInternalFrame().setTitle(title);
+		BundleManagementApplicationFrame.getInstance().getCurrentVisibleInternalFrame()
+			.setTitle(title);
 		getCardLayout().show(this, ApplicationDashboardView.DASHBOARD.name());
 	}
 

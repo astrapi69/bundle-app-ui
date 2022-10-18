@@ -32,7 +32,7 @@ public class ImportWizardContentPanel extends BaseWizardContentPanel<ImportWizar
 	}
 
 	protected ImportProgressPanel newImportProgressPanel(
-			IModel<BaseWizardStateMachineModel<ImportWizardModel>> model)
+		IModel<BaseWizardStateMachineModel<ImportWizardModel>> model)
 	{
 		return new ImportProgressPanel(model);
 	}

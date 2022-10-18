@@ -1,9 +1,9 @@
 # Overview
 
-The bundle-app-ui is a cross-platform Java swing application for resource-bundle management. 
+The bundle-app-ui is a cross-platform Java swing application for resource-bundle management.
 The initial intention was to show the features of the library [bundle-management](https://github.com/astrapi69/bundle-management).
 
-This application does not need a database but an rest server have to be running on localhost on port 8080 from project [bundle-management](https://github.com/astrapi69/bundle-management). 
+This application does not need a database but an rest server have to be running on localhost on port 8080 from project [bundle-management](https://github.com/astrapi69/bundle-management).
 
 # Features
 
@@ -42,7 +42,7 @@ No animals were harmed in the making of this application.
 
 # Donate
 
-If you like this application, please consider a donation through 
+If you like this application, please consider a donation through
 <a href="https://flattr.com/submit/auto?fid=r7vp62&url=https%3A%2F%2Fgithub.com%2Flightblueseas%2Fbundle-app-ui" target="_blank">
 <img src="http://button.flattr.com/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0">
 </a>

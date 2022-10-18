@@ -165,7 +165,8 @@ public class NewBundleNamePanel extends BasePanel<ApplicationDashboardBean>
 		}
 		catch (IOException e1)
 		{
-			DialogExtensions.showExceptionDialog(e1, BundleManagementApplicationFrame.getInstance());
+			DialogExtensions.showExceptionDialog(e1,
+				BundleManagementApplicationFrame.getInstance());
 			e1.printStackTrace();
 		}
 	}

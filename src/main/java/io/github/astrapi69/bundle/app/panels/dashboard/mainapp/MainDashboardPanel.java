@@ -33,8 +33,8 @@ public class MainDashboardPanel extends BaseCardLayoutPanel<MainDashboardBean>
 		final IModel<MainDashboardBean> model)
 	{
 		model.getObject().setSelectedBundleApplication(ApplicationDashboardBean.builder().build());
-		final IModel<ApplicationDashboardBean> baModel = PropertyModel
-			.of(model, "selectedBundleApplication");
+		final IModel<ApplicationDashboardBean> baModel = PropertyModel.of(model,
+			"selectedBundleApplication");
 
 		return new NewBundleApplicationPanel(baModel)
 		{

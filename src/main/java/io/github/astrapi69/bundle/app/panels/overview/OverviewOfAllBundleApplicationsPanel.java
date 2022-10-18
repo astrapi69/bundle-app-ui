@@ -95,9 +95,8 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 				BundleManagementApplicationFrame.getInstance().getModelObject()
 					.setBundleApplications(bundleApplications);
 				BundleManagementApplicationFrame.getInstance().replaceInternalFrame(
-					"Overview bundle apps",
-					new MainDashboardPanel(PropertyModel.of(
-						BundleManagementApplicationFrame.getInstance(), "model.object")));
+					"Overview bundle apps", new MainDashboardPanel(PropertyModel
+						.of(BundleManagementApplicationFrame.getInstance(), "model.object")));
 			}
 			catch (IOException e)
 			{

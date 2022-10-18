@@ -96,8 +96,9 @@ public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBea
 		final javax.swing.JComboBox<LanguageLocale> cmbDefaultLocale = new javax.swing.JComboBox<>(
 			cmbModel);
 		cmbDefaultLocale.addItemListener(e -> onChangeDefaultLocale(e));
-		final IModel<LanguageLocale> defaultLocaleModel = BaseModel.of(getModelObject().getDefaultLocale());
-//				model(from(getModel()).getDefaultLocale());
+		final IModel<LanguageLocale> defaultLocaleModel = BaseModel
+			.of(getModelObject().getDefaultLocale());
+		// model(from(getModel()).getDefaultLocale());
 		cmbDefaultLocale.setRenderer(new LanguageLocalesComboBoxRenderer(defaultLocaleModel));
 		return cmbDefaultLocale;
 	}

@@ -55,8 +55,7 @@ public class ConvertExtensions
 		final List<Triple<File, Locale, KeyValuePair<Boolean, File>>> list = convert(
 			foundProperties);
 		Collections.sort(list,
-			NullCheckComparator.of(
-				(o1, o2) -> o1.getLeft().compareTo(o2.getLeft())));
+			NullCheckComparator.of((o1, o2) -> o1.getLeft().compareTo(o2.getLeft())));
 		return list;
 	}
 
