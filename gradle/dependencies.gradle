@@ -4,11 +4,13 @@ dependencies {
 
     compileOnly libs.lombok
     annotationProcessor libs.lombok
+
+    annotationProcessor libs.spring.boot.configuration.processor
+    developmentOnly libs.spring.boot.devtools
+
     testCompileOnly libs.lombok
     testAnnotationProcessor libs.lombok
 
-    izpack libs.izpack.ant
-    compileOnly libs.lombok
     implementation libs.observer
     implementation libs.state
     implementation libs.eventbus
@@ -46,7 +48,7 @@ dependencies {
     implementation libs.spring.boot.starter
     implementation libs.spring.boot.starter.integration
     implementation libs.spring.boot.starter.validation
-    annotationProcessor libs.spring.boot.configuration.processor
+
     testImplementation libs.spring.boot.starter.test
     testImplementation libs.randomizer
     testImplementation libs.easy.random.core

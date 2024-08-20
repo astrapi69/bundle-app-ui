@@ -44,9 +44,4 @@ public class ApplicationEventBus
 		return GenericEventBus.getEventSource(ImportWizardModel.class);
 	}
 
-	public static ApplicationEventBus getInstance()
-	{
-		return instance;
-	}
-
 }
