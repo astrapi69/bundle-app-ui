@@ -44,6 +44,7 @@ gradle-plugin-spotless-version = "7.0.0.BETA1"
 gradle-plugin-version-catalog-update-version = "0.8.4"
 gradle-plugin-versions-version = "0.51.0"
 gradle-izpack-plugin-version = "3.2"
+gradle-plugin-spring-boot-version = "3.3.2"
 
 [libraries]
 izpack-ant = { module = "org.codehaus.izpack:izpack-ant", version.ref = "izpack-ant-version"}
@@ -92,6 +93,7 @@ randomizer = { module = "io.github.astrapi69:randomizer", version.ref = "randomi
 easy-random-core = { module = "org.jeasy:easy-random-core", version.ref = "easy-random-core-version"}
 
 [plugins]
+spring-boot-gradle-plugin = { id = "org.springframework.boot", version.ref = "gradle-plugin-spring-boot-version" }
 gradle-izpack-plugin = { id = "com.bmuschko.izpack", version.ref = "gradle-izpack-plugin-version" }
 gradle-versions-plugin = { id = "com.github.ben-manes.versions", version.ref = "gradle-plugin-versions-version" }
 grgit-gradle = { id = "org.ajoberstar.grgit", version.ref = "gradle-plugin-grgit-version" }

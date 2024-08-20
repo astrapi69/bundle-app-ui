@@ -13,6 +13,7 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     id 'signing'
+    alias(libs.plugins.spring.boot.gradle.plugin)
     alias(libs.plugins.gradle.izpack.plugin)
     alias(libs.plugins.gradle.versions.plugin)
     alias(libs.plugins.grgit.gradle)
