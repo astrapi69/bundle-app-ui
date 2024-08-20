@@ -1,5 +1,5 @@
 ## Change log
 ----------------------
 
-Version 1.4
+Version 2-SNAPSHOT
 -------------
