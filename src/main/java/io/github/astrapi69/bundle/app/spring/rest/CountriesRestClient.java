@@ -3,8 +3,6 @@ package io.github.astrapi69.bundle.app.spring.rest;
 import java.io.IOException;
 import java.util.List;
 
-import lombok.NoArgsConstructor;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.springframework.stereotype.Component;
@@ -12,6 +10,7 @@ import org.springframework.stereotype.Component;
 import io.github.astrapi69.bundle.app.spring.ApplicationRestPath;
 import io.github.astrapi69.bundlemanagement.enums.ActionRestPath;
 import io.github.astrapi69.bundlemanagement.viewmodel.Country;
+import lombok.NoArgsConstructor;
 
 @Component
 @NoArgsConstructor

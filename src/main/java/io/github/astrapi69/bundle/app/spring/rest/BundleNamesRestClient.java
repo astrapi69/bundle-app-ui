@@ -3,9 +3,6 @@ package io.github.astrapi69.bundle.app.spring.rest;
 import java.io.IOException;
 import java.util.logging.Level;
 
-import lombok.NoArgsConstructor;
-import lombok.extern.java.Log;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -15,6 +12,8 @@ import io.github.astrapi69.bundle.app.spring.ApplicationRestPath;
 import io.github.astrapi69.bundlemanagement.enums.ActionRestPath;
 import io.github.astrapi69.bundlemanagement.enums.AppRestPath;
 import io.github.astrapi69.bundlemanagement.viewmodel.BundleName;
+import lombok.NoArgsConstructor;
+import lombok.extern.java.Log;
 
 @Log
 @Component

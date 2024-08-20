@@ -12,7 +12,6 @@ import java.util.logging.Level;
 import javax.swing.*;
 import javax.swing.table.TableColumn;
 
-import lombok.extern.java.Log;
 import io.github.astrapi69.bundle.app.BundleManagementApplicationFrame;
 import io.github.astrapi69.bundle.app.actions.ReturnToDashboardAction;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
@@ -29,6 +28,7 @@ import io.github.astrapi69.swing.base.BasePanel;
 import io.github.astrapi69.swing.table.GenericJXTable;
 import io.github.astrapi69.swing.table.editor.TableCellButtonEditor;
 import io.github.astrapi69.swing.table.renderer.TableCellButtonRenderer;
+import lombok.extern.java.Log;
 
 @Log
 public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDashboardBean>
@@ -89,9 +89,10 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 			BundleManagementApplicationFrame.getInstance().getModelObject()
 				.getSelectedBundleApplication().setSelectedBundleName(null);
 
-			BundleManagementApplicationFrame.getInstance().getDesktopPanePanel().replaceInternalFrame(
-				"Dashboard of " + getModelObject().getBundleApplication().getName() + " bundle app",
-				new OverviewOfAllResourceBundlesPanel(getModel()));
+			BundleManagementApplicationFrame.getInstance().getDesktopPanePanel()
+				.replaceInternalFrame("Dashboard of "
+					+ getModelObject().getBundleApplication().getName() + " bundle app",
+					new OverviewOfAllResourceBundlesPanel(getModel()));
 		}
 	}
 
@@ -160,10 +161,11 @@ public class OverviewOfAllResourceBundlesPanel extends BasePanel<ApplicationDash
 				final OverviewResourceBundleAddEntryPanel component = new OverviewResourceBundleAddEntryPanel(
 					baModel);
 
-				BundleManagementApplicationFrame.getInstance().getDesktopPanePanel().replaceInternalFrame(
-					"Values of resource bundle " + selectedBundleName.getBaseName().getName()
-						+ " with locale " + selectedBundleName.getLocale().getLocale() + "",
-					component);
+				BundleManagementApplicationFrame.getInstance().getDesktopPanePanel()
+					.replaceInternalFrame(
+						"Values of resource bundle " + selectedBundleName.getBaseName().getName()
+							+ " with locale " + selectedBundleName.getLocale().getLocale() + "",
+						component);
 
 				final String text = StringBundleNamesTableModel.CHOOSE_COLUMN_NAME;
 				return text;

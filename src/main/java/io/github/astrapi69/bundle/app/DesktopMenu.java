@@ -35,9 +35,6 @@ import java.util.logging.Level;
 
 import javax.swing.*;
 
-import lombok.NonNull;
-import lombok.extern.java.Log;
-
 import org.springframework.core.io.Resource;
 
 import io.github.astrapi69.bundle.app.actions.ImportBundleAppInternalFrameAction;
@@ -46,6 +43,8 @@ import io.github.astrapi69.bundle.app.actions.OverviewBundleAppsAction;
 import io.github.astrapi69.swing.action.ExitApplicationAction;
 import io.github.astrapi69.swing.base.BaseDesktopMenu;
 import io.github.astrapi69.swing.menu.MenuExtensions;
+import lombok.NonNull;
+import lombok.extern.java.Log;
 
 /**
  * The class {@link DesktopMenu} holds the menu items from the application.

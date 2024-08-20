@@ -12,8 +12,6 @@ import java.util.logging.Level;
 
 import javax.swing.*;
 
-import lombok.extern.java.Log;
-
 import org.apache.commons.lang3.BooleanUtils;
 
 import io.github.astrapi69.bundle.app.ApplicationEventBus;
@@ -40,6 +38,7 @@ import io.github.astrapi69.model.api.IModel;
 import io.github.astrapi69.resourcebundle.inspector.search.PropertiesListResolver;
 import io.github.astrapi69.resourcebundle.locale.LocaleResolver;
 import io.github.astrapi69.swing.base.BaseCardLayoutPanel;
+import lombok.extern.java.Log;
 
 /**
  * The class {@link ApplicationDashboardContentPanel}.
@@ -398,8 +397,8 @@ public class ApplicationDashboardContentPanel extends BaseCardLayoutPanel<Applic
 		final String title = "Dashboard of " + BundleManagementApplicationFrame.getInstance()
 			.getModelObject().getSelectedBundleApplication().getBundleApplication().getName()
 			+ " bundle app";
-		BundleManagementApplicationFrame.getInstance().getDesktopPanePanel().getCurrentVisibleInternalFrame()
-			.setTitle(title);
+		BundleManagementApplicationFrame.getInstance().getDesktopPanePanel()
+			.getCurrentVisibleInternalFrame().setTitle(title);
 		getCardLayout().show(this, ApplicationDashboardView.DASHBOARD.name());
 	}
 

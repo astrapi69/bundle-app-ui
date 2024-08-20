@@ -33,8 +33,8 @@ public class ImportBundleAppInternalFrameAction extends AbstractAction
 	@Override
 	public void actionPerformed(final ActionEvent e)
 	{
-		BundleManagementApplicationFrame.getInstance().getDesktopPanePanel().replaceInternalFrame("Import bundle app",
-			new ImportWizardPanel());
+		BundleManagementApplicationFrame.getInstance().getDesktopPanePanel()
+			.replaceInternalFrame("Import bundle app", new ImportWizardPanel());
 	}
 
 }

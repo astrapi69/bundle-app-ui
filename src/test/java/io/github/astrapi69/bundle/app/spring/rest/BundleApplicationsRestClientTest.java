@@ -3,7 +3,6 @@ package io.github.astrapi69.bundle.app.spring.rest;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 import org.jeasy.random.EasyRandom;

@@ -8,12 +8,12 @@ import java.util.logging.Level;
 import javax.swing.*;
 
 import io.github.astrapi69.bundle.app.BundleManagementApplicationFrame;
-import lombok.extern.java.Log;
 import io.github.astrapi69.bundle.app.panels.dashboard.mainapp.MainDashboardPanel;
 import io.github.astrapi69.bundle.app.spring.rest.BundleApplicationsRestClient;
 import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;
 import io.github.astrapi69.collection.list.ListFactory;
 import io.github.astrapi69.model.PropertyModel;
+import lombok.extern.java.Log;
 
 /**
  * The class {@link OverviewBundleAppsAction}.
@@ -66,8 +66,7 @@ public class OverviewBundleAppsAction extends AbstractAction
 		BundleManagementApplicationFrame.getInstance().getModelObject()
 			.setBundleApplications(bundleApplications);
 		BundleManagementApplicationFrame.getInstance().getDesktopPanePanel()
-				.replaceInternalFrame("Overview bundle apps",
-			new MainDashboardPanel(
+			.replaceInternalFrame("Overview bundle apps", new MainDashboardPanel(
 				PropertyModel.of(BundleManagementApplicationFrame.getInstance(), "model.object")));
 	}
 

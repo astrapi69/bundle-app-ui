@@ -33,8 +33,8 @@ public class NewBundleAppInternalFrameAction extends AbstractAction
 	@Override
 	public void actionPerformed(final ActionEvent e)
 	{
-		BundleManagementApplicationFrame.getInstance().getDesktopPanePanel().replaceInternalFrame("New bundle app",
-			new WizardPanel());
+		BundleManagementApplicationFrame.getInstance().getDesktopPanePanel()
+			.replaceInternalFrame("New bundle app", new WizardPanel());
 	}
 
 }

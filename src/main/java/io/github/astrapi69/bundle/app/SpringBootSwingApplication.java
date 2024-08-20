@@ -2,15 +2,14 @@ package io.github.astrapi69.bundle.app;
 
 import java.awt.*;
 
-import lombok.AccessLevel;
-import lombok.experimental.FieldDefaults;
-import lombok.extern.java.Log;
-
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import io.github.astrapi69.swing.layout.ScreenSizeExtensions;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
+import lombok.extern.java.Log;
 
 /**
  * The class {@link SpringBootSwingApplication}

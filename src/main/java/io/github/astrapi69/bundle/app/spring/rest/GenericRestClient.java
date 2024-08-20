@@ -3,8 +3,6 @@ package io.github.astrapi69.bundle.app.spring.rest;
 import java.io.IOException;
 import java.util.List;
 
-import lombok.Getter;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -13,6 +11,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
 import io.github.astrapi69.lang.TypeArgumentsExtensions;
+import lombok.Getter;
 
 public abstract class GenericRestClient<T>
 {

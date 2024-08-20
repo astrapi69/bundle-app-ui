@@ -8,8 +8,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import lombok.Getter;
-
 import org.apache.commons.lang3.StringUtils;
 
 import io.github.astrapi69.bundle.app.BundleManagementApplicationFrame;
@@ -28,6 +26,7 @@ import io.github.astrapi69.model.api.IModel;
 import io.github.astrapi69.swing.base.BasePanel;
 import io.github.astrapi69.swing.listener.document.EnableButtonBehavior;
 import io.github.astrapi69.swing.table.GenericJXTable;
+import lombok.Getter;
 
 @Getter
 public class NewBundleApplicationPanel extends BasePanel<ApplicationDashboardBean>
