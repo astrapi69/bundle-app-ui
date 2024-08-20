@@ -1,8 +1,6 @@
 package io.github.astrapi69.bundle.app;
 
 
-import lombok.Getter;
-
 import com.google.common.eventbus.EventBus;
 
 import io.github.astrapi69.bundle.app.panels.imports.bundlefolder.ImportWizardModel;
@@ -11,11 +9,13 @@ import io.github.astrapi69.bundle.app.panels.start.BundleStart;
 import io.github.astrapi69.design.pattern.eventbus.GenericEventBus;
 import io.github.astrapi69.design.pattern.observer.event.EventObject;
 import io.github.astrapi69.design.pattern.observer.event.EventSource;
+import lombok.Getter;
 
 public class ApplicationEventBus
 {
 
 	/** The instance. */
+	@Getter
 	private static final ApplicationEventBus instance = new ApplicationEventBus();
 	@Getter
 	private final EventBus applicationEventBus = new EventBus();

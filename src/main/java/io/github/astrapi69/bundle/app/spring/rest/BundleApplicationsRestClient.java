@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.List;
 
-import lombok.NoArgsConstructor;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
@@ -19,6 +17,7 @@ import io.github.astrapi69.bundlemanagement.enums.ActionRestPath;
 import io.github.astrapi69.bundlemanagement.enums.AppRestPath;
 import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;
 import io.github.astrapi69.bundlemanagement.viewmodel.BundleName;
+import lombok.NoArgsConstructor;
 
 @Component
 @NoArgsConstructor

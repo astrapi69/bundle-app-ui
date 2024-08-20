@@ -2,11 +2,11 @@ package io.github.astrapi69.bundle.app.panels.start;
 
 import javax.swing.*;
 
-import lombok.Getter;
 import io.github.astrapi69.design.pattern.state.wizard.WizardStateMachine;
 import io.github.astrapi69.model.BaseModel;
 import io.github.astrapi69.model.api.IModel;
 import io.github.astrapi69.swing.base.BasePanel;
+import lombok.Getter;
 
 /**
  * The class {@link StartPanel}.

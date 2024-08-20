@@ -8,8 +8,6 @@ import java.util.Locale;
 import java.util.Properties;
 import java.util.logging.Level;
 
-import lombok.extern.java.Log;
-
 import org.apache.commons.lang3.BooleanUtils;
 
 import io.github.astrapi69.bundle.app.ApplicationEventBus;
@@ -31,6 +29,7 @@ import io.github.astrapi69.resourcebundle.inspector.search.PropertiesListResolve
 import io.github.astrapi69.resourcebundle.locale.LocaleResolver;
 import io.github.astrapi69.swing.wizard.AbstractWizardPanel;
 import io.github.astrapi69.swing.wizard.BaseWizardContentPanel;
+import lombok.extern.java.Log;
 
 @Log
 public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
@@ -74,7 +73,8 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 	{
 		super.onCancel();
 		// from here application specific behavior...
-		BundleManagementApplicationFrame.getInstance().getDesktopPanePanel().getCurrentVisibleInternalFrame().dispose();
+		BundleManagementApplicationFrame.getInstance().getDesktopPanePanel()
+			.getCurrentVisibleInternalFrame().dispose();
 	}
 
 	@Override
@@ -92,7 +92,8 @@ public class ImportWizardPanel extends AbstractWizardPanel<ImportWizardModel>
 	{
 		super.onFinish();
 		startDbImport();
-		BundleManagementApplicationFrame.getInstance().getDesktopPanePanel().getCurrentVisibleInternalFrame().dispose();
+		BundleManagementApplicationFrame.getInstance().getDesktopPanePanel()
+			.getCurrentVisibleInternalFrame().dispose();
 
 	}
 

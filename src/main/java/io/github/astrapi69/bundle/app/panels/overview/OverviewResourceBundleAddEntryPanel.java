@@ -14,7 +14,6 @@ import java.util.logging.Level;
 import javax.swing.*;
 import javax.swing.table.TableColumn;
 
-import lombok.extern.java.Log;
 import io.github.astrapi69.bundle.app.BundleManagementApplicationFrame;
 import io.github.astrapi69.bundle.app.actions.ReturnToDashboardAction;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
@@ -31,6 +30,7 @@ import io.github.astrapi69.swing.base.BasePanel;
 import io.github.astrapi69.swing.table.GenericJXTable;
 import io.github.astrapi69.swing.table.editor.TableCellButtonEditor;
 import io.github.astrapi69.swing.table.renderer.TableCellButtonRenderer;
+import lombok.extern.java.Log;
 
 @Log
 public class OverviewResourceBundleAddEntryPanel extends BasePanel<ApplicationDashboardBean>

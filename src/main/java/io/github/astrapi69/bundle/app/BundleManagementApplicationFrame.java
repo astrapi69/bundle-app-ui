@@ -6,14 +6,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 
-import io.github.astrapi69.swing.base.ApplicationPanelFrame;
-import io.github.astrapi69.swing.base.BasePanel;
-import io.github.astrapi69.swing.enumtype.FrameMode;
-import io.github.astrapi69.swing.panel.desktoppane.JDesktopPanePanel;
-import io.github.astrapi69.swing.plaf.LookAndFeels;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.extern.java.Log;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import io.github.astrapi69.bundle.app.panels.dashboard.mainapp.MainDashboardBean;
 import io.github.astrapi69.bundle.app.panels.dashboard.mainapp.MainDashboardPanel;
@@ -25,10 +17,17 @@ import io.github.astrapi69.collection.list.ListFactory;
 import io.github.astrapi69.model.BaseModel;
 import io.github.astrapi69.model.PropertyModel;
 import io.github.astrapi69.model.api.IModel;
-import io.github.astrapi69.swing.base.ApplicationFrame;
+import io.github.astrapi69.swing.base.ApplicationPanelFrame;
 import io.github.astrapi69.swing.base.BaseDesktopMenu;
+import io.github.astrapi69.swing.base.BasePanel;
 import io.github.astrapi69.swing.dialog.DialogExtensions;
+import io.github.astrapi69.swing.enumeration.FrameMode;
 import io.github.astrapi69.swing.layout.ScreenSizeExtensions;
+import io.github.astrapi69.swing.panel.desktoppane.JDesktopPanePanel;
+import io.github.astrapi69.swing.plaf.LookAndFeels;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.extern.java.Log;
 
 @Log
 public class BundleManagementApplicationFrame extends ApplicationPanelFrame<MainDashboardBean>
@@ -38,7 +37,7 @@ public class BundleManagementApplicationFrame extends ApplicationPanelFrame<Main
 	BundleApplicationsRestClient bundleApplicationsRestClient;
 	ResourceBundlesRestClient resourceBundlesRestClient;
 	BundleNamesRestClient bundleNamesRestClient;
-@Getter
+	@Getter
 	JDesktopPanePanel<MainDashboardBean> desktopPanePanel;
 
 	FrameMode frameMode;
@@ -176,10 +175,10 @@ public class BundleManagementApplicationFrame extends ApplicationPanelFrame<Main
 		}
 		getModelObject().setBundleApplications(bundleApplications);
 
-		desktopPanePanel = (JDesktopPanePanel<MainDashboardBean>) getMainComponent();
+		desktopPanePanel = (JDesktopPanePanel<MainDashboardBean>)getMainComponent();
 		frameMode = FrameMode.DESKTOP_PANE;
 		desktopPanePanel.replaceInternalFrame("Overview bundle apps",
-				new MainDashboardPanel(PropertyModel.of(this, "model.object")));
+			new MainDashboardPanel(PropertyModel.of(this, "model.object")));
 		return bundleApplications;
 	}
 
@@ -224,7 +223,8 @@ public class BundleManagementApplicationFrame extends ApplicationPanelFrame<Main
 	}
 
 	@Override
-	protected BasePanel<MainDashboardBean> newMainComponent() {
+	protected BasePanel<MainDashboardBean> newMainComponent()
+	{
 		JDesktopPanePanel<MainDashboardBean> desktopPanePanel = new JDesktopPanePanel<>();
 		return desktopPanePanel;
 	}

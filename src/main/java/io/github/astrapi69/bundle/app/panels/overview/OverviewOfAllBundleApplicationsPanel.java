@@ -10,8 +10,6 @@ import java.util.logging.Level;
 import javax.swing.*;
 import javax.swing.table.TableColumn;
 
-import lombok.Getter;
-import lombok.extern.java.Log;
 import io.github.astrapi69.bundle.app.BundleManagementApplicationFrame;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardBean;
 import io.github.astrapi69.bundle.app.panels.dashboard.ApplicationDashboardContentPanel;
@@ -27,6 +25,8 @@ import io.github.astrapi69.swing.base.BasePanel;
 import io.github.astrapi69.swing.table.GenericJXTable;
 import io.github.astrapi69.swing.table.editor.TableCellButtonEditor;
 import io.github.astrapi69.swing.table.renderer.TableCellButtonRenderer;
+import lombok.Getter;
+import lombok.extern.java.Log;
 
 /**
  * The class {@link OverviewOfAllBundleApplicationsPanel}.
@@ -94,9 +94,10 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 					.getInstance().getBundleApplicationsRestClient().findAllBundleApplications();
 				BundleManagementApplicationFrame.getInstance().getModelObject()
 					.setBundleApplications(bundleApplications);
-				BundleManagementApplicationFrame.getInstance().getDesktopPanePanel().replaceInternalFrame(
-					"Overview bundle apps", new MainDashboardPanel(PropertyModel
-						.of(BundleManagementApplicationFrame.getInstance(), "model.object")));
+				BundleManagementApplicationFrame.getInstance().getDesktopPanePanel()
+					.replaceInternalFrame("Overview bundle apps",
+						new MainDashboardPanel(PropertyModel
+							.of(BundleManagementApplicationFrame.getInstance(), "model.object")));
 			}
 			catch (IOException e)
 			{
@@ -159,9 +160,10 @@ public class OverviewOfAllBundleApplicationsPanel extends BasePanel<MainDashboar
 					.getInstance().getSelectedBundleApplicationPropertyModel();
 				final ApplicationDashboardContentPanel component = new ApplicationDashboardContentPanel(
 					baModel);
-				BundleManagementApplicationFrame.getInstance().getDesktopPanePanel().replaceInternalFrame(
-					"Dashboard of " + selectedBundleApplication.getName() + " bundle app",
-					component);
+				BundleManagementApplicationFrame.getInstance().getDesktopPanePanel()
+					.replaceInternalFrame(
+						"Dashboard of " + selectedBundleApplication.getName() + " bundle app",
+						component);
 
 				final String text = "Select";
 				return text;

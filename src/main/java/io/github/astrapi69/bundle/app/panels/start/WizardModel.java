@@ -1,5 +1,8 @@
 package io.github.astrapi69.bundle.app.panels.start;
 
+import io.github.astrapi69.swing.panel.login.pw.ChangePasswordModelBean;
+import io.github.astrapi69.swing.radio.model.EnumRadioButtonGroupBean;
+import io.github.astrapi69.swing.wizard.model.AbstractWizardModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -7,9 +10,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import io.github.astrapi69.swing.panel.login.pw.ChangePasswordModelBean;
-import io.github.astrapi69.swing.radio.model.EnumRadioButtonGroupBean;
-import io.github.astrapi69.swing.wizard.model.AbstractWizardModel;
 
 /**
  * The class {@link WizardModel} act as a model for the start wizard.<br>

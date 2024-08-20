@@ -7,6 +7,12 @@ import java.util.Locale;
 import java.util.Properties;
 import java.util.Set;
 
+import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;
+import io.github.astrapi69.bundlemanagement.viewmodel.BundleName;
+import io.github.astrapi69.bundlemanagement.viewmodel.LanguageLocale;
+import io.github.astrapi69.bundlemanagement.viewmodel.Resourcebundle;
+import io.github.astrapi69.collection.pair.KeyValuePair;
+import io.github.astrapi69.collection.pair.Triple;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,12 +22,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
-import io.github.astrapi69.bundlemanagement.viewmodel.BundleApplication;
-import io.github.astrapi69.bundlemanagement.viewmodel.BundleName;
-import io.github.astrapi69.bundlemanagement.viewmodel.LanguageLocale;
-import io.github.astrapi69.bundlemanagement.viewmodel.Resourcebundle;
-import io.github.astrapi69.collection.pair.KeyValuePair;
-import io.github.astrapi69.collection.pair.Triple;
 
 @Getter
 @Setter

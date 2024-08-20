@@ -7,9 +7,6 @@ import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
 import java.util.logging.Level;
 
-import lombok.Getter;
-import lombok.extern.java.Log;
-
 import com.google.common.eventbus.Subscribe;
 
 import io.github.astrapi69.bundle.app.ApplicationEventBus;
@@ -25,6 +22,8 @@ import io.github.astrapi69.model.api.IModel;
 import io.github.astrapi69.resourcebundle.locale.LocaleResolver;
 import io.github.astrapi69.swing.base.BasePanel;
 import io.github.astrapi69.swing.table.model.properties.StringKeyValueTableModel;
+import lombok.Getter;
+import lombok.extern.java.Log;
 
 @Getter
 @Log

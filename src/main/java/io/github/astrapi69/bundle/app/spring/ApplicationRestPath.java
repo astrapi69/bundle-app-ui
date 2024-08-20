@@ -1,10 +1,10 @@
 package io.github.astrapi69.bundle.app.spring;
 
+import io.github.astrapi69.bundlemanagement.enums.AppRestPath;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import io.github.astrapi69.bundlemanagement.enums.AppRestPath;
 
 @RequiredArgsConstructor
 @Getter
